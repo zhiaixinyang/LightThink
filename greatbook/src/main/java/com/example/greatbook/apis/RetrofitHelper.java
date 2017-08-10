@@ -3,6 +3,8 @@ package com.example.greatbook.apis;
 import android.provider.ContactsContract;
 
 import com.example.greatbook.InputStreamConvertFactory;
+import com.example.greatbook.model.BookSectionBean;
+import com.example.greatbook.model.BookSectionContentBean;
 import com.example.greatbook.model.DailyListBean;
 import com.example.greatbook.model.GrammarContent;
 import com.example.greatbook.model.GrammarKind;
@@ -40,6 +42,7 @@ public class RetrofitHelper {
     private WeChatApis weChatApis=null;
     private JuHeApis juHeApis=null;
     private GrammarApis grammarApis=null;
+    private MyBookApis myBookApis;
 
     public RetrofitHelper(){
         init();
@@ -48,6 +51,7 @@ public class RetrofitHelper {
         weChatApis=getWeChatApis();
         juHeApis=getJuHeApis();
         grammarApis=getGrammarApis();
+        myBookApis=getMyBookApis();
     }
 
     private void init(){
@@ -150,6 +154,16 @@ public class RetrofitHelper {
         return retrofit.create(JuHeApis.class);
     }
 
+    public MyBookApis getMyBookApis() {
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl(MyBookApis.HOST)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit.create(MyBookApis.class);
+    }
+
     public Observable<String> getBookKindList(){
         return greatBookApis.getBookKindList();
     }
@@ -215,4 +229,11 @@ public class RetrofitHelper {
         return grammarApis.queryGrammarKindByExplore(query);
     }
 
+    public Observable<List<BookSectionBean>> querySectionNameByBookName(String bookName){
+        return myBookApis.querySectionNameByBookName(bookName);
+    }
+
+    public Observable<BookSectionContentBean> queryBookContentByHref(String sectionId){
+        return myBookApis.queryBookContentByHref(sectionId);
+    }
 }

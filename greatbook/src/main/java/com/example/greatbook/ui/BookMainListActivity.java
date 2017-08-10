@@ -14,11 +14,10 @@ import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.model.BookKindListBean;
-import com.example.greatbook.presenter.BookMainListPresenter;
-import com.example.greatbook.presenter.contract.BookMainListContract;
+import com.example.greatbook.presenter.book.BookMainListPresenter;
+import com.example.greatbook.presenter.book.contract.BookMainListContract;
 import com.example.greatbook.ui.book.BookKindActivity;
 import com.example.greatbook.ui.main.activity.MainActivity;
-import com.example.greatbook.ui.presenter.BookKindListPresenter;
 import com.example.greatbook.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -76,6 +75,7 @@ public class BookMainListActivity extends NewBaseActivity<BookMainListPresenter>
                 finish();
             }
         });
+        bookMainListPresenter.getJokData();
     }
 
     @Override

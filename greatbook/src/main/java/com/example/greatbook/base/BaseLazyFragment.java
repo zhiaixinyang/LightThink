@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.greatbook.utils.LogUtils;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by MBENBEN on 2016/11/1.
@@ -26,6 +27,7 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
     protected Context context;
 
     private T presenter=null;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -86,7 +88,7 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this, view);
         initViewsAndEvents(view);
     }
 
@@ -94,6 +96,7 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
     public void onDestroy() {
         super.onDestroy();
         if (presenter != null) presenter.detachView();
+        unbinder.unbind();
     }
 
     @Override

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/main_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_hot_top_menu"
+        android:layout_width="@dimen/hot_top_menu_w_h"
+        android:src="@drawable/icon_encourage"
+        android:layout_height="@dimen/hot_top_menu_w_h" />
+    <TextView
+        android:id="@+id/tv_hot_top_menu"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:text="心灵鸡汤"
+        android:layout_height="wrap_content" />
+</LinearLayout>

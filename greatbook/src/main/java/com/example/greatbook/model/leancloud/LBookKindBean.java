@@ -11,6 +11,17 @@ import com.avos.avoscloud.AVObject;
 public class LBookKindBean extends AVObject{
     private AVFile photo;
     private String title;
+    private String realUrl;
+
+    //这是原Jsoup抓的链接
+    public String getRealUrl() {
+        return getString("realUrl");
+    }
+
+    public void setRealUrl(String realUrl) {
+        put("realUrl",realUrl);
+    }
+
     //此值使用对应的url作为所属id
     private String belongId;
 

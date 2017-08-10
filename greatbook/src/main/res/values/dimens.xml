@@ -60,4 +60,11 @@
 
     <dimen name="toast_y_offset">64dip</dimen>
     <dimen name="toast_text_size">14sp</dimen>
+    <dimen name="hot_top_menu_w_h">50dp</dimen>
+    <dimen name="talkabout_photo_w_h">140dp</dimen>
+    <dimen name="feedback_bottom_margin">5dp</dimen>
+    <dimen name="item_feedback_avatar_wh">40dp</dimen>
+    <dimen name="item_feedback_margin">8dp</dimen>
+    <dimen name="item_feedback_good_w_h">25dp</dimen>
+    <dimen name="item_feedback_btn_good_w_h">30dp</dimen>
 </resources>

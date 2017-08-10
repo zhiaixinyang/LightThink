@@ -21,7 +21,6 @@ import com.example.greatbook.ui.main.fragment.NewTalkAboutFragment;
 import com.example.greatbook.ui.main.fragment.TalkAboutFragment;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.ScaleTransitionPagerTitleView;
-import com.example.greatbook.widght.toast.SweetToast;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -102,7 +101,7 @@ public class MainActivity extends BaseActivity{
                 SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(titleList.get(index));
                 simplePagerTitleView.setTextSize(16);
-                simplePagerTitleView.setNormalColor(ContextCompat.getColor(App.getInstance().getContext(),R.color.light_gray));
+                simplePagerTitleView.setNormalColor(ContextCompat.getColor(App.getInstance().getContext(),R.color.gray_light));
                 simplePagerTitleView.setSelectedColor(ContextCompat.getColor(App.getInstance().getContext(),R.color.white));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override

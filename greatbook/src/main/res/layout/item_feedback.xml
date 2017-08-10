@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|left"
+        android:layout_height="wrap_content">
+        <com.example.greatbook.widght.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_marginTop="@dimen/item_feedback_margin"
+            android:layout_marginLeft="@dimen/item_feedback_margin"
+            android:layout_marginBottom="@dimen/feedback_bottom_margin"
+            android:layout_width="@dimen/item_feedback_avatar_wh"
+            android:src="@drawable/no_avatar"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="1dp"
+            android:layout_height="@dimen/item_feedback_avatar_wh" />
+        <TextView
+            android:id="@+id/tv_nick"
+            android:text="昵称"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:maxLines="4"
+        android:text="内容"
+        android:textColor="@color/light_black"
+        android:textSize="14sp"
+        android:layout_marginLeft="55dp"
+        android:layout_below="@+id/top"
+        android:layout_marginRight="@dimen/item_feedback_margin"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/btn_good"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/item_feedback_margin"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginBottom="@dimen/item_feedback_margin"
+        android:layout_marginTop="@dimen/item_feedback_margin"
+        android:layout_width="@dimen/item_feedback_btn_good_w_h"
+        android:layout_height="@dimen/item_feedback_btn_good_w_h">
+        <ImageView
+            android:id="@+id/iv_good"
+            android:src="@drawable/icon_good_off"
+            android:layout_width="@dimen/item_feedback_good_w_h"
+            android:layout_height="@dimen/item_feedback_good_w_h" />
+        <TextView
+            android:id="@+id/tv_good_num"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:text="99+"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

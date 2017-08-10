@@ -13,6 +13,7 @@ import com.example.greatbook.model.leancloud.LBookKindBean;
 import com.example.greatbook.model.leancloud.LBookKindListBean;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.ui.model.LFeedBackBean;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,8 @@ public class App extends Application{
         app=this;
         initLeanCloud();
     }
-    public static synchronized App getInstance() {
+
+    public static App getInstance(){
         return app;
     }
 
@@ -51,6 +53,7 @@ public class App extends Application{
         AVObject.registerSubclass(LBookKindBean.class);
         AVObject.registerSubclass(LBookKindListBean.class);
         AVObject.registerSubclass(LBookDesCatalogue.class);
+        AVObject.registerSubclass(LFeedBackBean.class);
 
     }
 

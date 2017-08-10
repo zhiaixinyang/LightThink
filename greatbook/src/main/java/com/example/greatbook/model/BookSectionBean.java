@@ -4,7 +4,7 @@ package com.example.greatbook.model;
  * Created by MBENBEN on 2017/8/9.
  */
 
-public class BookSectionContent {
+public class BookSectionBean {
     private String href;
 
     private String book_name;
@@ -14,8 +14,6 @@ public class BookSectionContent {
     private String book_section_name;
 
     private String book_section_page;
-
-    private String book_section_content;
 
     public String getHref() {
         return href;
@@ -55,13 +53,5 @@ public class BookSectionContent {
 
     public void setBookSectionPage(String book_section_page) {
         this.book_section_page = book_section_page;
-    }
-
-    public String getBookSectionContent() {
-        return book_section_content;
-    }
-
-    public void setBookSectionContent(String book_section_content) {
-        this.book_section_content = book_section_content;
     }
 }

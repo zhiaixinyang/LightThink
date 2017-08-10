@@ -54,8 +54,8 @@ public class HeaderFloatBehavior extends CoordinatorLayout.Behavior<View> {
 
         // EditText的背景色从后面参数的颜色变到前面参数
 //        child.setBackgroundColor((int) argbEvaluator.evaluate(
-//                progress, ContextCompat.getColor(App.getInstance().getContext(),R.color.trans),
-//                ContextCompat.getColor(App.getInstance().getContext(),R.color.trans)));
+//                progress, ContextCompat.getColor(App.getInstance().getAppContext(),R.color.trans),
+//                ContextCompat.getColor(App.getInstance().getAppContext(),R.color.trans)));
 
         // Margins
         final float collapsedMargin = resources.getDimension(R.dimen.behavior_collapsed_float_margin);

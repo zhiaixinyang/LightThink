@@ -1,0 +1,22 @@
+package com.example.greatbook.ui.main.presenter.contract;
+
+import com.example.greatbook.base.BasePresenter;
+import com.example.greatbook.base.BaseView;
+import com.example.greatbook.ui.model.LFeedBackBean;
+
+import java.util.List;
+
+/**
+ * Created by quanzizhangben on 2017/8/10.
+ */
+
+public interface FeedBackContract {
+    interface View extends BaseView {
+        void intiFeeBackContent(List<LFeedBackBean> data);
+        void showLoading();
+        void showLoaded();
+    }
+    interface Presenter extends BasePresenter<FeedBackContract.View> {
+        void getFeedBackContent();
+    }
+}

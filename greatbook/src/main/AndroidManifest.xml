@@ -22,7 +22,7 @@
             android:launchMode="singleTask"/>
         <activity android:name=".ui.book.BookDesActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".ui.book.BookDetailActivity"
+        <activity android:name=".ui.book.BookSectionContentActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.LoginActivity"
             android:launchMode="singleTask"/>

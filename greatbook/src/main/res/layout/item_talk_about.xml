@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="35dp"
             android:id="@+id/iv_avatar_item_talkabout"
-            android:src="@mipmap/no_avatar"
+            android:src="@drawable/no_avatar"
             android:layout_alignParentLeft="true"
             android:layout_height="35dp" />
         <TextView

@@ -4,24 +4,31 @@ import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.NewBaseActivity;
 import com.example.greatbook.model.BookKindBean;
 import com.example.greatbook.model.BookKindListBean;
 import com.example.greatbook.constants.IntentConstants;
+import com.example.greatbook.model.leancloud.LBookKindBean;
 import com.example.greatbook.ui.OnItemClickListenerInAdapter;
 import com.example.greatbook.ui.book.adapter.BookKindAdapter;
 import com.example.greatbook.ui.presenter.BookKindPresenter;
 import com.example.greatbook.ui.presenter.BookKindPresenterImpl;
 import com.example.greatbook.ui.book.view.BookKindView;
 import com.example.greatbook.ui.main.activity.MainActivity;
+import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,13 +71,19 @@ public class BookKindActivity extends NewBaseActivity<BookKindPresenterImpl> imp
                 path = bookKindListBean.getUrl();
             }
         }
-        onRefresh();
+        if (title!=null) {
+            tvTitleText.setText(title);
+        }else{
+            tvTitleText.setText("名著阅读");
+        }
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 back();
             }
         });
+        onRefresh();
     }
 
     @Override
@@ -114,15 +127,15 @@ public class BookKindActivity extends NewBaseActivity<BookKindPresenterImpl> imp
         if (StringUtils.isEmpty(path)){
             ToastUtil.toastShort("数据获取异常。");
         }else{
-            //默认开始穿0，此变量只会影响武侠类的解析模式
+            //默认开始传0，此变量只会影响武侠类的解析模式
             bookKindPresenter.setOnLoadBookKind(path,0);
         }
     }
 
-        private void back(){
-            Intent back=new Intent(BookKindActivity.this, MainActivity.class);
-            startActivity(back);
-            finish();
-        }
+    private void back(){
+        Intent back=new Intent(BookKindActivity.this, MainActivity.class);
+        startActivity(back);
+        finish();
+    }
 
 }

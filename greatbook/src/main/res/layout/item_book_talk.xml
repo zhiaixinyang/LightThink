@@ -14,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/book_talk_margin"
         android:layout_marginTop="@dimen/book_talk_margin"
-        android:src="@mipmap/no_avatar"
+        android:src="@drawable/no_avatar"
         android:layout_height="35dp" />
     <TextView
         android:id="@+id/tv_name_book_talk"

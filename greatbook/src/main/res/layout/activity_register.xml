@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
     <com.example.greatbook.widght.CircleImageView
         android:id="@+id/iv_avatar"
-        android:src="@mipmap/no_avatar"
+        android:src="@drawable/no_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_width="100dp"

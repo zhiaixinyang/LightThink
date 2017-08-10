@@ -1,12 +1,12 @@
 package com.example.greatbook.apis;
 
-import com.example.greatbook.model.BookSectionContent;
-import com.example.greatbook.model.GrammarKindIndex;
+import com.example.greatbook.model.BookSectionBean;
+import com.example.greatbook.model.BookSectionContentBean;
 
 import java.util.List;
 
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -15,13 +15,13 @@ import rx.Observable;
  */
 
 public interface MyBookApis {
-    //http://www.ohonor.xyz/MyBook/querySectionNameByBookName?bookName=鬼故事
+    //http://www.ohonor.xyz/MyBook/querySectionNameByBookName?bookName=短篇鬼故事
     //http://www.ohonor.xyz/MyBook/queryBookContentByHref?bookSectionId=/gushihui/100geshijiejingdianbeihoudegushi/429564.html
-    String HOST="http://www.sbkk8.cn/MyBook/";
+    String HOST="http://www.ohonor.xyz/MyBook/";
 
     @GET("queryBookContentByHref")
-    Observable<BookSectionContent> queryBookContentByHref(@Query("bookSectionId") String bookSectionId);
+    Observable<BookSectionContentBean> queryBookContentByHref(@Query("bookSectionId") String bookSectionId);
 
     @GET("querySectionNameByBookName")
-    Observable<BookSectionContent> querySectionNameByBookName(@Query("bookName") String bookName);
+    Observable<List<BookSectionBean>> querySectionNameByBookName(@Query("bookName") String bookName);
 }

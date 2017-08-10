@@ -14,6 +14,7 @@ import com.example.greatbook.utils.SystemBarTintManager;
 import com.example.greatbook.utils.TransWindowUtils;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by MBENBEN on 2016/11/21.
@@ -21,12 +22,13 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView{
     protected T presenter;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         //StatusBarUtil.setImgTransparent(this);
         App.getInstance().addActivity(this);
         setTrans();
@@ -56,6 +58,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onDestroy() {
         super.onDestroy();
         App.getInstance().removeActivity(this);
+        unbinder.unbind();
     }
 
 

@@ -25,7 +25,7 @@ import butterknife.BindView;
  * Created by MBENBEN on 2016/11/21.
  */
 
-public class BookDetailActivity extends NewBaseActivity<BookDetailPresenterImpl> implements BookDetailView,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
+public class BookSectionContentActivity extends NewBaseActivity<BookDetailPresenterImpl> implements BookDetailView,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     @BindView(R.id.tv_detail_title) TextView tvDetailTitle;
     @BindView(R.id.srf_wait_net) SwipeRefreshLayout srfWaitNet;
     @BindView(R.id.tv_title_text) TextView tvTitleText;
@@ -171,7 +171,7 @@ public class BookDetailActivity extends NewBaseActivity<BookDetailPresenterImpl>
     }
 
     private void back(){
-        Intent back=new Intent(BookDetailActivity.this, BookDesActivity.class);
+        Intent back=new Intent(BookSectionContentActivity.this, BookDesActivity.class);
         startActivity(back);
         finish();
     }

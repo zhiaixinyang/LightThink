@@ -10,7 +10,7 @@
        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/gradient_black"
+        android:background="@color/white"
         android:layout_height="match_parent">
         <EditText
             android:id="@+id/et_content"
@@ -18,29 +18,36 @@
             android:layout_margin="@dimen/talkabout_margin"
             android:hint="说点啥..."
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColorHint="@color/black"
             android:gravity="top"
             android:padding="6dp"
             android:layout_height="120dp"
             android:background="@drawable/round_trans"/>
-        <FrameLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="@dimen/talkabout_photo_w_h"
             android:layout_below="@+id/et_content"
+            android:layout_alignLeft="@+id/et_account"
             android:layout_centerHorizontal="true"
             android:background="@drawable/round_trans"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/talkabout_photo_w_h">
             <TextView
-                android:layout_width="140dp"
-                android:text="添加图片"
+                android:layout_width="wrap_content"
+                android:text="拍照 / 相册"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
-                android:layout_height="140dp" />
+                android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/iv_photo"
-                android:layout_width="140dp"
-                android:layout_height="140dp" />
-        </FrameLayout>
+                android:src="@drawable/btn_photo"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

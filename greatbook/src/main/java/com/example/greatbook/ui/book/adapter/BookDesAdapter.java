@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.model.BookDesBean;
+import com.example.greatbook.model.BookSectionBean;
 import com.example.greatbook.ui.OnItemClickListenerInAdapter;
 
 import java.util.List;
@@ -22,10 +23,10 @@ import butterknife.ButterKnife;
  */
 
 public class BookDesAdapter extends RecyclerView.Adapter<BookDesAdapter.ViewHolder>{
-    private List<BookDesBean.Catalogue> datas=null;
+    private List<BookSectionBean> datas=null;
     private Context context=null;
 
-    public BookDesAdapter(List<BookDesBean.Catalogue> datas) {
+    public BookDesAdapter(List<BookSectionBean> datas) {
         this.datas = datas;
         context= App.getInstance().getContext();
     }
@@ -38,8 +39,8 @@ public class BookDesAdapter extends RecyclerView.Adapter<BookDesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        BookDesBean.Catalogue catalogue=datas.get(position);
-        holder.tvBookCatalogue.setText(catalogue.getTitle());
+        BookSectionBean catalogue=datas.get(position);
+        holder.tvBookCatalogue.setText(catalogue.getBookSectionName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

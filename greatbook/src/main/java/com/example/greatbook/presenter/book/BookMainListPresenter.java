@@ -1,9 +1,8 @@
-package com.example.greatbook.presenter;
+package com.example.greatbook.presenter.book;
 
 import com.example.greatbook.apis.RetrofitHelper;
-import com.example.greatbook.base.BasePresenter;
 import com.example.greatbook.base.RxPresenter;
-import com.example.greatbook.presenter.contract.BookMainListContract;
+import com.example.greatbook.presenter.book.contract.BookMainListContract;
 import com.example.greatbook.utils.JsoupUtils;
 import com.example.greatbook.utils.RxUtil;
 
@@ -19,7 +18,7 @@ public class BookMainListPresenter extends RxPresenter<BookMainListContract.View
     private RetrofitHelper retrofitHelper;
 
     public BookMainListPresenter(BookMainListContract.View view) {
-        this.view = view;
+        mView = view;
         retrofitHelper=new RetrofitHelper();
     }
 

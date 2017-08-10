@@ -20,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="8dp"
-        android:background="@mipmap/btn_back"
+        android:background="@drawable/btn_back"
         android:layout_height="18dp" />
 </RelativeLayout>
 

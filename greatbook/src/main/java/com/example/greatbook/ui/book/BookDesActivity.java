@@ -14,15 +14,14 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
 import com.example.greatbook.base.NewBaseActivity;
-import com.example.greatbook.model.BookDesBean;
-import com.example.greatbook.model.BookKindBean;
-import com.example.greatbook.model.leancloud.BookTalkBean;
 import com.example.greatbook.constants.IntentConstants;
+import com.example.greatbook.model.BookKindBean;
+import com.example.greatbook.model.BookSectionBean;
+import com.example.greatbook.model.leancloud.BookTalkBean;
+import com.example.greatbook.presenter.book.BookDesPresenter;
+import com.example.greatbook.presenter.book.contract.BookDesContract;
 import com.example.greatbook.ui.OnItemClickListenerInAdapter;
 import com.example.greatbook.ui.book.adapter.BookDesAdapter;
-import com.example.greatbook.ui.presenter.BookDesPresenter;
-import com.example.greatbook.ui.presenter.BookDesPresenterImpl;
-import com.example.greatbook.ui.book.view.BookDesView;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -35,7 +34,7 @@ import butterknife.BindView;
  * Created by MBENBEN on 2016/11/21.
  */
 
-public class BookDesActivity extends NewBaseActivity<BookDesPresenterImpl> implements BookDesView,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
+public class BookDesActivity extends NewBaseActivity<BookDesPresenter> implements BookDesContract.View,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener {
     @BindView(R.id.des_iv_book_photo) ImageView ivBookPhoto;
     @BindView(R.id.des_rlv_catalogue) RecyclerView rlvCatalogue;
     @BindView(R.id.des_tv_book_content) TextView tvBookContent;
@@ -68,7 +67,7 @@ public class BookDesActivity extends NewBaseActivity<BookDesPresenterImpl> imple
 
     @Override
     public void init() {
-        bookDesPresenter = new BookDesPresenterImpl(this);
+        bookDesPresenter = new BookDesPresenter(this);
         if (getIntent() != null) {
             if (getIntent().getSerializableExtra(IntentConstants.TO_BOOK_DES) != null) {
                 bookKindBean = (BookKindBean) getIntent().getSerializableExtra(IntentConstants.TO_BOOK_DES);
@@ -88,37 +87,33 @@ public class BookDesActivity extends NewBaseActivity<BookDesPresenterImpl> imple
         setBookTalkNum(tvBookTalkNum);
     }
 
-    @Override
-    public void initDatas(final BookDesBean datas, int position) {
-        if (datas != null) {
-            bookDesAdapter = new BookDesAdapter(datas.getCatalogueList());
-            bookDesAdapter.setOnItemClickListenerInAdapter(new OnItemClickListenerInAdapter() {
-                @Override
-                public void onItemClick(int position, View view) {
-                    Intent toDetail = new Intent(BookDesActivity.this, BookDetailActivity.class);
-                    toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL, datas.getCatalogueList().get(position).getUrl());
-                    toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL_TITLE_NAME, bookName);
-                    toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL_FIRST_NUM_ID,
-                            String.valueOf(StringUtils.getNumFromString(
-                                    datas.getCatalogueList().get(0).getUrl())));
-                    toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL_END_NUM_ID,
-                            String.valueOf(StringUtils.getNumFromString(
-                                    datas.getCatalogueList().get(datas.getCatalogueList().size() - 1).getUrl())));
-                    toDetail.putExtra(IntentConstants.TO_BOOK_DES_POSITION, position_);
-                    startActivity(toDetail);
-                }
-            });
-            tvBookContent.setText(datas.getDes());
-            rlvCatalogue.setAdapter(bookDesAdapter);
-        } else {
-            tvBookContent.setText("无书籍相关描述。");
-        }
-    }
-
 
     @Override
     public void showError(String msg) {
         ToastUtil.toastShort(msg);
+    }
+
+    @Override
+    public void initBookDesList(final List<BookSectionBean> data) {
+        bookDesAdapter = new BookDesAdapter(data);
+        bookDesAdapter.setOnItemClickListenerInAdapter(new OnItemClickListenerInAdapter() {
+            @Override
+            public void onItemClick(int position, View view) {
+                Intent toDetail = new Intent(BookDesActivity.this, BookSectionContentActivity.class);
+                toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL, data.get(position).getHref());
+                toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL_TITLE_NAME, bookName);
+                toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL_FIRST_NUM_ID,
+                        String.valueOf(StringUtils.getNumFromString(
+                                data.get(0).getHref())));
+                toDetail.putExtra(IntentConstants.TO_BOOK_DETAIL_END_NUM_ID,
+                        String.valueOf(StringUtils.getNumFromString(
+                                data.get(data.size() - 1).getHref())));
+                toDetail.putExtra(IntentConstants.TO_BOOK_DES_POSITION, position_);
+                startActivity(toDetail);
+            }
+        });
+        tvBookContent.setText(data.get(0).getBookKind());
+        rlvCatalogue.setAdapter(bookDesAdapter);
     }
 
     @Override
@@ -133,7 +128,7 @@ public class BookDesActivity extends NewBaseActivity<BookDesPresenterImpl> imple
 
     @Override
     public void onRefresh() {
-        bookDesPresenter.setOnLoadBookDes(url, position_);
+        bookDesPresenter.queryBookDes(bookName);
     }
 
     @Override
