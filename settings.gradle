@@ -15,4 +15,4 @@
  */
 
 
-include ':app', ':greatbook', ':magicindicator', ':lrecyclerviewlibrary', ':coordinatorLayout'
+include ':greatbook', ':magicindicator', ':lrecyclerviewlibrary'
