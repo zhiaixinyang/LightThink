@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
+import com.example.greatbook.base.OnItemClickListenerInAdapter;
 import com.example.greatbook.model.BookDesBean;
 import com.example.greatbook.model.BookSectionBean;
-import com.example.greatbook.ui.OnItemClickListenerInAdapter;
 
 import java.util.List;
 

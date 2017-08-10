@@ -1,7 +1,9 @@
 package com.example.greatbook.ui.main.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.example.greatbook.App;
@@ -11,9 +13,10 @@ import com.example.greatbook.model.HeadlineBean;
 import com.example.greatbook.model.MainJokBean;
 import com.example.greatbook.presenter.JokPresenter;
 import com.example.greatbook.presenter.contract.JokContract;
-import com.example.greatbook.ui.BookMainListActivity;
+import com.example.greatbook.ui.book.BookMainListActivity;
 import com.example.greatbook.ui.GrammarMainActivity;
 import com.example.greatbook.ui.JokAdapter;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SnackbarUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
@@ -42,22 +45,24 @@ public class MainFristFragment extends BaseLazyFragment<JokPresenter> implements
     private List<MainJokBean.JokBean> jokData=new ArrayList<>();
     private JokAdapter jokAdapter;
     private LinearLayoutManager linearLayoutManager;
-    private boolean isFristJokEmpty=true;
 
 
+    public static MainFristFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        MainFristFragment fragment = new MainFristFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.frag_bookkind_list;
+        return R.layout.frag_main;
     }
 
     @Override
     protected void initViewsAndEvents(View view) {
-        data.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
-        data.add(new HeadlineBean("内容", "内容如有侵权，立马删除..."));
-        data.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
-        data.add(new HeadlineBean("作者", "如果有建议，可以在吐槽中说出"));
-        data.add(new HeadlineBean("感谢", "感谢打开本app的男神女神们"));
-        data.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
+        Log.d("aaa","1-initViewsAndEvents");
         adHeadline.setData(data);
         adHeadline.setHeadlineClickListener(new AdHeadline.HeadlineClickListener() {
             @Override
@@ -115,16 +120,28 @@ public class MainFristFragment extends BaseLazyFragment<JokPresenter> implements
 
     @Override
     protected void onFirstUserVisible() {
+        Log.d("aaa","1-onFirstUserVisible");
+
         jokPresenter.getJokData();
+
     }
 
     @Override
     protected void onUserVisible() {
+        Log.d("aaa","1-onUserVisible");
+
+        data.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
+        data.add(new HeadlineBean("内容", "内容如有侵权，立马删除..."));
+        data.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
+        data.add(new HeadlineBean("作者", "如果有建议，可以在吐槽中说出"));
+        data.add(new HeadlineBean("感谢", "感谢打开本app的男神女神们"));
+        data.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
     }
 
     //不可见状态
     @Override
     protected void onUserInvisible() {
+        Log.d("aaa","1-onUserInvisible不可见");
 
     }
 

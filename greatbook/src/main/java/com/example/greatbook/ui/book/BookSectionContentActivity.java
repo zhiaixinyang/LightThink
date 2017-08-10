@@ -11,8 +11,8 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.NewBaseActivity;
 import com.example.greatbook.model.BookDetailBean;
 import com.example.greatbook.constants.IntentConstants;
-import com.example.greatbook.ui.presenter.BookDetailPresenterImpl;
-import com.example.greatbook.ui.book.view.BookDetailView;
+import com.example.greatbook.presenter.BookDetailPresenter;
+import com.example.greatbook.presenter.contract.BookDetailContract;
 import com.example.greatbook.utils.HtmlUtil;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -25,7 +25,7 @@ import butterknife.BindView;
  * Created by MBENBEN on 2016/11/21.
  */
 
-public class BookSectionContentActivity extends NewBaseActivity<BookDetailPresenterImpl> implements BookDetailView,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
+public class BookSectionContentActivity extends NewBaseActivity<BookDetailPresenter> implements BookDetailContract.View,SwipeRefreshLayout.OnRefreshListener,View.OnClickListener{
     @BindView(R.id.tv_detail_title) TextView tvDetailTitle;
     @BindView(R.id.srf_wait_net) SwipeRefreshLayout srfWaitNet;
     @BindView(R.id.tv_title_text) TextView tvTitleText;
@@ -55,7 +55,7 @@ public class BookSectionContentActivity extends NewBaseActivity<BookDetailPresen
 
     @Override
     public void init() {
-        presenter=new BookDetailPresenterImpl(this);
+        presenter=new BookDetailPresenter(this);
         srfWaitNet.setOnRefreshListener(this);
         tvTitleText.setText(getIntent().getStringExtra(IntentConstants.TO_BOOK_DETAIL_TITLE_NAME));
         currentUrl= getIntent().getStringExtra(IntentConstants.TO_BOOK_DETAIL);

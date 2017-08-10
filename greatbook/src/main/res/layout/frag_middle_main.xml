@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_above="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_above="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/bottom_menu_gray"/>
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/bottom_menu_wh"
+                android:id="@+id/menu_discovery"
+                android:src="@drawable/menu_discovery_off"
+                android:layout_height="@dimen/bottom_menu_wh" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/bottom_menu_wh"
+                android:id="@+id/menu_add"
+                android:src="@drawable/menu_add_off"
+                android:layout_height="@dimen/bottom_menu_wh" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="@dimen/bottom_menu_wh"
+                android:id="@+id/menu_talk"
+                android:src="@drawable/menu_talk_off"
+                android:layout_height="@dimen/bottom_menu_wh" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

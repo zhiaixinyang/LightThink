@@ -12,11 +12,11 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.NewBaseActivity;
 import com.example.greatbook.model.DailyListBean;
 import com.example.greatbook.constants.IntentConstants;
-import com.example.greatbook.ui.OnItemClickListenerInAdapter;
+import com.example.greatbook.base.OnItemClickListenerInAdapter;
 import com.example.greatbook.ui.main.adapter.ZhiHuListAdapter;
 import com.example.greatbook.ui.presenter.ZhiHuListPresenter;
 import com.example.greatbook.ui.presenter.ZhiHuListPresenterImpl;
-import com.example.greatbook.ui.main.view.ZhiHuListView;
+import com.example.greatbook.ui.presenter.view.ZhiHuListView;
 import com.example.greatbook.utils.SnackbarUtils;
 import com.victor.loading.rotate.RotateLoading;
 

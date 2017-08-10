@@ -4,7 +4,7 @@ import com.example.greatbook.apis.RetrofitHelper;
 import com.example.greatbook.apis.WeChatHttpResponse;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.model.WeChatItemBean;
-import com.example.greatbook.ui.main.view.WeChatListView;
+import com.example.greatbook.ui.presenter.view.WeChatListView;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.List;

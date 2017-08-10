@@ -11,7 +11,8 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.model.BookKindBean;
-import com.example.greatbook.ui.OnItemClickListenerInAdapter;
+import com.example.greatbook.base.OnItemClickListenerInAdapter;
+import com.example.greatbook.model.leancloud.LBookKindBean;
 import com.example.greatbook.utils.GlideUtils;
 
 import java.util.List;
@@ -24,10 +25,10 @@ import butterknife.ButterKnife;
  */
 
 public class BookKindAdapter extends RecyclerView.Adapter<BookKindAdapter.ViewHolder>{
-    private List<BookKindBean> datas=null;
+    private List<LBookKindBean> datas=null;
     private Context context=null;
 
-    public BookKindAdapter(List<BookKindBean> datas) {
+    public BookKindAdapter(List<LBookKindBean> datas) {
         this.datas = datas;
         context= App.getInstance().getContext();
     }
@@ -40,8 +41,8 @@ public class BookKindAdapter extends RecyclerView.Adapter<BookKindAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(BookKindAdapter.ViewHolder holder, final int position) {
-        BookKindBean bookKindBean=datas.get(position);
-        GlideUtils.load(bookKindBean.getUrlPhoto(),holder.ivBookPhoto);
+        LBookKindBean bookKindBean=datas.get(position);
+        GlideUtils.load(bookKindBean.getPhoto().getUrl(),holder.ivBookPhoto);
         holder.tvBookTitle.setText(bookKindBean.getTitle());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

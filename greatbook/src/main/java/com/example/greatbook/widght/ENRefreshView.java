@@ -24,7 +24,7 @@ import com.example.greatbook.R;
 
 public class ENRefreshView extends View{
 
-    private static final int DEFAULT_LINE_COLOR = Color.WHITE;
+    private static final int DEFAULT_LINE_COLOR = Color.BLACK;
 
     private static final int DEFAULT_LINE_WIDTH = 14;
 

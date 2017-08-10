@@ -3,7 +3,7 @@ package com.example.greatbook.ui.presenter;
 import com.example.greatbook.apis.RetrofitHelper;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.model.ZhihuDetailBean;
-import com.example.greatbook.ui.main.view.ZhiHuDetailView;
+import com.example.greatbook.ui.presenter.view.ZhiHuDetailView;
 import com.example.greatbook.utils.RxUtil;
 
 import rx.Subscription;

@@ -14,7 +14,7 @@ import com.example.greatbook.model.WeChatItemBean;
 import com.example.greatbook.ui.main.adapter.WeChatListAdapter;
 import com.example.greatbook.ui.presenter.WeChatListPresenter;
 import com.example.greatbook.ui.presenter.WeChatListPresenterImpl;
-import com.example.greatbook.ui.main.view.WeChatListView;
+import com.example.greatbook.ui.presenter.view.WeChatListView;
 import com.example.greatbook.utils.SnackbarUtils;
 
 import java.util.ArrayList;

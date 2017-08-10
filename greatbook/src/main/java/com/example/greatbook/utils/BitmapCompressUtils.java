@@ -1,9 +1,13 @@
 package com.example.greatbook.utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 
+import com.example.greatbook.App;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Created by MBENBEN on 2016/11/4.
@@ -35,6 +39,29 @@ public class BitmapCompressUtils {
             }
         }
         return bitMap;
+    }
+
+    public static Bitmap zoomImage(String path){
+        Bitmap bitmap=null;
+        try {
+            //获得图片的宽、高
+            BitmapFactory.Options tmpOptions = new BitmapFactory.Options();
+            tmpOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(App.getInstance().getContext().getAssets().open(path), null, tmpOptions);
+            int width = tmpOptions.outWidth;
+            int height = tmpOptions.outHeight;
+            Matrix matrix = new Matrix();
+            // 计算宽高缩放率
+            float scale = 150f/width;
+            matrix.postScale(scale, scale);
+            bitmap = Bitmap.createBitmap(FileUtils.getBitmap(path), 0, 0, width,
+                    height, matrix, true);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+
     }
 
 

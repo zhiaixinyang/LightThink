@@ -3,14 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@drawable/round_white"
-    android:layout_marginBottom="@dimen/main_margin"
-    android:layout_marginLeft="@dimen/main_margin"
-    android:layout_marginRight="@dimen/main_margin"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/talkabout_item_top_margin"
+        android:layout_marginBottom="@dimen/talkabout_item_top_margin"
+        android:gravity="center|left"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_top_color"
+            android:layout_width="4dp"
+            android:background="@color/blue"
+            android:layout_height="16dp" />
+        <TextView
+            android:id="@+id/tv_top_title"
+            android:text="吐槽"
+            android:textColor="@color/blue"
+            android:textSize="12sp"
+            android:layout_marginLeft="@dimen/talkabout_item_top_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/top"
+        android:layout_below="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/talkabout_item_margin"
+        android:layout_toLeftOf="@+id/iv_photo_item_talkabout"
+        android:layout_marginLeft="@dimen/talkabout_item_margin"
         android:layout_height="35dp">
         <ImageView
             android:layout_width="35dp"
@@ -43,7 +64,7 @@
         android:id="@+id/iv_photo_item_talkabout"
         android:layout_width="100dp"
         android:layout_height="80dp"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/topPanel"
         android:src="@mipmap/no_photo"
         android:layout_marginRight="@dimen/talkabout_item_margin"
         android:layout_alignParentRight="true"
@@ -60,4 +81,10 @@
         tools:text="吐槽内容"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray_light"
+        android:layout_marginTop="@dimen/talkabout_item_top_margin"
+        android:layout_below="@+id/tv_time_item_talkabout"
+        android:layout_height="1dp"/>
 </RelativeLayout>

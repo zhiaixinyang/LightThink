@@ -135,7 +135,6 @@ public class FileUtils {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println("---创建文件结果----" + flag);
             }
             is = new FileInputStream(outFilePath);
             bm = BitmapFactory.decodeStream(is);

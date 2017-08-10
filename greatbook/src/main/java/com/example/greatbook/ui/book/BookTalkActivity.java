@@ -17,9 +17,8 @@ import com.example.greatbook.base.NewBaseActivity;
 import com.example.greatbook.model.leancloud.BookTalkBean;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.ui.book.adapter.BookTalkAdapter;
-import com.example.greatbook.ui.presenter.BookTalkPresenter;
-import com.example.greatbook.ui.presenter.BookTalkPresenterImpl;
-import com.example.greatbook.ui.book.view.BookTalkView;
+import com.example.greatbook.presenter.contract.BookTalkContract;
+import com.example.greatbook.presenter.BookTalkPresenter;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 
@@ -31,7 +30,7 @@ import butterknife.BindView;
  * Created by MBENBEN on 2016/11/25.
  */
 
-public class BookTalkActivity extends NewBaseActivity<BookTalkPresenterImpl> implements View.OnClickListener,BookTalkView,SwipeRefreshLayout.OnRefreshListener{
+public class BookTalkActivity extends NewBaseActivity<BookTalkPresenter> implements View.OnClickListener,BookTalkContract.View,SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.rlv_book_talk) RecyclerView rlvBookTalk;
     @BindView(R.id.srf_book_talk) SwipeRefreshLayout srfBookTalk;
     @BindView(R.id.et_book_talk) EditText etBookTalk;
@@ -57,7 +56,7 @@ public class BookTalkActivity extends NewBaseActivity<BookTalkPresenterImpl> imp
     @Override
     public void init() {
 
-        bookTalkPresenter=new BookTalkPresenterImpl(this);
+        bookTalkPresenter =new BookTalkPresenter(this);
         linearLayoutManager=new LinearLayoutManager(App.getInstance().getContext());
         rlvBookTalk.setLayoutManager(linearLayoutManager);
         if (getIntent()!=null){

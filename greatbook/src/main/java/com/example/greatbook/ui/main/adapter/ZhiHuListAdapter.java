@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.model.DailyListBean;
-import com.example.greatbook.ui.OnItemClickListenerInAdapter;
+import com.example.greatbook.base.OnItemClickListenerInAdapter;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.widght.ScaleCircleNavigator;
 

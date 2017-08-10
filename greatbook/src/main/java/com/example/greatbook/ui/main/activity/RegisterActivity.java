@@ -85,8 +85,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             if (data!=null){
                 Uri selectImageUri=data.getData();
                 imagePath = FileUtils.getPathUrlFromUri(App.getInstance().getContext(),selectImageUri);
-                bmp= BitmapCompressUtils.zoomImage(FileUtils.getBitmap(imagePath), 150,150);
-                if (selectImageUri!=null){
+                bmp= BitmapCompressUtils.zoomImage(imagePath);
+                if (selectImageUri!=null&&bmp!=null){
                     GlideUtils.load(FileUtils.getByteFromBitmap(bmp),ivAvatar);
                 }
             }

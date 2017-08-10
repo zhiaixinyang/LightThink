@@ -3,6 +3,8 @@ package com.example.greatbook.model.leancloud;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
+import java.io.Serializable;
+
 /**
  * Created by MBENBEN on 2016/11/27.
  */

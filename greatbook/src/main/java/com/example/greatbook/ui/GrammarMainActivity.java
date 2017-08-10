@@ -52,7 +52,6 @@ public class GrammarMainActivity extends BaseActivity<GrammarMainPresenter> impl
 
     @Override
     public void init() {
-        ButterKnife.bind(this);
         StatusBarUtil.setImgTransparent(this);
         tvExplore.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,7 +11,7 @@ import com.example.greatbook.model.ZhihuDetailBean;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.ui.presenter.ZhiHuDetailPresenter;
 import com.example.greatbook.ui.presenter.ZhiHuDetailPresenterImpl;
-import com.example.greatbook.ui.main.view.ZhiHuDetailView;
+import com.example.greatbook.ui.presenter.view.ZhiHuDetailView;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.HtmlUtil;
 import com.example.greatbook.utils.SnackbarUtils;

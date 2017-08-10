@@ -20,14 +20,12 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.constants.IntentConstants;
-import com.example.greatbook.ui.presenter.MyPrivateAdjustPresenter;
-import com.example.greatbook.ui.presenter.MyPrivateAdjustPresenterImpl;
-import com.example.greatbook.ui.main.view.MyPrivateAdjustView;
+import com.example.greatbook.presenter.contract.MyPrivateAdjustContract;
+import com.example.greatbook.presenter.MyPrivateAdjustPresenter;
 import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.BlurBitmap;
 import com.example.greatbook.utils.FileUtils;
@@ -46,7 +44,7 @@ import butterknife.BindView;
  * Created by MBENBEN on 2016/11/26.
  */
 
-public class MyPrivateAdjustActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener,MyPrivateAdjustView{
+public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresenter> implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener,MyPrivateAdjustContract.View{
     @BindView(R.id.avatar_bg) ImageView avatarBg;
     @BindView(R.id.iv_avatar_adjust) CircleImageView ivAvatar;
     @BindView(R.id.et_name_adjust) EditText etNameAdjust;
@@ -57,7 +55,7 @@ public class MyPrivateAdjustActivity extends BaseActivity implements SwipeRefres
 
     private User user;
     private String avatarUrl;
-    private MyPrivateAdjustPresenter myPrivateAdjustPresenter;
+    private MyPrivateAdjustPresenter privateAdjustPresenter;
 
     private Bitmap bitmap;
     private WaitNetPopupWindowUtils waitNetPopupWindowUtils;
@@ -71,7 +69,7 @@ public class MyPrivateAdjustActivity extends BaseActivity implements SwipeRefres
         TransWindowUtils.setTransWindow(this);
         user=AVUser.getCurrentUser(User.class);
         avatarUrl=user.getAvatar().getUrl();
-        myPrivateAdjustPresenter=new MyPrivateAdjustPresenterImpl(this);
+        privateAdjustPresenter =new MyPrivateAdjustPresenter(this);
         setUserName();
         GlideUtils.load(user.getAvatar().getUrl(),ivAvatar);
         onRefresh();
@@ -237,7 +235,7 @@ public class MyPrivateAdjustActivity extends BaseActivity implements SwipeRefres
 
     @Override
     public void onRefresh() {
-        myPrivateAdjustPresenter.getAvatarBitmap(avatarUrl);
+        privateAdjustPresenter.getAvatarBitmap(avatarUrl);
     }
 
 }

@@ -14,15 +14,14 @@ import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.NewBaseActivity;
+import com.example.greatbook.base.OnItemClickListenerInAdapter;
 import com.example.greatbook.model.BookKindBean;
 import com.example.greatbook.model.BookKindListBean;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.model.leancloud.LBookKindBean;
-import com.example.greatbook.ui.OnItemClickListenerInAdapter;
+import com.example.greatbook.presenter.BookKindPresenter;
+import com.example.greatbook.presenter.contract.BookKindContract;
 import com.example.greatbook.ui.book.adapter.BookKindAdapter;
-import com.example.greatbook.ui.presenter.BookKindPresenter;
-import com.example.greatbook.ui.presenter.BookKindPresenterImpl;
-import com.example.greatbook.ui.book.view.BookKindView;
 import com.example.greatbook.ui.main.activity.MainActivity;
 import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.StringUtils;
@@ -38,7 +37,7 @@ import butterknife.BindView;
  * 此类为各种类下的具体书籍展示
  */
 
-public class BookKindActivity extends NewBaseActivity<BookKindPresenterImpl> implements BookKindView,SwipeRefreshLayout.OnRefreshListener{
+public class BookKindActivity extends NewBaseActivity<BookKindPresenter> implements BookKindContract.View,SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.rlv_bookkind) RecyclerView rlvBookKind;
     @BindView(R.id.srf_bookkind) SwipeRefreshLayout srfBookLind;
     @BindView(R.id.tv_title_text) TextView tvTitleText;
@@ -60,56 +59,24 @@ public class BookKindActivity extends NewBaseActivity<BookKindPresenterImpl> imp
     }
     @Override
     public void init() {
-        bookKindPresenter=new BookKindPresenterImpl(this);
-        srfBookLind.setOnRefreshListener(this);
-        rlvBookKind.setLayoutManager(new GridLayoutManager(App.getInstance().getContext(), 3));
-        if (getIntent()!=null) {
-            if (getIntent().getSerializableExtra(IntentConstants.TO_BOOK_KIND)!=null) {
-                bookKindListBean = (BookKindListBean) getIntent().getSerializableExtra(IntentConstants.TO_BOOK_KIND);
-                tvTitleText.setText(bookKindListBean.getTitle());
-                title = bookKindListBean.getTitle();
-                path = bookKindListBean.getUrl();
-            }
-        }
-        if (title!=null) {
-            tvTitleText.setText(title);
-        }else{
-            tvTitleText.setText("名著阅读");
-        }
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                back();
-            }
-        });
-        onRefresh();
     }
 
-    @Override
-    public void initDatas(final List<BookKindBean> datas) {
-        bookKindAdapter=new BookKindAdapter(datas);
-        bookKindAdapter.setOnItemClickListenerInAdapter(new OnItemClickListenerInAdapter() {
-            @Override
-            public void onItemClick(int position, View view) {
-                //ListActivity中传递的path（url）
-                if (path.contains("wuxia")) {
-                    path=datas.get(position).getUrl();
-                    bookKindPresenter.setOnLoadBookKind(path,position);
-                }else {
-                    Intent toDes = new Intent(BookKindActivity.this, BookDesActivity.class);
-                    toDes.putExtra(IntentConstants.TO_BOOK_DES, datas.get(position));
-                    toDes.putExtra(IntentConstants.TO_BOOK_DES_POSITION,position);
-                    startActivity(toDes);
-                }
-            }
-        });
-        rlvBookKind.setAdapter(bookKindAdapter);
-    }
+
 
     @Override
     public void showError(String msg) {
         ToastUtil.toastShort(msg);
+    }
+
+    @Override
+    public void initDatasSuccess(List<LBookKindBean> datas) {
+
+    }
+
+    @Override
+    public void initDatasError(String error) {
+
     }
 
     @Override

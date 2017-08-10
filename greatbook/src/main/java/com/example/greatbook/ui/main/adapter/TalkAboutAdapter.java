@@ -12,10 +12,11 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.App;
+import com.example.greatbook.R;
+import com.example.greatbook.base.ListBaseAdapter;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.GlideUtils;
-import com.example.greatbook.R;
 import com.example.greatbook.utils.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -28,43 +29,24 @@ import butterknife.ButterKnife;
  * Created by MBENBEN on 2016/11/24.
  */
 
-public class TalkAboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    public List<TalkAboutBean> datas;
-    private TalkAboutBean talkAboutBean;
+public class TalkAboutAdapter extends ListBaseAdapter<TalkAboutBean>{
     private Context context;
     private SimpleDateFormat simpleDateFormat;
+    private TalkAboutBean talkAboutBean;
 
-    private final int TYPE_ITEM = 0;
-    private final int TYPE_FOOTER = 1;
-
-    public static final int PULL_TO_MORE = 0;
-    public static final int PULLINT_MORE = 1;
-    public final static int PULLED_FINISH = 2;
-    //当前的加载状态
-    private int current_load_more_state = 0;
-    //子view是否充满了手机屏幕
-    private boolean isCompleteFill = false;
-
-    public TalkAboutAdapter(List<TalkAboutBean> datas) {
-        this.datas = datas;
+    public TalkAboutAdapter() {
         context= App.getInstance().getContext();
         simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType==TYPE_FOOTER){
-                return new FooterViewHolder(LayoutInflater.from(context).
-                        inflate(R.layout.item_add_more_footer,parent,false));
-            }
             return new ViewHolder(LayoutInflater.from(context)
                     .inflate(R.layout.item_talk_about, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
             talkAboutBean = datas.get(position);
             AVQuery<User> query = AVQuery.getQuery(User.class);
             query.whereEqualTo("objectId", talkAboutBean.getBelongId());
@@ -84,52 +66,14 @@ public class TalkAboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             GlideUtils.load(talkAboutBean.getContentPhoto().getUrl(), ((ViewHolder) holder).ivPhoto);
             ((ViewHolder) holder).tvContent.setText(talkAboutBean.getContent());
             ((ViewHolder) holder).tvTime.setText(simpleDateFormat.format(talkAboutBean.getCreatedAt()));
-        }
-        if(holder instanceof FooterViewHolder){
-            ((FooterViewHolder) holder).tvTextFooter.setText("加载更多");
-        }
     }
 
-    public boolean isLoadMore() {
-        return isLoadMore;
-    }
-
-    /**
-     * 设置是否底部显示加载更多，默认不显示
-     * @param isLoadMore
-     */
-    public void setIsLoadMore(boolean isLoadMore) {
-        this.isLoadMore = isLoadMore;
-    }
-
-    private boolean isLoadMore = false;
 
     @Override
     public int getItemCount() {
-        if (isLoadMore){
-            return datas.size()+1;
-        }else {
             return datas.size();
-        }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        //此时表示到底了
-        if (getItemCount()-1==position){
-            return TYPE_FOOTER;
-        }
-        return TYPE_ITEM;
-    }
-
-    //加载更多时，添加数据
-    public void addMoreDatas(List<TalkAboutBean> moreDatas) {
-        if (moreDatas != null) {
-            datas.addAll(moreDatas);
-            current_load_more_state = PULLED_FINISH;
-            notifyDataSetChanged();
-        }
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.iv_photo_item_talkabout) ImageView ivPhoto;
@@ -142,17 +86,5 @@ public class TalkAboutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
-    }
-    public class FooterViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.tv_text_footer) TextView tvTextFooter;
-        public FooterViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-        }
-    }
-
-    public void setFinshed(){
-        current_load_more_state = PULLED_FINISH;
-        notifyDataSetChanged();
     }
 }
