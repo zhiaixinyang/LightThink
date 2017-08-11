@@ -29,13 +29,14 @@ public class DottedView extends View {
     }
 
     private void init(Context context,AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DottedView);
-        dottedViewLineColor=typedArray.getColor(R.styleable.DottedView_dv_line_color, ContextCompat.getColor(context,R.color.black));
-        dottedViewLineInterval= (int) typedArray.getDimension(R.styleable.DottedView_dv_line_interval, DpUtils.dp2px(6));
-        dottedViewLineHeight = (int) typedArray.getDimension(R.styleable.DottedView_dv_line_height,DpUtils.dp2px(2));
-        dottedViewLineWidth= (int) typedArray.getDimension(R.styleable.DottedView_dv_line_width,DpUtils.dp2px(12));
-        typedArray.recycle();
-
+        if (attrs!=null) {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DottedView);
+            dottedViewLineColor = typedArray.getColor(R.styleable.DottedView_dv_line_color, ContextCompat.getColor(context, R.color.black));
+            dottedViewLineInterval = (int) typedArray.getDimension(R.styleable.DottedView_dv_line_interval, DpUtils.dp2px(6));
+            dottedViewLineHeight = (int) typedArray.getDimension(R.styleable.DottedView_dv_line_height, DpUtils.dp2px(2));
+            dottedViewLineWidth = (int) typedArray.getDimension(R.styleable.DottedView_dv_line_width, DpUtils.dp2px(12));
+            typedArray.recycle();
+        }
         paint=new Paint();
         paint.setColor(dottedViewLineColor);
         paint.setAntiAlias(true);
@@ -59,7 +60,8 @@ public class DottedView extends View {
         int allWidth=getMeasuredWidth();
         int curWidt=0;
         while (curWidt<allWidth){
-            canvas.drawLine(dottedViewLineInterval+curWidt,0,dottedViewLineInterval+curWidt+dottedViewLineWidth,0,paint);
+            canvas.drawLine(dottedViewLineInterval+curWidt,0,curWidt+dottedViewLineWidth,0,paint);
+            curWidt=curWidt+dottedViewLineInterval+dottedViewLineWidth;
         }
     }
 
