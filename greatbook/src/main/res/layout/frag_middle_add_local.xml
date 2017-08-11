@@ -1,7 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/topMenu"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/middle_add_local_menu_margin"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/menu_encourage"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/middle_add_local_menu_w_h"
+                android:src="@drawable/icon_encourage"
+                android:layout_height="@dimen/middle_add_local_menu_w_h" />
+            <TextView
+                android:text="我的鸡汤库"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/middle_add_local_menu_margin"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/menu_jok"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/middle_add_local_menu_w_h"
+                android:src="@drawable/icon_jok"
+                android:layout_height="@dimen/middle_add_local_menu_w_h" />
+            <TextView
+                android:text="我的段子库"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/middle_add_local_menu_margin"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/menu_short_essay"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/middle_add_local_menu_w_h"
+                android:src="@drawable/icon_short_essay"
+                android:layout_height="@dimen/middle_add_local_menu_w_h" />
+            <TextView
+                android:text="我的清新库"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/middle_add_local_menu_margin"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
     <com.example.greatbook.widght.refresh.LoadRefreshRecyclerView
         android:id="@+id/rlv_local"
         android:layout_width="match_parent"

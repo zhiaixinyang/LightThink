@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import com.example.greatbook.apis.OkHttpHelper;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.presenter.contract.MyPrivateAdjustContract;
-import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.FileAndImageUtils;
 
 import java.io.IOException;
 
@@ -45,7 +45,7 @@ public class MyPrivateAdjustPresenter extends RxPresenter<MyPrivateAdjustContrac
                             }
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-                                subscriber.onNext(FileUtils.getBitmapFromByte(response.body().bytes()));
+                                subscriber.onNext(FileAndImageUtils.getBitmapFromByte(response.body().bytes()));
                             }
                         });
             }

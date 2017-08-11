@@ -2,12 +2,10 @@ package com.example.greatbook.ui.main.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -17,9 +15,9 @@ import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
+import com.example.greatbook.middle.MiddleMainFragment;
 import com.example.greatbook.ui.main.fragment.MainFristFragment;
 import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
-import com.example.greatbook.ui.main.fragment.TalkAboutFragment;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.ScaleTransitionPagerTitleView;
 
@@ -48,7 +46,7 @@ public class MainActivity extends BaseActivity{
 
     private MyPrivateFragment myPrivateFragment;
     private MainFristFragment mainFristFragment;
-    private TalkAboutFragment talkAboutFragment;
+    private MiddleMainFragment middleMainFragment;
 
     private String[] titles={"名著","吐槽","我的"};
     private List<String> titleList = Arrays.asList(titles);
@@ -61,14 +59,14 @@ public class MainActivity extends BaseActivity{
     public void init() {
         myPrivateFragment=MyPrivateFragment.newInstance();
         mainFristFragment = MainFristFragment.newInstance();
-        talkAboutFragment = TalkAboutFragment.newInstance();
+        middleMainFragment = MiddleMainFragment.newInstance();
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 if (position==0){
                     return mainFristFragment;
                 }else if(position==1){
-                    return talkAboutFragment;
+                    return middleMainFragment;
                 }
                 return myPrivateFragment;
             }

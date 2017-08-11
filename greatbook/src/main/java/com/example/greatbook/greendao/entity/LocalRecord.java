@@ -1,4 +1,4 @@
-package com.example.greatbook.greendao;
+package com.example.greatbook.greendao.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -10,15 +10,18 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 
 /**
- * 鸡汤实体类
+ * 本地记录的实体类
  */
 @Entity
-public class Encourege {
+public class LocalRecord{
     @Id
     @Property(nameInDb = "proid")
     private Long id;
     private String time;
+    private String title;
     private String content;
+    //对应的账号信息，用于网络同步
+    private String belongId;
     //0：默认（总的）；1：代表鸡汤；2：代表短句；3：代表段子
     private int type;
     //自己的分组
@@ -35,11 +38,23 @@ public class Encourege {
     public void setType(int type) {
         this.type = type;
     }
+    public String getBelongId() {
+        return this.belongId;
+    }
+    public void setBelongId(String belongId) {
+        this.belongId = belongId;
+    }
     public String getContent() {
         return this.content;
     }
     public void setContent(String content) {
         this.content = content;
+    }
+    public String getTitle() {
+        return this.title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
     public String getTime() {
         return this.time;
@@ -53,15 +68,18 @@ public class Encourege {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 456274693)
-    public Encourege(Long id, String time, String content, int type, String group) {
+    @Generated(hash = 1621823000)
+    public LocalRecord(Long id, String time, String title, String content,
+            String belongId, int type, String group) {
         this.id = id;
         this.time = time;
+        this.title = title;
         this.content = content;
+        this.belongId = belongId;
         this.type = type;
         this.group = group;
     }
-    @Generated(hash = 1877958648)
-    public Encourege() {
+    @Generated(hash = 1667100475)
+    public LocalRecord() {
     }
 }

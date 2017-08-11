@@ -23,7 +23,7 @@
     <dimen name="private_adjust_margin">8dp</dimen>
     <dimen name="private_adjust_item_width">40dp</dimen>
 
-    <dimen name="tablayout_h">45dp</dimen>
+    <dimen name="tablayout_h">36dp</dimen>
     <dimen name="talkabout_margin">16dp</dimen>
     <dimen name="talkabout_item_margin">12dp</dimen>
     <dimen name="card_jok_margin_left">16dp</dimen>
@@ -67,10 +67,18 @@
     <dimen name="item_feedback_margin">8dp</dimen>
     <dimen name="item_feedback_good_w_h">25dp</dimen>
     <dimen name="item_feedback_btn_good_w_h">30dp</dimen>
-    <dimen name="bottom_menu_wh">40dp</dimen>
+    <dimen name="bottom_menu_wh">24dp</dimen>
+    <dimen name="bottom_btn_menu_wh">38dp</dimen>
     <dimen name="talkabout_item_top_margin">4dp</dimen>
     <dimen name="toast_padding">3dp</dimen>
     <dimen name="toast_corners_radius">12dp</dimen>
     <dimen name="default_navigationbar_iv_wh">22dp</dimen>
     <dimen name="default_navigationbar_margin">8dp</dimen>
+    <dimen name="toolbar_h">45dp</dimen>
+    <dimen name="bottom_layout_h">48dp</dimen>
+    <dimen name="middle_add_local_menu_w_h">55dp</dimen>
+    <dimen name="middle_add_local_menu_margin">8dp</dimen>
+    <dimen name="middle_main_menu_size">10sp</dimen>
+    <dimen name="activity_local_add_flow_margin">12dp</dimen>
+    <dimen name="middle_add_local_menu_padding">8dp</dimen>
 </resources>

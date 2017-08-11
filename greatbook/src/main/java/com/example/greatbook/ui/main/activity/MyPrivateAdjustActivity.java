@@ -28,7 +28,7 @@ import com.example.greatbook.presenter.contract.MyPrivateAdjustContract;
 import com.example.greatbook.presenter.MyPrivateAdjustPresenter;
 import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.BlurBitmap;
-import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -167,7 +167,7 @@ public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresent
                     e.printStackTrace();
                 }
                 Glide.with(this)
-                            .load(FileUtils.getByteFromBitmap(bitmap))
+                            .load(FileAndImageUtils.getByteFromBitmap(bitmap))
                             .crossFade()
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                             .fitCenter()
@@ -181,7 +181,7 @@ public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresent
             bitmap =BitmapCompressUtils.zoomImage((Bitmap) data.getParcelableExtra("data"), 200,200);
             avatarBg.setImageBitmap(BlurBitmap.blur(this,bitmap));
             Glide.with(this)
-                    .load(FileUtils.getByteFromBitmap(bitmap))
+                    .load(FileAndImageUtils.getByteFromBitmap(bitmap))
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .fitCenter()
@@ -196,7 +196,7 @@ public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresent
         waitNetPopupWindowUtils=new WaitNetPopupWindowUtils();
         waitNetPopupWindowUtils.showWaitNetPopupWindow(this);
         if (bitmap!=null){
-            user.setAvatar(new AVFile(FileUtils.getRandomFileName(),FileUtils.getByteFromBitmap(bitmap)));
+            user.setAvatar(new AVFile(FileAndImageUtils.getRandomFileName(), FileAndImageUtils.getByteFromBitmap(bitmap)));
         }
         user.saveInBackground(new SaveCallback() {
             @Override

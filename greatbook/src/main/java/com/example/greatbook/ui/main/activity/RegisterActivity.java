@@ -24,7 +24,7 @@ import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.utils.BitmapCompressUtils;
-import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.StringUtils;
@@ -84,10 +84,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         if (resultCode== Activity.RESULT_OK&&requestCode==IntentConstants.OPEN_IMAGE){
             if (data!=null){
                 Uri selectImageUri=data.getData();
-                imagePath = FileUtils.getPathUrlFromUri(App.getInstance().getContext(),selectImageUri);
+                imagePath = FileAndImageUtils.getPathUrlFromUri(App.getInstance().getContext(),selectImageUri);
                 bmp= BitmapCompressUtils.zoomImage(imagePath);
                 if (selectImageUri!=null&&bmp!=null){
-                    GlideUtils.load(FileUtils.getByteFromBitmap(bmp),ivAvatar);
+                    GlideUtils.load(FileAndImageUtils.getByteFromBitmap(bmp),ivAvatar);
                 }
             }
         }
@@ -104,7 +104,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 final User user = new User();
                 user.setUsername(etAccount.getText().toString());
                 user.setPassword(etPassWord.getText().toString());
-                AVFile avFile = new AVFile(FileUtils.getFileName(imagePath), FileUtils.getByteFromBitmap(bmp));
+                AVFile avFile = new AVFile(FileAndImageUtils.getFileName(imagePath), FileAndImageUtils.getByteFromBitmap(bmp));
                 user.setAvatar(avFile);
                 user.signUpInBackground(new SignUpCallback() {
                     @Override

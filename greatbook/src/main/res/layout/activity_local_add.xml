@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.example.greatbook.widght.FlowLayout
+        android:id="@+id/flowLayout"
+        android:layout_margin="@dimen/activity_local_add_flow_margin"
+        android:layout_width="match_parent"
+        style="@style/FlowLayoutTags.FlowLayout"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:textSize="20sp"
+        android:padding="@dimen/middle_add_local_menu_padding"
+        android:hint="标题（可以不写）"
+        android:layout_marginRight="@dimen/activity_local_add_flow_margin"
+        android:layout_marginLeft="@dimen/activity_local_add_flow_margin"
+        android:layout_height="wrap_content" />
+    <com.example.greatbook.widght.DottedView
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/middle_add_local_menu_margin"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:textSize="16sp"
+        android:padding="@dimen/middle_add_local_menu_padding"
+        android:hint="随手记"
+        android:layout_marginRight="@dimen/activity_local_add_flow_margin"
+        android:layout_marginLeft="@dimen/activity_local_add_flow_margin"
+        android:layout_height="wrap_content" />
+</LinearLayout>

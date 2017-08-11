@@ -20,7 +20,7 @@ import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.utils.BitmapCompressUtils;
-import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -78,7 +78,7 @@ public class TalkAboutActivity extends BaseActivity implements View.OnClickListe
             //拿到拍到的照片
             bitmap =BitmapCompressUtils.zoomImage((Bitmap) data.getParcelableExtra("data"), 200,200);
             Glide.with(this)
-                    .load(FileUtils.getByteFromBitmap(bitmap))
+                    .load(FileAndImageUtils.getByteFromBitmap(bitmap))
                     .crossFade()
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .fitCenter()
@@ -122,7 +122,7 @@ public class TalkAboutActivity extends BaseActivity implements View.OnClickListe
             if (bitmap!=null&&!StringUtils.isEmpty(etContent.getText())) {
                 waitNetPopupWindowUtils.showWaitNetPopupWindow(this);
                     final TalkAboutBean talkAboutBean = new TalkAboutBean();
-                    AVFile avFile = new AVFile(FileUtils.getRandomFileName(),FileUtils.getByteFromBitmap(bitmap));
+                    AVFile avFile = new AVFile(FileAndImageUtils.getRandomFileName(), FileAndImageUtils.getByteFromBitmap(bitmap));
                     talkAboutBean.setContentPhoto(avFile);
                     talkAboutBean.setContent(etContent.getText().toString());
                     talkAboutBean.setBelongId(AVUser.getCurrentUser().getObjectId());

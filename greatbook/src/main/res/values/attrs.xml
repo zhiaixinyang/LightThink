@@ -114,4 +114,11 @@
             <enum name="right" value="1" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="DottedView">
+        <attr name="dv_line_color" format="color"/>
+        <attr name="dv_line_height" format="dimension"/>
+        <attr name="dv_line_width" format="dimension"/>
+        <attr name="dv_line_interval" format="dimension"/>
+    </declare-styleable>
 </resources>

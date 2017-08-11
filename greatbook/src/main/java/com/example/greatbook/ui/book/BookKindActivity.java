@@ -2,32 +2,20 @@ package com.example.greatbook.ui.book;
 
 import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.SaveCallback;
-import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.NewBaseActivity;
-import com.example.greatbook.base.OnItemClickListenerInAdapter;
-import com.example.greatbook.model.BookKindBean;
 import com.example.greatbook.model.BookKindListBean;
-import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.model.leancloud.LBookKindBean;
 import com.example.greatbook.presenter.BookKindPresenter;
 import com.example.greatbook.presenter.contract.BookKindContract;
 import com.example.greatbook.ui.book.adapter.BookKindAdapter;
 import com.example.greatbook.ui.main.activity.MainActivity;
-import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
