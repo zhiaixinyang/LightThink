@@ -14,6 +14,7 @@ import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.model.BookKindListBean;
+import com.example.greatbook.model.leancloud.LBookKindListBean;
 import com.example.greatbook.presenter.book.BookMainListPresenter;
 import com.example.greatbook.presenter.book.contract.BookMainListContract;
 import com.example.greatbook.ui.book.BookKindActivity;
@@ -79,8 +80,8 @@ public class BookMainListActivity extends NewBaseActivity<BookMainListPresenter>
     }
 
     @Override
-    public void initBookList(List<BookKindListBean> data) {
-        adapter.addData(data);
+    public void initBookList(List<LBookKindListBean> data) {
+        //adapter.addData(data);
     }
 
     @Override

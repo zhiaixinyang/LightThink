@@ -30,7 +30,7 @@ public class BookMainListPresenter extends RxPresenter<BookMainListContract.View
                     @Override
                     public void call(String s) {
                         mView.showLoaded();
-                        mView.initBookList(JsoupUtils.getBookKindList(s));
+                        //mView.initBookList(JsoupUtils.getBookKindList(s));
                     }
                 }, new Action1<Throwable>() {
                     @Override

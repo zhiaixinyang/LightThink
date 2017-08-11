@@ -20,40 +20,60 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.book.BookKindActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.activity.FeedBackActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.book.BookDesActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.book.BookSectionContentActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.RegisterActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.TalkAboutActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.book.BookTalkActivity"
             android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.MyPrivateAdjustActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.ZhiHuListActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.ZhiHuDetailActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.WeChatDetailActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.activity.WeChatListActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <meta-data
             android:name="com.example.greatbook.utils.MyGlideMoudle"
+            android:screenOrientation="portrait"
             android:value="GlideModule" />
-        <activity android:name=".ui.book.BookMainListActivity"
-            android:launchMode="singleTask"/>
         <activity android:name=".ui.ExploreActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
+        <activity android:name=".ui.BookMainListActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.GrammarContentActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.GrammarMainActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
     </application>
 

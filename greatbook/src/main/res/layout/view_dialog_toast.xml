@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:padding="@dimen/toast_padding"
             android:text="当前已是最新版本"
             android:textColor="@color/black"
             android:textSize="16sp" />

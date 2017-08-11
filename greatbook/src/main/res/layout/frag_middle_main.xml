@@ -52,7 +52,7 @@
             <ImageView
                 android:layout_width="@dimen/bottom_menu_wh"
                 android:id="@+id/menu_talk"
-                android:src="@drawable/menu_talk_off"
+                android:src="@drawable/menu_talk_about_off"
                 android:layout_height="@dimen/bottom_menu_wh" />
         </LinearLayout>
 

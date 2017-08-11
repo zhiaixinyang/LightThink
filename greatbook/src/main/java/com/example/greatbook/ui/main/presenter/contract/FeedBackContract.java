@@ -13,10 +13,15 @@ import java.util.List;
 public interface FeedBackContract {
     interface View extends BaseView {
         void intiFeeBackContent(List<LFeedBackBean> data);
+        void getMoreFeedBackContent(List<LFeedBackBean> data);
         void showLoading();
         void showLoaded();
+        void sendContentSuc(String success);
+        void sendContentError(String error);
     }
     interface Presenter extends BasePresenter<FeedBackContract.View> {
         void getFeedBackContent();
+        void getMoreFeedBackContent(int currentNum);
+        void sendContent(String belongId,String content);
     }
 }

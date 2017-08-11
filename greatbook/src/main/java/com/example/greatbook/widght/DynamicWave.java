@@ -19,7 +19,7 @@ import com.example.greatbook.utils.TransWindowUtils;
 public class DynamicWave extends View {
 
     // 波纹颜色
-    private static final int WAVE_PAINT_COLOR = ContextCompat.getColor(App.getInstance().getContext(), R.color.light_blue);
+    private static final int WAVE_PAINT_COLOR = ContextCompat.getColor(App.getInstance().getContext(), R.color.blue_light);
     // y = Asin(wx+b)+h
     private static final float STRETCH_FACTOR_A = 25;
     private static final int OFFSET_Y = 10;

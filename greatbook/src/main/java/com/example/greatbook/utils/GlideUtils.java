@@ -14,6 +14,7 @@ import com.bumptech.glide.request.animation.ViewPropertyAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
+import com.example.greatbook.widght.CircleImageView;
 
 import static android.R.attr.width;
 import static android.support.design.R.attr.height;
@@ -38,5 +39,8 @@ public class GlideUtils {
     public static void loadCircle( String url, ImageView iv) {
         Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(iv);
     }
+    public static void load(String url, CircleImageView circleImageView){
+        Glide.with(context).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.NONE).into(circleImageView);
 
+    }
 }

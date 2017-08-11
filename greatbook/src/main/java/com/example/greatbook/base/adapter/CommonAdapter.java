@@ -92,6 +92,11 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder>
         convert(holder, data.get(position));
     }
 
+    public void clear() {
+        this.data.clear();
+        notifyDataSetChanged();
+    }
+
     public abstract void convert(ViewHolder holder, T t);
 
     @Override

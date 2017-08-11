@@ -19,6 +19,7 @@ import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.model.leancloud.User;
+import com.example.greatbook.ui.main.activity.FeedBackActivity;
 import com.example.greatbook.ui.main.activity.LoginActivity;
 import com.example.greatbook.ui.main.activity.MyPrivateAdjustActivity;
 import com.example.greatbook.utils.GlideUtils;
@@ -85,8 +86,6 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
 
     @Override
     protected void initViewsAndEvents(View view) {
-        Log.d("aaa","3-initViewsAndEvents");
-
         btnAdjust.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         srfMyPrivate.setOnRefreshListener(this);
@@ -94,8 +93,6 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
 
     @Override
     protected void onFirstUserVisible() {
-        Log.d("aaa","3-onFirstUserVisible");
-
         if (AVUser.getCurrentUser(User.class)!=null) {
             user = AVUser.getCurrentUser(User.class);
             if(!StringUtils.isEmpty(user.getName())) {
@@ -111,14 +108,10 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
     @Override
     protected void onUserVisible() {
         onRefresh();
-        Log.d("aaa","3-onUserVisible");
-
     }
 
     @Override
     protected void onUserInvisible() {
-        Log.d("aaa","3-onUserInvisible");
-
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(App.getInstance().getContext(), new InitListener() {
             @Override
@@ -196,7 +189,8 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
     }
 
     private void adjust() {
-        Intent toAdjust=new Intent(App.getInstance().getContext(), MyPrivateAdjustActivity.class);
+        //Intent toAdjust=new Intent(App.getInstance().getContext(), MyPrivateAdjustActivity.class);
+        Intent toAdjust=new Intent(App.getInstance().getContext(), FeedBackActivity.class);
         startActivity(toAdjust);
     }
 

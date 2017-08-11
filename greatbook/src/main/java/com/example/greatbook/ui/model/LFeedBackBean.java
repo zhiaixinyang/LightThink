@@ -8,18 +8,10 @@ import com.avos.avoscloud.AVObject;
  */
 @AVClassName("LFeedBackBean")
 public class LFeedBackBean extends AVObject {
-    private String nick;
     private String belongId;
     private String content;
     private int like;
 
-    public String getNick() {
-        return getString("nick");
-    }
-
-    public void setNick(String nick) {
-        put("nick",nick);
-    }
 
     public String getBelongId() {
         return getString("belongId");

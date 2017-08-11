@@ -13,10 +13,9 @@ import com.example.greatbook.model.HeadlineBean;
 import com.example.greatbook.model.MainJokBean;
 import com.example.greatbook.presenter.JokPresenter;
 import com.example.greatbook.presenter.contract.JokContract;
-import com.example.greatbook.ui.book.BookMainListActivity;
+import com.example.greatbook.ui.BookMainListActivity;
 import com.example.greatbook.ui.GrammarMainActivity;
 import com.example.greatbook.ui.JokAdapter;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SnackbarUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
@@ -57,7 +56,7 @@ public class MainFristFragment extends BaseLazyFragment<JokPresenter> implements
     }
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout.frag_main;
+        return R.layout.frag_first_main;
     }
 
     @Override

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <LinearLayout
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@drawable/btn_back_"
+            android:layout_marginLeft="@dimen/default_navigationbar_margin"
+            android:layout_width="@dimen/default_navigationbar_iv_wh"
+            android:layout_height="@dimen/default_navigationbar_iv_wh" />
+        <TextView
+            android:id="@+id/tv_left"
+            android:text="左边"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/default_navigationbar_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_middle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:text="中间"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

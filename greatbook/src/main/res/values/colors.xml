@@ -12,7 +12,7 @@
     <color name="gray_light">#e3e2e2</color>
     <color name="purple">#921ab3</color>
     <color name="blue">#3b73ff</color>
-    <color name="light_blue">#4c5bfe</color>
+    <color name="blue_light">#5765fe</color>
     <color name="red">#ff5972</color>
 
     <color name="trans_purple">#77c03ee4</color>
@@ -23,4 +23,5 @@
     <color name="toast_bg">#dddfe0</color>
     <color name="bottom_menu_gray">#b0adb0</color>
     <color name="toast_bg_error">#ff5972</color>
+    <color name="isw_defaultBg">#cecece</color>
 </resources>

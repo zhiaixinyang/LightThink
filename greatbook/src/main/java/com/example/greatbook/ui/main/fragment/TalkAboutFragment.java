@@ -50,7 +50,6 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
 
     private TalkAboutPresenter talkAboutPresenter = null;
     private TalkAboutAdapter talkAboutAdapter;
-    private LinearLayoutManager linearLayoutManager;
     private LRecyclerViewAdapter mLRecyclerViewAdapter = null;
     private boolean isShow=true;
     //每一页展示多少条数据
@@ -74,9 +73,6 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
 
     @Override
     protected void initViewsAndEvents(View view) {
-        Log.d("aaa","2-initViewsAndEvents");
-
-        linearLayoutManager = new LinearLayoutManager(App.getInstance().getContext());
         talkAboutPresenter = new TalkAboutPresenter(this);
         talkAboutAdapter = new TalkAboutAdapter();
         mLRecyclerViewAdapter = new LRecyclerViewAdapter(App.getInstance().getContext(), talkAboutAdapter);
@@ -89,7 +85,6 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
         rlvTalkAbout.addLoadViewCreator(new DefaultLoadCreator());
         rlvTalkAbout.setOnRefreshListener(this);
         rlvTalkAbout.setOnLoadMoreListener(this);
-        rlvTalkAbout.setLayoutManager(linearLayoutManager);
 
         // 设置正在获取数据页面和无数据页面，对应布局里的控件（随意自定义）
         rlvTalkAbout.addLoadingView(loadingView);
@@ -128,8 +123,6 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
     //第一次可见时初始化
     @Override
     protected void onFirstUserVisible() {
-        Log.d("aaa","2-onFirstUserVisible");
-
         talkAboutPresenter.getTalkAbout();
     }
 
@@ -137,15 +130,11 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
     @Override
     protected void onUserVisible() {
         //talkAboutPresenter.getTalkAbout();
-        Log.d("aaa","2-onUserVisible");
-
     }
 
     //非第一次不可见的可见状态
     @Override
     protected void onUserInvisible() {
-        Log.d("aaa","2-onUserInvisible不可见");
-
     }
 
     @Override
