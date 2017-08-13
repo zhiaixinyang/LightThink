@@ -10,7 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * Created by MBENBEN on 2017/7/31.
+ * Created by MDove on 2017/7/31.
  */
 
 public class AlertController {

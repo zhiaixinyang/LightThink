@@ -82,6 +82,7 @@
                 android:layout_toRightOf="@+id/two"
                 android:textSize="18sp"
                 android:padding="4dp"
+                android:background="@null"
                 android:textColorHighlight="@color/black"
                 android:layout_centerVertical="true"
                 android:layout_width="match_parent"

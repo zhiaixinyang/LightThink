@@ -15,7 +15,7 @@ import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.middle.MiddleMainFragment;
+import com.example.greatbook.middle.fragment.MiddleMainFragment;
 import com.example.greatbook.ui.main.fragment.MainFristFragment;
 import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
 import com.example.greatbook.utils.ToastUtil;
@@ -37,7 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by MBENBEN on 2016/11/23.
+ * Created by MDove on 2016/11/23.
  */
 
 public class MainActivity extends BaseActivity{
@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity{
     private MainFristFragment mainFristFragment;
     private MiddleMainFragment middleMainFragment;
 
-    private String[] titles={"名著","吐槽","我的"};
+    private String[] titles={"众娱","自乐","我的"};
     private List<String> titleList = Arrays.asList(titles);
     @Override
     public int getLayoutId() {
@@ -140,6 +140,7 @@ public class MainActivity extends BaseActivity{
             }
         }
     }
+
 
     @Override
     public void showError(String msg) {

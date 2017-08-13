@@ -11,80 +11,47 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.example.greatbook.App;
 import com.example.greatbook.R;
-import com.example.greatbook.base.ListBaseAdapter;
+import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.model.leancloud.User;
+import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
+import com.example.greatbook.widght.CircleImageView;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by MBENBEN on 2016/11/24.
  */
 
-public class TalkAboutAdapter extends ListBaseAdapter<TalkAboutBean>{
-    private Context context;
-    private SimpleDateFormat simpleDateFormat;
-    private TalkAboutBean talkAboutBean;
+public class TalkAboutAdapter extends CommonAdapter<TalkAboutBean> {
 
-    public TalkAboutAdapter() {
-        context= App.getInstance().getContext();
-        simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+    public TalkAboutAdapter(Context context, int layoutId, List<TalkAboutBean> datas) {
+        super(context, layoutId, datas);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.item_talk_about, parent, false));
-    }
-
-    @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-            talkAboutBean = datas.get(position);
-            AVQuery<User> query = AVQuery.getQuery(User.class);
-            query.whereEqualTo("objectId", talkAboutBean.getBelongId());
-            query.findInBackground(new FindCallback<User>() {
-                @Override
-                public void done(List<User> list, AVException e) {
-                    if (e == null) {
-                        GlideUtils.loadCircle(list.get(0).getAvatar().getUrl(), ((ViewHolder) holder).ivAvatar);
-                        if (StringUtils.isEmpty(list.get(0).getName())) {
-                            ((ViewHolder) holder).tvName.setText("书心用户");
-                        } else {
-                            ((ViewHolder) holder).tvName.setText(list.get(0).getName());
-                        }
+    public void convert(final com.example.greatbook.base.adapter.ViewHolder holder, TalkAboutBean talkAboutBean) {
+        AVQuery<User> query = AVQuery.getQuery(User.class);
+        query.whereEqualTo("objectId", talkAboutBean.getBelongId());
+        query.findInBackground(new FindCallback<User>() {
+            @Override
+            public void done(List<User> list, AVException e) {
+                if (e == null&&!list.isEmpty()) {
+                    GlideUtils.load(list.get(0).getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_avatar_item_talkabout));
+                    if (StringUtils.isEmpty(list.get(0).getName())) {
+                        holder.setText(R.id.tv_name_item_talkabout,"书心用户");
+                    } else {
+                        holder.setText(R.id.tv_name_item_talkabout,list.get(0).getName());
                     }
                 }
-            });
-            GlideUtils.load(talkAboutBean.getContentPhoto().getUrl(), ((ViewHolder) holder).ivPhoto);
-            ((ViewHolder) holder).tvContent.setText(talkAboutBean.getContent());
-            ((ViewHolder) holder).tvTime.setText(simpleDateFormat.format(talkAboutBean.getCreatedAt()));
+            }
+        });
+        GlideUtils.load(talkAboutBean.getContentPhoto().getUrl(), (ImageView) holder.getView(R.id.iv_photo_item_talkabout));
+        holder.setText(R.id.tv_content_item_talkabout,talkAboutBean.getContent());
+        holder.setText(R.id.tv_time_item_talkabout, DateUtils.getDateChinese(talkAboutBean.getCreatedAt()));
     }
 
-
-    @Override
-    public int getItemCount() {
-            return datas.size();
-    }
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.iv_photo_item_talkabout) ImageView ivPhoto;
-        @BindView(R.id.tv_content_item_talkabout) TextView tvContent;
-        @BindView(R.id.tv_time_item_talkabout) TextView tvTime;
-        @BindView(R.id.iv_avatar_item_talkabout) ImageView ivAvatar;
-        @BindView(R.id.tv_name_item_talkabout) TextView tvName;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-        }
-    }
 }

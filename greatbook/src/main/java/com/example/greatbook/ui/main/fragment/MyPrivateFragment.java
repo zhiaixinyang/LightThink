@@ -2,22 +2,22 @@ package com.example.greatbook.ui.main.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
+import com.example.greatbook.greendao.entity.LocalGroup;
+import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.main.activity.FeedBackActivity;
 import com.example.greatbook.ui.main.activity.LoginActivity;
@@ -27,7 +27,6 @@ import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.CircleImageView;
 import com.example.greatbook.widght.switchbutton.IconSwitch;
-import com.example.greatbook.widght.toast.SweetToast;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -36,19 +35,21 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
- * Created by MBENBEN on 2016/11/1.
+ * Created by MDove on 2016/11/1.
  */
 
-public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickListener,
-        SwipeRefreshLayout.OnRefreshListener,IconSwitch.CheckedChangeListener{
-    @BindView(R.id.iv_avatar) CircleImageView ivAvatar;
-    @BindView(R.id.btn_exit) TextView btnExit;
-    @BindView(R.id.btn_adjust) TextView btnAdjust;
-    @BindView(R.id.tvName) TextView tvName;
-    @BindView(R.id.srf_myprivate) SwipeRefreshLayout srfMyPrivate;
-
+public class MyPrivateFragment extends BaseLazyFragment implements SwipeRefreshLayout.OnRefreshListener {
+    @BindView(R.id.iv_avatar)
+    CircleImageView ivAvatar;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.srf_myprivate)
+    SwipeRefreshLayout srfMyPrivate;
     private User user;
 
     // 语音合成对象
@@ -58,7 +59,7 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
     private String voicer = "xiaoyan";
 
     private String[] mCloudVoicersEntries;
-    private String[] mCloudVoicersValue ;
+    private String[] mCloudVoicersValue;
 
     // 缓冲进度
     private int mPercentForBuffering = 0;
@@ -71,9 +72,7 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
     public static MyPrivateFragment newInstance() {
-        
         Bundle args = new Bundle();
-        
         MyPrivateFragment fragment = new MyPrivateFragment();
         fragment.setArguments(args);
         return fragment;
@@ -86,32 +85,18 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
 
     @Override
     protected void initViewsAndEvents(View view) {
-        btnAdjust.setOnClickListener(this);
-        btnExit.setOnClickListener(this);
         srfMyPrivate.setOnRefreshListener(this);
     }
 
     @Override
     protected void onFirstUserVisible() {
-        if (AVUser.getCurrentUser(User.class)!=null) {
-            user = AVUser.getCurrentUser(User.class);
-            if(!StringUtils.isEmpty(user.getName())) {
-                tvName.setText(user.getName());
-                GlideUtils.load(user.getAvatar().getUrl(), ivAvatar);
-            }else {
-                tvName.setText("书心用户");
-                GlideUtils.load(user.getAvatar().getUrl(), ivAvatar);
-            }
-        }
+        initAvatar();
     }
 
     @Override
     protected void onUserVisible() {
+        initAvatar();
         onRefresh();
-    }
-
-    @Override
-    protected void onUserInvisible() {
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(App.getInstance().getContext(), new InitListener() {
             @Override
@@ -176,36 +161,11 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_exit:
-                exitAccount();
+    protected void onUserInvisible() {
 
-                break;
-            case R.id.btn_adjust:
-                adjust();
-                break;
-        }
     }
 
-    private void adjust() {
-        //Intent toAdjust=new Intent(App.getInstance().getContext(), MyPrivateAdjustActivity.class);
-        Intent toAdjust=new Intent(App.getInstance().getContext(), FeedBackActivity.class);
-        startActivity(toAdjust);
-    }
 
-    private void exitAccount() {
-        SharedPreferences sharedPreferences = MySharedPreferences.getFristActivityInstance();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("count", 0);
-        editor.commit();
-        //登出账号
-        AVUser.getCurrentUser(User.class).logOut();
-        Intent intent = new Intent(App.getInstance().getContext(), LoginActivity.class);
-        getActivity().overridePendingTransition(R.anim.login_in, R.anim.login_out);
-        getActivity().startActivity(intent);
-        getActivity().finish();
-    }
 
     @Override
     public void showError(String msg) {
@@ -219,17 +179,59 @@ public class MyPrivateFragment extends BaseLazyFragment implements View.OnClickL
         srfMyPrivate.setRefreshing(false);
     }
 
-    @Override
-    public void onCheckChanged(IconSwitch.Checked current) {
-        if (current== IconSwitch.Checked.LEFT){
-            //白天
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            getActivity().recreate();
-        }else{
-            //黑天
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            getActivity().recreate();
+    @OnClick({R.id.btn_adjust, R.id.btn_feedback, R.id.btn_exit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_adjust:
+                adjust();
+                break;
+            case R.id.btn_feedback:
+                Intent toFeedBack=new Intent(App.getInstance().getContext(),FeedBackActivity.class);
+                startActivity(toFeedBack);
+                break;
+            case R.id.btn_exit:
+                exitAccount();
+                break;
         }
     }
+    private void initAvatar() {
+        if (AVUser.getCurrentUser(User.class) != null) {
+            user = AVUser.getCurrentUser(User.class);
+            if (!StringUtils.isEmpty(user.getName())) {
+                tvName.setText(user.getName());
+                GlideUtils.load(user.getAvatar().getUrl(), ivAvatar);
+            } else {
+                tvName.setText("书心用户");
+                GlideUtils.load(user.getAvatar().getUrl(), ivAvatar);
+            }
+        }
+    }
+
+    private void adjust() {
+        Intent toAdjust=new Intent(App.getInstance().getContext(), MyPrivateAdjustActivity.class);
+        startActivity(toAdjust);
+    }
+
+    private void exitAccount() {
+        //退出账号时清空本地数据
+        clearDB();
+        SharedPreferences sharedPreferences = MySharedPreferences.getFristActivityInstance();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("count", 0);
+        editor.commit();
+        //登出账号
+        AVUser.getCurrentUser(User.class).logOut();
+        Intent intent = new Intent(App.getInstance().getContext(), LoginActivity.class);
+        getActivity().overridePendingTransition(R.anim.login_in, R.anim.login_out);
+        getActivity().startActivity(intent);
+        getActivity().finish();
+    }
+
+    //退出账号时清空本地数据
+    private void clearDB() {
+        App.getDaoSession().deleteAll(LocalRecord.class);
+        App.getDaoSession().deleteAll(LocalGroup.class);
+    }
+
 }
 

@@ -25,7 +25,7 @@ import com.example.greatbook.R;
 
 
 /**
- * Created by MBENBEN on 2016/3/4.
+ * Created by MDove on 2016/3/4.
  */
 public class CircleImageView extends ImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;

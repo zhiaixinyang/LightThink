@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="试着进行滑动操作"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:background="@color/black"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_set_all_local_record"
+        android:layout_below="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:id="@+id/tv_empty_view"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:src="@drawable/icon_data_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/gray_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_empty"
+            android:layout_marginTop="10dp"
+            android:text="当前暂无数据..."
+            />
+    </RelativeLayout>
+</RelativeLayout>

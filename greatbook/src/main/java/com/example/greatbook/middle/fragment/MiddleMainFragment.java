@@ -1,16 +1,13 @@
-package com.example.greatbook.middle;
+package com.example.greatbook.middle.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
@@ -19,15 +16,12 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.LazyFragment;
-import com.example.greatbook.middle.activity.LocalAddActivity;
+import com.example.greatbook.middle.activity.AddLocalRecordActivity;
 import com.example.greatbook.ui.main.fragment.TalkAboutFragment;
 import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
-import com.iflytek.cloud.thirdparty.V;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by MDove on 2017/8/11.
@@ -137,7 +131,7 @@ public class MiddleMainFragment extends LazyFragment {
                 selectTab3();
                 break;
             case R.id.btn_add:
-                Intent toAdd=new Intent(App.getInstance().getContext(), LocalAddActivity.class);
+                Intent toAdd=new Intent(App.getInstance().getContext(), AddLocalRecordActivity.class);
                 startActivity(toAdd);
                 break;
         }
@@ -171,7 +165,7 @@ public class MiddleMainFragment extends LazyFragment {
         btnAdd.setVisibility(View.VISIBLE);
 
         ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(350);
+        sa.setDuration(250);
         sa.setInterpolator(new SpringAnimationInterpolar());
         btnAdd.startAnimation(sa);
 

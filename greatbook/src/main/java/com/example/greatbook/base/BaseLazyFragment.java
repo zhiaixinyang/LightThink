@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.example.greatbook.utils.LogUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -78,7 +80,6 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
             if (presenter!=null) {
                 presenter.attachView(this);
             }
-
             return view;
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);

@@ -68,17 +68,32 @@
     <dimen name="item_feedback_good_w_h">25dp</dimen>
     <dimen name="item_feedback_btn_good_w_h">30dp</dimen>
     <dimen name="bottom_menu_wh">24dp</dimen>
-    <dimen name="bottom_btn_menu_wh">38dp</dimen>
+    <dimen name="bottom_btn_menu_wh">42dp</dimen>
     <dimen name="talkabout_item_top_margin">4dp</dimen>
     <dimen name="toast_padding">3dp</dimen>
     <dimen name="toast_corners_radius">12dp</dimen>
-    <dimen name="default_navigationbar_iv_wh">22dp</dimen>
+    <dimen name="default_navigationbar_iv_w_h_left">22dp</dimen>
+    <dimen name="default_navigationbar_iv_w_h_right">22dp</dimen>
+
     <dimen name="default_navigationbar_margin">8dp</dimen>
     <dimen name="toolbar_h">45dp</dimen>
     <dimen name="bottom_layout_h">48dp</dimen>
-    <dimen name="middle_add_local_menu_w_h">55dp</dimen>
+    <dimen name="middle_add_local_menu_w_h">40dp</dimen>
     <dimen name="middle_add_local_menu_margin">8dp</dimen>
     <dimen name="middle_main_menu_size">10sp</dimen>
     <dimen name="activity_local_add_flow_margin">12dp</dimen>
     <dimen name="middle_add_local_menu_padding">8dp</dimen>
+    <dimen name="item_middle_local_add_margin_half">4dp</dimen>
+    <dimen name="item_middle_local_add_margin">8dp</dimen>
+    <dimen name="item_middle_local_add_iv_wh">30dp</dimen>
+    <dimen name="middle_add_local_size">12sp</dimen>
+    <dimen name="activity_local_add_iv_w_h">30dp</dimen>
+    <dimen name="dialog_add_group_margin">8dp</dimen>
+    <dimen name="frag_discovery_iv_w_h">40dp</dimen>
+    <dimen name="item_rlv_discovery_top_iv_w_h">30dp</dimen>
+    <dimen name="item_rlv_discovery_top_num_iv_w_h">20dp</dimen>
+    <dimen name="item_rlv_discovery_top_margin">8dp</dimen>
+    <dimen name="item_set_groups_margin">8dp</dimen>
+    <dimen name="item_set_group_iv_w_h">40dp</dimen>
+    <dimen name="item_set_group_iv_userd_w_h">26dp</dimen>
 </resources>

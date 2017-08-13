@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <application android:allowBackup="true"
         android:name=".App"
@@ -12,6 +13,7 @@
         android:label="@string/app_name" android:supportsRtl="true"
         android:theme="@style/TestDayNight">
         <activity android:name=".ui.main.activity.MainActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,6 +61,12 @@
         <activity android:name=".ui.main.activity.WeChatListActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
+        <activity android:name=".middle.activity.SetGroupsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".middle.activity.AllLocalRecordActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.example.greatbook.utils.MyGlideMoudle"
             android:screenOrientation="portrait"
@@ -75,7 +83,7 @@
         <activity android:name=".ui.GrammarMainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
-        <activity android:name=".middle.activity.LocalAddActivity"
+        <activity android:name=".middle.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

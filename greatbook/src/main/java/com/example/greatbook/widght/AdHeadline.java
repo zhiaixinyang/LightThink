@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wuming on 16/10/16.
+ * Created by MDove on 17/4/16.
  */
 
 public class AdHeadline extends RelativeLayout {

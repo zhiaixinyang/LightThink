@@ -307,7 +307,7 @@ public class FlowLayout extends ViewGroup {
     }
 
     /**
-     * Returns the tag array in group, except the INPUT tag.
+     * Returns the tag array in groupId, except the INPUT tag.
      *
      * @return the tag array.
      */

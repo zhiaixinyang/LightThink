@@ -3,6 +3,7 @@ package com.example.greatbook.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.util.Log;
 
 import com.example.greatbook.App;
 
@@ -125,22 +126,20 @@ public class BitmapCompressUtils {
     }
 
     /**
-     * Compress image by pixel, this will modify image width/height.
-     * Used to get thumbnail
+     * 按像素压缩图像
      *
      * @param imgPath image path
      * @param pixelW target pixel of width
      * @param pixelH target pixel of height
      * @return
      */
-    public Bitmap ratio(String imgPath, float pixelW, float pixelH) {
+    public static Bitmap ratio(String imgPath, float pixelW, float pixelH) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         // 开始读入图片，此时把options.inJustDecodeBounds 设回true，即只读边不读内容
         newOpts.inJustDecodeBounds = true;
         newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
         // Get bitmap info, but notice that bitmap is null now
         Bitmap bitmap = BitmapFactory.decodeFile(imgPath,newOpts);
-
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
@@ -172,7 +171,7 @@ public class BitmapCompressUtils {
      * @param pixelH target pixel of height
      * @return
      */
-    public Bitmap ratio(Bitmap image, float pixelW, float pixelH) {
+    public static Bitmap  ratio(Bitmap image, float pixelW, float pixelH) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, os);
         if( os.toByteArray().length / 1024>1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出

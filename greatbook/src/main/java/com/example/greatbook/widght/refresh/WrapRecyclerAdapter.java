@@ -114,17 +114,18 @@ public class WrapRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
+
         if (isHeaderPosition(position)) {
             // 直接返回position位置的key
             return mHeaderViews.keyAt(position);
         }
-        if (isFooterPosition(position)) {
-            // 直接返回position位置的key
-            position = position - mHeaderViews.size() - mAdapter.getItemCount();
-            return mFooterViews.keyAt(position);
-        }
+            if (isFooterPosition(position)) {
+                // 直接返回position位置的key
+                position = position - mHeaderViews.size() - mAdapter.getItemCount();
+                return mFooterViews.keyAt(position);
+            }
         // 返回列表Adapter的getItemViewType
-        position = position - mHeaderViews.size();
+        position = position - mHeaderViews.size()-mFooterViews.size();
         return mAdapter.getItemViewType(position);
     }
 

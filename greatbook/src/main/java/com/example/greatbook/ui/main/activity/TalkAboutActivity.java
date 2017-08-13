@@ -31,7 +31,7 @@ import java.io.IOException;
 import butterknife.BindView;
 
 /**
- * Created by MBENBEN on 2016/11/24.
+ * Created by MDove on 2016/11/24.
  */
 
 public class TalkAboutActivity extends BaseActivity implements View.OnClickListener{

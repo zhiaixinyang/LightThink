@@ -20,9 +20,10 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/trans_gray</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
     <style name="main_menu_animstyle">
         <item name="android:windowEnterAnimation">@anim/default_dialog_in_anim</item>
@@ -113,7 +114,6 @@
         <item name="item_selectedStrokeColor">@color/trans_gray</item>
         <item name="item_strokeWidth">@dimen/flow_stroke_width</item>
         <item name="item_horizontalSpacing">10dp</item>
-        <!--这里设置固定大小,padding为0-->
         <item name="item_horizontalPadding">10dp</item>
         <item name="item_verticalPadding">5dp</item>
         <!--单位dp-->

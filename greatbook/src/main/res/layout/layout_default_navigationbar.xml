@@ -14,8 +14,8 @@
             android:id="@+id/iv_back"
             android:src="@drawable/btn_back_"
             android:layout_marginLeft="@dimen/default_navigationbar_margin"
-            android:layout_width="@dimen/default_navigationbar_iv_wh"
-            android:layout_height="@dimen/default_navigationbar_iv_wh" />
+            android:layout_width="@dimen/default_navigationbar_iv_w_h_left"
+            android:layout_height="@dimen/default_navigationbar_iv_w_h_left" />
         <TextView
             android:id="@+id/tv_left"
             android:text="左边"
@@ -35,5 +35,12 @@
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+    <ImageView
+        android:id="@+id/btn_right"
+        android:src="@drawable/btn_send"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:layout_width="@dimen/default_navigationbar_iv_w_h_right"
+        android:layout_height="@dimen/default_navigationbar_iv_w_h_right" />
 </RelativeLayout>

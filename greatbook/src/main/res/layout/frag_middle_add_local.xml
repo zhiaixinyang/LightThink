@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
     android:layout_height="match_parent">
     <LinearLayout
@@ -11,6 +10,26 @@
         android:layout_marginBottom="@dimen/middle_add_local_menu_margin"
         android:layout_marginTop="12dp"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/menu_all"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/middle_add_local_menu_w_h"
+                android:src="@drawable/icon_all"
+                android:layout_height="@dimen/middle_add_local_menu_w_h" />
+            <TextView
+                android:text="我的所有"
+                android:textSize="@dimen/middle_add_local_size"
+                android:layout_marginTop="@dimen/middle_add_local_menu_margin"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/menu_encourage"
             android:layout_width="0dp"
@@ -24,7 +43,7 @@
                 android:layout_height="@dimen/middle_add_local_menu_w_h" />
             <TextView
                 android:text="我的鸡汤库"
-                android:textSize="16sp"
+                android:textSize="@dimen/middle_add_local_size"
                 android:layout_marginTop="@dimen/middle_add_local_menu_margin"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -43,7 +62,7 @@
                 android:layout_height="@dimen/middle_add_local_menu_w_h" />
             <TextView
                 android:text="我的段子库"
-                android:textSize="16sp"
+                android:textSize="@dimen/middle_add_local_size"
                 android:layout_marginTop="@dimen/middle_add_local_menu_margin"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
@@ -62,15 +81,60 @@
                 android:layout_height="@dimen/middle_add_local_menu_w_h" />
             <TextView
                 android:text="我的清新库"
-                android:textSize="16sp"
+                android:textSize="@dimen/middle_add_local_size"
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="@dimen/middle_add_local_menu_margin"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:id="@+id/topLine"
+        android:layout_below="@+id/topMenu"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
     <com.example.greatbook.widght.refresh.LoadRefreshRecyclerView
         android:id="@+id/rlv_local"
+        android:layout_below="@+id/topLine"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_load_view"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/topMenu"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/white"
+        android:src="@mipmap/list_load_more"
+        android:text="正在加载数据..."
+        android:textSize="24sp"
+        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_below="@+id/topMenu"
+        android:id="@+id/tv_empty_view"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:src="@drawable/icon_data_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/gray_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_empty"
+            android:layout_marginTop="10dp"
+            android:text="当前暂无数据..."
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

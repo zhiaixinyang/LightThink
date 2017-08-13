@@ -9,13 +9,12 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by MBENBEN on 2017/7/31.
+ * Created by MDove on 2017/7/31.
  */
 
 public class DialogViewHelper{
     private View contentView;
     private SparseArray<WeakReference<View>> viewArray;
-
 
     public DialogViewHelper(Context context, int layoutId) {
         this();

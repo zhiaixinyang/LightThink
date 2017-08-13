@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by quanzizhangben on 2017/8/10.
+ * Created by MDove on 2017/8/10.
  */
 
 public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements FeedBackContract.View, RefreshRecyclerView.OnRefreshListener, LoadRefreshRecyclerView.OnLoadMoreListener {
@@ -50,7 +50,6 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
     TextView tvEmptyView;
     private FeedBackAdapter adapter;
     private List<LFeedBackBean> data;
-    private LRecyclerViewAdapter rlvAdapter = null;
     private int currentNum = 0;
 
     @Override
@@ -78,11 +77,10 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
         presenter=new FeedBackPresenter(this);
         data=new ArrayList<>();
         adapter = new FeedBackAdapter(this,R.layout.item_feedback,data);
-        rlvAdapter = new LRecyclerViewAdapter(this, adapter);
         rlvFeedback.setLayoutManager(new LinearLayoutManager(this));
         rlvFeedback.addRefreshViewCreator(new DefaultRefreshCreator());
         rlvFeedback.addLoadViewCreator(new DefaultLoadCreator());
-        rlvFeedback.setAdapter(rlvAdapter);
+        rlvFeedback.setAdapter(adapter);
         rlvFeedback.addLoadingView(tvLoadView);
         rlvFeedback.addEmptyView(tvEmptyView);
         rlvFeedback.setOnLoadMoreListener(this);

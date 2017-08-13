@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.greatbook.widght.itemswip.SwipeMenuLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:clickable="true"
+    android:paddingBottom="1dp"
+    app:ios="false"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_group_title"
+            android:layout_width="wrap_content"
+            android:text="分组信息"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_toLeftOf="@+id/iv_swipe"
+            android:padding="4dp"
+            android:layout_marginRight="@dimen/item_middle_local_add_margin"
+            android:layout_marginTop="@dimen/item_middle_local_add_margin"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:text="标题"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginLeft="@dimen/item_middle_local_add_margin"
+            android:layout_marginBottom="@dimen/item_middle_local_add_margin"
+            android:layout_marginTop="@dimen/item_middle_local_add_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:text="内容"
+            android:layout_marginBottom="@dimen/item_middle_local_add_margin"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_alignLeft="@+id/tv_title"
+            android:layout_below="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:text="时间"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_content"
+            android:layout_marginRight="@dimen/item_middle_local_add_margin"
+            android:layout_marginBottom="@dimen/item_middle_local_add_margin"
+            android:layout_marginTop="@dimen/item_middle_local_add_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginTop="@dimen/item_middle_local_add_margin"
+            android:background="@color/gray_light"/>
+        <ImageView
+            android:id="@+id/iv_swipe"
+            android:src="@drawable/icon_swipe"
+            android:layout_width="@dimen/item_set_group_iv_w_h"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="@dimen/item_set_group_iv_w_h" />
+
+    </RelativeLayout>
+
+
+    <!-- 以下都是侧滑菜单的内容依序排列 -->
+    <Button
+        android:id="@+id/btn_alter"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:background="#ecd50a"
+        android:clickable="true"
+        android:text="修改"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        android:text="删除"
+        android:textColor="@android:color/white"/>
+</com.example.greatbook.widght.itemswip.SwipeMenuLayout>

@@ -2,6 +2,7 @@ package com.example.greatbook.base.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,6 @@ import com.example.greatbook.R;
 public class BaseAlertDialog extends Dialog {
     private AlertController alertController;
     private DialogViewHelper dialogViewHelper;
-
-
 
     public BaseAlertDialog(Context context, int themeResId) {
         super(context, themeResId);
@@ -79,7 +78,7 @@ public class BaseAlertDialog extends Dialog {
             return this;
         }
 
-        public Builder addDefaultANimation(){
+        public Builder addDefaultAnimation(){
             P.animation=R.style.main_menu_animstyle;
             return this;
         }

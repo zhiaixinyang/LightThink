@@ -41,7 +41,7 @@ import java.io.IOException;
 import butterknife.BindView;
 
 /**
- * Created by MBENBEN on 2016/11/26.
+ * Created by MDove on 2016/11/26.
  */
 
 public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresenter> implements SwipeRefreshLayout.OnRefreshListener,View.OnClickListener,MyPrivateAdjustContract.View{

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/dialog_add_group_bg"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_title"
+        android:text="创建新的文集"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/et_group_name"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:hint="起个名吧"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/tv_title"
+        android:gravity="center"
+        android:padding="4dp"
+        android:layout_marginLeft="@dimen/dialog_add_group_margin"
+        android:layout_marginRight="@dimen/dialog_add_group_margin"
+        android:background="@drawable/dialog_add_group_et"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/et_group_content"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:hint="备注点信息吧（可以为空）"
+        android:layout_marginTop="@dimen/dialog_add_group_margin"
+        android:layout_below="@+id/et_group_name"
+        android:gravity="center"
+        android:padding="4dp"
+        android:layout_marginLeft="@dimen/dialog_add_group_margin"
+        android:layout_marginRight="@dimen/dialog_add_group_margin"
+        android:background="@drawable/dialog_add_group_et"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dialog_add_group_margin"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:text="放弃"
+            android:textSize="20sp"
+            android:textColor="@color/gray"
+            android:layout_toLeftOf="@+id/line"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1dp"
+            android:id="@+id/line"
+            android:layout_height="20dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/black"/>
+        <TextView
+            android:id="@+id/btn_ok"
+            android:text="创建"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/line"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

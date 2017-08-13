@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
 
@@ -87,7 +88,17 @@ public class FileAndImageUtils {
         return bytes;
     }
 
-    public static String getPathUrlFromUri(Context context, android.net.Uri uri){
+    public static Bitmap getBitmapFromUri(Context context, Uri uri){
+        try {
+            Bitmap bitmap=MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getPathUrlFromUri(Context context, Uri uri){
         if ( null == uri ) return null;
         final String scheme = uri.getScheme();
         String data = null;

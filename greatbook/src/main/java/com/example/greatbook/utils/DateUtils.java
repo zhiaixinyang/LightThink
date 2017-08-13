@@ -36,8 +36,6 @@ public class DateUtils {
         } else {
             return format.format(date);
         }
-
-
     }
 
 
@@ -46,6 +44,16 @@ public class DateUtils {
         time *= 1000;
         Date date = new Date(time);
         return format.format(date);
+
+    }
+
+    public static String getDateChinese(Date time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm");
+        return format.format(time);
+    }
+
+    public static String getDateMinute(String time) {
+        return time.substring(time.length()-2,time.length());
 
     }
 

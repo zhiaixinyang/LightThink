@@ -33,7 +33,7 @@
         android:layout_toLeftOf="@+id/iv_photo_item_talkabout"
         android:layout_marginLeft="@dimen/talkabout_item_margin"
         android:layout_height="35dp">
-        <ImageView
+        <com.example.greatbook.widght.CircleImageView
             android:layout_width="35dp"
             android:id="@+id/iv_avatar_item_talkabout"
             android:src="@drawable/no_avatar"

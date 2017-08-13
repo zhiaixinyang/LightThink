@@ -30,6 +30,7 @@ import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.util.RecyclerViewStateUtils;
 import com.github.jdsjlzx.view.LoadingFooter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,7 +39,9 @@ import butterknife.BindView;
  * Created by MBENBEN on 2016/11/24.
  */
 
-public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> implements TalkAboutContract.View, View.OnClickListener, RefreshRecyclerView.OnRefreshListener, LoadRefreshRecyclerView.OnLoadMoreListener {
+public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> implements TalkAboutContract.View,
+        View.OnClickListener, RefreshRecyclerView.OnRefreshListener,
+        LoadRefreshRecyclerView.OnLoadMoreListener {
     @BindView(R.id.rlv_talk_about)
     LoadRefreshRecyclerView rlvTalkAbout;
     @BindView(R.id.btn_talk)
@@ -46,11 +49,10 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
     @BindView(R.id.tv_empty_view)
     TextView tvEmptyView;
     @BindView(R.id.tv_load_view) TextView loadingView;
-
+    private List<TalkAboutBean> data;
 
     private TalkAboutPresenter talkAboutPresenter = null;
     private TalkAboutAdapter talkAboutAdapter;
-    private LRecyclerViewAdapter mLRecyclerViewAdapter = null;
     private boolean isShow=true;
     //每一页展示多少条数据
     private static final int REQUEST_COUNT = 8;
@@ -73,13 +75,14 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
 
     @Override
     protected void initViewsAndEvents(View view) {
+        data=new ArrayList<>();
         talkAboutPresenter = new TalkAboutPresenter(this);
-        talkAboutAdapter = new TalkAboutAdapter();
-        mLRecyclerViewAdapter = new LRecyclerViewAdapter(App.getInstance().getContext(), talkAboutAdapter);
+        talkAboutAdapter = new TalkAboutAdapter(App.getInstance().getContext(),
+                R.layout.item_talk_about,data);
 
         btnTalkAbout.setOnClickListener(this);
 
-        rlvTalkAbout.setAdapter(mLRecyclerViewAdapter);
+        rlvTalkAbout.setAdapter(talkAboutAdapter);
         rlvTalkAbout.setLayoutManager(new LinearLayoutManager(App.getInstance().getContext()));
         rlvTalkAbout.addRefreshViewCreator(new DefaultRefreshCreator());
         rlvTalkAbout.addLoadViewCreator(new DefaultLoadCreator());
@@ -139,13 +142,13 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
 
     @Override
     public void showError(String msg) {
-        SnackbarUtils.showShort(getView().getRootView(), msg);
+        ToastUtil.toastShort(msg);
     }
 
     @Override
     public void initTalkAboutData(List<TalkAboutBean> data) {
-        talkAboutAdapter.clear();
-        talkAboutAdapter.addAll(data);
+        this.data=data;
+        talkAboutAdapter.addData(data);
         currentNum = talkAboutAdapter.getItemCount();
     }
 
@@ -154,7 +157,8 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
         RecyclerViewStateUtils.setFooterViewState(rlvTalkAbout, LoadingFooter.State.Normal);
         if (!data.isEmpty()) {
             currentNum = currentNum + data.size();
-            talkAboutAdapter.addAll(data);
+            this.data=data;
+            talkAboutAdapter.addData(data);
         } else {
             ToastUtil.toastShort("暂无新的内容");
         }

@@ -28,7 +28,9 @@ public class DefaultNavigationBar extends AbsNavigationBar {
         Builder.DefaultNavigationBarParams P= (Builder.DefaultNavigationBarParams) getParams();
         setText(R.id.tv_left, P.leftString);
         setText(R.id.tv_middle, P.titleString);
-        setOnClickListener(R.id.btn_back,P.onClickListener);
+        setOnClickListener(R.id.btn_back,P.onLeftClickListener);
+        setImagViewResource(R.id.btn_right,P.rightResId);
+        setOnClickListener(R.id.btn_right,P.onRightClickListener);
     }
 
     public static class Builder extends AbsNavigationBar.Builder{
@@ -54,7 +56,16 @@ public class DefaultNavigationBar extends AbsNavigationBar {
         }
 
         public DefaultNavigationBar.Builder setOnLeftClickListener(View.OnClickListener onClickListener){
-            P.onClickListener=onClickListener;
+            P.onLeftClickListener =onClickListener;
+            return this;
+        }
+        public DefaultNavigationBar.Builder setOnRightClickListener(View.OnClickListener onClickListener){
+            P.onRightClickListener =onClickListener;
+            return this;
+        }
+
+        public DefaultNavigationBar.Builder setRightResId(int rightResId){
+            P.rightResId=rightResId;
             return this;
         }
 
@@ -74,7 +85,9 @@ public class DefaultNavigationBar extends AbsNavigationBar {
         public static class DefaultNavigationBarParams extends AbsNavigationBar.Builder.AbsNavigationParams{
             public String leftString;
             public String titleString;
-            public View.OnClickListener onClickListener;
+            public int rightResId;
+            public View.OnClickListener onLeftClickListener;
+            public View.OnClickListener onRightClickListener;
 
             public DefaultNavigationBarParams(Context context, ViewGroup parent) {
                 super(context, parent);
