@@ -4,6 +4,7 @@ import com.example.greatbook.base.BasePresenter;
 import com.example.greatbook.base.BaseView;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.LocalRecord;
+import com.example.greatbook.model.leancloud.User;
 
 import java.util.List;
 

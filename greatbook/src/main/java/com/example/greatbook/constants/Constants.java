@@ -1,6 +1,7 @@
 package com.example.greatbook.constants;
 
 import com.example.greatbook.App;
+import com.example.greatbook.utils.FileUtils;
 
 import java.io.File;
 
@@ -27,4 +28,19 @@ public class Constants {
     public static final String LOCAL_ADD_SUC_FINISH="local_add_suc_finish";
     public static final String LOCAL_SET_RECORD_SUC_FINISH="local_set_record_suc_finish";
     public static final String LOCAL_ADD_GROUP_SUC_FINISH="local_add_group_suc_finish";
+    public static final String TO_CLIPACTIVITY="to_clipactivity";
+
+
+    public static final String PATH_COLLECT = FileUtils.createRootPath(App.getInstance().getContext()) + "/collect";
+
+    public static final String PATH_TXT = PATH_DATA + "/book/";
+
+    public static final String PATH_EPUB = PATH_DATA + "/epub";
+
+    public static final String PATH_CHM = PATH_DATA + "/chm";
+    public static final String SUFFIX_ZIP="suffix_zip";
+    public static final String RETURN_CLIP_PHOTO="return_clip_photo";
+    public static final int  START_ALBUM_REQUESTCODE=101;
+    public static final int CROP_RESULT_CODE=102;
+    public static final int CAMERA_WITH_DATA=103;
 }

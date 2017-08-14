@@ -2,6 +2,7 @@ package com.example.greatbook.middle.presenter;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.base.RxPresenter;
@@ -12,6 +13,7 @@ import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.middle.presenter.contract.LocalAddContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
+import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.RxUtil;
 import com.example.greatbook.utils.StringUtils;
 
@@ -38,43 +40,47 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
     }
     @Override
     public void sendContentToNet(LocalRecord localRecord) {
-        final LLocalRecord lLocalRecord=new LLocalRecord();
-        lLocalRecord.setContent(localRecord.getContent());
-        lLocalRecord.setBelongId(localRecord.getBelongId());
-        lLocalRecord.setGroupTitle(localRecord.getGroupTitle());
-        lLocalRecord.setGroupId(localRecord.getGroupId());
-        lLocalRecord.setTime(localRecord.getTimeDate());
-        lLocalRecord.setTitle(localRecord.getTitle());
-        lLocalRecord.setType(localRecord.getType());
-        lLocalRecord.setBelongLocalId(localRecord.getId()+"");
-        Subscription subscription= Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                lLocalRecord.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(AVException e) {
-                        if (e==null){
-                            subscriber.onNext("上传至服务器");
-                        }else{
-                            subscriber.onNext(e.getMessage());
+        User user=AVUser.getCurrentUser(User.class);
+        if (user!=null) {
+            final LLocalRecord lLocalRecord = new LLocalRecord();
+            lLocalRecord.setContent(localRecord.getContent());
+            lLocalRecord.setBelongId(localRecord.getBelongId());
+            lLocalRecord.setGroupTitle(localRecord.getGroupTitle());
+            lLocalRecord.setGroupId(localRecord.getGroupId());
+            lLocalRecord.setTime(localRecord.getTimeDate());
+            lLocalRecord.setTitle(localRecord.getTitle());
+            lLocalRecord.setType(localRecord.getType());
+            lLocalRecord.setBelongLocalId(localRecord.getId() + "");
+            lLocalRecord.setLikeNum(0);
+            Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
+                @Override
+                public void call(final Subscriber<? super String> subscriber) {
+                    lLocalRecord.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            if (e == null) {
+                                subscriber.onNext("上传至服务器");
+                            } else {
+                                subscriber.onNext(e.getMessage());
 
+                            }
                         }
-                    }
-                });
-            }
-        }).compose(RxUtil.<String>rxSchedulerHelper())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        mView.sendContentToNetSuc(s);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        mView.sendContentToNetError(throwable.getMessage());
-                    }
-                });
-        addSubscrebe(subscription);
+                    });
+                }
+            }).compose(RxUtil.<String>rxSchedulerHelper())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            mView.sendContentToNetSuc(s);
+                        }
+                    }, new Action1<Throwable>() {
+                        @Override
+                        public void call(Throwable throwable) {
+                            mView.sendContentToNetError(throwable.getMessage());
+                        }
+                    });
+            addSubscrebe(subscription);
+        }
     }
 
     @Override

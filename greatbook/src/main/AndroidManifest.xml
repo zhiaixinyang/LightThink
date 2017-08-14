@@ -86,6 +86,9 @@
         <activity android:name=".middle.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity android:name=".base.ClipImageActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

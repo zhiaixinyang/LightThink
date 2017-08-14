@@ -21,6 +21,24 @@ public class LLocalRecord extends AVObject{
     //自己的分组
     private Long groupId;
     private String groupTitle;
+    private int likeNum;
+    private User belong;
+
+    public User getBelong() {
+        return getAVUser("belong");
+    }
+
+    public void setBelong(User belong) {
+        put("belong",belong);
+    }
+
+    public int getLikeNum() {
+        return getInt("likeNum");
+    }
+
+    public void setLikeNum(int likeNum) {
+        put("likeNum",likeNum);
+    }
 
     public String getBelongLocalId() {
         return getString("belongLocalId");

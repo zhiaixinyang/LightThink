@@ -96,4 +96,5 @@
     <dimen name="item_set_groups_margin">8dp</dimen>
     <dimen name="item_set_group_iv_w_h">40dp</dimen>
     <dimen name="item_set_group_iv_userd_w_h">26dp</dimen>
+    <dimen name="margin_activity_clip">10dp</dimen>
 </resources>

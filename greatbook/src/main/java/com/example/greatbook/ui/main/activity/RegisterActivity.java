@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -26,22 +26,25 @@ import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
+import com.example.greatbook.base.ClipImageActivity;
+import com.example.greatbook.constants.Constants;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.constants.IntentConstants;
+import com.example.greatbook.utils.AlbumUtils;
 import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileAndImageUtils;
+import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.utils.TransWindowUtils;
 import com.example.greatbook.utils.WaitNetPopupWindowUtils;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -84,24 +87,30 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.iv_avatar:
                 if (ActivityCompat.checkSelfPermission(RegisterActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED||
-                        ActivityCompat.checkSelfPermission(RegisterActivity.this,
-                                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(RegisterActivity.this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},111);
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},111);
                 }else{
-                    openAlbum();
+                    AlbumUtils.startAlbumToClip(this);
                 }
                 break;
         }
     }
+
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
             case 111:
-                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED&&
-                        grantResults[1]==PackageManager.PERMISSION_GRANTED){
-                    openAlbum();
+                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    AlbumUtils.startAlbumToClip(this);
+                }else{
+                    ToastUtil.toastShort("请给我们操作权限呐");
+                }
+                break;
+            case 112:
+                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    AlbumUtils.startAlbumToClip(this);
                 }else{
                     ToastUtil.toastShort("请给我们操作权限呐");
                 }
@@ -109,30 +118,43 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private void openAlbum(){
-        Intent openImage=new Intent(Intent.ACTION_PICK,null);
-        openImage.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
-        startActivityForResult(openImage, IntentConstants.OPEN_IMAGE);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode== Activity.RESULT_OK&&requestCode==IntentConstants.OPEN_IMAGE){
-            if (data!=null){
-                Uri selectImageUri=data.getData();
-                Bitmap bitmap=FileAndImageUtils.getBitmapFromUri(this,selectImageUri);
-                bmp= BitmapCompressUtils.ratio(bitmap,120,120);
-                imagePath = FileAndImageUtils.getPathUrlFromUri(App.getInstance().getContext(),selectImageUri);
-                if (selectImageUri!=null&&bmp!=null){
-                    GlideUtils.load(FileAndImageUtils.getByteFromBitmap(bmp),ivAvatar);
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case Constants.CROP_RESULT_CODE:
+                String path = data.getStringExtra(Constants.RETURN_CLIP_PHOTO);
+                Bitmap a=BitmapCompressUtils.ratio(path,200,200);
+                Bitmap b=BitmapFactory.decodeFile(path);
+                LogUtils.d(a.getByteCount()/1024+"!"+b.getByteCount()/1024);
+                bmp = BitmapFactory.decodeFile(path);
+                ivAvatar.setImageBitmap(bmp);
+                break;
+            case Constants.START_ALBUM_REQUESTCODE:
+                toClip(data.getData());
+                break;
+            case Constants.CAMERA_WITH_DATA:
+                // 照相机程序返回的,再次调用图片剪辑程序去修剪图片
+                if (imagePath!=null){
+                    toClip(data.getData());
                 }
-            }
+                break;
         }
     }
 
+    private void toClip(Uri data) {
+        imagePath= FileUtils.getRealPathFromUri(RegisterActivity.this, data);
+        Intent toClip=new Intent(this,ClipImageActivity.class);
+        toClip.putExtra(Constants.TO_CLIPACTIVITY,imagePath);
+        startActivityForResult(toClip,Constants.CROP_RESULT_CODE);
+    }
+
     private void login() {
-        //先判断网路问题
+        //先判断网络问题
         if (NetUtil.isNetworkAvailable()){
             if (!StringUtils.isEmpty(imagePath)
                     && !StringUtils.isEmpty(etAccount.getText().toString())
