@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
+import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.utils.StatusBarUtil;
 import com.example.greatbook.utils.SystemBarTintManager;
 import com.example.greatbook.utils.TransWindowUtils;
@@ -22,6 +23,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView{
     protected T presenter;
+    protected BaseAlertDialog dialog;
     private Unbinder unbinder;
 
     @Override
@@ -59,6 +61,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onDestroy();
         App.getInstance().removeActivity(this);
         unbinder.unbind();
+        if (dialog!=null){
+            dialog.dismiss();
+        }
     }
 
 

@@ -178,7 +178,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
     public void onViewClickedAdd() {
         alertDialog = new BaseAlertDialog.Builder(this)
                 .setContentView(R.layout.dialog_add_group)
-                .setWidthAndHeight(DpUtils.dp2px(250), DpUtils.dp2px(300))
+                .setWidthAndHeight(DpUtils.dp2px(250), DpUtils.dp2px(250))
                 .setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

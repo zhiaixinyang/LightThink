@@ -15,11 +15,20 @@ public class LLocalRecord extends AVObject{
     private String content;
     //对应的账号信息，用于网络同步
     private String belongId;
+    private String belongLocalId;
     //0：默认（总的）；1：代表鸡汤；2：代表短句；3：代表段子
     private int type;
     //自己的分组
     private Long groupId;
     private String groupTitle;
+
+    public String getBelongLocalId() {
+        return getString("belongLocalId");
+    }
+
+    public void setBelongLocalId(String belongLocalId) {
+        put("belongLocalId",belongLocalId);
+    }
 
     public Date getTime() {
         return getDate("time");

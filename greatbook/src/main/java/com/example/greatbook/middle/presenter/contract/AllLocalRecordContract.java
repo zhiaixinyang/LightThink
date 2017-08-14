@@ -17,11 +17,15 @@ public interface AllLocalRecordContract {
         void initLocalRecords();
         void deleteLocalRecord(LocalRecordRLV localRecord);
         void deleteLocalRecordToNet(LocalRecordRLV localRecord);
+        void updateLocalRecord(LocalRecordRLV localRecord, String title, String content);
+        void updateLocalRecordToNet(LocalRecord localRecord);
     }
 
     interface View extends BaseView {
         void initLocalRecords(List<LocalRecordRLV> records);
-        void deleteLocalGroupToNetReturn(String returnStr);
         void deleteLocalGroupReturn(String returnStr);
+        void deleteLocalGroupToNetReturn(String returnStr);
+        void updateLocalRecordReturn(String returnStr);
+        void updateLocalRecordToNetReturn(String returnStr);
     }
 }

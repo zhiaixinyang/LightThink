@@ -1,19 +1,23 @@
 package com.example.greatbook.middle.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
+import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.middle.adapter.AllLocalRecordAdapter;
 import com.example.greatbook.middle.presenter.AllLocalRecordPresenter;
 import com.example.greatbook.middle.presenter.contract.AllLocalRecordContract;
 import com.example.greatbook.model.LocalRecordRLV;
 import com.example.greatbook.model.event.LocalAddEvent;
+import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.LogUtils;
+import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
@@ -24,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by MDove on 2017/8/13.
@@ -73,8 +76,34 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
             }
 
             @Override
-            public void onAlter(int pos) {
-
+            public void onAlter(final int pos) {
+                dialog=new BaseAlertDialog.Builder(AllLocalRecordActivity.this)
+                        .setContentView(R.layout.dialog_set_local_record_or_group)
+                        .setWidthAndHeight(DpUtils.dp2px(250),DpUtils.dp2px(300))
+                        .create();
+                dialog.show();
+                final EditText etName=dialog.getView(R.id.et_record_or_group_name);
+                final EditText etContent=dialog.getView(R.id.et_record_or_group_content);
+                String name= StringUtils.isEmpty(data.get(pos).title)
+                        ?"未设置":data.get(pos).title;
+                String content=StringUtils.isEmpty(data.get(pos).content)
+                        ?"未设置":data.get(pos).content;
+                etContent.setText(content);
+                etName.setText(name);
+                dialog.setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setOnClickListener(R.id.btn_set_ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title=etName.getText().toString();
+                        String content=etContent.getText().toString();
+                        presenter.updateLocalRecord(data.get(pos),title,content);
+                    }
+                });
             }
         });
         rlvSetAllLocalRecord.setLayoutManager(new LinearLayoutManager(this));
@@ -96,6 +125,18 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
     @Override
     public void deleteLocalGroupToNetReturn(String returnStr) {
         LogUtils.d(TAG, returnStr);
+    }
+
+    @Override
+    public void updateLocalRecordReturn(String returnStr) {
+        ToastUtil.toastShort(returnStr);
+        dialog.dismiss();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateLocalRecordToNetReturn(String returnStr) {
+        LogUtils.d(TAG,returnStr);
     }
 
     @Override

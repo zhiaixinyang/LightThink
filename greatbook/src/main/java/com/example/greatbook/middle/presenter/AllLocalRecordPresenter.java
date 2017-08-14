@@ -1,9 +1,11 @@
 package com.example.greatbook.middle.presenter;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
@@ -23,6 +25,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by MDove on 2017/8/13.
@@ -97,6 +100,59 @@ public class AllLocalRecordPresenter extends RxPresenter<AllLocalRecordContract.
                                     }
                                 }
                             });
+                        }
+                    }
+                });
+            }
+        }).compose(RxUtil.<String>rxSchedulerHelper())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        mView.deleteLocalGroupToNetReturn(s);
+                    }
+                });
+        addSubscrebe(subscription);
+    }
+
+    @Override
+    public void updateLocalRecord(LocalRecordRLV localRecord, String title, String content) {
+        LocalRecord record=new LocalRecord();
+        record.setId(localRecord.id);
+        record.setContent(content);
+        record.setTitle(title);
+        localRecordDao.update(record);
+        mView.updateLocalRecordReturn("修改成功");
+        updateLocalRecordToNet(record);
+    }
+
+    @Override
+    public void updateLocalRecordToNet(final LocalRecord localRecord) {
+        Subscription subscription=Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(final Subscriber<? super String> subscriber) {
+                AVQuery<LLocalRecord> query=AVQuery.getQuery(LLocalRecord.class);
+                query.whereEqualTo("belongLocalId",localRecord.getId());
+                query.findInBackground(new FindCallback<LLocalRecord>() {
+                    @Override
+                    public void done(List<LLocalRecord> list, AVException e) {
+                        if (e==null&&!list.isEmpty()){
+                            LLocalRecord recordL=list.get(0);
+                            AVObject lLocalRecord= AVObject.createWithoutData("LLocalRecord", recordL.getObjectId());
+
+                            lLocalRecord.put("title",localRecord.getTitle());
+                            lLocalRecord.put("content",localRecord.getContent());
+                            lLocalRecord.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e==null){
+                                        subscriber.onNext("服务器内容修改成功");
+                                    }else{
+                                        subscriber.onNext("服务器修改失败："+e.getMessage());
+                                    }
+                                }
+                            });
+                        }else{
+                            subscriber.onNext("服务器修改失败："+e.getMessage());
                         }
                     }
                 });

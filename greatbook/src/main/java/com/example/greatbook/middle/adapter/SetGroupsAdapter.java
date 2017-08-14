@@ -41,7 +41,11 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
         holder.setOnClickListener(R.id.btn_alter, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (localGroup.getId()>3) {
+                    mOnSwipeListener.onAlter(holder.getAdapterPosition());
+                }else{
+                    ToastUtil.toastShort("不修改删掉默认的文库");
+                }
             }
         });
         holder.setOnClickListener(R.id.btn_delete, new View.OnClickListener() {
@@ -49,7 +53,6 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
             public void onClick(View v) {
                 if (null != mOnSwipeListener) {
                     if (localGroup.getId()>3) {
-
                         mOnSwipeListener.onDelete(holder.getAdapterPosition());
                     }else{
                         ToastUtil.toastShort("不可以删掉默认的文库");
@@ -65,8 +68,9 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
             }
         });
         holder.setText(R.id.tv_group_title, !StringUtils.isEmpty(
-                localGroup.getContent())?localGroup.getTitle():"未设置文集介绍");
-        holder.setText(R.id.tv_group_title,localGroup.getTitle());
+                localGroup.getContent())?localGroup.getTitle():"未设置文集名称");
+        holder.setText(R.id.tv_group_content,!StringUtils.isEmpty(
+                localGroup.getContent())?localGroup.getContent():"未设置文集介绍");
 
         View ivUserd=holder.getView(R.id.iv_userd);
         if (localGroup.getIsUserd()){

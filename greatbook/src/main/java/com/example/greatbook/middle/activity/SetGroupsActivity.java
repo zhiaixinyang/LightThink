@@ -3,16 +3,20 @@ package com.example.greatbook.middle.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
+import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.middle.adapter.SetGroupsAdapter;
 import com.example.greatbook.middle.model.SetGroupEvent;
 import com.example.greatbook.middle.presenter.SetGroupsPresenter;
 import com.example.greatbook.middle.presenter.contract.SetGroupsContract;
+import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.LogUtils;
+import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
@@ -71,7 +75,39 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
             }
 
             @Override
-            public void onAlter(int pos) {
+            public void onAlter(final int pos) {
+                dialog=new BaseAlertDialog.Builder(SetGroupsActivity.this)
+                        .setContentView(R.layout.dialog_set_local_record_or_group)
+                        .setWidthAndHeight(DpUtils.dp2px(250), DpUtils.dp2px(300))
+                        .create();
+                dialog.show();
+                final EditText etName=dialog.getView(R.id.et_record_or_group_name);
+                final EditText etContent=dialog.getView(R.id.et_record_or_group_content);
+                final String curName= StringUtils.isEmpty(data.get(pos).getTitle())
+                        ?"未设置":data.get(pos).getTitle();
+                final String curContent=StringUtils.isEmpty(data.get(pos).getContent())
+                        ?"未设置":data.get(pos).getContent();
+                etName.setText(curName);
+                etContent.setText(curContent);
+                dialog.setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.setOnClickListener(R.id.btn_set_ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String title=etName.getText().toString();
+                        String content=etContent.getText().toString();
+                        if (StringUtils.isEquals(curName,title)&&
+                                StringUtils.isEquals(curContent,content)){
+                            ToastUtil.toastShort("未修改任何任何");
+                        }else {
+                            presenter.updateGroupMes(data.get(pos), title, content);
+                        }
+                    }
+                });
 
             }
         });
@@ -88,6 +124,18 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
     @Override
     public void deleteLocalGroupReturn(String returnStr) {
         ToastUtil.toastShort(returnStr);
+    }
+
+    @Override
+    public void updateGroupMesReturn(String returnStr) {
+        dialog.dismiss();
+        adapter.notifyDataSetChanged();
+        ToastUtil.toastShort(returnStr);
+    }
+
+    @Override
+    public void updateGroupMesToNetReturn(String returnStr) {
+        LogUtils.d(TAG,returnStr);
     }
 
     @Override

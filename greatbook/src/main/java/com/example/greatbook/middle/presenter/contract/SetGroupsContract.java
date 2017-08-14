@@ -16,12 +16,16 @@ public interface SetGroupsContract {
         void deleteLocalGroup(LocalGroup localGroup);
         void deleteLocalGroupToNet(LocalGroup localGroup);
         void setUserdGroups(List<LocalGroup> groups,int pos);
+        void updateGroupMes(LocalGroup group, String title, String content);
+        void updateGroupMesToNet(LocalGroup group);
         void initLocalGroup();
     }
 
     interface View extends BaseView {
         void deleteLocalGroupToNetReturn(String returnStr);
         void deleteLocalGroupReturn(String returnStr);
+        void updateGroupMesReturn(String returnStr);
+        void updateGroupMesToNetReturn(String returnStr);
         void initLocalGroup(List<LocalGroup> groups);
         void returnSetUserdGroups(List<LocalGroup> groups);
         void userdGroupsIsOver();

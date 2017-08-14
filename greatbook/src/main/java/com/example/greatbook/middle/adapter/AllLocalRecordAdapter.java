@@ -1,4 +1,4 @@
-package com.example.greatbook.middle.activity;
+package com.example.greatbook.middle.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -32,7 +32,7 @@ public class AllLocalRecordAdapter extends CommonAdapter<LocalRecordRLV> {
         holder.setOnClickListener(R.id.btn_alter, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mOnSwipeListener.onAlter(holder.getAdapterPosition());
             }
         });
         holder.setOnClickListener(R.id.btn_delete, new View.OnClickListener() {

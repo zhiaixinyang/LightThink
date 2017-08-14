@@ -1,9 +1,13 @@
 package com.example.greatbook.middle.presenter;
 
+import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.CloudQueryCallback;
 import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
@@ -11,6 +15,7 @@ import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.middle.adapter.SetGroupsAdapter;
 import com.example.greatbook.middle.presenter.contract.SetGroupsContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
+import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.utils.RxUtil;
 import com.example.greatbook.utils.ToastUtil;
 
@@ -20,6 +25,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by MDove on 2017/8/13.
@@ -108,6 +114,57 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
                 mView.returnSetUserdGroups(groups);
             }
         }
+    }
+
+    @Override
+    public void updateGroupMes(LocalGroup group, String title, String content) {
+        group.setTitle(title);
+        group.setContent(content);
+        localGroupDao.update(group);
+        mView.updateGroupMesReturn("修改完毕");
+        updateGroupMesToNet(group);
+    }
+    @Override
+    public void updateGroupMesToNet(final LocalGroup group) {
+
+        Subscription subscription=Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(final Subscriber<? super String> subscriber) {
+                AVQuery<LLocalGroup> query=AVQuery.getQuery(LLocalGroup.class);
+                query.whereEqualTo("groupId",group.getId());
+                query.findInBackground(new FindCallback<LLocalGroup>() {
+                    @Override
+                    public void done(List<LLocalGroup> list, AVException e) {
+                        if (e==null&&!list.isEmpty()){
+                            LLocalGroup groupL=list.get(0);
+
+                            AVObject lLocalGroup= AVObject.createWithoutData("LLocalGroup", groupL.getObjectId());
+                            lLocalGroup.put("title",group.getTitle());
+                            lLocalGroup.put("content",group.getContent());
+                            lLocalGroup.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e==null){
+                                        mView.updateGroupMesToNetReturn("服务器修改成功");
+                                    }else{
+                                        mView.updateGroupMesToNetReturn("服务器修改失败：");
+                                    }
+                                }
+                            });
+                        }else{
+                            mView.updateGroupMesToNetReturn("服务器修改失败：");
+                        }
+                    }
+                });
+            }
+        }).compose(RxUtil.<String>rxSchedulerHelper())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        mView.updateGroupMesToNetReturn(s);
+                    }
+                });
+        addSubscrebe(subscription);
     }
 
     @Override

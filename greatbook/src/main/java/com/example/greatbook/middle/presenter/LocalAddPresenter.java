@@ -46,6 +46,7 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
         lLocalRecord.setTime(localRecord.getTimeDate());
         lLocalRecord.setTitle(localRecord.getTitle());
         lLocalRecord.setType(localRecord.getType());
+        lLocalRecord.setBelongLocalId(localRecord.getId()+"");
         Subscription subscription= Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(final Subscriber<? super String> subscriber) {

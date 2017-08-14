@@ -51,7 +51,6 @@ public class MiddleLocalAddPresenter extends RxPresenter<MiddleLocalAddContract.
                                 localRLV.title=local.getTitle();
                                 localRLV.time= local.getTimeDate();
                                 localRLV.type=local.getType();
-
                                 data.add(localRLV);
                             }
                             mView.initLocalRecordSuc(data);
