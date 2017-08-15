@@ -12,7 +12,7 @@
         android:icon="@mipmap/icon"
         android:label="@string/app_name" android:supportsRtl="true"
         android:theme="@style/TestDayNight">
-        <activity android:name=".ui.main.activity.MainActivity"
+        <activity android:name=".ui.main.activity.MainNewActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask">
             <intent-filter>
@@ -39,7 +39,10 @@
         <activity android:name=".ui.main.activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.activity.TalkAboutActivity"
+        <activity android:name=".middle.activity.TalkAboutActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
+        <activity android:name=".ui.main.activity.SendTalkAboutActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity android:name=".ui.book.BookTalkActivity"

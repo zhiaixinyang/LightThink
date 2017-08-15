@@ -5,8 +5,7 @@ import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.middle.presenter.contract.MiddleLocalAddContract;
-import com.example.greatbook.model.LocalRecordRLV;
-import com.example.greatbook.utils.DateUtils;
+import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.ArrayList;

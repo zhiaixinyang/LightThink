@@ -1,7 +1,6 @@
 package com.example.greatbook.middle.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +13,7 @@ import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.LocalRecord;
-import com.example.greatbook.middle.model.SetGroupEvent;
+import com.example.greatbook.middle.model.event.SetGroupEvent;
 import com.example.greatbook.middle.presenter.LocalAddPresenter;
 import com.example.greatbook.middle.presenter.contract.LocalAddContract;
 import com.example.greatbook.model.event.LocalAddEvent;
@@ -81,6 +80,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
                     }
                 })
                 .setTitleText("随手记")
+                .setLeftResId(R.drawable.btn_back_)
                 .setRightResId(R.drawable.btn_send)
                 .setOnRightClickListener(new View.OnClickListener() {
                     @Override

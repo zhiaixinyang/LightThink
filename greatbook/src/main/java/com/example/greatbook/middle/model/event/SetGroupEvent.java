@@ -1,4 +1,4 @@
-package com.example.greatbook.middle.model;
+package com.example.greatbook.middle.model.event;
 
 /**
  * Created by MDove on 2017/8/13.

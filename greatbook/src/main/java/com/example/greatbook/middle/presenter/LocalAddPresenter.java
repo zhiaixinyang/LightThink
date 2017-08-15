@@ -14,6 +14,7 @@ import com.example.greatbook.middle.presenter.contract.LocalAddContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.model.leancloud.User;
+import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
 import com.example.greatbook.utils.StringUtils;
 
@@ -40,46 +41,48 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
     }
     @Override
     public void sendContentToNet(LocalRecord localRecord) {
-        User user=AVUser.getCurrentUser(User.class);
-        if (user!=null) {
-            final LLocalRecord lLocalRecord = new LLocalRecord();
-            lLocalRecord.setContent(localRecord.getContent());
-            lLocalRecord.setBelongId(localRecord.getBelongId());
-            lLocalRecord.setGroupTitle(localRecord.getGroupTitle());
-            lLocalRecord.setGroupId(localRecord.getGroupId());
-            lLocalRecord.setTime(localRecord.getTimeDate());
-            lLocalRecord.setTitle(localRecord.getTitle());
-            lLocalRecord.setType(localRecord.getType());
-            lLocalRecord.setBelongLocalId(localRecord.getId() + "");
-            lLocalRecord.setLikeNum(0);
-            Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
-                @Override
-                public void call(final Subscriber<? super String> subscriber) {
-                    lLocalRecord.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(AVException e) {
-                            if (e == null) {
-                                subscriber.onNext("上传至服务器");
-                            } else {
-                                subscriber.onNext(e.getMessage());
+        if (NetUtil.isNetworkAvailable()) {
+            User user = AVUser.getCurrentUser(User.class);
+            if (user != null) {
+                final LLocalRecord lLocalRecord = new LLocalRecord();
+                lLocalRecord.setContent(localRecord.getContent());
+                lLocalRecord.setBelongId(localRecord.getBelongId());
+                lLocalRecord.setGroupTitle(localRecord.getGroupTitle());
+                lLocalRecord.setGroupId(localRecord.getGroupId());
+                lLocalRecord.setTime(localRecord.getTimeDate());
+                lLocalRecord.setTitle(localRecord.getTitle());
+                lLocalRecord.setType(localRecord.getType());
+                lLocalRecord.setBelongLocalId(localRecord.getId() + "");
+                lLocalRecord.setLikeNum(0);
+                Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(final Subscriber<? super String> subscriber) {
+                        lLocalRecord.saveInBackground(new SaveCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                if (e == null) {
+                                    subscriber.onNext("上传至服务器");
+                                } else {
+                                    subscriber.onNext(e.getMessage());
 
+                                }
                             }
-                        }
-                    });
-                }
-            }).compose(RxUtil.<String>rxSchedulerHelper())
-                    .subscribe(new Action1<String>() {
-                        @Override
-                        public void call(String s) {
-                            mView.sendContentToNetSuc(s);
-                        }
-                    }, new Action1<Throwable>() {
-                        @Override
-                        public void call(Throwable throwable) {
-                            mView.sendContentToNetError(throwable.getMessage());
-                        }
-                    });
-            addSubscrebe(subscription);
+                        });
+                    }
+                }).compose(RxUtil.<String>rxSchedulerHelper())
+                        .subscribe(new Action1<String>() {
+                            @Override
+                            public void call(String s) {
+                                mView.sendContentToNetSuc(s);
+                            }
+                        }, new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                mView.sendContentToNetError(throwable.getMessage());
+                            }
+                        });
+                addSubscrebe(subscription);
+            }
         }
     }
 
@@ -132,36 +135,38 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
 
     @Override
     public void addNewLocalGroupToNet(final LocalGroup localGroup) {
-        Subscription subscription=Observable.create(
-                new Observable.OnSubscribe<String>() {
-                    @Override
-                    public void call(final Subscriber<? super String> subscriber) {
-                        LLocalGroup lLocalGroup=new LLocalGroup();
-                        lLocalGroup.setContent(localGroup.getContent());
-                        lLocalGroup.setGroupId(localGroup.getId());
-                        lLocalGroup.setTitle(localGroup.getTitle());
-                        lLocalGroup.setBelongId(localGroup.getBelongId());
-                        lLocalGroup.setAttentionNum(0);
-                        lLocalGroup.setUserd(false);
-                        lLocalGroup.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(AVException e) {
-                                if (e==null){
-                                    subscriber.onNext("上传服务器成功");
-                                }else{
-                                    subscriber.onNext("上传失败："+e.getMessage());
+        if (NetUtil.isNetworkAvailable()) {
+            Subscription subscription = Observable.create(
+                    new Observable.OnSubscribe<String>() {
+                        @Override
+                        public void call(final Subscriber<? super String> subscriber) {
+                            LLocalGroup lLocalGroup = new LLocalGroup();
+                            lLocalGroup.setContent(localGroup.getContent());
+                            lLocalGroup.setGroupId(localGroup.getId());
+                            lLocalGroup.setTitle(localGroup.getTitle());
+                            lLocalGroup.setBelongId(localGroup.getBelongId());
+                            lLocalGroup.setAttentionNum(0);
+                            lLocalGroup.setUserd(false);
+                            lLocalGroup.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(AVException e) {
+                                    if (e == null) {
+                                        subscriber.onNext("上传服务器成功");
+                                    } else {
+                                        subscriber.onNext("上传失败：" + e.getMessage());
+                                    }
                                 }
-                            }
-                        });
-                    }
-                }).compose(RxUtil.<String>rxSchedulerHelper())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        mView.sendNewLocalGroupToNetReturn(s);
-                    }
-                });
-        addSubscrebe(subscription);
+                            });
+                        }
+                    }).compose(RxUtil.<String>rxSchedulerHelper())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            mView.sendNewLocalGroupToNetReturn(s);
+                        }
+                    });
+            addSubscrebe(subscription);
+        }
     }
 
     @Override

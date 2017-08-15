@@ -8,14 +8,12 @@ import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.base.RxPresenter;
-import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
-import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.middle.presenter.contract.AllLocalRecordContract;
-import com.example.greatbook.model.LocalRecordRLV;
+import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.model.leancloud.LLocalRecord;
-import com.example.greatbook.utils.DateUtils;
+import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.ArrayList;
@@ -25,7 +23,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by MDove on 2017/8/13.
@@ -127,43 +124,45 @@ public class AllLocalRecordPresenter extends RxPresenter<AllLocalRecordContract.
 
     @Override
     public void updateLocalRecordToNet(final LocalRecord localRecord) {
-        Subscription subscription=Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                AVQuery<LLocalRecord> query=AVQuery.getQuery(LLocalRecord.class);
-                query.whereEqualTo("belongLocalId",localRecord.getId());
-                query.findInBackground(new FindCallback<LLocalRecord>() {
-                    @Override
-                    public void done(List<LLocalRecord> list, AVException e) {
-                        if (e==null&&!list.isEmpty()){
-                            LLocalRecord recordL=list.get(0);
-                            AVObject lLocalRecord= AVObject.createWithoutData("LLocalRecord", recordL.getObjectId());
+        if (NetUtil.isNetworkAvailable()) {
+            Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
+                @Override
+                public void call(final Subscriber<? super String> subscriber) {
+                    AVQuery<LLocalRecord> query = AVQuery.getQuery(LLocalRecord.class);
+                    query.whereEqualTo("belongLocalId", localRecord.getId());
+                    query.findInBackground(new FindCallback<LLocalRecord>() {
+                        @Override
+                        public void done(List<LLocalRecord> list, AVException e) {
+                            if (e == null && !list.isEmpty()) {
+                                LLocalRecord recordL = list.get(0);
+                                AVObject lLocalRecord = AVObject.createWithoutData("LLocalRecord", recordL.getObjectId());
 
-                            lLocalRecord.put("title",localRecord.getTitle());
-                            lLocalRecord.put("content",localRecord.getContent());
-                            lLocalRecord.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(AVException e) {
-                                    if (e==null){
-                                        subscriber.onNext("服务器内容修改成功");
-                                    }else{
-                                        subscriber.onNext("服务器修改失败："+e.getMessage());
+                                lLocalRecord.put("title", localRecord.getTitle());
+                                lLocalRecord.put("content", localRecord.getContent());
+                                lLocalRecord.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        if (e == null) {
+                                            subscriber.onNext("服务器内容修改成功");
+                                        } else {
+                                            subscriber.onNext("服务器修改失败：" + e.getMessage());
+                                        }
                                     }
-                                }
-                            });
-                        }else{
-                            subscriber.onNext("服务器修改失败："+e.getMessage());
+                                });
+                            } else {
+                                subscriber.onNext("服务器修改失败：" + e.getMessage());
+                            }
                         }
-                    }
-                });
-            }
-        }).compose(RxUtil.<String>rxSchedulerHelper())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        mView.deleteLocalGroupToNetReturn(s);
-                    }
-                });
-        addSubscrebe(subscription);
+                    });
+                }
+            }).compose(RxUtil.<String>rxSchedulerHelper())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            mView.deleteLocalGroupToNetReturn(s);
+                        }
+                    });
+            addSubscrebe(subscription);
+        }
     }
 }

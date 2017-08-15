@@ -2,8 +2,8 @@ package com.example.greatbook.middle.presenter.contract;
 
 import com.example.greatbook.base.BasePresenter;
 import com.example.greatbook.base.BaseView;
-import com.example.greatbook.model.DiscoveryTopGroup;
-import com.example.greatbook.model.LocalRecordRLV;
+import com.example.greatbook.middle.model.DiscoveryRecord;
+import com.example.greatbook.middle.model.DiscoveryTopGroup;
 
 import java.util.List;
 
@@ -14,10 +14,13 @@ import java.util.List;
 public interface MiddleDiscoveryContract {
     interface Presenter extends BasePresenter<MiddleDiscoveryContract.View> {
         void initDiscoveryTop();
+        void initDiscoveryRecord();
     }
 
     interface View extends BaseView {
-        void initDiscoveryTopError(String error);
-        void initDiscoveryTopSuc(List<DiscoveryTopGroup> topGroups);
+        void initDiscoveryGroupError(String error);
+        void initDiscoveryRecordError(String error);
+        void initDiscoveryGroupSuc(List<DiscoveryTopGroup> topGroups);
+        void initDiscoveryRecordSuc(List<DiscoveryRecord> topGroups);
     }
 }

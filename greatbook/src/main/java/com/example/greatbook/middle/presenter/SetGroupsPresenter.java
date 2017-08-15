@@ -16,6 +16,7 @@ import com.example.greatbook.middle.adapter.SetGroupsAdapter;
 import com.example.greatbook.middle.presenter.contract.SetGroupsContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
+import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
 import com.example.greatbook.utils.ToastUtil;
 
@@ -46,41 +47,43 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
 
     @Override
     public void deleteLocalGroupToNet(final LocalGroup localGroup) {
-        Subscription subscription=Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                AVQuery<LLocalGroup> query=AVQuery.getQuery(LLocalGroup.class);
-                query.whereEqualTo("groupId",localGroup.getId());
-                query.findInBackground(new FindCallback<LLocalGroup>() {
-                    @Override
-                    public void done(List<LLocalGroup> list, AVException e) {
-                        if (e==null&&!list.isEmpty()){
-                            list.get(0).deleteInBackground(new DeleteCallback() {
-                                @Override
-                                public void done(AVException e) {
-                                    if (e==null){
-                                        subscriber.onNext("服务器删除成功");
-                                    }else{
-                                        subscriber.onNext("服务器删除失败："+e.getMessage());
+        if (NetUtil.isNetworkAvailable()) {
+            Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
+                @Override
+                public void call(final Subscriber<? super String> subscriber) {
+                    AVQuery<LLocalGroup> query = AVQuery.getQuery(LLocalGroup.class);
+                    query.whereEqualTo("groupId", localGroup.getId());
+                    query.findInBackground(new FindCallback<LLocalGroup>() {
+                        @Override
+                        public void done(List<LLocalGroup> list, AVException e) {
+                            if (e == null && !list.isEmpty()) {
+                                list.get(0).deleteInBackground(new DeleteCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        if (e == null) {
+                                            subscriber.onNext("服务器删除成功");
+                                        } else {
+                                            subscriber.onNext("服务器删除失败：" + e.getMessage());
 
+                                        }
                                     }
-                                }
-                            });
-                        }else{
-                            subscriber.onNext("服务器删除失败");
+                                });
+                            } else {
+                                subscriber.onNext("服务器删除失败");
 
+                            }
                         }
-                    }
-                });
-            }
-        }).compose(RxUtil.<String>rxSchedulerHelper())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        mView.deleteLocalGroupToNetReturn(s);
-                    }
-                });
-        addSubscrebe(subscription);
+                    });
+                }
+            }).compose(RxUtil.<String>rxSchedulerHelper())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            mView.deleteLocalGroupToNetReturn(s);
+                        }
+                    });
+            addSubscrebe(subscription);
+        }
     }
 
     @Override
@@ -126,45 +129,46 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
     }
     @Override
     public void updateGroupMesToNet(final LocalGroup group) {
+        if (NetUtil.isNetworkAvailable()) {
+            Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
+                @Override
+                public void call(final Subscriber<? super String> subscriber) {
+                    AVQuery<LLocalGroup> query = AVQuery.getQuery(LLocalGroup.class);
+                    query.whereEqualTo("groupId", group.getId());
+                    query.findInBackground(new FindCallback<LLocalGroup>() {
+                        @Override
+                        public void done(List<LLocalGroup> list, AVException e) {
+                            if (e == null && !list.isEmpty()) {
+                                LLocalGroup groupL = list.get(0);
 
-        Subscription subscription=Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                AVQuery<LLocalGroup> query=AVQuery.getQuery(LLocalGroup.class);
-                query.whereEqualTo("groupId",group.getId());
-                query.findInBackground(new FindCallback<LLocalGroup>() {
-                    @Override
-                    public void done(List<LLocalGroup> list, AVException e) {
-                        if (e==null&&!list.isEmpty()){
-                            LLocalGroup groupL=list.get(0);
-
-                            AVObject lLocalGroup= AVObject.createWithoutData("LLocalGroup", groupL.getObjectId());
-                            lLocalGroup.put("title",group.getTitle());
-                            lLocalGroup.put("content",group.getContent());
-                            lLocalGroup.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(AVException e) {
-                                    if (e==null){
-                                        mView.updateGroupMesToNetReturn("服务器修改成功");
-                                    }else{
-                                        mView.updateGroupMesToNetReturn("服务器修改失败：");
+                                AVObject lLocalGroup = AVObject.createWithoutData("LLocalGroup", groupL.getObjectId());
+                                lLocalGroup.put("title", group.getTitle());
+                                lLocalGroup.put("content", group.getContent());
+                                lLocalGroup.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        if (e == null) {
+                                            mView.updateGroupMesToNetReturn("服务器修改成功");
+                                        } else {
+                                            mView.updateGroupMesToNetReturn("服务器修改失败：");
+                                        }
                                     }
-                                }
-                            });
-                        }else{
-                            mView.updateGroupMesToNetReturn("服务器修改失败：");
+                                });
+                            } else {
+                                mView.updateGroupMesToNetReturn("服务器修改失败：");
+                            }
                         }
-                    }
-                });
-            }
-        }).compose(RxUtil.<String>rxSchedulerHelper())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        mView.updateGroupMesToNetReturn(s);
-                    }
-                });
-        addSubscrebe(subscription);
+                    });
+                }
+            }).compose(RxUtil.<String>rxSchedulerHelper())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            mView.updateGroupMesToNetReturn(s);
+                        }
+                    });
+            addSubscrebe(subscription);
+        }
     }
 
     @Override

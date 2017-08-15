@@ -4,27 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
+    <RelativeLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/item_middle_local_add_margin"
+        android:layout_height="@dimen/item_rlv_discovery_record_iv_w_h">
+        <com.example.greatbook.widght.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:src="@drawable/no_avatar"
+            android:layout_width="@dimen/item_rlv_discovery_record_iv_w_h"
+            android:layout_height="@dimen/item_rlv_discovery_record_iv_w_h" />
+        <TextView
+            android:id="@+id/tv_nick"
+            android:textColor="@color/purple"
+            android:textSize="12sp"
+            android:text="昵称"
+            android:layout_toRightOf="@+id/iv_avatar"
+            android:layout_marginLeft="12dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_group_title"
+            android:layout_width="wrap_content"
+            android:text="分组信息"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:padding="4dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_group_title"
-        android:layout_width="wrap_content"
-        android:text="分组信息"
-        android:textSize="12sp"
-        android:textColor="@color/white"
-        android:padding="4dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/item_middle_local_add_margin"
-        android:layout_marginTop="@dimen/item_middle_local_add_margin"
-        android:layout_height="wrap_content" />
+
 
     <TextView
         android:id="@+id/tv_title"
         android:text="标题"
+        android:layout_below="@+id/topPanel"
         android:textColor="@color/black"
         android:textSize="12sp"
         android:layout_marginLeft="@dimen/item_middle_local_add_margin"
         android:layout_marginBottom="@dimen/item_middle_local_add_margin"
-        android:layout_marginTop="@dimen/item_middle_local_add_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -33,7 +53,8 @@
         android:text="内容"
         android:layout_marginBottom="@dimen/item_middle_local_add_margin"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:maxLines="2"
         android:layout_alignLeft="@+id/tv_title"
         android:layout_below="@+id/tv_title"
         android:layout_width="wrap_content"
@@ -44,16 +65,14 @@
         android:textColor="@color/gray"
         android:textSize="12sp"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_content"
+        android:layout_below="@+id/topPanel"
         android:layout_marginRight="@dimen/item_middle_local_add_margin"
-        android:layout_marginBottom="@dimen/item_middle_local_add_margin"
-        android:layout_marginTop="@dimen/item_middle_local_add_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
         android:layout_width="wrap_content"
         android:layout_height="4dp"
-        android:layout_below="@+id/tv_time"
+        android:layout_below="@+id/tv_content"
         android:layout_marginTop="@dimen/item_middle_local_add_margin"
         android:background="@color/gray_light"/>
 </RelativeLayout>

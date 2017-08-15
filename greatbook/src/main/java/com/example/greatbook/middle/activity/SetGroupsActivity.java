@@ -11,7 +11,7 @@ import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.middle.adapter.SetGroupsAdapter;
-import com.example.greatbook.middle.model.SetGroupEvent;
+import com.example.greatbook.middle.model.event.SetGroupEvent;
 import com.example.greatbook.middle.presenter.SetGroupsPresenter;
 import com.example.greatbook.middle.presenter.contract.SetGroupsContract;
 import com.example.greatbook.utils.DpUtils;

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,10 +17,9 @@ import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.middle.activity.AllLocalRecordActivity;
-import com.example.greatbook.middle.model.SetGroupEvent;
 import com.example.greatbook.middle.presenter.MiddleLocalAddPresenter;
 import com.example.greatbook.middle.presenter.contract.MiddleLocalAddContract;
-import com.example.greatbook.model.LocalRecordRLV;
+import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.model.event.LocalAddEvent;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
@@ -48,14 +46,6 @@ import butterknife.OnClick;
 public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPresenter> implements MiddleLocalAddContract.View,
         RefreshRecyclerView.OnRefreshListener{
     private final String TAG="MiddleLocalAddFragment";
-    @BindView(R.id.menu_encourage)
-    LinearLayout menuEncourage;
-    @BindView(R.id.menu_jok)
-    LinearLayout menuJok;
-    @BindView(R.id.menu_short_essay)
-    LinearLayout menuShortEssay;
-    @BindView(R.id.menu_all)
-    LinearLayout menuAll;
     @BindView(R.id.rlv_local)
     LoadRefreshRecyclerView rlvLocal;
     @BindView(R.id.tv_empty_view)
@@ -134,18 +124,14 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.menu_encourage, R.id.menu_jok, R.id.menu_short_essay,R.id.menu_all})
+    @OnClick({R.id.menu_all, R.id.menu_photo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.menu_encourage:
-                break;
-            case R.id.menu_jok:
-                break;
-            case R.id.menu_short_essay:
-                break;
             case R.id.menu_all:
                 Intent toAll =new Intent(context, AllLocalRecordActivity.class);
                 startActivity(toAll);
+                break;
+            case R.id.menu_photo:
                 break;
         }
     }

@@ -19,6 +19,7 @@ import com.example.greatbook.middle.fragment.MiddleMainFragment;
 import com.example.greatbook.ui.main.fragment.MainFristFragment;
 import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.ScaleTransitionPagerTitleView;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -57,6 +58,7 @@ public class MainActivity extends BaseActivity{
 
     @Override
     public void init() {
+
         myPrivateFragment=MyPrivateFragment.newInstance();
         mainFristFragment = MainFristFragment.newInstance();
         middleMainFragment = MiddleMainFragment.newInstance();

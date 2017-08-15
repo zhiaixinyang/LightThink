@@ -30,6 +30,7 @@ public class DefaultNavigationBar extends AbsNavigationBar {
         setText(R.id.tv_middle, P.titleString);
         setOnClickListener(R.id.btn_back,P.onLeftClickListener);
         setImagViewResource(R.id.btn_right,P.rightResId);
+        setImagViewResource(R.id.iv_back,P.leftResId);
         setOnClickListener(R.id.btn_right,P.onRightClickListener);
     }
 
@@ -47,6 +48,11 @@ public class DefaultNavigationBar extends AbsNavigationBar {
 
         public DefaultNavigationBar.Builder setLeftText(String leftString){
             P.leftString=leftString;
+            return this;
+        }
+
+        public DefaultNavigationBar.Builder setLeftResId(int leftResId){
+            P.leftResId=leftResId;
             return this;
         }
 
@@ -86,6 +92,7 @@ public class DefaultNavigationBar extends AbsNavigationBar {
             public String leftString;
             public String titleString;
             public int rightResId;
+            public int leftResId;
             public View.OnClickListener onLeftClickListener;
             public View.OnClickListener onRightClickListener;
 

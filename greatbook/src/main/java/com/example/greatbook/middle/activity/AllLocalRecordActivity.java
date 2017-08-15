@@ -13,7 +13,7 @@ import com.example.greatbook.constants.Constants;
 import com.example.greatbook.middle.adapter.AllLocalRecordAdapter;
 import com.example.greatbook.middle.presenter.AllLocalRecordPresenter;
 import com.example.greatbook.middle.presenter.contract.AllLocalRecordContract;
-import com.example.greatbook.model.LocalRecordRLV;
+import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.model.event.LocalAddEvent;
 import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.LogUtils;
@@ -61,7 +61,9 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
                         finish();
                     }
                 })
-                .setTitleText("我的全部内容").builder();
+                .setTitleText("我的全部内容")
+                .setLeftResId(R.drawable.btn_back_)
+                .builder();
         data = new ArrayList<>();
         adapter = new AllLocalRecordAdapter(this, R.layout.item_set_all_local_record, data);
         adapter.setOnSwipeListener(new OnSwipeListener() {
@@ -114,6 +116,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
 
     @Override
     public void initLocalRecords(List<LocalRecordRLV> records) {
+        data=records;
         if (records.isEmpty()){
             tvEmptyView.setVisibility(View.VISIBLE);
         }else {

@@ -1,20 +1,28 @@
 package com.example.greatbook.middle.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
+import com.ethanhua.skeleton.Skeleton;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
+import com.example.greatbook.middle.adapter.DiscoveryRecordAdapter;
 import com.example.greatbook.middle.adapter.MiddleDiscoveryAdapter;
+import com.example.greatbook.middle.model.DiscoveryRecord;
 import com.example.greatbook.middle.presenter.MiddleDiscoveryPresenter;
 import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
-import com.example.greatbook.model.DiscoveryTopGroup;
+import com.example.greatbook.middle.model.DiscoveryTopGroup;
+import com.example.greatbook.model.HeadlineBean;
+import com.example.greatbook.middle.activity.TalkAboutActivity;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.AdHeadline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +38,19 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     TextView tvDiscoveryTitle;
     @BindView(R.id.rlv_discovery_top)
     RecyclerView rlvDiscoveryTop;
-    private List<DiscoveryTopGroup> data;
-    private MiddleDiscoveryAdapter adapter;
+    @BindView(R.id.rlv_discovery_record)
+    RecyclerView rlvDiscoveryRecord;
+    @BindView(R.id.talk_about_headline)
+    AdHeadline headline;
+    private List<DiscoveryTopGroup> dataGroups;
+    private List<DiscoveryRecord> dataRecords;
+    private MiddleDiscoveryAdapter adapterGroup;
     private Context context;
     private MiddleDiscoveryPresenter presenter;
+    private DiscoveryRecordAdapter adapterRecord;
+    private RecyclerViewSkeletonScreen skeletonScreenGroup;
+    private RecyclerViewSkeletonScreen skeletonScreenRecord;
+    private List<HeadlineBean> talkABoutData;
 
     public static MiddleDiscoveryFragment newInstance() {
         Bundle args = new Bundle();
@@ -50,24 +67,77 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void initViewsAndEvents(View view) {
-        presenter=new MiddleDiscoveryPresenter(this);
-        data=new ArrayList<>();
         context = App.getInstance().getContext();
-        adapter=new MiddleDiscoveryAdapter(context,R.layout.item_rlv_discovery_top,data);
+        presenter=new MiddleDiscoveryPresenter(this);
+        dataGroups =new ArrayList<>();
+        dataRecords=new ArrayList<>();
+        adapterGroup =new MiddleDiscoveryAdapter(context,R.layout.item_rlv_discovery_group, dataGroups);
+        adapterRecord=new DiscoveryRecordAdapter(context,R.layout.item_rlv_discovery_record,dataRecords);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rlvDiscoveryTop.setLayoutManager(linearLayoutManager);
-        rlvDiscoveryTop.setAdapter(adapter);
+        rlvDiscoveryTop.setAdapter(adapterGroup);
+
+        rlvDiscoveryRecord.setLayoutManager(new LinearLayoutManager(context));
+        rlvDiscoveryRecord.setAdapter(adapterRecord);
+        headline.setHeadlineClickListener(new AdHeadline.HeadlineClickListener() {
+            @Override
+            public void onHeadlineClick(HeadlineBean bean) {
+
+            }
+
+            @Override
+            public void onMoreClick() {
+                Intent toTalkAbout=new Intent(context, TalkAboutActivity.class);
+                startActivity(toTalkAbout);
+            }
+        });
     }
 
     @Override
     protected void onFirstUserVisible() {
+        talkABoutData=new ArrayList<>();
+        talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
+        talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
+        talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
+        headline.setData(talkABoutData);
+
         presenter.initDiscoveryTop();
+        presenter.initDiscoveryRecord();
+
+        showSkeleton();
+    }
+
+    private void showSkeleton() {
+        if (skeletonScreenGroup!=null){
+            skeletonScreenRecord.show();
+            skeletonScreenGroup.show();
+        }else {
+            skeletonScreenGroup = Skeleton.bind(rlvDiscoveryTop)
+                    .adapter(adapterGroup)
+                    .load(R.layout.item_skeleton_rlv_discovery_group)
+                    .count(5)
+                    .show();
+            skeletonScreenRecord = Skeleton.bind(rlvDiscoveryRecord)
+                    .adapter(adapterRecord)
+                    .load(R.layout.item_skeleton_rlv_discovery_record)
+                    .count(5)
+                    .show();
+        }
     }
 
     @Override
     protected void onUserVisible() {
+        talkABoutData=new ArrayList<>();
+        talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
+        talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
+        talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
+        headline.setData(talkABoutData);
+
         presenter.initDiscoveryTop();
+        presenter.initDiscoveryRecord();
+
+        showSkeleton();
     }
 
     @Override
@@ -76,13 +146,25 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     }
 
     @Override
-    public void initDiscoveryTopError(String error) {
+    public void initDiscoveryGroupError(String error) {
         ToastUtil.toastShort(error);
     }
 
     @Override
-    public void initDiscoveryTopSuc(List<DiscoveryTopGroup> topGroups) {
-        adapter.addData(topGroups);
+    public void initDiscoveryRecordError(String error) {
+        ToastUtil.toastShort(error);
+    }
+
+    @Override
+    public void initDiscoveryGroupSuc(List<DiscoveryTopGroup> topGroups) {
+        skeletonScreenGroup.hide();
+        adapterGroup.addData(topGroups);
+    }
+
+    @Override
+    public void initDiscoveryRecordSuc(List<DiscoveryRecord> topGroups) {
+        adapterRecord.addData(topGroups);
+        skeletonScreenRecord.hide();
     }
 
     @Override

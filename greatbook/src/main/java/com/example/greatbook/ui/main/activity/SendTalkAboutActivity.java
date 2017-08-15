@@ -34,7 +34,7 @@ import butterknife.BindView;
  * Created by MDove on 2016/11/24.
  */
 
-public class TalkAboutActivity extends BaseActivity implements View.OnClickListener{
+public class SendTalkAboutActivity extends BaseActivity implements View.OnClickListener{
     @BindView(R.id.btn_back) TextView btnBack;
     @BindView(R.id.et_content) EditText etContent;
     @BindView(R.id.iv_photo) ImageView ivPhoto;
@@ -48,7 +48,7 @@ public class TalkAboutActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_talk_about;
+        return R.layout.activity_send_talk_about;
     }
 
     @Override

@@ -61,7 +61,6 @@ public class MainFristFragment extends BaseLazyFragment<JokPresenter> implements
 
     @Override
     protected void initViewsAndEvents(View view) {
-        Log.d("aaa","1-initViewsAndEvents");
         adHeadline.setData(data);
         adHeadline.setHeadlineClickListener(new AdHeadline.HeadlineClickListener() {
             @Override

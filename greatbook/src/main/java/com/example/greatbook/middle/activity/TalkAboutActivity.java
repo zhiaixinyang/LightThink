@@ -1,32 +1,29 @@
-package com.example.greatbook.ui.main.fragment;
+package com.example.greatbook.middle.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
-import com.example.greatbook.base.BaseLazyFragment;
+import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.presenter.TalkAboutPresenter;
 import com.example.greatbook.presenter.contract.TalkAboutContract;
-import com.example.greatbook.ui.main.activity.TalkAboutActivity;
+import com.example.greatbook.ui.main.activity.SendTalkAboutActivity;
 import com.example.greatbook.ui.main.adapter.TalkAboutAdapter;
 import com.example.greatbook.utils.NetUtil;
-import com.example.greatbook.utils.SnackbarUtils;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.refresh.DefaultLoadCreator;
 import com.example.greatbook.widght.refresh.DefaultRefreshCreator;
 import com.example.greatbook.widght.refresh.LoadRefreshRecyclerView;
 import com.example.greatbook.widght.refresh.RefreshRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.github.jdsjlzx.util.RecyclerViewStateUtils;
 import com.github.jdsjlzx.view.LoadingFooter;
 
@@ -36,10 +33,10 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by MBENBEN on 2016/11/24.
+ * Created by MDove on 2016/11/24.
  */
 
-public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> implements TalkAboutContract.View,
+public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implements TalkAboutContract.View,
         View.OnClickListener, RefreshRecyclerView.OnRefreshListener,
         LoadRefreshRecyclerView.OnLoadMoreListener {
     @BindView(R.id.rlv_talk_about)
@@ -59,22 +56,21 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
     private int MAXT_BUN;
     private int currentNum = 0;
 
-    public static TalkAboutFragment newInstance() {
-        
-        Bundle args = new Bundle();
-        
-        TalkAboutFragment fragment = new TalkAboutFragment();
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_talk_about;
     }
 
     @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.frag_book_talk;
-    }
-
-    @Override
-    protected void initViewsAndEvents(View view) {
+    public void init() {
+        new DefaultNavigationBar.Builder(this,null)
+                .setLeftResId(R.drawable.btn_back_)
+                .setOnLeftClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).builder();
         data=new ArrayList<>();
         talkAboutPresenter = new TalkAboutPresenter(this);
         talkAboutAdapter = new TalkAboutAdapter(App.getInstance().getContext(),
@@ -121,23 +117,7 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
                 }
             }
         });
-    }
-
-    //第一次可见时初始化
-    @Override
-    protected void onFirstUserVisible() {
         talkAboutPresenter.getTalkAbout();
-    }
-
-    //非第一次可见的可见状态
-    @Override
-    protected void onUserVisible() {
-        //talkAboutPresenter.getTalkAbout();
-    }
-
-    //非第一次不可见的可见状态
-    @Override
-    protected void onUserInvisible() {
     }
 
     @Override
@@ -166,7 +146,9 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
 
     @Override
     public void showLoading() {
-        btnTalkAbout.setVisibility(View.GONE);
+        if (btnTalkAbout!=null) {
+            btnTalkAbout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -187,7 +169,7 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_talk:
-                Intent toTalk = new Intent(App.getInstance().getContext(), TalkAboutActivity.class);
+                Intent toTalk = new Intent(App.getInstance().getContext(), SendTalkAboutActivity.class);
                 startActivity(toTalk);
                 break;
         }
@@ -209,4 +191,6 @@ public class TalkAboutFragment extends BaseLazyFragment<TalkAboutPresenter> impl
     public void onLoadRlvRefresh() {
         talkAboutPresenter.getTalkAbout();
     }
+
+
 }

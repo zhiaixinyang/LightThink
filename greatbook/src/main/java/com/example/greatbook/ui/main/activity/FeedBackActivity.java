@@ -67,6 +67,7 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
         new DefaultNavigationBar.Builder(this,null)
                 .setLeftText("返回")
                 .setTitleText("意见反馈区")
+                .setLeftResId(R.drawable.btn_back_)
                 .setOnLeftClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

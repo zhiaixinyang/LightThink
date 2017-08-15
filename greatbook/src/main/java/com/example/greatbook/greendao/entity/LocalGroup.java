@@ -27,16 +27,19 @@ public class LocalGroup {
     private String belongId;
     //是否设置为常用文集
     private boolean isUserd;
+    private String groupPhotoPath;
 
-    @Generated(hash = 13023964)
+
+    @Generated(hash = 759903492)
     public LocalGroup(Long id, Date time, String title, String content,
-            String belongId, boolean isUserd) {
+            String belongId, boolean isUserd, String groupPhotoPath) {
         this.id = id;
         this.time = time;
         this.title = title;
         this.content = content;
         this.belongId = belongId;
         this.isUserd = isUserd;
+        this.groupPhotoPath = groupPhotoPath;
     }
 
     @Generated(hash = 648436687)
@@ -44,6 +47,13 @@ public class LocalGroup {
     }
 
 
+    public String getGroupPhotoPath() {
+        return groupPhotoPath;
+    }
+
+    public void setGroupPhotoPath(String groupPhotoPath) {
+        this.groupPhotoPath = groupPhotoPath;
+    }
 
     public boolean isUserd() {
         return isUserd;

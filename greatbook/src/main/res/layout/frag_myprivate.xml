@@ -18,6 +18,7 @@
             android:layout_marginBottom="@dimen/main_bottom_margin"
             android:background="@drawable/round_white"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tv_name"
                 android:text="书心用户"
@@ -27,47 +28,96 @@
                 android:textSize="@dimen/myprivate_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
+            <RelativeLayout
                 android:id="@+id/btn_adjust"
-                android:text="修改信息"
-                android:textColor="@color/black"
-                android:layout_marginTop="30dp"
-                android:textSize="@dimen/myprivate_size"
-                android:gravity="center"
+                android:layout_width="match_parent"
                 android:layout_below="@+id/tv_name"
-                android:background="@drawable/round_stroke_black"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/main_bottom_margin"
-                android:layout_marginRight="@dimen/main_bottom_margin"
-                android:layout_marginBottom="@dimen/main_bottom_margin"
-                android:layout_height="@dimen/myprivate_margin_h" />
-            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/icon_set"
+                    android:src="@drawable/btn_set"
+                    android:layout_marginLeft="@dimen/myprivate_btn_margin"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/myprivate_iv_w_h"
+                    android:layout_height="@dimen/myprivate_iv_w_h" />
+                <TextView
+                    android:text="修改信息"
+                    android:textColor="@color/black"
+                    android:layout_toRightOf="@+id/icon_set"
+                    android:textSize="@dimen/myprivate_size"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/myprivate_btn_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="@dimen/myprivate_iv_icon_w_h"
+                    android:src="@drawable/icon_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/myprivate_btn_margin"
+                    android:layout_height="@dimen/myprivate_iv_icon_w_h" />
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/btn_feedback"
-                android:text="意见反馈 / 共同进步"
-                android:textColor="@color/black"
-                android:textSize="@dimen/myprivate_size"
+                android:layout_width="match_parent"
                 android:layout_below="@+id/btn_adjust"
-                android:gravity="center"
-                android:background="@drawable/round_stroke_black"
-                android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/main_bottom_margin"
-                android:layout_marginRight="@dimen/main_bottom_margin"
-                android:layout_marginBottom="@dimen/main_bottom_margin"
-                android:layout_height="@dimen/myprivate_margin_h" />
-            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/icon_feedback"
+                    android:src="@drawable/btn_feedback"
+                    android:layout_marginLeft="@dimen/myprivate_btn_margin"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/myprivate_iv_w_h"
+                    android:layout_height="@dimen/myprivate_iv_w_h" />
+                <TextView
+                    android:text="意见反馈 / 共同进步"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/myprivate_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/icon_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/myprivate_btn_margin"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="@dimen/myprivate_iv_icon_w_h"
+                    android:src="@drawable/icon_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/myprivate_btn_margin"
+                    android:layout_height="@dimen/myprivate_iv_icon_w_h" />
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/btn_exit"
-                android:text="退出当前账号"
-                android:textColor="@color/black"
-                android:textSize="@dimen/myprivate_size"
+                android:layout_marginBottom="@dimen/myprivate_btn_margin"
                 android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:background="@drawable/round_stroke_black"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="@dimen/main_bottom_margin"
-                android:layout_marginRight="@dimen/main_bottom_margin"
-                android:layout_marginBottom="@dimen/main_bottom_margin"
-                android:layout_height="@dimen/myprivate_margin_h" />
-
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/icon_exit"
+                    android:src="@drawable/btn_exit"
+                    android:layout_marginLeft="@dimen/myprivate_btn_margin"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/myprivate_iv_w_h"
+                    android:layout_height="@dimen/myprivate_iv_w_h" />
+                <TextView
+                    android:text="退出当前账号"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/myprivate_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/icon_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/myprivate_btn_margin"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="@dimen/myprivate_iv_icon_w_h"
+                    android:src="@drawable/icon_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/myprivate_btn_margin"
+                    android:layout_height="@dimen/myprivate_iv_icon_w_h" />
+            </RelativeLayout>
         </RelativeLayout>
         <com.example.greatbook.widght.CircleImageView
             android:layout_marginTop="30dp"

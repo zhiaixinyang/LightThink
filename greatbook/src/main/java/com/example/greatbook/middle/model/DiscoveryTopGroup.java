@@ -1,4 +1,4 @@
-package com.example.greatbook.model;
+package com.example.greatbook.middle.model;
 
 import java.util.Date;
 

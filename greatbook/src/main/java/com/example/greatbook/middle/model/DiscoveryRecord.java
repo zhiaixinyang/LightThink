@@ -1,16 +1,13 @@
-package com.example.greatbook.model;
-
-/**
- * Created by MDove on 2017/8/12.
- */
+package com.example.greatbook.middle.model;
 
 import java.util.Date;
 
 /**
- * 用于适配粘性Item
+ * Created by MDove on 2017/8/14.
  */
-public class LocalRecordRLV {
-    public Long id;
+
+public class DiscoveryRecord {
+    public String id;
     public Date time;
     public String title;
     public String content;
@@ -21,5 +18,5 @@ public class LocalRecordRLV {
     //自己的分组id
     public Long groupId;
     public String groupTitle;
-    public int iconLabelId;
+    public int likeNum;
 }

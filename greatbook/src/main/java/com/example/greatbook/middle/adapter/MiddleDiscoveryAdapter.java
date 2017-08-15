@@ -4,12 +4,11 @@ import android.content.Context;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
-import com.example.greatbook.model.DiscoveryTopGroup;
+import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
