@@ -44,7 +44,7 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
                 if (localGroup.getId()>3) {
                     mOnSwipeListener.onAlter(holder.getAdapterPosition());
                 }else{
-                    ToastUtil.toastShort("不修改删掉默认的文库");
+                    ToastUtil.toastShort("不修改默认的文库");
                 }
             }
         });

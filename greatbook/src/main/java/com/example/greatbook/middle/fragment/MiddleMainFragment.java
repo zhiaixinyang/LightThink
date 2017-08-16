@@ -42,7 +42,7 @@ public class MiddleMainFragment extends LazyFragment {
     ImageView menuAdd;
     @BindView(R.id.btn_add)
     ImageView btnAdd;
-    @BindView(R.id.menu_talk)
+    @BindView(R.id.menu_my)
     ImageView menuTalk;
     private Context context;
 
@@ -118,7 +118,7 @@ public class MiddleMainFragment extends LazyFragment {
         });
     }
 
-    @OnClick({R.id.menu_discovery, R.id.menu_add, R.id.btn_add, R.id.menu_talk})
+    @OnClick({R.id.menu_discovery, R.id.menu_add, R.id.btn_add, R.id.menu_my})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.menu_discovery:
@@ -127,7 +127,7 @@ public class MiddleMainFragment extends LazyFragment {
             case R.id.menu_add:
                 selectTab2();
                 break;
-            case R.id.menu_talk:
+            case R.id.menu_my:
                 selectTab3();
                 break;
             case R.id.btn_add:

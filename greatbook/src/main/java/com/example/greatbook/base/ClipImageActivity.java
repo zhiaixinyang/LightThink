@@ -6,22 +6,16 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-
 import com.example.greatbook.R;
-import com.example.greatbook.utils.BitmapCompressUtils;
-import com.example.greatbook.utils.LogUtils;
-import com.example.greatbook.widght.clipimage.ClipImageLayout;
 import com.example.greatbook.constants.Constants;
-import com.example.greatbook.utils.DpUtils;
-import com.example.greatbook.utils.FileAndImageUtils;
+import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileUtils;
-import com.example.greatbook.utils.SelectorFactory;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.widght.DefaultNavigationBar;
+import com.example.greatbook.widght.clipimage.ClipImageLayout;
 
 import java.io.IOException;
 
@@ -31,7 +25,7 @@ import butterknife.OnClick;
 
 /**
  * Created by MDove on 2017/8/14.
- *
+ * <p>
  * 用于剪裁的Activity
  */
 
@@ -43,39 +37,35 @@ public class ClipImageActivity extends BaseActivity {
     TextView btnOk;
     @BindView(R.id.btn_cancle)
     TextView btnCancle;
-
+    @BindView(R.id.btn_no_ckip)
+    TextView btnNoClip;
+    private String realPath;
     @Override
     public int getLayoutId() {
-        return R.layout.layout_crop_image;
+        return R.layout.layout_clip_image;
     }
 
     @Override
     public void init() {
-        new DefaultNavigationBar.Builder(this,null)
+        new DefaultNavigationBar.Builder(this, null)
                 .setTitleText("图片剪裁").setOnLeftClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                }).builder();
-        btnOk.setBackground(SelectorFactory.newShapeSelector()
-                .setCornerRadius(DpUtils.dp2px(20))
-                .setDefaultBgColor(ContextCompat.getColor(
-                        ClipImageActivity.this,
-                        R.color.white))
-                .create());
-        btnCancle.setBackground(SelectorFactory.newShapeSelector()
-                .setCornerRadius(DpUtils.dp2px(20))
-                .setDefaultBgColor(ContextCompat.getColor(
-                        this,
-                        R.color.white))
-                .create());
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        })
+                .setLeftResId(R.drawable.btn_back_)
+                .builder();
 
-        String path = getIntent().getStringExtra(Constants.TO_CLIPACTIVITY);
+        realPath = getIntent().getStringExtra(Constants.TO_CLIPACTIVITY);
+        boolean isNoClip = getIntent().getBooleanExtra(Constants.TO_CLIPACTIVITY_NO_CLIP, false);
+        if (isNoClip) {
+            btnNoClip.setVisibility(View.VISIBLE);
+        }
 
         // 有的系统返回的图片是旋转了，有的没有旋转，所以处理
-        int degreee = readBitmapDegree(path);
-        Bitmap bitmap = BitmapCompressUtils.getImage(path);
+        int degreee = readBitmapDegree(realPath);
+        Bitmap bitmap = BitmapCompressUtils.getImage(realPath);
         if (bitmap != null) {
             if (degreee == 0) {
                 mClipImageLayout.setImageBitmap(bitmap);
@@ -94,13 +84,14 @@ public class ClipImageActivity extends BaseActivity {
             Bitmap bitmap = mClipImageLayout.clip();
 
             String path = Environment.getExternalStorageDirectory() + "/"
-                    + "my_avatar.jpg";
+                    + FileUtils.getFileName(realPath);
             FileUtils.saveBitmap(bitmap, path);
 
             Intent intent = new Intent();
             intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
             setResult(RESULT_OK, intent);
-        } finish();
+        }
+        finish();
     }
 
 
@@ -143,6 +134,19 @@ public class ClipImageActivity extends BaseActivity {
     @Override
     public void showError(String msg) {
 
+    }
+
+    @OnClick(R.id.btn_no_ckip)
+    public void onViewClicked() {
+        Bitmap bitmap = BitmapCompressUtils.getImage(realPath);
+        String path = Environment.getExternalStorageDirectory() + "/"
+                + FileUtils.getFileName(realPath);
+        FileUtils.saveBitmap(bitmap, path);
+
+        Intent intent = new Intent();
+        intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
 

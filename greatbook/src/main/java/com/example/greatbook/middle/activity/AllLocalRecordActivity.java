@@ -1,5 +1,6 @@
 package com.example.greatbook.middle.activity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -112,6 +113,14 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
         rlvSetAllLocalRecord.setAdapter(adapter);
 
         presenter.initLocalRecords();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (dialog!=null){
+            dialog.dismiss();
+        }
     }
 
     @Override

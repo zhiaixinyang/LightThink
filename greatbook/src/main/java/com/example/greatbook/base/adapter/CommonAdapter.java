@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.example.greatbook.base.ImageLoader;
 
 import java.util.List;
 
@@ -20,13 +23,11 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
 
     private OnItemClickListener onItemClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener)
-    {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public CommonAdapter(Context context, int layoutId, List<T> datas)
-    {
+    public CommonAdapter(Context context, int layoutId, List<T> datas) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         layoutid = layoutId;
@@ -34,34 +35,27 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType)
-    {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         ViewHolder viewHolder = ViewHolder.get(context, null, parent, layoutid, -1);
         setListener(parent, viewHolder, viewType);
         return viewHolder;
     }
 
-    protected int getPosition(RecyclerView.ViewHolder viewHolder)
-    {
+    protected int getPosition(RecyclerView.ViewHolder viewHolder) {
         return viewHolder.getAdapterPosition();
     }
 
-    protected boolean isEnabled(int viewType)
-    {
+    protected boolean isEnabled(int viewType) {
         return true;
     }
 
 
-    protected void setListener(final ViewGroup parent, final ViewHolder viewHolder, int viewType)
-    {
+    protected void setListener(final ViewGroup parent, final ViewHolder viewHolder, int viewType) {
         if (!isEnabled(viewType)) return;
-        viewHolder.getConvertView().setOnClickListener(new View.OnClickListener()
-        {
+        viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (onItemClickListener != null)
-                {
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
                     int position = getPosition(viewHolder);
                     onItemClickListener.onItemClick(v, data.get(position), position);
                 }
@@ -85,8 +79,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position)
-    {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.updatePosition(position);
         convert(holder, data.get(position));
     }
@@ -99,15 +92,22 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     public abstract void convert(ViewHolder holder, T t);
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return data.size();
     }
 
-    public void addData(List<T> mDatas){
-        this.data=mDatas;
+    public void addData(List<T> mDatas) {
+        this.data = mDatas;
         notifyDataSetChanged();
     }
+
+    /**
+     * 为ImageView设置图片
+     *
+     * @param viewId
+     * @return
+     */
+
 
 }
 

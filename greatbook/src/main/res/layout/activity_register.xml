@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:background="@mipmap/register"
     android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="30dp"
+        android:src="@drawable/btn_back_"
+        android:layout_alignTop="@+id/iv_avatar"
+        android:layout_marginLeft="@dimen/login_m_w_lr"
+        android:layout_height="30dp" />
     <com.example.greatbook.widght.CircleImageView
         android:id="@+id/iv_avatar"
         android:src="@drawable/no_avatar"
@@ -65,11 +72,11 @@
     <TextView
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:textSize="@dimen/login_size"
+        android:textSize="24sp"
         android:layout_alignParentBottom="true"
         android:text="注册并登陆"
         android:layout_marginBottom="40dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:paddingBottom="@dimen/login_p_h_tb"
         android:paddingLeft="@dimen/login_p_w_lr"
         android:paddingRight="@dimen/login_p_w_lr"
@@ -77,7 +84,6 @@
         android:layout_marginRight="@dimen/login_m_w_lr"
         android:layout_marginLeft="@dimen/login_m_w_lr"
         android:gravity="center"
-        android:background="@drawable/round_trans"
         android:layout_height="wrap_content" />
 
 </RelativeLayout>

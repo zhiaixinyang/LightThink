@@ -89,7 +89,10 @@
         <activity android:name=".middle.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <!--不要设置启动复用-->
         <activity android:name=".base.ClipImageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".middle.activity.AddLocalGroupActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

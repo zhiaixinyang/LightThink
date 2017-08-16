@@ -53,7 +53,6 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     topRecord.groupId = lLocalGroup.getGroupId();
                                     topRecord.groupTitle = lLocalGroup.getGroupTitle();
                                     topRecord.time = lLocalGroup.getCreatedAt();
-                                    topRecord.title = lLocalGroup.getTitle();
                                     data.add(topRecord);
                                 }
                                 groupReturn.data = data;
@@ -107,7 +106,6 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     topRecord.groupId = lLocalGroup.getGroupId();
                                     topRecord.groupTitle = lLocalGroup.getGroupTitle();
                                     topRecord.time = lLocalGroup.getCreatedAt();
-                                    topRecord.title = lLocalGroup.getTitle();
                                     data.add(topRecord);
                                 }
                                 recordReturn.data = data;

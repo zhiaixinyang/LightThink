@@ -65,6 +65,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
     public void init() {
         new DefaultNavigationBar.Builder(this,null)
                 .setLeftResId(R.drawable.btn_back_)
+                .setTitleText("吐槽")
                 .setOnLeftClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -1,13 +1,13 @@
 package com.example.greatbook.ui.main.activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -32,7 +32,6 @@ import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.model.leancloud.User;
-import com.example.greatbook.constants.IntentConstants;
 import com.example.greatbook.utils.AlbumUtils;
 import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileAndImageUtils;
@@ -48,22 +47,29 @@ import com.example.greatbook.utils.WaitNetPopupWindowUtils;
 import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by MDove on 2016/10/20.
  */
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener,PopupWindow.OnDismissListener{
-    @BindView(R.id.btn_login) TextView btnLogin;
-    @BindView(R.id.et_account) EditText etAccount;
-    @BindView(R.id.et_password) EditText etPassWord;
-    @BindView(R.id.iv_avatar) ImageView ivAvatar;
-    @BindView(R.id.et_name) EditText etName;
+public class RegisterActivity extends BaseActivity implements View.OnClickListener, PopupWindow.OnDismissListener {
+    @BindView(R.id.btn_login)
+    TextView btnLogin;
+    @BindView(R.id.et_account)
+    EditText etAccount;
+    @BindView(R.id.et_password)
+    EditText etPassWord;
+    @BindView(R.id.iv_avatar)
+    ImageView ivAvatar;
+    @BindView(R.id.et_name)
+    EditText etName;
 
     private String imagePath;
     private Bitmap bmp;
 
-    private WaitNetPopupWindowUtils waitNetPopupWindowUtils=null;
+    private WaitNetPopupWindowUtils waitNetPopupWindowUtils = null;
 
     @Override
     public int getLayoutId() {
@@ -72,7 +78,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void init() {
-        waitNetPopupWindowUtils=new WaitNetPopupWindowUtils();
+        waitNetPopupWindowUtils = new WaitNetPopupWindowUtils();
         TransWindowUtils.setTransWindow(this);
         btnLogin.setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
@@ -81,7 +87,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_login:
                 login();
                 break;
@@ -89,8 +95,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 if (ActivityCompat.checkSelfPermission(RegisterActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(RegisterActivity.this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},111);
-                }else{
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 111);
+                } else {
                     AlbumUtils.startAlbumToClip(this);
                 }
                 break;
@@ -100,18 +106,18 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case 111:
-                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     AlbumUtils.startAlbumToClip(this);
-                }else{
+                } else {
                     ToastUtil.toastShort("请给我们操作权限呐");
                 }
                 break;
             case 112:
-                if (grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     AlbumUtils.startAlbumToClip(this);
-                }else{
+                } else {
                     ToastUtil.toastShort("请给我们操作权限呐");
                 }
                 break;
@@ -126,20 +132,25 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             return;
         }
         switch (requestCode) {
-            case Constants.CROP_RESULT_CODE:
+            case 123:
+                LogUtils.d("aaa","都是傻逼");
+
+                Log.d("aaaa","ASDsdasdas");
                 String path = data.getStringExtra(Constants.RETURN_CLIP_PHOTO);
-                Bitmap a=BitmapCompressUtils.ratio(path,200,200);
-                Bitmap b=BitmapFactory.decodeFile(path);
-                LogUtils.d(a.getByteCount()/1024+"!"+b.getByteCount()/1024);
+                Bitmap a = BitmapCompressUtils.ratio(path, 200, 200);
+                Bitmap b = BitmapFactory.decodeFile(path);
                 bmp = BitmapFactory.decodeFile(path);
-                ivAvatar.setImageBitmap(bmp);
+                LogUtils.d("aaa",path+"CROP_RESULT_CODE");
+                GlideUtils.load(imagePath,ivAvatar);
                 break;
             case Constants.START_ALBUM_REQUESTCODE:
                 toClip(data.getData());
                 break;
             case Constants.CAMERA_WITH_DATA:
+                LogUtils.d("aaa","都是傻逼");
+
                 // 照相机程序返回的,再次调用图片剪辑程序去修剪图片
-                if (imagePath!=null){
+                if (imagePath != null) {
                     toClip(data.getData());
                 }
                 break;
@@ -147,15 +158,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void toClip(Uri data) {
-        imagePath= FileUtils.getRealPathFromUri(RegisterActivity.this, data);
-        Intent toClip=new Intent(this,ClipImageActivity.class);
-        toClip.putExtra(Constants.TO_CLIPACTIVITY,imagePath);
-        startActivityForResult(toClip,Constants.CROP_RESULT_CODE);
+        imagePath = FileUtils.getRealPathFromUri(RegisterActivity.this, data);
+        LogUtils.d("aaa",imagePath+"!clip");
+        Intent toClip = new Intent(this, ClipImageActivity.class);
+        toClip.putExtra(Constants.TO_CLIPACTIVITY, imagePath);
+        startActivityForResult(toClip, 123);
     }
 
     private void login() {
         //先判断网络问题
-        if (NetUtil.isNetworkAvailable()){
+        if (NetUtil.isNetworkAvailable()) {
             if (!StringUtils.isEmpty(imagePath)
                     && !StringUtils.isEmpty(etAccount.getText().toString())
                     && !StringUtils.isEmpty(etPassWord.getText().toString())
@@ -192,29 +204,29 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                 startActivity(intent);
                                                 finish();
                                                 overridePendingTransition(R.anim.login_in, R.anim.login_out);
-                                            }else{
+                                            } else {
                                                 waitNetPopupWindowUtils.hideWaitNetPopupWindow(RegisterActivity.this);
                                                 ToastUtil.toastShort("注册失败，请保证网络连接并重试。");
                                             }
                                         }
                                     });
-                        }else{
+                        } else {
                             waitNetPopupWindowUtils.hideWaitNetPopupWindow(RegisterActivity.this);
                             ToastUtil.toastShort("账号重复/网络连接有问题");
                         }
                     }
                 });
-            }else{
+            } else {
                 ToastUtil.toastShort("请完成相关信息填写。");
             }
-        } else{
+        } else {
             ToastUtil.toastShort("未连接网络！");
         }
     }
 
     @Override
     public void onDismiss() {
-        TransWindowUtils.setBackgroundAlpha(this,1f);
+        TransWindowUtils.setBackgroundAlpha(this, 1f);
     }
 
     @Override
@@ -224,13 +236,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private void initDB() {
         //第一次登陆往本地数据库初始化一些数据
-        LocalGroupDao localGroupDao=App.getDaoSession().getLocalGroupDao();
-        LocalRecordDao localRecordDao=App.getDaoSession().getLocalRecordDao();
+        LocalGroupDao localGroupDao = App.getDaoSession().getLocalGroupDao();
+        LocalRecordDao localRecordDao = App.getDaoSession().getLocalRecordDao();
 
         localGroupDao.deleteAll();
         localRecordDao.deleteAll();
 
-        LocalGroup localGroupJok=new LocalGroup();
+        LocalGroup localGroupJok = new LocalGroup();
         localGroupJok.setTitle("我的本地段子集");
         localGroupJok.setTime(new Date());
         localGroupJok.setUserd(true);
@@ -238,7 +250,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupJok.setContent("随手记录让我一笑的段子。");
         localGroupDao.insert(localGroupJok);
 
-        LocalGroup localGroupEncourage=new LocalGroup();
+        LocalGroup localGroupEncourage = new LocalGroup();
         localGroupEncourage.setTitle("我的本地鸡汤集");
         localGroupEncourage.setTime(new Date());
         localGroupEncourage.setUserd(true);
@@ -246,7 +258,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
         localGroupDao.insert(localGroupEncourage);
 
-        LocalGroup localGroupShortEssay =new LocalGroup();
+        LocalGroup localGroupShortEssay = new LocalGroup();
         localGroupShortEssay.setTitle("我的本地清新集");
         localGroupShortEssay.setTime(new Date());
         localGroupShortEssay.setUserd(true);
@@ -255,4 +267,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupDao.insert(localGroupShortEssay);
     }
 
+    @OnClick(R.id.btn_back)
+    public void onViewClicked() {
+        Intent toLogin=new Intent(this,LoginActivity.class);
+        startActivity(toLogin);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        App.toIntent(this,LoginActivity.class);
+    }
 }

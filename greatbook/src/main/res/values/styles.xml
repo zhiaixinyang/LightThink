@@ -25,6 +25,12 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
+
+    <style name="anim_scan_popup_dir">
+        <item name="android:windowEnterAnimation">@anim/scan_slide_in</item>
+        <item name="android:windowExitAnimation">@anim/scan_slide_out</item>
+    </style>
+
     <style name="main_menu_animstyle">
         <item name="android:windowEnterAnimation">@anim/default_dialog_in_anim</item>
         <item name="android:windowExitAnimation">@anim/default_dialog_out_anim</item>

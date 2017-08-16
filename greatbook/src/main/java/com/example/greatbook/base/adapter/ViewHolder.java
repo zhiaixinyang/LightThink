@@ -20,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.greatbook.base.ImageLoader;
+
 /**
  * Created by MDove on 2016/12/22.
  */
@@ -271,6 +273,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     {
         View view = getView(viewId);
         view.setOnLongClickListener(listener);
+        return this;
+    }
+
+    public ViewHolder setImageByUrl(int viewId, String url)
+    {
+        ImageLoader.getInstance(3, ImageLoader.Type.LIFO).loadImage(url, (ImageView) getView(viewId));
         return this;
     }
 

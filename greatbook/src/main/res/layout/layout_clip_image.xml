@@ -19,13 +19,13 @@
             android:id="@+id/btn_ok"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:gravity="center"
             android:layout_marginBottom="@dimen/margin_activity_clip"
             android:layout_marginRight="@dimen/margin_activity_clip"
             android:layout_marginLeft="@dimen/margin_activity_clip"
             android:layout_weight="1"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:text="确定" />
 
         <TextView
@@ -33,11 +33,24 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:layout_marginBottom="@dimen/margin_activity_clip"
             android:layout_marginRight="@dimen/margin_activity_clip"
             android:layout_weight="1"
             android:textSize="16sp"
-            android:text="取消" />
+            android:text="重新选择" />
+        <TextView
+            android:id="@+id/btn_no_ckip"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_activity_clip"
+            android:layout_marginRight="@dimen/margin_activity_clip"
+            android:layout_marginLeft="@dimen/margin_activity_clip"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="不剪裁" />
     </LinearLayout>
 </RelativeLayout>

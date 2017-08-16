@@ -89,16 +89,16 @@
             android:layout_height="match_parent">
             <ImageView
                 android:layout_width="@dimen/bottom_menu_wh"
-                android:id="@+id/menu_talk"
+                android:id="@+id/menu_my"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/menu_talk_about_off"
+                android:src="@drawable/menu_my_off"
                 android:layout_height="@dimen/bottom_menu_wh" />
             <TextView
                 android:id="@+id/tv_talk_about"
-                android:text="吐槽"
+                android:text="我的"
                 android:textSize="@dimen/middle_main_menu_size"
-                android:layout_below="@+id/menu_talk"
+                android:layout_below="@+id/menu_my"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/gray"
                 android:layout_width="wrap_content"

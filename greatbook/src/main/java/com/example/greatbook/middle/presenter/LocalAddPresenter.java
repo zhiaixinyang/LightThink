@@ -143,7 +143,7 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
                             LLocalGroup lLocalGroup = new LLocalGroup();
                             lLocalGroup.setContent(localGroup.getContent());
                             lLocalGroup.setGroupId(localGroup.getId());
-                            lLocalGroup.setTitle(localGroup.getTitle());
+                            lLocalGroup.setGroupTitle(localGroup.getTitle());
                             lLocalGroup.setBelongId(localGroup.getBelongId());
                             lLocalGroup.setAttentionNum(0);
                             lLocalGroup.setUserd(false);

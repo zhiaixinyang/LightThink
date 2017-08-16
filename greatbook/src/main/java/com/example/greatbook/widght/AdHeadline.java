@@ -40,6 +40,7 @@ public class AdHeadline extends RelativeLayout {
     private void initView() {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.view_ad_headline_layout, this, true);
         viewFlipper = (ViewFlipper) rootView.findViewById(R.id.ad_headline_viewflipper);
+        viewFlipper.removeAllViews();
         for (View view : data) {
             viewFlipper.addView(view);
         }

@@ -103,8 +103,6 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
                 if (userdNum>1) {
                     localGroup.setUserd(false);
                     localGroupDao.update(localGroup);
-                    groups.remove(localGroup);
-                    groups.add(groups.size(), localGroup);
                     mView.returnSetUserdGroups(groups);
                 }else{
                     ToastUtil.toastShort("至少要选择一个常用文集");
@@ -112,8 +110,6 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
             } else {
                 localGroup.setUserd(true);
                 localGroupDao.update(localGroup);
-                groups.remove(localGroup);
-                groups.add(0, localGroup);
                 mView.returnSetUserdGroups(groups);
             }
         }

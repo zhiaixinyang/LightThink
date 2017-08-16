@@ -3,6 +3,7 @@ package com.example.greatbook;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
@@ -96,6 +97,12 @@ public class App extends Application{
         if (allActivities != null) {
             allActivities.remove(act);
         }
+    }
+
+    public static void toIntent(Activity activityFrom,Class activityTo){
+        Intent to=new Intent(context,activityTo);
+        activityFrom.startActivity(to);
+        activityFrom.finish();
     }
 
 }

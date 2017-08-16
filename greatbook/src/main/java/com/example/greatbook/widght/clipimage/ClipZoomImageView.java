@@ -25,7 +25,7 @@ import android.widget.ImageView;
  * @author xiechengfa2000@163.com
  * @date 2015-5-10 下午6:20:41
  */
-public class ClipZoomImageView extends ImageView implements
+public class ClipZoomImageView extends android.support.v7.widget.AppCompatImageView implements
 		OnScaleGestureListener, OnTouchListener,
 		ViewTreeObserver.OnGlobalLayoutListener {
 	public static float SCALE_MAX = 4.0f;

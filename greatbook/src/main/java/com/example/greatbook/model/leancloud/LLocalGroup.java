@@ -1,6 +1,7 @@
 package com.example.greatbook.model.leancloud;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 
 import java.util.Date;
@@ -19,6 +20,15 @@ public class LLocalGroup extends AVObject{
     private String groupTitle;
     private int attentionNum;
     private boolean isUserd;
+    private AVFile groupPhoto;
+
+    public AVFile getGroupPhoto() {
+        return getAVFile("groupPhoto");
+    }
+
+    public void setGroupPhoto(AVFile groupPhoto) {
+        put("groupPhoto",groupPhoto);
+    }
 
     public boolean isUserd() {
         return getBoolean("isUserd");
@@ -34,14 +44,6 @@ public class LLocalGroup extends AVObject{
 
     public void setTime(Date time) {
         put("time",time);
-    }
-
-    public String getTitle() {
-        return getString("title");
-    }
-
-    public void setTitle(String title) {
-        put("title",title);
     }
 
     public String getContent() {

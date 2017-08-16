@@ -46,8 +46,8 @@ public class MainNewActivity extends BaseActivity {
     ImageView menuAdd;
     @BindView(R.id.btn_add)
     ImageView btnAdd;
-    @BindView(R.id.menu_talk)
-    ImageView menuTalk;
+    @BindView(R.id.menu_my)
+    ImageView menuMy;
     private MiddleLocalAddFragment localAddFragment;
     private MiddleDiscoveryFragment discoveryFragment;
     private MyPrivateFragment myPrivateFragment;
@@ -119,7 +119,7 @@ public class MainNewActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.menu_discovery, R.id.btn_add, R.id.menu_add, R.id.menu_talk})
+    @OnClick({R.id.menu_discovery, R.id.btn_add, R.id.menu_add, R.id.menu_my})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.menu_discovery:
@@ -132,14 +132,14 @@ public class MainNewActivity extends BaseActivity {
             case R.id.menu_add:
                 selectTab2();
                 break;
-            case R.id.menu_talk:
+            case R.id.menu_my:
                 selectTab3();
                 break;
         }
     }
 
     private void selectTab3() {
-        menuTalk.setImageResource(R.drawable.menu_talk_about_on);
+        menuMy.setImageResource(R.drawable.menu_my_on);
         menuAdd.setImageResource(R.drawable.menu_add_off);
         menuDiscovery.setImageResource(R.drawable.menu_discovery_off);
         tvAdd.setTextColor(ContextCompat.getColor(this, R.color.gray));
@@ -159,7 +159,7 @@ public class MainNewActivity extends BaseActivity {
         btnAdd.setVisibility(View.VISIBLE);
 
         menuDiscovery.setImageResource(R.drawable.menu_discovery_off);
-        menuTalk.setImageResource(R.drawable.menu_talk_about_off);
+        menuMy.setImageResource(R.drawable.menu_my_off);
         menuAdd.setImageResource(R.drawable.menu_add_off);
         tvDiscovery.setTextColor(ContextCompat.getColor(this, R.color.gray));
         tvAdd.setTextColor(ContextCompat.getColor(this, R.color.gray));
@@ -178,7 +178,7 @@ public class MainNewActivity extends BaseActivity {
         tvDiscovery.setTextColor(ContextCompat.getColor(this, R.color.blue));
         menuAdd.setImageResource(R.drawable.menu_add_off);
         tvAdd.setTextColor(ContextCompat.getColor(this, R.color.gray));
-        menuTalk.setImageResource(R.drawable.menu_talk_about_off);
+        menuMy.setImageResource(R.drawable.menu_my_off);
         tvTalkAbout.setTextColor(ContextCompat.getColor(this, R.color.gray));
 
         menuAdd.setVisibility(View.VISIBLE);

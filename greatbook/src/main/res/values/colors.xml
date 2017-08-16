@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">@color/gray</color>
+    <color name="colorAccent">@color/blue</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
@@ -18,7 +18,7 @@
     <color name="red">#ff0026</color>
 
     <color name="trans_purple">#77c03ee4</color>
-    <color name="trans_gray">#77c0c0c0</color>
+    <color name="trans_gray">#77dadada</color>
     <color name="trans">#2dffffff</color>
     <color name="trans_black">#b42c2c2c</color>
     <color name="trans_white">#bfffffff</color>

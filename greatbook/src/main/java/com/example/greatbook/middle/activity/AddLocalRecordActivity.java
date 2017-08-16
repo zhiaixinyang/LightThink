@@ -19,6 +19,7 @@ import com.example.greatbook.middle.presenter.contract.LocalAddContract;
 import com.example.greatbook.model.event.LocalAddEvent;
 import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.LogUtils;
+import com.example.greatbook.utils.ScreenUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
@@ -50,18 +51,17 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
     EditText etContent;
     private ArrayMap<String, LocalGroup> localMap;
     private LocalGroup seletLocalGroup;
-    private BaseAlertDialog alertDialog;
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_local_add;
+        return R.layout.activity_add_local_record;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (alertDialog != null) {
-            alertDialog.dismiss();
+        if (dialog != null) {
+            dialog.dismiss();
         }
         EventBus.getDefault().unregister(this);
     }
@@ -145,7 +145,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
 
     @Override
     public void addNewLocalGroupSuc(String success) {
-        alertDialog.dismiss();
+        dialog.dismiss();
         ToastUtil.toastShort(success);
         presenter.initLocalGroup();
     }
@@ -176,18 +176,25 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
 
     @OnClick(R.id.btn_add_group)
     public void onViewClickedAdd() {
-        alertDialog = new BaseAlertDialog.Builder(this)
+        dialog = new BaseAlertDialog.Builder(this)
                 .setContentView(R.layout.dialog_add_group)
-                .setWidthAndHeight(DpUtils.dp2px(250), DpUtils.dp2px(250))
+                .setWidthAndHeight(ScreenUtils.getScreenWidth()-DpUtils.dp2px(60), ScreenUtils.getScreenHeight()-DpUtils.dp2px(200))
                 .setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        alertDialog.dismiss();
+                        dialog.dismiss();
+                    }
+                })
+                .setOnClickListener(R.id.btn_detail, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent toDetaolAdd =new Intent(AddLocalRecordActivity.this,AddLocalGroupActivity.class);
+                        startActivity(toDetaolAdd);
                     }
                 }).create();
-        final EditText etName = alertDialog.getView(R.id.et_group_name);
-        final EditText etContent = alertDialog.getView(R.id.et_group_content);
-        TextView btnAdd = alertDialog.getView(R.id.btn_ok);
+        final EditText etName = dialog.getView(R.id.et_group_name);
+        final EditText etContent = dialog.getView(R.id.et_group_content);
+        TextView btnAdd = dialog.getView(R.id.btn_ok);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,7 +213,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
                 }
             }
         });
-        alertDialog.show();
+        dialog.show();
     }
 
     @OnClick(R.id.btn_set_group)
@@ -220,6 +227,11 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
         switch (event.event){
             case Constants.SET_GROUP_FINISH:
                 presenter.initLocalGroup();
+                break;
+            case Constants.ADD_GROUP_TO_RECORD_ABANDON:
+                if (dialog!=null){
+                    dialog.dismiss();
+                }
                 break;
         }
     }

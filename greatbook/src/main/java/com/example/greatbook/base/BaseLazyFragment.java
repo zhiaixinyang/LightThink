@@ -28,7 +28,7 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
     protected Activity activity;
     protected Context context;
 
-    private T presenter=null;
+    protected T presenter=null;
     private Unbinder unbinder;
 
     @Override

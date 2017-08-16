@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by MBENBEN on 2017/2/3.
+ * Created by MDove on 2017/2/3.
  */
 
 public class ExploreActivity extends BaseActivity<ContentExplorePresenter> implements ContentExploreContract.View,SwipeRefreshLayout.OnRefreshListener{

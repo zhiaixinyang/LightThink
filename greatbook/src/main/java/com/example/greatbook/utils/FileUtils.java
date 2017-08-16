@@ -119,6 +119,15 @@ public class FileUtils {
         }
         return filename;
     }
+
+    public static byte[] getByteFromPath(String path){
+        Bitmap bitmap=FileAndImageUtils.getBitmap(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] bytes=baos.toByteArray();
+        return bytes;
+    }
+
     public static byte[] getByteFromBitmap(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
@@ -246,7 +255,7 @@ public class FileUtils {
         Random random=new Random(66);
         int num=random.nextInt(10000);
         String[] datas=new String[]{"a","b","c","d","h","sd","sdqw","w"};
-        return fileName+String.valueOf(num)+datas[random.nextInt(8)]+String.valueOf(num);
+        return fileName+String.valueOf(num)+datas[random.nextInt(8)]+String.valueOf(num)+".jpg";
     }
 
     /**

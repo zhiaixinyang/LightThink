@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_add_group_bg">
+
+    <EditText
+        android:id="@+id/et_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dottedView"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/dottedView"
+        android:layout_marginTop="@dimen/activity_add_group_margin_top_bottom"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="给文集起个荡漾的名字吧"
+        android:maxLength="24"
+        android:padding="4dp"
+        android:textColorHint="@color/gray"
+        android:textSize="16sp" />
+
+    <com.example.greatbook.widght.DottedView
+        android:id="@+id/dottedView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_group_name"
+        android:layout_margin="@dimen/activity_add_group_margin" />
+
+    <EditText
+        android:id="@+id/et_group_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dottedView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/activity_add_group_margin"
+        android:layout_marginRight="@dimen/activity_add_group_margin"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="备注点信息？（可以为空）"
+        android:maxLines="3"
+        android:padding="4dp"
+        android:textColorHint="@color/gray"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_add_group_margin_top_bottom">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/activity_add_group_bottom_margin"
+            android:layout_toLeftOf="@+id/line"
+            android:text="放弃"
+            android:textColor="@color/gray"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="1dp"
+            android:layout_height="22dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_add_group_bottom_margin"
+            android:layout_toRightOf="@+id/line"
+            android:text="创建"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_group_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="@dimen/activity_add_group_iv_w_h"
+            android:layout_height="@dimen/activity_add_group_iv_w_h"
+            android:src="@drawable/btn_photo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="给文集设置一个图片"
+            android:textColor="@color/gray_icon"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout>

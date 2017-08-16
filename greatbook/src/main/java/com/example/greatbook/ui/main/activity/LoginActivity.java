@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         presenter.initDB();
         ToastUtil.toastLong(suc);
         waitNetPopupWindowUtils.hideWaitNetPopupWindow(this);
-        Intent intent = new Intent(App.getInstance().getContext(), MainActivity.class);
+        Intent intent = new Intent(App.getInstance().getContext(), MainNewActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.login_in, R.anim.login_out);
