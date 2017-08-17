@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.avos.avoscloud.AVUser;
+import com.bumptech.glide.Glide;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.base.ClipImageActivity;
@@ -37,11 +38,19 @@ import com.iflytek.cloud.thirdparty.V;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 /**
  * Created by MDove on 2017/8/16.
@@ -125,10 +134,10 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
         switch (requestCode) {
             case Constants.CROP_RESULT_CODE:
                 imagePath = data.getStringExtra(Constants.RETURN_CLIP_PHOTO);
-                bmp = BitmapFactory.decodeFile(imagePath);
-                ivSelect.setImageBitmap(bmp);
+                Glide.with(AddLocalGroupActivity.this).load(imagePath).into(ivSelect);
                 btnOffPhoto.setVisibility(View.VISIBLE);
                 //选择相册图片后，关闭所有默认图片的选择
+                defaultIndex=5;
                 allUnSelected();
                 break;
             case Constants.START_ALBUM_REQUESTCODE:
@@ -188,6 +197,7 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
                             localGroup.setTime(new Date());
                             localGroup.setBelongId(user.getObjectId());
                             localGroup.setGroupPhotoPath(imagePath);
+                            LogUtils.d(imagePath);
                             localGroup.setContent(StringUtils.isEmpty(content) ? "未设置文集描述" : content);
                             localGroup.setGroupLocalPhotoPath(0);
                             localGroup.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");

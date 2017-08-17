@@ -1,22 +1,21 @@
 package com.example.greatbook.middle.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.Constants;
-import com.example.greatbook.middle.activity.AllLocalRecordActivity;
 import com.example.greatbook.middle.presenter.MiddleLocalAddPresenter;
 import com.example.greatbook.middle.presenter.contract.MiddleLocalAddContract;
 import com.example.greatbook.middle.model.LocalRecordRLV;
@@ -41,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by MDove on 2017/8/11.
@@ -49,7 +47,6 @@ import butterknife.OnClick;
 
 public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPresenter> implements MiddleLocalAddContract.View,
         RefreshRecyclerView.OnRefreshListener{
-    private final String TAG="MiddleLocalAddFragment";
     @BindView(R.id.rlv_local)
     LoadRefreshRecyclerView rlvLocal;
     @BindView(R.id.tv_empty_view)
@@ -100,11 +97,9 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
                         .create());
                 if (StringUtils.isEmpty(localRecord.groupPhotoPath)) {
                     holder.setImageResource(R.id.iv_group, localRecord.groupLocalPhotoPath);
-                }else{
-                    LogUtils.d(localRecord.groupPhotoPath);
-                    GlideUtils.load(FileUtils.getByteFromPath(localRecord.groupPhotoPath),
-                            (RoundImageView)holder.getView(R.id.iv_group));
                     holder.getView(R.id.iv_group).setBackgroundColor(Integer.parseInt(localRecord.bgColor));
+                }else{
+                    GlideUtils.loadSmallIvR(localRecord.groupPhotoPath,(RoundImageView)holder.getView(R.id.iv_group));
                 }
             }
         };
@@ -132,6 +127,13 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.d("onDestroy");
+
+    }
+
+    @Override
     protected void onUserInvisible() {
 
     }
@@ -142,17 +144,17 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.menu_all, R.id.menu_photo})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.menu_all:
-                Intent toAll =new Intent(context, AllLocalRecordActivity.class);
-                startActivity(toAll);
-                break;
-            case R.id.menu_photo:
-                break;
-        }
-    }
+//    @OnClick({R.id.menu_all, R.id.menu_photo})
+//    public void onViewClicked(View view) {
+//        switch (view.getId()) {
+//            case R.id.menu_all:
+//                Intent toAll =new Intent(context, AllLocalRecordActivity.class);
+//                startActivity(toAll);
+//                break;
+//            case R.id.menu_photo:
+//                break;
+//        }
+//    }
 
     @Override
     public void onLoadRlvRefresh() {

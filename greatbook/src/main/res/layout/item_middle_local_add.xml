@@ -6,16 +6,16 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
     <com.example.greatbook.widght.RoundImageView
-        android:layout_width="80dp"
+        android:layout_width="75dp"
         android:id="@+id/iv_group"
         app:type="round"
         app:borderRadius="@dimen/dp_4"
-        android:layout_marginLeft="@dimen/item_middle_local_add_margin"
-        android:layout_marginTop="@dimen/item_middle_local_add_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/icon_default_group_encourage"
-        android:layout_height="80dp"
-        />
+        android:layout_marginLeft="@dimen/item_middle_local_add_margin"
+        android:layout_marginTop="@dimen/item_middle_local_add_margin"
+        android:layout_height="75dp"
+         />
 
     <TextView
         android:id="@+id/tv_group_title"
@@ -59,7 +59,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tv_content"
         android:layout_marginRight="@dimen/item_middle_local_add_margin"
-        android:layout_marginBottom="@dimen/item_middle_local_add_margin"
         android:layout_marginTop="@dimen/item_middle_local_add_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -68,5 +67,6 @@
         android:layout_height="4dp"
         android:layout_below="@+id/tv_time"
         android:layout_marginTop="@dimen/item_middle_local_add_margin"
-        android:background="@color/gray_light"/>
+        android:background="@color/gray_light"
+        android:id="@+id/view2" />
 </RelativeLayout>

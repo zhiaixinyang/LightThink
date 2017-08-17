@@ -17,4 +17,6 @@ public class DiscoveryTopGroup {
     public Long groupId;
     public String groupTitle;
     public int attentionNum;
+    public String groupPhotoPath;
+    public String avatarPath;
 }

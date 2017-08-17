@@ -1,6 +1,7 @@
 package com.example.greatbook.middle.activity;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,6 +53,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
     EditText etContent;
     private ArrayMap<String, LocalGroup> localMap;
     private LocalGroup seletLocalGroup;
+    private int[] photoArr=new int[]{R.drawable.icon_default_group_encourage,R.drawable.icon_default_group_jok,R.drawable.icon_default_group_short_eassy};
 
     @Override
     public int getLayoutId() {
@@ -206,6 +209,9 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
                     localGroup.setBelongId(user.getObjectId());
                     localGroup.setTime(new Date());
                     localGroup.setTitle(name);
+                    localGroup.setGroupPhotoPath("");
+                    localGroup.setBgColor(ContextCompat.getColor(AddLocalRecordActivity.this,R.color.blue)+"");
+                    localGroup.setGroupLocalPhotoPath(photoArr[new Random().nextInt(3)]);
                     if (!StringUtils.isEmpty(content)) {
                         localGroup.setContent(content);
                     }

@@ -39,13 +39,49 @@ public class GlideUtils {
     }
 
     public static void load(int url, ImageView iv) {
-        Glide.with(context).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.NONE).into(iv);
+        Glide.with(context).load(url)
+                .crossFade()
+                .fitCenter()
+                .placeholder(R.drawable.pictures_no)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(iv);
+    }
+    public static void loadSmallIvR(String url, ImageView iv) {
+        Glide.with(context).load(url)
+                .crossFade()
+                .fitCenter()
+                .override(100,100)
+                .placeholder(R.drawable.pictures_no)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(iv);
+    }
+    public static void loadSmallIvR(String url, RoundImageView iv) {
+        Glide.with(context).load(url)
+                .crossFade()
+                .fitCenter()
+                .override(100,100)
+                .placeholder(R.drawable.pictures_no)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(iv);
     }
     public static void loadCircle( String url, ImageView iv) {
         Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(iv);
     }
     public static void load(String url, CircleImageView circleImageView){
-        Glide.with(context).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.NONE).into(circleImageView);
+        Glide.with(context).load(url)
+                .crossFade()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(circleImageView);
+
+    }
+    public static void loadSmallAvatar(String url, CircleImageView circleImageView){
+        Glide.with(context).load(url)
+                .crossFade()
+                .fitCenter()
+                .override(40,40)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .into(circleImageView);
 
     }
 }

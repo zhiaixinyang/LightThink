@@ -3,9 +3,12 @@ package com.example.greatbook.middle.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
@@ -24,6 +27,8 @@ import com.example.greatbook.middle.activity.TalkAboutActivity;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
+import com.example.greatbook.widght.refresh.DefaultRefreshCreator;
+import com.example.greatbook.widght.refresh.LoadRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,20 +39,25 @@ import butterknife.BindView;
  * Created by MDove on 2017/8/11.
  */
 
-public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPresenter> implements MiddleDiscoveryContract.View {
+public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPresenter> implements MiddleDiscoveryContract.View ,
+        LoadRefreshRecyclerView.OnRefreshListener,SwipeRefreshLayout.OnRefreshListener{
     @BindView(R.id.tv_discovery_title)
     TextView tvDiscoveryTitle;
     @BindView(R.id.rlv_discovery_top)
     RecyclerView rlvDiscoveryTop;
     @BindView(R.id.rlv_discovery_record)
-    RecyclerView rlvDiscoveryRecord;
+    LoadRefreshRecyclerView rlvDiscoveryRecord;
     @BindView(R.id.talk_about_headline)
     AdHeadline headline;
+    @BindView(R.id.srl_top)
+    SwipeRefreshLayout srlTop;
+    @BindView(R.id.tv_load_view) TextView loadingView;
+    @BindView(R.id.tv_empty_view) RelativeLayout emptyView;
     private List<DiscoveryTopGroup> dataGroups;
     private List<DiscoveryRecord> dataRecords;
-    private MiddleDiscoveryAdapter adapterGroup;
     private Context context;
     private MiddleDiscoveryPresenter presenter;
+    private MiddleDiscoveryAdapter adapterGroup;
     private DiscoveryRecordAdapter adapterRecord;
     private RecyclerViewSkeletonScreen skeletonScreenGroup;
     private RecyclerViewSkeletonScreen skeletonScreenRecord;
@@ -69,14 +79,24 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     @Override
     protected void initViewsAndEvents(View view) {
         LogUtils.d("initViewsAndEvents");
-
+        context = App.getInstance().getContext();
+        presenter=new MiddleDiscoveryPresenter(this);
+        dataGroups =new ArrayList<>();
+        dataRecords=new ArrayList<>();
+        adapterGroup =new MiddleDiscoveryAdapter(context,R.layout.item_rlv_discovery_group, dataGroups);
+        adapterRecord=new DiscoveryRecordAdapter(context,R.layout.item_rlv_discovery_record,dataRecords);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rlvDiscoveryTop.setLayoutManager(linearLayoutManager);
         rlvDiscoveryTop.setAdapter(adapterGroup);
+        srlTop.setOnRefreshListener(this);
 
         rlvDiscoveryRecord.setLayoutManager(new LinearLayoutManager(context));
+        rlvDiscoveryRecord.addRefreshViewCreator(new DefaultRefreshCreator());
         rlvDiscoveryRecord.setAdapter(adapterRecord);
+        rlvDiscoveryRecord.addEmptyView(emptyView);
+        rlvDiscoveryRecord.addLoadingView(loadingView);
+
         headline.setHeadlineClickListener(new AdHeadline.HeadlineClickListener() {
             @Override
             public void onHeadlineClick(HeadlineBean bean) {
@@ -101,18 +121,18 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
         headline.setData(talkABoutData);
 
-        context = App.getInstance().getContext();
-        presenter=new MiddleDiscoveryPresenter(this);
-        dataGroups =new ArrayList<>();
-        dataRecords=new ArrayList<>();
-        adapterGroup =new MiddleDiscoveryAdapter(context,R.layout.item_rlv_discovery_group, dataGroups);
-        adapterRecord=new DiscoveryRecordAdapter(context,R.layout.item_rlv_discovery_record,dataRecords);
 
 
         presenter.initDiscoveryTop();
         presenter.initDiscoveryRecord();
 
         showSkeleton();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.d("onDestroy");
     }
 
     private void showSkeleton() {
@@ -135,7 +155,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void onUserVisible() {
-        LogUtils.d("onUserVisible");
+        headline.setData(talkABoutData);
 
         presenter.initDiscoveryTop();
         presenter.initDiscoveryRecord();
@@ -150,17 +170,20 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     @Override
     public void initDiscoveryGroupError(String error) {
         ToastUtil.toastShort(error);
+        srlTop.setRefreshing(false);
     }
 
     @Override
     public void initDiscoveryRecordError(String error) {
         ToastUtil.toastShort(error);
+        srlTop.setRefreshing(false);
     }
 
     @Override
     public void initDiscoveryGroupSuc(List<DiscoveryTopGroup> topGroups) {
         skeletonScreenGroup.hide();
         adapterGroup.addData(topGroups);
+        srlTop.setRefreshing(false);
     }
 
     @Override
@@ -174,4 +197,14 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         ToastUtil.toastShort(msg);
     }
 
+    @Override
+    public void onLoadRlvRefresh() {
+        presenter.initDiscoveryRecord();
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.initDiscoveryRecord();
+        presenter.initDiscoveryTop();
+    }
 }

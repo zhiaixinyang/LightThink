@@ -6,22 +6,34 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.greatbook.R;
+import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.ui.main.activity.RegisterActivity;
 import com.example.greatbook.utils.BitmapCompressUtils;
+import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.clipimage.ClipImageLayout;
 
+import java.io.File;
 import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 /**
  * Created by MDove on 2017/8/14.
@@ -40,6 +52,9 @@ public class ClipImageActivity extends BaseActivity {
     @BindView(R.id.btn_no_ckip)
     TextView btnNoClip;
     private String realPath;
+    private BaseAlertDialog dialog;
+    private File photo;
+
     @Override
     public int getLayoutId() {
         return R.layout.layout_clip_image;
@@ -57,6 +72,11 @@ public class ClipImageActivity extends BaseActivity {
                 .setLeftResId(R.drawable.btn_back_)
                 .builder();
 
+        dialog = new BaseAlertDialog.Builder(this)
+                .setContentView(R.layout.dialog_text)
+                .setViewText(R.id.tv_title, "剪裁中，请稍后")
+                .create();
+
         realPath = getIntent().getStringExtra(Constants.TO_CLIPACTIVITY);
         boolean isNoClip = getIntent().getBooleanExtra(Constants.TO_CLIPACTIVITY_NO_CLIP, false);
         if (isNoClip) {
@@ -65,31 +85,88 @@ public class ClipImageActivity extends BaseActivity {
 
         // 有的系统返回的图片是旋转了，有的没有旋转，所以处理
         int degreee = readBitmapDegree(realPath);
-        Bitmap bitmap = BitmapCompressUtils.getImage(realPath);
-        if (bitmap != null) {
-            if (degreee == 0) {
-                mClipImageLayout.setImageBitmap(bitmap);
-            } else {
-                mClipImageLayout.setImageBitmap(rotateBitmap(degreee, bitmap));
-            }
+//        Bitmap bitmap = BitmapCompressUtils.getImage(realPath);
+        photo = new File(realPath);
+        if (photo != null) {
+            compressWithRx(photo);
+//            if (degreee == 0) {
+//                mClipImageLayout.setImageBitmap(bitmap);
+//            } else {
+//                mClipImageLayout.setImageBitmap(rotateBitmap(degreee, bitmap));
+//            }
         } else {
             finish();
         }
+    }
+
+    private void compressWithRx(final File file) {
+        Observable.just(file)
+                .observeOn(Schedulers.io())
+                .map(new Func1<File, File>() {
+                    @Override
+                    public File call(File file) {
+                        try {
+                            return Luban.with(ClipImageActivity.this).load(file).get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<File>() {
+
+                    @Override
+                    public void call(File o) {
+                        photo = o;
+
+                        mClipImageLayout.setImageBitmap(FileUtils.getBitmapFromByte(FileUtils.getBytesFromFile(photo)));
+                    }
+                });
     }
 
 
     @OnClick({R.id.btn_ok, R.id.btn_cancle})
     public void onClicked(View v) {
         if (v.getId() == R.id.btn_ok) {
+
+            dialog.show();
             Bitmap bitmap = mClipImageLayout.clip();
+            if (bitmap.getByteCount() / 1024 / 1024 > 3) {
+                String path = Environment.getExternalStorageDirectory() + "/"
+                        + FileUtils.getFileName(realPath);
+                FileUtils.saveBitmap(bitmap, path);
+                Intent intent = new Intent();
+                intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
+                setResult(RESULT_OK, intent);
+//                Observable.just(new File(path))
+//                        .observeOn(Schedulers.io())
+//                        .map(new Func1<File, File>() {
+//                            @Override
+//                            public File call(File file) {
+//                                try {
+//                                    return Luban.with(ClipImageActivity.this).load(file).get();
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                return null;
+//                            }
+//                        })
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new Action1<File>() {
+//
+//                            @Override
+//                            public void call(File o) {
+//                                String path = Environment.getExternalStorageDirectory() + "/"
+//                                        + "as" +FileUtils.getFileName(realPath);
+//                                FileUtils.saveBitmap(FileUtils.getBitmapFromByte(FileUtils.getBytesFromFile(o)), path);
+//
+//                            }
+//                        });
 
-            String path = Environment.getExternalStorageDirectory() + "/"
-                    + FileUtils.getFileName(realPath);
-            FileUtils.saveBitmap(bitmap, path);
+            }
 
-            Intent intent = new Intent();
-            intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
-            setResult(RESULT_OK, intent);
+
         }
         finish();
     }
@@ -147,6 +224,14 @@ public class ClipImageActivity extends BaseActivity {
         intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 }
 

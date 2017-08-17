@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,36 +8,82 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_below="@+id/topPanel" />
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_top"
+        android:layout_below="@+id/talk_about_headline"
         android:layout_width="match_parent"
-        android:background="@color/gray_light"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:src="@drawable/icon_label_purple"
-                android:layout_width="@dimen/frag_discovery_iv_w_h"
-                android:layout_height="@dimen/frag_discovery_iv_w_h" />
-            <TextView
-                android:id="@+id/tv_discovery_title"
-                android:text="推荐文集"
-                android:textSize="16sp"
-                android:textColor="@color/purple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rlv_discovery_top"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:paddingLeft="8dp"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
+            android:background="@color/gray_light"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/icon_label_purple"
+                    android:layout_width="@dimen/frag_discovery_iv_w_h"
+                    android:layout_height="@dimen/frag_discovery_iv_w_h" />
+                <TextView
+                    android:id="@+id/tv_discovery_title"
+                    android:text="推荐文集"
+                    android:textSize="16sp"
+                    android:textColor="@color/purple"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_discovery_top"
+                android:layout_width="match_parent"
+                android:paddingLeft="8dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.example.greatbook.widght.refresh.LoadRefreshRecyclerView
         android:id="@+id/rlv_discovery_record"
+        android:layout_below="@+id/srl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_load_view"
+        android:layout_below="@+id/srl_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/gray_light"
+        android:src="@mipmap/list_load_more"
+        android:text="正在加载数据..."
+        android:textSize="22sp"
+        android:visibility="gone" />
+    <RelativeLayout
+        android:layout_below="@+id/srl_top"
+        android:id="@+id/tv_empty_view"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:src="@drawable/icon_data_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/gray_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_empty"
+            android:layout_marginTop="10dp"
+            android:text="当前暂无数据..."
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

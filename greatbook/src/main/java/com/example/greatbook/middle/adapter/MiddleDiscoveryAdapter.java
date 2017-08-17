@@ -1,6 +1,7 @@
 package com.example.greatbook.middle.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -31,6 +32,7 @@ public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup>{
                 "99+":discoveryTopGroup.attentionNum+"");
         holder.setText(R.id.tv_discovery_top_group_name,
                 !StringUtils.isEmpty(discoveryTopGroup.groupTitle)?discoveryTopGroup.groupTitle:"未设置标题");
+        GlideUtils.loadSmallIvR(discoveryTopGroup.groupPhotoPath, (ImageView) holder.getView(R.id.iv_group));
         AVQuery<User> query=AVQuery.getQuery(User.class);
         query.whereEqualTo("objectId",discoveryTopGroup.belongId);
         query.findInBackground(new FindCallback<User>() {
@@ -38,7 +40,7 @@ public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup>{
             public void done(List<User> list, AVException e) {
                 if (e==null&&!list.isEmpty()){
                     User user=list.get(0);
-                    GlideUtils.load(user.getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_discovery_top_user_avatar));
+                    GlideUtils.loadSmallAvatar(user.getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_discovery_top_user_avatar));
                     holder.setText(R.id.tv_discovery_top_user_name,!StringUtils.isEmpty(user.getName())?user.getName():"匿名用户");
                 }
             }

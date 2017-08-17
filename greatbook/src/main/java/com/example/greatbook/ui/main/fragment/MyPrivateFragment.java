@@ -100,6 +100,13 @@ public class MyPrivateFragment extends BaseLazyFragment implements SwipeRefreshL
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.d("onDestroy");
+
+    }
+
+    @Override
     protected void onUserVisible() {
         LogUtils.d("onUserVisible");
 

@@ -24,6 +24,7 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
+import com.bumptech.glide.Glide;
 import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
@@ -35,22 +36,27 @@ import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.AlbumUtils;
-import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.FileUtils;
-import com.example.greatbook.utils.GlideUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.utils.TransWindowUtils;
 import com.example.greatbook.utils.WaitNetPopupWindowUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+import top.zibin.luban.Luban;
 
 /**
  * Created by MDove on 2016/10/20.
@@ -69,7 +75,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     EditText etName;
 
     private String imagePath;
-    private Bitmap bmp;
+    private File fileA;
+    private File file;
 
     private WaitNetPopupWindowUtils waitNetPopupWindowUtils = null;
 
@@ -127,6 +134,31 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
 
+    private void compressWithRx(final File file) {
+        Observable.just(file)
+                .observeOn(Schedulers.io())
+                .map(new Func1<File, File>() {
+                    @Override
+                    public File call(File file) {
+                        try {
+                            return Luban.with(RegisterActivity.this).load(file).get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<File>() {
+
+                    @Override
+                    public void call(File o) {
+                        fileA=o;
+                        Glide.with(RegisterActivity.this).load(o).into(ivAvatar);
+                    }
+                });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,10 +168,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         switch (requestCode) {
             case 123:
                 String path = data.getStringExtra(Constants.RETURN_CLIP_PHOTO);
-                Bitmap a = BitmapCompressUtils.ratio(path, 200, 200);
-                Bitmap b = BitmapFactory.decodeFile(path);
-                bmp = BitmapFactory.decodeFile(path);
-                GlideUtils.load(imagePath,ivAvatar);
+//                bmp = BitmapFactory.decodeFile(path);
+//                GlideUtils.load(imagePath,ivAvatar);
+                compressWithRx(new File(path));
                 break;
             case Constants.START_ALBUM_REQUESTCODE:
                 toClip(data.getData());
@@ -177,7 +208,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 user.setFans(0);
                 user.setMoney(0);
                 user.setSignature("本人太懒...没有设置签名");
-                AVFile avFile = new AVFile(FileAndImageUtils.getFileName(imagePath), FileAndImageUtils.getByteFromBitmap(bmp));
+                AVFile avFile = new AVFile(FileAndImageUtils.getFileName(imagePath), FileUtils.getBytesFromFile(fileA));
                 user.setAvatar(avFile);
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
@@ -196,7 +227,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                                 editor.putInt("count", 1);
                                                 editor.commit();
-                                                Intent intent = new Intent(App.getInstance().getContext(), MainActivity.class);
+                                                Intent intent = new Intent(App.getInstance().getContext(), MainNewActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                                 overridePendingTransition(R.anim.login_in, R.anim.login_out);

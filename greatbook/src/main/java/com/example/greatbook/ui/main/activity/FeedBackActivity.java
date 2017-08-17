@@ -25,7 +25,6 @@ import com.example.greatbook.widght.refresh.DefaultLoadCreator;
 import com.example.greatbook.widght.refresh.DefaultRefreshCreator;
 import com.example.greatbook.widght.refresh.LoadRefreshRecyclerView;
 import com.example.greatbook.widght.refresh.RefreshRecyclerView;
-import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

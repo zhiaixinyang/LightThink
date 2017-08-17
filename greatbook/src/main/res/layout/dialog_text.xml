@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_add_group_bg">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="创建新的文集"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <ProgressBar
+        android:layout_below="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        style="@android:style/Widget.ProgressBar.Inverse"
+        android:visibility="visible"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

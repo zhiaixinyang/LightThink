@@ -18,5 +18,8 @@ public class DiscoveryRecord {
     //自己的分组id
     public Long groupId;
     public String groupTitle;
+    public String groupPhotoPath;
+    public String groupBgColor;
+
     public int likeNum;
 }

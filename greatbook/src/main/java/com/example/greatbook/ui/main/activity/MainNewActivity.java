@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * Created by MDOve on 2017/8/15.
+ * Created by MDve on 2017/8/15.
  */
 
 public class MainNewActivity extends BaseActivity {
@@ -65,9 +65,9 @@ public class MainNewActivity extends BaseActivity {
                 .builder();
 
         initActivity();
-        localAddFragment = MiddleLocalAddFragment.newInstance();
-        discoveryFragment = MiddleDiscoveryFragment.newInstance();
-        myPrivateFragment = MyPrivateFragment.newInstance();
+        localAddFragment = new MiddleLocalAddFragment();
+        discoveryFragment = new MiddleDiscoveryFragment();
+        myPrivateFragment = new MyPrivateFragment();
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -165,10 +165,10 @@ public class MainNewActivity extends BaseActivity {
         tvAdd.setTextColor(ContextCompat.getColor(this, R.color.gray));
         tvTalkAbout.setTextColor(ContextCompat.getColor(this, R.color.gray));
 
-        ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(250);
-        sa.setInterpolator(new SpringAnimationInterpolar());
-        btnAdd.startAnimation(sa);
+//        ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//        sa.setDuration(250);
+//        sa.setInterpolator(new SpringAnimationInterpolar());
+//        btnAdd.startAnimation(sa);
 
         viewPager.setCurrentItem(1);
     }
