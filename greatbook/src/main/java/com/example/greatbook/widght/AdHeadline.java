@@ -69,22 +69,24 @@ public class AdHeadline extends RelativeLayout {
 
     //将HeadlineBean数据转换成View数据
     private void convertData(final List<HeadlineBean> list) {
-        for (final HeadlineBean bean : list) {
-            final HeadlineBean b = bean;
-            final View view = inflater.inflate(R.layout.view_headline_holder, viewFlipper, false);
-            final TextView headline_title = (TextView) view.findViewById(R.id.headline_title_tv);
-            final TextView headline_content = (TextView) view.findViewById(R.id.headline_content_tv);
-            headline_title.setText(bean.getTitle());
-            headline_content.setText(bean.getContent());
-            view.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listener != null) {
-                        listener.onHeadlineClick(b);
+        if (list!=null&&!list.isEmpty()) {
+            for (final HeadlineBean bean : list) {
+                final HeadlineBean b = bean;
+                final View view = inflater.inflate(R.layout.view_headline_holder, viewFlipper, false);
+                final TextView headline_title = (TextView) view.findViewById(R.id.headline_title_tv);
+                final TextView headline_content = (TextView) view.findViewById(R.id.headline_content_tv);
+                headline_title.setText(bean.getTitle());
+                headline_content.setText(bean.getContent());
+                view.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listener != null) {
+                            listener.onHeadlineClick(b);
+                        }
                     }
-                }
-            });
-            data.add(view);
+                });
+                data.add(view);
+            }
         }
     }
 

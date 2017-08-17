@@ -41,7 +41,6 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         initPrepare();
     }
 
@@ -93,14 +92,6 @@ public abstract class BaseLazyFragment<T extends BasePresenter> extends Fragment
         initViewsAndEvents(view);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (presenter != null) presenter.detachView();
-        if (unbinder!=null){
-            unbinder.unbind();
-        }
-    }
 
     @Override
     public void onResume() {

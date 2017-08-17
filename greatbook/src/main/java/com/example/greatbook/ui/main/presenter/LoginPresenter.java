@@ -1,7 +1,9 @@
 package com.example.greatbook.ui.main.presenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
@@ -33,11 +35,13 @@ import rx.functions.Action1;
 public class LoginPresenter extends RxPresenter<LoginContract.View> implements LoginContract.Presenter {
     private LocalGroupDao localGroupDao;
     private LocalRecordDao localRecordDao;
+    private Context context;
 
     public LoginPresenter(LoginContract.View view) {
         mView = view;
         localGroupDao = App.getDaoSession().getLocalGroupDao();
         localRecordDao = App.getDaoSession().getLocalRecordDao();
+        context=App.getInstance().getContext();
     }
 
     @Override
@@ -92,6 +96,9 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         localGroupJok.setUserd(true);
         localGroupJok.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupJok.setContent("随手记录让我一笑的段子。");
+        localGroupJok.setGroupPhotoPath("");
+        localGroupJok.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
+        localGroupJok.setGroupLocalPhotoPath(R.drawable.icon_default_group_jok);
         localGroupDao.insert(localGroupJok);
 
         LocalGroup localGroupEncourage = new LocalGroup();
@@ -100,12 +107,18 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         localGroupEncourage.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
         localGroupEncourage.setUserd(true);
+        localGroupEncourage.setGroupPhotoPath("");
+        localGroupEncourage.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
+        localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
         localGroupDao.insert(localGroupEncourage);
 
         LocalGroup localGroupShortEssay = new LocalGroup();
         localGroupShortEssay.setTitle("我的本地清新集");
         localGroupShortEssay.setTime(new Date());
         localGroupShortEssay.setUserd(true);
+        localGroupShortEssay.setGroupPhotoPath("");
+        localGroupShortEssay.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
+        localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);
         localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupShortEssay.setContent("随手记录让我静心的短句。");
         localGroupDao.insert(localGroupShortEssay);

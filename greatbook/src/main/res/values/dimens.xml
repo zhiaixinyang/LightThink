@@ -103,8 +103,10 @@
     <dimen name="myprivate_btn_margin">12dp</dimen>
     <dimen name="activity_add_group_margin">12dp</dimen>
     <dimen name="activity_add_group_bottom_margin">65dp</dimen>
-    <dimen name="activity_add_group_iv_w_h">80dp</dimen>
+    <dimen name="activity_add_group_iv_w_h">100dp</dimen>
     <dimen name="dialog_add_group_margin_line">20dp</dimen>
     <dimen name="dialog_add_group_btn_size">20sp</dimen>
     <dimen name="activity_add_group_margin_top_bottom">20dp</dimen>
+    <dimen name="add_group_icon_w_h">80dp</dimen>
+    <dimen name="add_group_selected_iv_w_h">15dp</dimen>
 </resources>

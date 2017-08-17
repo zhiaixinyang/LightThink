@@ -90,7 +90,7 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                 public void call(final Subscriber<? super DiscoveryRecordReturn> subscriber) {
                     AVQuery<LLocalGroup> query = AVQuery.getQuery(LLocalGroup.class);
                     query.limit(10);
-                    query.addDescendingOrder("attentionNum");
+                    query.addDescendingOrder("likeNum");
                     query.findInBackground(new FindCallback<LLocalGroup>() {
                         @Override
                         public void done(List<LLocalGroup> list, AVException e) {

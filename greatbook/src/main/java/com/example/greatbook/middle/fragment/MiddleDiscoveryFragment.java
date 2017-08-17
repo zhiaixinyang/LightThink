@@ -21,6 +21,7 @@ import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
 import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.model.HeadlineBean;
 import com.example.greatbook.middle.activity.TalkAboutActivity;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
 
@@ -67,12 +68,8 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void initViewsAndEvents(View view) {
-        context = App.getInstance().getContext();
-        presenter=new MiddleDiscoveryPresenter(this);
-        dataGroups =new ArrayList<>();
-        dataRecords=new ArrayList<>();
-        adapterGroup =new MiddleDiscoveryAdapter(context,R.layout.item_rlv_discovery_group, dataGroups);
-        adapterRecord=new DiscoveryRecordAdapter(context,R.layout.item_rlv_discovery_record,dataRecords);
+        LogUtils.d("initViewsAndEvents");
+
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rlvDiscoveryTop.setLayoutManager(linearLayoutManager);
@@ -96,11 +93,21 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void onFirstUserVisible() {
+        LogUtils.d("onFirstUserVisible");
+
         talkABoutData=new ArrayList<>();
         talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
         talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
         talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
         headline.setData(talkABoutData);
+
+        context = App.getInstance().getContext();
+        presenter=new MiddleDiscoveryPresenter(this);
+        dataGroups =new ArrayList<>();
+        dataRecords=new ArrayList<>();
+        adapterGroup =new MiddleDiscoveryAdapter(context,R.layout.item_rlv_discovery_group, dataGroups);
+        adapterRecord=new DiscoveryRecordAdapter(context,R.layout.item_rlv_discovery_record,dataRecords);
+
 
         presenter.initDiscoveryTop();
         presenter.initDiscoveryRecord();
@@ -128,11 +135,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void onUserVisible() {
-        talkABoutData=new ArrayList<>();
-        talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
-        talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
-        talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
-        headline.setData(talkABoutData);
+        LogUtils.d("onUserVisible");
 
         presenter.initDiscoveryTop();
         presenter.initDiscoveryRecord();
@@ -142,7 +145,6 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void onUserInvisible() {
-
     }
 
     @Override

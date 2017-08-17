@@ -21,5 +21,8 @@ public class LocalRecordRLV {
     //自己的分组id
     public Long groupId;
     public String groupTitle;
-    public int iconLabelId;
+    public String groupPhotoPath;
+    public int groupLocalPhotoPath;
+    public String bgColor;
+
 }

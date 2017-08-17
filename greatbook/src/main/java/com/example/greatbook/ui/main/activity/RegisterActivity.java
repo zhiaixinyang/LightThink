@@ -1,6 +1,7 @@
 package com.example.greatbook.ui.main.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -133,21 +135,16 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         }
         switch (requestCode) {
             case 123:
-                LogUtils.d("aaa","都是傻逼");
-
-                Log.d("aaaa","ASDsdasdas");
                 String path = data.getStringExtra(Constants.RETURN_CLIP_PHOTO);
                 Bitmap a = BitmapCompressUtils.ratio(path, 200, 200);
                 Bitmap b = BitmapFactory.decodeFile(path);
                 bmp = BitmapFactory.decodeFile(path);
-                LogUtils.d("aaa",path+"CROP_RESULT_CODE");
                 GlideUtils.load(imagePath,ivAvatar);
                 break;
             case Constants.START_ALBUM_REQUESTCODE:
                 toClip(data.getData());
                 break;
             case Constants.CAMERA_WITH_DATA:
-                LogUtils.d("aaa","都是傻逼");
 
                 // 照相机程序返回的,再次调用图片剪辑程序去修剪图片
                 if (imagePath != null) {
@@ -159,7 +156,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private void toClip(Uri data) {
         imagePath = FileUtils.getRealPathFromUri(RegisterActivity.this, data);
-        LogUtils.d("aaa",imagePath+"!clip");
         Intent toClip = new Intent(this, ClipImageActivity.class);
         toClip.putExtra(Constants.TO_CLIPACTIVITY, imagePath);
         startActivityForResult(toClip, 123);
@@ -246,6 +242,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupJok.setTitle("我的本地段子集");
         localGroupJok.setTime(new Date());
         localGroupJok.setUserd(true);
+        localGroupJok.setGroupPhotoPath("");
+        localGroupJok.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");
+        localGroupJok.setGroupLocalPhotoPath(R.drawable.icon_default_group_jok);
         localGroupJok.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupJok.setContent("随手记录让我一笑的段子。");
         localGroupDao.insert(localGroupJok);
@@ -254,6 +253,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupEncourage.setTitle("我的本地鸡汤集");
         localGroupEncourage.setTime(new Date());
         localGroupEncourage.setUserd(true);
+        localGroupEncourage.setGroupPhotoPath("");
+        localGroupEncourage.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");
+        localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
         localGroupEncourage.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
         localGroupDao.insert(localGroupEncourage);
@@ -262,6 +264,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupShortEssay.setTitle("我的本地清新集");
         localGroupShortEssay.setTime(new Date());
         localGroupShortEssay.setUserd(true);
+        localGroupShortEssay.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");
+        localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);
+        localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupShortEssay.setContent("随手记录让我静心的短句。");
         localGroupDao.insert(localGroupShortEssay);

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dialog_add_group_bg">
+
 
     <EditText
         android:id="@+id/et_group_name"
@@ -42,6 +44,96 @@
         android:padding="4dp"
         android:textColorHint="@color/gray"
         android:textSize="16sp" />
+    <RelativeLayout
+        android:id="@+id/defaut_panel"
+        android:layout_below="@+id/et_group_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        >
+
+        <com.example.greatbook.widght.RoundImageView
+            android:id="@+id/btn_selected_encourage"
+            android:layout_width="@dimen/add_group_icon_w_h"
+            android:layout_height="@dimen/add_group_icon_w_h"
+            android:scaleType="fitCenter"
+            android:layout_toLeftOf="@+id/btn_selected_jok"
+            android:layout_marginRight="30dp"
+            android:background="@color/gray"
+            android:src="@drawable/icon_default_group_encourage"
+            app:borderRadius="4dp"
+            app:type="round" />
+
+        <com.example.greatbook.widght.RoundImageView
+            android:id="@+id/btn_selected_jok"
+            android:layout_width="@dimen/add_group_icon_w_h"
+            android:layout_height="@dimen/add_group_icon_w_h"
+            android:scaleType="fitCenter"
+            android:background="@color/gray"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_default_group_jok"
+            app:borderRadius="4dp"
+            app:type="round" />
+
+        <com.example.greatbook.widght.RoundImageView
+            android:id="@+id/btn_selected_short_eassy"
+            android:layout_toRightOf="@+id/btn_selected_jok"
+            android:layout_width="@dimen/add_group_icon_w_h"
+            android:layout_height="@dimen/add_group_icon_w_h"
+            android:scaleType="fitCenter"
+            android:background="@color/gray"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/icon_default_group_short_eassy"
+            app:borderRadius="4dp"
+            app:type="round" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/defaut_panel"
+        android:text="选择内置图片，可以避免流量的浪费"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/gray"
+        android:textSize="16sp" />
+    <com.example.greatbook.widght.DottedView
+        android:id="@+id/dottedView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tips"
+        android:layout_margin="@dimen/activity_add_group_margin" />
+    <RelativeLayout
+        android:id="@+id/btn_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dottedView1"
+        android:layout_centerHorizontal="true"
+        android:padding="8dp">
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="@dimen/activity_add_group_iv_w_h"
+            android:layout_height="@dimen/activity_add_group_iv_w_h"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/btn_photo" />
+        <ImageView
+            android:id="@+id/btn_off_photo"
+            android:layout_width="20dp"
+            android:visibility="gone"
+            android:src="@drawable/btn_off_photo"
+            android:layout_alignRight="@+id/iv_select"
+            android:layout_margin="4dp"
+            android:layout_height="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="给文集设置一个图片"
+            android:textColor="@color/gray_icon"
+            android:layout_below="@+id/iv_select"
+            android:textSize="16sp"
+            android:id="@+id/textView" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -77,29 +169,4 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/btn_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/et_group_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <ImageView
-            android:id="@+id/iv_select"
-            android:layout_width="@dimen/activity_add_group_iv_w_h"
-            android:layout_height="@dimen/activity_add_group_iv_w_h"
-            android:src="@drawable/btn_photo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="给文集设置一个图片"
-            android:textColor="@color/gray_icon"
-            android:textSize="16sp" />
-    </LinearLayout>
 </RelativeLayout>

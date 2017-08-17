@@ -32,9 +32,6 @@ public class Constants {
     public static final String TO_CLIPACTIVITY="to_clipactivity";
     public static final String TO_CLIPACTIVITY_NO_CLIP="to_clipactivity_no_clip";
 
-
-    public static final String PATH_COLLECT = FileUtils.createRootPath(App.getInstance().getContext()) + "/collect";
-
     public static final String PATH_TXT = PATH_DATA + "/book/";
 
     public static final String PATH_EPUB = PATH_DATA + "/epub";

@@ -15,6 +15,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.widght.CircleImageView;
+import com.example.greatbook.widght.RoundImageView;
 
 import static android.R.attr.width;
 import static android.support.design.R.attr.height;
@@ -30,6 +31,10 @@ public class GlideUtils {
     }
 
     public static void load(byte[] url, ImageView iv) {
+        Glide.with(context).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.NONE).into(iv);
+    }
+
+    public static void load(byte[] url, RoundImageView iv) {
         Glide.with(context).load(url).crossFade().diskCacheStrategy(DiskCacheStrategy.NONE).into(iv);
     }
 

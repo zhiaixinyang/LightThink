@@ -23,9 +23,13 @@ import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.model.event.LocalAddEvent;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.RoundImageView;
 import com.example.greatbook.widght.refresh.DefaultRefreshCreator;
 import com.example.greatbook.widght.refresh.LoadRefreshRecyclerView;
 import com.example.greatbook.widght.refresh.RefreshRecyclerView;
@@ -72,6 +76,7 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     @Override
     protected void initViewsAndEvents(View view) {
         EventBus.getDefault().register(this);
+        LogUtils.d("initViewsAndEvents");
 
         context=App.getInstance().getContext();
         data=new ArrayList<>();
@@ -93,6 +98,14 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
                         .setCornerRadius(DpUtils.dp2px(4))
                         .setStrokeWidth(DpUtils.dp2px(1))
                         .create());
+                if (StringUtils.isEmpty(localRecord.groupPhotoPath)) {
+                    holder.setImageResource(R.id.iv_group, localRecord.groupLocalPhotoPath);
+                }else{
+                    LogUtils.d(localRecord.groupPhotoPath);
+                    GlideUtils.load(FileUtils.getByteFromPath(localRecord.groupPhotoPath),
+                            (RoundImageView)holder.getView(R.id.iv_group));
+                    holder.getView(R.id.iv_group).setBackgroundColor(Integer.parseInt(localRecord.bgColor));
+                }
             }
         };
         rlvLocal.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false));
@@ -105,12 +118,17 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
 
     @Override
     protected void onFirstUserVisible() {
+        LogUtils.d("onFirstUserVisible");
         presenter.initLocalRecord();
+
     }
 
     @Override
     protected void onUserVisible() {
+        LogUtils.d("onUserVisible");
+
         presenter.initLocalRecord();
+
     }
 
     @Override

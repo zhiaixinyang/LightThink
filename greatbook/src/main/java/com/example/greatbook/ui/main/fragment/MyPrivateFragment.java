@@ -23,6 +23,7 @@ import com.example.greatbook.ui.main.activity.FeedBackActivity;
 import com.example.greatbook.ui.main.activity.LoginActivity;
 import com.example.greatbook.ui.main.activity.MyPrivateAdjustActivity;
 import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.CircleImageView;
@@ -85,16 +86,23 @@ public class MyPrivateFragment extends BaseLazyFragment implements SwipeRefreshL
 
     @Override
     protected void initViewsAndEvents(View view) {
+        LogUtils.d("initViewsAndEvents");
+
         srfMyPrivate.setOnRefreshListener(this);
     }
 
     @Override
     protected void onFirstUserVisible() {
+        LogUtils.d("onFirstUserVisible");
+
         initAvatar();
+        onRefresh();
     }
 
     @Override
     protected void onUserVisible() {
+        LogUtils.d("onUserVisible");
+
         initAvatar();
         onRefresh();
         // 初始化合成对象
@@ -162,7 +170,6 @@ public class MyPrivateFragment extends BaseLazyFragment implements SwipeRefreshL
 
     @Override
     protected void onUserInvisible() {
-
     }
 
 
