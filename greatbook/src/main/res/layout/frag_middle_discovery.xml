@@ -40,50 +40,14 @@
                 android:layout_width="match_parent"
                 android:paddingLeft="8dp"
                 android:layout_height="wrap_content"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_discovery_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.example.greatbook.widght.refresh.LoadRefreshRecyclerView
-        android:id="@+id/rlv_discovery_record"
-        android:layout_below="@+id/srl_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/tv_load_view"
-        android:layout_below="@+id/srl_top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="@color/gray_light"
-        android:src="@mipmap/list_load_more"
-        android:text="正在加载数据..."
-        android:textSize="22sp"
-        android:visibility="gone" />
-    <RelativeLayout
-        android:layout_below="@+id/srl_top"
-        android:id="@+id/tv_empty_view"
-        android:visibility="gone"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/iv_empty"
-            android:src="@drawable/icon_data_empty"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_width="80dp"
-            android:layout_height="80dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textColor="@color/gray_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/iv_empty"
-            android:layout_marginTop="10dp"
-            android:text="当前暂无数据..."
-            />
-    </RelativeLayout>
+
 
 </RelativeLayout>

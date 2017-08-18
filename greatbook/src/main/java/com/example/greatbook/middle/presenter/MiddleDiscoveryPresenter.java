@@ -92,11 +92,11 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
     @Override
     public void initDiscoveryRecord() {
         if (NetUtil.isNetworkAvailable()){
-            recordReturn = new DiscoveryRecordReturn();
 
-            Subscription subscription=Observable.create(new Observable.OnSubscribe<List<LLocalRecord>>() {
+
+            Subscription subscription=Observable.create(new Observable.OnSubscribe<DiscoveryRecordReturn>() {
                 @Override
-                public void call(final Subscriber<? super List<LLocalRecord>> subscriber) {
+                public void call(final Subscriber<? super DiscoveryRecordReturn> subscriber) {
                     AVQuery<LLocalRecord> query = AVQuery.getQuery(LLocalRecord.class);
                     query.limit(10);
                     query.addDescendingOrder("likeNum");
@@ -104,58 +104,23 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                         @Override
                         public void done(List<LLocalRecord> list, AVException e) {
                             if (e == null && !list.isEmpty()) {
-                                subscriber.onNext(list);
+                                List<DiscoveryRecord> data = new ArrayList<>();
+                                recordReturn = new DiscoveryRecordReturn();
+                                for (LLocalRecord lLocalRecord : list) {
+                                    DiscoveryRecord record = new DiscoveryRecord();
+                                    record.likeNum = lLocalRecord.getLikeNum();
+                                    record.belongId = lLocalRecord.getBelongId();
+                                    record.content = lLocalRecord.getContent();
+                                    record.groupId = lLocalRecord.getGroupId();
+                                    record.time = lLocalRecord.getCreatedAt();
+                                    record.title=lLocalRecord.getTitle();
+                                    data.add(record);
+                                }
+                                recordReturn.data = data;
+                                subscriber.onNext(recordReturn);
                             }
                         }
                     });
-                }
-            }).flatMap(new Func1<List<LLocalRecord>, Observable<DiscoveryRecordReturn>>() {
-                @Override
-                public Observable<DiscoveryRecordReturn> call(List<LLocalRecord> records) {
-                    final List<DiscoveryRecord> data = new ArrayList<>();
-
-                    for (final LLocalRecord lLocalRecord : records) {
-
-                        final AVQuery<User> query=AVQuery.getQuery(User.class);
-                        query.whereEqualTo("objectId",lLocalRecord.getBelongId());
-                        query.findInBackground(new FindCallback<User>() {
-                            @Override
-                            public void done(List<User> list, AVException e) {
-                                final DiscoveryRecord record = new DiscoveryRecord();
-
-                                if (e==null&&!list.isEmpty()){
-                                    AVQuery<LLocalGroup> query1=AVQuery.getQuery(LLocalGroup.class);
-                                    query1.whereEqualTo("belongId",list.get(0).getObjectId());
-                                    query1.whereEqualTo("groupId",lLocalRecord.getGroupId());
-                                    query1.findInBackground(new FindCallback<LLocalGroup>() {
-                                        @Override
-                                        public void done(List<LLocalGroup> list, AVException e) {
-                                            if (e==null&&!list.isEmpty()){
-                                                LLocalGroup lLocalGroup=list.get(0);
-
-                                                record.likeNum = lLocalRecord.getLikeNum();
-                                                record.belongId = lLocalRecord.getBelongId();
-                                                record.content = lLocalRecord.getContent();
-                                                record.groupId = lLocalRecord.getGroupId();
-                                                record.groupTitle = lLocalRecord.getGroupTitle();
-                                                record.time = lLocalRecord.getCreatedAt();
-                                                record.title=lLocalRecord.getTitle();
-                                                record.groupPhotoPath=lLocalGroup.getGroupPhoto().getUrl();
-                                                data.add(record);
-                                            }else{
-                                                groupReturn.strReturn = "加载数据失败";
-                                            }
-                                        }
-                                    });
-                                }else{
-                                    groupReturn.strReturn = "加载数据失败";
-                                }
-                            }
-                        });
-                    }
-                    recordReturn.data = data;
-                    LogUtils.d(data.size());
-                    return Observable.just(recordReturn);
                 }
             }).compose(RxUtil.<DiscoveryRecordReturn>rxSchedulerHelper())
                     .subscribe(new Action1<DiscoveryRecordReturn>() {

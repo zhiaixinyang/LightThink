@@ -68,6 +68,7 @@ public class MainNewActivity extends BaseActivity {
         localAddFragment = new MiddleLocalAddFragment();
         discoveryFragment = new MiddleDiscoveryFragment();
         myPrivateFragment = new MyPrivateFragment();
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
@@ -22,7 +20,6 @@ import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.model.event.LocalAddEvent;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
-import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SelectorFactory;
@@ -99,7 +96,7 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
                     holder.setImageResource(R.id.iv_group, localRecord.groupLocalPhotoPath);
                     holder.getView(R.id.iv_group).setBackgroundColor(Integer.parseInt(localRecord.bgColor));
                 }else{
-                    GlideUtils.loadSmallIvR(localRecord.groupPhotoPath,(RoundImageView)holder.getView(R.id.iv_group));
+                    GlideUtils.loadSmallIv(localRecord.groupPhotoPath,(RoundImageView)holder.getView(R.id.iv_group));
                 }
             }
         };

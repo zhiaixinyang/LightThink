@@ -46,7 +46,7 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(iv);
     }
-    public static void loadSmallIvR(String url, ImageView iv) {
+    public static void loadSmallIv(String url, ImageView iv) {
         Glide.with(context).load(url)
                 .crossFade()
                 .fitCenter()
@@ -55,7 +55,7 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(iv);
     }
-    public static void loadSmallIvR(String url, RoundImageView iv) {
+    public static void loadSmallIv(String url, RoundImageView iv) {
         Glide.with(context).load(url)
                 .crossFade()
                 .fitCenter()

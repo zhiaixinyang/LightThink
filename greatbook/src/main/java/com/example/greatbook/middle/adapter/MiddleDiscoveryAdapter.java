@@ -32,7 +32,7 @@ public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup>{
                 "99+":discoveryTopGroup.attentionNum+"");
         holder.setText(R.id.tv_discovery_top_group_name,
                 !StringUtils.isEmpty(discoveryTopGroup.groupTitle)?discoveryTopGroup.groupTitle:"未设置标题");
-        GlideUtils.loadSmallIvR(discoveryTopGroup.groupPhotoPath, (ImageView) holder.getView(R.id.iv_group));
+        GlideUtils.loadSmallIv(discoveryTopGroup.groupPhotoPath, (ImageView) holder.getView(R.id.iv_group));
         AVQuery<User> query=AVQuery.getQuery(User.class);
         query.whereEqualTo("objectId",discoveryTopGroup.belongId);
         query.findInBackground(new FindCallback<User>() {
