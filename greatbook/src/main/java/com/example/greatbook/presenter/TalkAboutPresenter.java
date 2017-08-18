@@ -19,7 +19,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by MBENBEN on 2017/2/6.
+ * Created by MDove on 2017/2/6.
  */
 
 public class TalkAboutPresenter extends RxPresenter<TalkAboutContract.View> implements TalkAboutContract.Presenter {

@@ -4,21 +4,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.greatbook.R;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
-import com.example.greatbook.ui.main.activity.RegisterActivity;
 import com.example.greatbook.utils.BitmapCompressUtils;
-import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.FileUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.clipimage.ClipImageLayout;
 
@@ -26,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

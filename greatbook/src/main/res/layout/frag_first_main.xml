@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/main_margin"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_main_one"
+                android:src="@drawable/icon_main_one"
                 honor:borderRadius="8dp"
                 honor:type="round" />
 
@@ -33,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@mipmap/icon_main_two"
+                android:src="@drawable/icon_main_two"
                 honor:borderRadius="8dp"
                 honor:type="round" />
         </LinearLayout>

@@ -41,12 +41,15 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
             Subscription subscription = Observable.create(new Observable.OnSubscribe<DiscoveryGroupReturn>() {
                 @Override
                 public void call(final Subscriber<? super DiscoveryGroupReturn> subscriber) {
+                    LogUtils.d(Thread.currentThread()+"!!!");
                     AVQuery<LLocalGroup> query = AVQuery.getQuery(LLocalGroup.class);
                     query.limit(10);
                     query.addDescendingOrder("attentionNum");
                     query.findInBackground(new FindCallback<LLocalGroup>() {
                         @Override
                         public void done(List<LLocalGroup> list, AVException e) {
+                            LogUtils.d(Thread.currentThread()+"!@!@!");
+
                             groupReturn = new DiscoveryGroupReturn();
 
                             if (e == null && !list.isEmpty()) {
