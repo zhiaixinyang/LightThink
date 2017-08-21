@@ -71,7 +71,7 @@ public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresent
         avatarUrl=user.getAvatar().getUrl();
         privateAdjustPresenter =new MyPrivateAdjustPresenter(this);
         setUserName();
-        GlideUtils.load(user.getAvatar().getUrl(),ivAvatar);
+        GlideUtils.loadSmallAvatar(user.getAvatar().getUrl(),ivAvatar);
         onRefresh();
         btnOk.setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
@@ -235,7 +235,10 @@ public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresent
 
     @Override
     public void onRefresh() {
-        privateAdjustPresenter.getAvatarBitmap(avatarUrl);
+        user=AVUser.getCurrentUser(User.class);
+        if (user!=null) {
+            GlideUtils.loadSmallAvatar(user.getAvatar().getUrl(),ivAvatar);
+        }
     }
 
 }

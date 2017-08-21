@@ -13,6 +13,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        multiDexEnabled true
+
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
 
@@ -28,6 +30,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
 
     dexOptions {
@@ -99,4 +105,7 @@ dependencies {
     compile 'com.ethanhua:skeleton:0.2.2'
     //图片压缩工具
     compile 'top.zibin:Luban:1.1.2'
+
+    //64K方法问题
+    compile 'com.android.support:multidex:1.0.1'
 }

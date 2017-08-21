@@ -4,16 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.support.multidex.MultiDexApplication;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.example.greatbook.greendao.DaoSession;
 import com.example.greatbook.greendao.utils.DaoManager;
-import com.example.greatbook.model.leancloud.BookTalkBean;
-import com.example.greatbook.model.leancloud.LBookDesBean;
-import com.example.greatbook.model.leancloud.LBookDesCatalogue;
-import com.example.greatbook.model.leancloud.LBookKindBean;
-import com.example.greatbook.model.leancloud.LBookKindListBean;
+import com.example.greatbook.middle.model.leancloud.LRecordRemark;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
@@ -27,7 +24,7 @@ import java.util.Set;
  * Created by MBENBEN on 2016/10/20.
  */
 
-public class App extends Application{
+public class App extends MultiDexApplication {
     private static Context context;
     private static App app;
     public static int SCREEN_WIDTH = -1;
@@ -76,14 +73,10 @@ public class App extends Application{
     private void initLeanCloud() {
         AVOSCloud.initialize(this, Constants.LEANCLOUD_APP_ID, Constants.LEANCLOUD_APP_KEY);
         AVObject.registerSubclass(TalkAboutBean.class);
-        AVObject.registerSubclass(BookTalkBean.class);
-        AVObject.registerSubclass(LBookDesBean.class);
-        AVObject.registerSubclass(LBookKindBean.class);
-        AVObject.registerSubclass(LBookKindListBean.class);
-        AVObject.registerSubclass(LBookDesCatalogue.class);
         AVObject.registerSubclass(LFeedBackBean.class);
         AVObject.registerSubclass(LLocalRecord.class);
         AVObject.registerSubclass(LLocalGroup.class);
+        AVObject.registerSubclass(LRecordRemark.class);
     }
 
     public void addActivity(Activity act) {

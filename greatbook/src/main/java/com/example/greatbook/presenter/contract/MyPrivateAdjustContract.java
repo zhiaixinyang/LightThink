@@ -11,7 +11,6 @@ import com.example.greatbook.base.BaseView;
 
 public interface MyPrivateAdjustContract {
     interface Presenter extends BasePresenter<View> {
-        void getAvatarBitmap(String url);
     }
     interface View extends BaseView{
         void initAvatar(Bitmap avatar);

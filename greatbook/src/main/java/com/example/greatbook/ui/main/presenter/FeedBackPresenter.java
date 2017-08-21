@@ -5,8 +5,6 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.base.RxPresenter;
-import com.example.greatbook.model.leancloud.LBookKindBean;
-import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.ui.main.presenter.contract.FeedBackContract;
 import com.example.greatbook.ui.model.LFeedBackBean;
 import com.example.greatbook.utils.LogUtils;
