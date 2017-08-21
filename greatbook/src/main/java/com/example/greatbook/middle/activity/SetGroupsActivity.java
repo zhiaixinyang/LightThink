@@ -79,38 +79,6 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
 
             @Override
             public void onAlter(final int pos) {
-//                dialog=new BaseAlertDialog.Builder(SetGroupsActivity.this)
-//                        .setContentView(R.layout.dialog_set_local_record_or_group)
-//                        .setWidthAndHeight(DpUtils.dp2px(250), DpUtils.dp2px(300))
-//                        .create();
-//                dialog.show();
-//                final EditText etName=dialog.getView(R.id.et_record_or_group_name);
-//                final EditText etContent=dialog.getView(R.id.et_record_or_group_content);
-//                final String curName= StringUtils.isEmpty(data.get(pos).getTitle())
-//                        ?"未设置":data.get(pos).getTitle();
-//                final String curContent=StringUtils.isEmpty(data.get(pos).getContent())
-//                        ?"未设置":data.get(pos).getContent();
-//                etName.setText(curName);
-//                etContent.setText(curContent);
-//                dialog.setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                dialog.setOnClickListener(R.id.btn_set_ok, new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        String title=etName.getText().toString();
-//                        String content=etContent.getText().toString();
-//                        if (StringUtils.isEquals(curName,title)&&
-//                                StringUtils.isEquals(curContent,content)){
-//                            ToastUtil.toastShort("未修改任何任何");
-//                        }else {
-//                            presenter.updateGroupMes(data.get(pos), title, content);
-//                        }
-//                    }
-//                });
                 Intent toDetail=new Intent(SetGroupsActivity.this,AddLocalGroupActivity.class);
                 startActivity(toDetail);
             }

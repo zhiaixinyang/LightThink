@@ -44,7 +44,29 @@
         android:src="@drawable/pictures_no"
         android:layout_marginRight="@dimen/item_middle_local_add_margin"
         android:layout_height="@dimen/item_rlv_discovery_record_iv_group_w_h" />
-
+    <RelativeLayout
+        android:id="@+id/btn_good"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/item_feedback_margin"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginTop="@dimen/item_feedback_good_w_h"
+        android:layout_width="@dimen/item_feedback_btn_good_w_h"
+        android:layout_height="@dimen/item_feedback_btn_good_w_h">
+        <ImageView
+            android:id="@+id/iv_good"
+            android:src="@drawable/icon_good_off"
+            android:layout_width="@dimen/item_feedback_good_w_h"
+            android:layout_height="@dimen/item_feedback_good_w_h" />
+        <TextView
+            android:id="@+id/tv_good_num"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:text="99+"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/tv_title"
         android:text="标题"
@@ -87,7 +109,7 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="4dp"
-        android:layout_below="@+id/tv_content"
+        android:layout_below="@+id/btn_good"
         android:layout_marginTop="@dimen/item_middle_local_add_margin"
         android:background="@color/gray_light"/>
 </RelativeLayout>

@@ -14,6 +14,7 @@ import com.example.greatbook.model.WeChatItemBean;
 import com.example.greatbook.model.ZhihuDetailBean;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.utils.NetUtil;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +28,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
@@ -109,7 +109,7 @@ public class RetrofitHelper {
                 .baseUrl(WeChatApis.HOST)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit.create(WeChatApis.class);
     }
@@ -119,7 +119,7 @@ public class RetrofitHelper {
                 .baseUrl(GrammarApis.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return retrofit.create(GrammarApis.class);
     }
@@ -128,7 +128,7 @@ public class RetrofitHelper {
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(GreatBookApis.HOST)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(InputStreamConvertFactory.create())
                 .build();
         return retrofit.create(GreatBookApis.class);
@@ -138,7 +138,7 @@ public class RetrofitHelper {
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(ZhihuApis.HOST)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(ZhihuApis.class);
@@ -148,7 +148,7 @@ public class RetrofitHelper {
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(JuHeApis.HOST)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(JuHeApis.class);
@@ -158,7 +158,7 @@ public class RetrofitHelper {
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(MyBookApis.HOST)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(MyBookApis.class);

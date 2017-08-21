@@ -17,6 +17,7 @@ import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
+import com.example.greatbook.middle.activity.InitSyncActivity;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.main.presenter.LoginPresenter;
 import com.example.greatbook.ui.main.presenter.contract.LoginContract;
@@ -105,7 +106,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         presenter.initDB();
         ToastUtil.toastLong(suc);
         waitNetPopupWindowUtils.hideWaitNetPopupWindow(this);
-        Intent intent = new Intent(App.getInstance().getContext(), MainNewActivity.class);
+        //先跳转至同步页面
+        Intent intent = new Intent(App.getInstance().getContext(), InitSyncActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(R.anim.login_in, R.anim.login_out);

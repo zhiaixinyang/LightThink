@@ -16,6 +16,9 @@ import com.ethanhua.skeleton.Skeleton;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
+import com.example.greatbook.base.adapter.OnItemClickListener;
+import com.example.greatbook.constants.Constants;
+import com.example.greatbook.middle.activity.DiscoveryRecordRemarkActivity;
 import com.example.greatbook.middle.adapter.DiscoveryRecordAdapter;
 import com.example.greatbook.middle.adapter.MiddleDiscoveryAdapter;
 import com.example.greatbook.middle.model.DiscoveryRecord;
@@ -91,6 +94,16 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
         dataRecords = new ArrayList<>();
         adapterRecord = new DiscoveryRecordAdapter(context, R.layout.item_rlv_discovery_record, dataRecords);
+        adapterRecord.setOnItemClickListener(new OnItemClickListener<DiscoveryRecord>() {
+            @Override
+            public void onItemClick(View view, DiscoveryRecord o, int position) {
+                if (o!=null){
+                    Intent toActivity=new Intent(context, DiscoveryRecordRemarkActivity.class);
+                    toActivity.putExtra(Constants.DISCOVERY_RECORD_ITEM_CLICK,o);
+                    startActivity(toActivity);
+                }
+            }
+        });
         rlvDiscoveryRecord.setLayoutManager(new LinearLayoutManager(context));
         rlvDiscoveryRecord.setAdapter(adapterRecord);
 

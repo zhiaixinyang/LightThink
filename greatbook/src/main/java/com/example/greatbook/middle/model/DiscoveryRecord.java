@@ -1,12 +1,14 @@
 package com.example.greatbook.middle.model;
 
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by MDove on 2017/8/14.
  */
 
-public class DiscoveryRecord {
+public class DiscoveryRecord  implements Serializable{
     public String id;
     public Date time;
     public String title;

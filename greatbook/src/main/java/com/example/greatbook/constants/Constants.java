@@ -42,4 +42,6 @@ public class Constants {
     public static final int  START_ALBUM_REQUESTCODE=1;
     public static final int CROP_RESULT_CODE=2;
     public static final int CAMERA_WITH_DATA=3;
+    public static final String DISCOVERY_RECORD_ITEM_CLICK="discovery_record_item_click";
+    public static final String DISCOVERY_GROUP_ITEM_CLICK="discovery_group_item_click";
 }

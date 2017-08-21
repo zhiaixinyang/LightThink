@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by MDove on 2017/8/13.
  */
 @AVClassName("LLocalGroup")
-public class LLocalGroup extends AVObject{
+public class LLocalGroup extends AVObject {
     private Date time;
     private String content;
     //对应的账号信息，用于网络同步
@@ -27,7 +27,7 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setGroupPhoto(AVFile groupPhoto) {
-        put("groupPhoto",groupPhoto);
+        put("groupPhoto", groupPhoto);
     }
 
     public boolean isUserd() {
@@ -35,7 +35,7 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setUserd(boolean userd) {
-        put("isUserd",userd);
+        put("isUserd", userd);
     }
 
     public Date getTime() {
@@ -43,7 +43,7 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setTime(Date time) {
-        put("time",time);
+        put("time", time);
     }
 
     public String getContent() {
@@ -51,7 +51,7 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setContent(String content) {
-        put("content",content);
+        put("content", content);
     }
 
     public String getBelongId() {
@@ -59,7 +59,7 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setBelongId(String belongId) {
-        put("belongId",belongId);
+        put("belongId", belongId);
     }
 
 
@@ -68,7 +68,7 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setGroupId(Long groupId) {
-        put("groupId",groupId);
+        put("groupId", groupId);
     }
 
     public String getGroupTitle() {
@@ -84,6 +84,6 @@ public class LLocalGroup extends AVObject{
     }
 
     public void setAttentionNum(int attentionNum) {
-        put("attentionNum",attentionNum);
+        put("attentionNum", attentionNum);
     }
 }

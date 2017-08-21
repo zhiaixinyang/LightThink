@@ -13,6 +13,7 @@ import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
+import com.example.greatbook.utils.StringUtils;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -57,8 +58,12 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
                     lLocalGroup.setGroupTitle(localGroup.getTitle());
                     lLocalGroup.setUserd(localGroup.getIsUserd());
                     lLocalGroup.setTime(localGroup.getTime());
-                    lLocalGroup.setGroupPhoto(new AVFile(FileUtils.getFileName(localGroup.getGroupPhotoPath()),
-                            FileUtils.getByteFromPath(localGroup.getGroupPhotoPath())));
+                    if (!StringUtils.isEmpty(localGroup.getGroupPhotoPath())) {
+                        lLocalGroup.setGroupPhoto(new AVFile(FileUtils.getFileName(localGroup.getGroupPhotoPath()),
+                                FileUtils.getByteFromPath(localGroup.getGroupPhotoPath())));
+                    }else{
+                        lLocalGroup.setGroupPhoto(null);
+                    }
                     lLocalGroup.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(AVException e) {

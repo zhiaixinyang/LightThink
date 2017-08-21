@@ -168,8 +168,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         switch (requestCode) {
             case 123:
                 String path = data.getStringExtra(Constants.RETURN_CLIP_PHOTO);
-//                bmp = BitmapFactory.decodeFile(path);
-//                GlideUtils.load(imagePath,ivAvatar);
                 compressWithRx(new File(path));
                 break;
             case Constants.START_ALBUM_REQUESTCODE:

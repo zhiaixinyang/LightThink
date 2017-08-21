@@ -86,6 +86,9 @@
         <activity android:name=".ui.GrammarMainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
+        <activity android:name=".middle.activity.InitSyncActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity android:name=".middle.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
@@ -93,6 +96,9 @@
         <activity android:name=".base.ClipImageActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".middle.activity.AddLocalGroupActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".middle.activity.DiscoveryRecordRemarkActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

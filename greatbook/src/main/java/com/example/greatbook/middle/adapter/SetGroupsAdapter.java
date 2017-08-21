@@ -1,6 +1,8 @@
 package com.example.greatbook.middle.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,8 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.greendao.entity.LocalGroup;
+import com.example.greatbook.utils.FileAndImageUtils;
+import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -77,6 +81,12 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
             ivUserd.setVisibility(View.VISIBLE);
         }else{
             ivUserd.setVisibility(View.GONE);
+        }
+        if (!StringUtils.isEmpty(localGroup.getGroupPhotoPath())){
+            holder.setImageBitmap(R.id.iv_group,FileUtils.getBitmapFromByte(FileUtils.getByteFromPath(localGroup.getGroupPhotoPath())));
+        }else{
+            holder.setImageResource(R.id.iv_group,localGroup.getGroupLocalPhotoPath());
+            holder.setBackgroundColor(R.id.iv_group, Color.parseColor(localGroup.getBgColor()));
         }
     }
 

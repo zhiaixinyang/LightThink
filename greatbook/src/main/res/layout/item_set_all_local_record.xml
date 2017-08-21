@@ -36,16 +36,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <com.example.greatbook.widght.ExpandableTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/tv_content"
-            android:text="内容"
-            android:layout_marginBottom="@dimen/item_middle_local_add_margin"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+
+            app:DrawableAndTextGravity="right"
+            app:collapseDrawable="@drawable/btn_expand_off"
+            app:expandDrawable="@drawable/btn_expand_on"
+            app:contentTextColor="@color/colorPrimaryDark"
+            app:expandCollapseTextColor="@color/blue"
+            app:expandText="更多"
             android:layout_alignLeft="@+id/tv_title"
             android:layout_below="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp"
+            app:maxCollapsedLines="6"/>
         <TextView
             android:id="@+id/tv_time"
             android:text="时间"

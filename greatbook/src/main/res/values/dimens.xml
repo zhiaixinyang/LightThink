@@ -66,7 +66,7 @@
     <dimen name="item_feedback_avatar_wh">40dp</dimen>
     <dimen name="item_feedback_margin">8dp</dimen>
     <dimen name="item_feedback_good_w_h">25dp</dimen>
-    <dimen name="item_feedback_btn_good_w_h">30dp</dimen>
+    <dimen name="item_feedback_btn_good_w_h">25dp</dimen>
     <dimen name="bottom_menu_wh">24dp</dimen>
     <dimen name="bottom_btn_menu_wh">42dp</dimen>
     <dimen name="talkabout_item_top_margin">4dp</dimen>
@@ -111,4 +111,8 @@
     <dimen name="add_group_icon_w_h">80dp</dimen>
     <dimen name="add_group_selected_iv_w_h">15dp</dimen>
     <dimen name="item_rlv_discovery_record_iv_group_w_h">60dp</dimen>
+    <dimen name="item_set_groups_iv_w_h">50dp</dimen>
+    <dimen name="item_activity_record_remark_margin">8dp</dimen>
+    <dimen name="activity_record_remark_bottom_margin">5dp</dimen>
+    <dimen name="item_activity_record_remark_avatar_wh">35dp</dimen>
 </resources>

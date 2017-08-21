@@ -30,7 +30,6 @@ public class DiscoveryRecordAdapter extends CommonAdapter<DiscoveryRecord> {
 
     @Override
     public void convert(final ViewHolder holder, final DiscoveryRecord discoveryRecord) {
-        LogUtils.d("aaaaaaaaaaaaaaa");
         holder.setText(R.id.tv_title,discoveryRecord.title);
         holder.setText(R.id.tv_content,discoveryRecord.content);
         holder.setText(R.id.tv_time, DateUtils.getDateChinese(discoveryRecord.time));
