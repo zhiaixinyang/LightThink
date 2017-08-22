@@ -23,8 +23,7 @@ public class RecordRemarksAdapter extends RecyclerView.Adapter<RecordRemarksAdap
     private List<RecordRemarkBeanVM> data;
     private Context context;
 
-    public RecordRemarksAdapter(List<RecordRemarkBeanVM> data, Context context) {
-        this.data = data;
+    public RecordRemarksAdapter(Context context) {
         this.context = context;
     }
 

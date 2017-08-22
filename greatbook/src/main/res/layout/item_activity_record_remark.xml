@@ -24,6 +24,7 @@
                 android:layout_marginBottom="@dimen/activity_record_remark_bottom_margin"
                 android:layout_width="@dimen/item_activity_record_remark_avatar_wh"
                 android:src="@drawable/no_avatar"
+                app:loadAvatar="@{remarkVm.avatarPath}"
                 app:civ_border_color="@color/black"
                 app:civ_border_width="1dp"
                 android:layout_height="@dimen/item_activity_record_remark_avatar_wh" />

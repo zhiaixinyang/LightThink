@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen;
@@ -19,7 +17,7 @@ import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.middle.activity.DiscoveryRecordRemarkActivity;
-import com.example.greatbook.middle.adapter.DiscoveryRecordAdapter;
+import com.example.greatbook.middle.adapter.DiscoveryLocalRecordAdapter;
 import com.example.greatbook.middle.adapter.MiddleDiscoveryAdapter;
 import com.example.greatbook.middle.model.DiscoveryRecord;
 import com.example.greatbook.middle.presenter.MiddleDiscoveryPresenter;
@@ -30,8 +28,6 @@ import com.example.greatbook.middle.activity.TalkAboutActivity;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
-import com.example.greatbook.widght.refresh.DefaultRefreshCreator;
-import com.example.greatbook.widght.refresh.LoadRefreshRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +55,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     private Context context;
     private MiddleDiscoveryPresenter presenter;
     private MiddleDiscoveryAdapter adapterGroup;
-    private DiscoveryRecordAdapter adapterRecord;
+    private DiscoveryLocalRecordAdapter adapterRecord;
     private RecyclerViewSkeletonScreen skeletonScreenGroup;
     private RecyclerViewSkeletonScreen skeletonScreenRecord;
     private List<HeadlineBean> talkABoutData;
@@ -93,7 +89,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         srlTop.setOnRefreshListener(this);
 
         dataRecords = new ArrayList<>();
-        adapterRecord = new DiscoveryRecordAdapter(context, R.layout.item_rlv_discovery_record, dataRecords);
+        adapterRecord = new DiscoveryLocalRecordAdapter(context, R.layout.item_rlv_discovery_record, dataRecords);
         adapterRecord.setOnItemClickListener(new OnItemClickListener<DiscoveryRecord>() {
             @Override
             public void onItemClick(View view, DiscoveryRecord o, int position) {

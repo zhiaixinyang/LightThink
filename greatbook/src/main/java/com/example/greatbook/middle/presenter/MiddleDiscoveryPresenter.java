@@ -117,6 +117,7 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     record.groupId = lLocalRecord.getGroupId();
                                     record.time = lLocalRecord.getCreatedAt();
                                     record.title=lLocalRecord.getTitle();
+                                    record.objectId=lLocalRecord.getObjectId();
                                     data.add(record);
                                 }
                                 recordReturn.data = data;

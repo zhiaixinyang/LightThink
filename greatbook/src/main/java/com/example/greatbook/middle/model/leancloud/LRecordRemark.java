@@ -20,12 +20,12 @@ public class LRecordRemark extends AVObject {
         put("belong",belong);
     }
 
-    public String getBelingId() {
-        return getString("belingId");
+    public String getBelongUserId() {
+        return getString("belongUserId");
     }
 
-    public void setBelingId(String belingId) {
-        put("belingId",belingId);
+    public void setBelongUserId(String belingId) {
+        put("belongUserId",belingId);
     }
 
     public String getContent() {
@@ -36,11 +36,4 @@ public class LRecordRemark extends AVObject {
         put("content",content);
     }
 
-    public Date getTime() {
-        return getDate("time");
-    }
-
-    public void setTime(Date time) {
-        put("time",time);
-    }
 }

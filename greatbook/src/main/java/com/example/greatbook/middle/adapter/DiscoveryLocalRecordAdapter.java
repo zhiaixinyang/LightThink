@@ -23,8 +23,8 @@ import java.util.List;
  * Created by MDove on 2017/8/14.
  */
 
-public class DiscoveryRecordAdapter extends CommonAdapter<DiscoveryRecord> {
-    public DiscoveryRecordAdapter(Context context, int layoutId, List<DiscoveryRecord> datas) {
+public class DiscoveryLocalRecordAdapter extends CommonAdapter<DiscoveryRecord> {
+    public DiscoveryLocalRecordAdapter(Context context, int layoutId, List<DiscoveryRecord> datas) {
         super(context, layoutId, datas);
     }
 

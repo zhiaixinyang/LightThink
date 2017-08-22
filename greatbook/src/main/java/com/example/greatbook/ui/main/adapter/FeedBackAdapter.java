@@ -47,7 +47,7 @@ public class FeedBackAdapter extends CommonAdapter<LFeedBackBean> {
         query.findInBackground(new FindCallback<User>() {
             @Override
             public void done(List<User> list, AVException e) {
-                if (e == null) {
+                if (e == null&&!list.isEmpty()) {
                     GlideUtils.load(list.get(0).getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_avatar));
                     if (StringUtils.isEmpty(list.get(0).getName())) {
                         holder.setText(R.id.tv_nick,"书心用户");

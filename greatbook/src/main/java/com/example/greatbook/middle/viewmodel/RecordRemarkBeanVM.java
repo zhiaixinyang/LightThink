@@ -11,6 +11,6 @@ public class RecordRemarkBeanVM {
     public ObservableField<String> time=new ObservableField<>();
     public ObservableField<String> nick=new ObservableField<>();
     public String belongId;
-    public String avatarPath;
+    public ObservableField<String> avatarPath=new ObservableField<>();
 
 }

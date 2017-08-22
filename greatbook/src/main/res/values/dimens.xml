@@ -98,7 +98,7 @@
     <dimen name="item_set_group_iv_w_h">40dp</dimen>
     <dimen name="item_set_group_iv_userd_w_h">26dp</dimen>
     <dimen name="margin_activity_clip">10dp</dimen>
-    <dimen name="item_rlv_discovery_record_iv_w_h">20dp</dimen>
+    <dimen name="item_rlv_discovery_record_iv_w_h">25dp</dimen>
     <dimen name="myprivate_iv_w_h">28dp</dimen>
     <dimen name="myprivate_iv_icon_w_h">22dp</dimen>
     <dimen name="myprivate_btn_margin">12dp</dimen>
