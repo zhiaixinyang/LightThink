@@ -3,7 +3,6 @@ package com.example.greatbook.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.util.Log;
 
 import com.example.greatbook.App;
 
@@ -15,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by MBENBEN on 2016/11/4.
+ * Created by MDove on 2016/11/4.
  */
 
 public class BitmapCompressUtils {

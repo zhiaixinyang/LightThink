@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.example.greatbook.R;
 import com.example.greatbook.databinding.ItemActivityRecordRemarkBinding;
 import com.example.greatbook.middle.viewmodel.RecordRemarkBeanVM;
-import com.iflytek.cloud.thirdparty.B;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class RecordRemarksAdapter extends RecyclerView.Adapter<RecordRemarksAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ((ItemActivityRecordRemarkBinding)holder.getBinding()).setRemarkVm(data.get(position));
+        ((ItemActivityRecordRemarkBinding) holder.getBinding()).setRemarkVm(data.get(position));
     }
 
     @Override

@@ -19,7 +19,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 /**
- * Created by quanzizhangben on 2017/8/10.
+ * Created by MDove on 2017/8/10.
  */
 
 public class FeedBackPresenter extends RxPresenter<FeedBackContract.View> implements FeedBackContract.Presenter {

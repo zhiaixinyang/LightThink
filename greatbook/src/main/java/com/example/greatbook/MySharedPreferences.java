@@ -3,7 +3,7 @@ package com.example.greatbook;
 import android.content.SharedPreferences;
 
 /**
- * Created by MBENBEN on 2016/4/1.
+ * Created by MDove on 2016/4/1.
  */
 public class MySharedPreferences {
     public static SharedPreferences spfLoginActivity = null;

@@ -28,7 +28,8 @@ public class SelectorFactory {
 
         @IntDef({GradientDrawable.RECTANGLE, GradientDrawable.OVAL,
                 GradientDrawable.LINE, GradientDrawable.RING})
-        private @interface Shape {}
+        private @interface Shape {
+        }
 
         private int mShape;               //the shape of background
         private int mDefaultBgColor;      //default background color

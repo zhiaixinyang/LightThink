@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.constants.IntentConstants;
+import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileAndImageUtils;
 import com.example.greatbook.utils.NetUtil;
@@ -34,13 +34,19 @@ import butterknife.BindView;
  * Created by MDove on 2016/11/24.
  */
 
-public class SendTalkAboutActivity extends BaseActivity implements View.OnClickListener{
-    @BindView(R.id.btn_back) TextView btnBack;
-    @BindView(R.id.et_content) EditText etContent;
-    @BindView(R.id.iv_photo) ImageView ivPhoto;
-    @BindView(R.id.btn_takephoto) TextView btnTakePhoto;
-    @BindView(R.id.btn_getphoto) TextView btnGetPhoto;
-    @BindView(R.id.btn_ok) TextView btnOk;
+public class SendTalkAboutActivity extends BaseActivity implements View.OnClickListener {
+    @BindView(R.id.btn_back)
+    TextView btnBack;
+    @BindView(R.id.et_content)
+    EditText etContent;
+    @BindView(R.id.iv_photo)
+    ImageView ivPhoto;
+    @BindView(R.id.btn_takephoto)
+    TextView btnTakePhoto;
+    @BindView(R.id.btn_getphoto)
+    TextView btnGetPhoto;
+    @BindView(R.id.btn_ok)
+    TextView btnOk;
 
     private Bitmap bitmap;
 
@@ -53,7 +59,7 @@ public class SendTalkAboutActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void init() {
-        waitNetPopupWindowUtils=new WaitNetPopupWindowUtils();
+        waitNetPopupWindowUtils = new WaitNetPopupWindowUtils();
         btnBack.setOnClickListener(this);
         btnGetPhoto.setOnClickListener(this);
         btnTakePhoto.setOnClickListener(this);
@@ -63,20 +69,20 @@ public class SendTalkAboutActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==IntentConstants.OPEN_IMAGE_MESSAGEPHOTO&&resultCode==RESULT_OK){
-            Uri uri=data.getData();
-            if (uri!=null) {
+        if (requestCode == IntentConstants.OPEN_IMAGE_MESSAGEPHOTO && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            if (uri != null) {
                 ivPhoto.setImageURI(uri);
                 try {
                     bitmap = BitmapCompressUtils.zoomImage
-                            (MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri),200,200);
+                            (MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri), 200, 200);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-        }else if(requestCode== IntentConstants.OPEN_IMAGE_OPEN_CAMERA&&resultCode==RESULT_OK){
+        } else if (requestCode == IntentConstants.OPEN_IMAGE_OPEN_CAMERA && resultCode == RESULT_OK) {
             //拿到拍到的照片
-            bitmap =BitmapCompressUtils.zoomImage((Bitmap) data.getParcelableExtra("data"), 200,200);
+            bitmap = BitmapCompressUtils.zoomImage((Bitmap) data.getParcelableExtra("data"), 200, 200);
             Glide.with(this)
                     .load(FileAndImageUtils.getByteFromBitmap(bitmap))
                     .crossFade()
@@ -89,7 +95,7 @@ public class SendTalkAboutActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_ok:
                 sendOk();
                 break;
@@ -106,50 +112,49 @@ public class SendTalkAboutActivity extends BaseActivity implements View.OnClickL
     }
 
     private void takePhoto() {
-        Intent openCamera=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(openCamera,IntentConstants.OPEN_IMAGE_OPEN_CAMERA);
+        Intent openCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(openCamera, IntentConstants.OPEN_IMAGE_OPEN_CAMERA);
     }
 
     private void getPhoto() {
-        Intent getPhoto=new Intent(Intent.ACTION_PICK,null);
-        getPhoto.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+        Intent getPhoto = new Intent(Intent.ACTION_PICK, null);
+        getPhoto.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(getPhoto, IntentConstants.OPEN_IMAGE_MESSAGEPHOTO);
     }
 
     private void sendOk() {
         //网络可用
         if (NetUtil.isNetworkAvailable()) {
-            if (bitmap!=null&&!StringUtils.isEmpty(etContent.getText())) {
+            if (bitmap != null && !StringUtils.isEmpty(etContent.getText())) {
                 waitNetPopupWindowUtils.showWaitNetPopupWindow(this);
-                    final TalkAboutBean talkAboutBean = new TalkAboutBean();
-                    AVFile avFile = new AVFile(FileAndImageUtils.getRandomFileName(), FileAndImageUtils.getByteFromBitmap(bitmap));
-                    talkAboutBean.setContentPhoto(avFile);
-                    talkAboutBean.setContent(etContent.getText().toString());
-                    talkAboutBean.setBelongId(AVUser.getCurrentUser().getObjectId());
-                    talkAboutBean.saveInBackground(new SaveCallback() {
-                        @Override
-                        public void done(AVException e) {
-                            if (e == null) {
-                                ToastUtil.toastShort("发布成功！");
-                                back();
-                            }
-                            else{
-                                ToastUtil.toastShort("错误："+e);
-                            }
+                final TalkAboutBean talkAboutBean = new TalkAboutBean();
+                AVFile avFile = new AVFile(FileAndImageUtils.getRandomFileName(), FileAndImageUtils.getByteFromBitmap(bitmap));
+                talkAboutBean.setContentPhoto(avFile);
+                talkAboutBean.setContent(etContent.getText().toString());
+                talkAboutBean.setBelongId(AVUser.getCurrentUser().getObjectId());
+                talkAboutBean.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e == null) {
+                            ToastUtil.toastShort("发布成功！");
+                            back();
+                        } else {
+                            ToastUtil.toastShort("错误：" + e);
                         }
-                    });
-            }else {
+                    }
+                });
+            } else {
                 ToastUtil.toastShort("请上传一张图片！");
             }
-        }else {
+        } else {
             ToastUtil.toastShort("网络未连接！");
         }
     }
 
 
     private void back() {
-        Intent back=new Intent(this, MainNewActivity.class);
-        back.putExtra(IntentConstants.BACK_TALK_ABOUT,1);
+        Intent back = new Intent(this, MainNewActivity.class);
+        back.putExtra(IntentConstants.BACK_TALK_ABOUT, 1);
         startActivity(back);
         overridePendingTransition(R.anim.login_in, R.anim.login_out);
         finish();

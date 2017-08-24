@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by MBENBEN on 2016/2/27.
+ * Created by MDove on 2016/2/27.
  */
 public class StringUtils {
     private StringUtils() {
@@ -35,7 +35,7 @@ public class StringUtils {
     }
 
     public static String nullStrToEmpty(Object str) {
-        return (str == null ? "" : (str instanceof String ? (String)str : str.toString()));
+        return (str == null ? "" : (str instanceof String ? (String) str : str.toString()));
     }
 
     public static String capitalizeFirstLetter(String str) {
@@ -58,7 +58,6 @@ public class StringUtils {
         }
         return str;
     }
-
 
 
     public static String utf8Encode(String str, String defultReturn) {
@@ -103,7 +102,7 @@ public class StringUtils {
                 // } else if (source[i] == 12290) {
                 // source[i] = '.';
             } else if (source[i] >= 65281 && source[i] <= 65374) {
-                source[i] = (char)(source[i] - 65248);
+                source[i] = (char) (source[i] - 65248);
             } else {
                 source[i] = source[i];
             }
@@ -111,12 +110,12 @@ public class StringUtils {
         return new String(source);
     }
 
-    public static int getNumFromString(String s){
-        String regEx="[^0-9{5}]";
+    public static int getNumFromString(String s) {
+        String regEx = "[^0-9{5}]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(s);
-        String num=m.replaceAll("").trim();
-        return Integer.valueOf(num.substring(1,num.length()));
+        String num = m.replaceAll("").trim();
+        return Integer.valueOf(num.substring(1, num.length()));
     }
 
     public static String halfWidthToFullWidth(String s) {
@@ -127,17 +126,18 @@ public class StringUtils {
         char[] source = s.toCharArray();
         for (int i = 0; i < source.length; i++) {
             if (source[i] == ' ') {
-                source[i] = (char)12288;
+                source[i] = (char) 12288;
                 // } else if (source[i] == '.') {
                 // source[i] = (char)12290;
             } else if (source[i] >= 33 && source[i] <= 126) {
-                source[i] = (char)(source[i] + 65248);
+                source[i] = (char) (source[i] + 65248);
             } else {
                 source[i] = source[i];
             }
         }
         return new String(source);
     }
+
     /**
      * 验证手机号是否符合大陆的标准格式
      */
@@ -159,8 +159,9 @@ public class StringUtils {
      * 推荐密码至少长度为 6 位
      */
     public static boolean isPasswordValid(String password) {
-        return password.length() >=6;
+        return password.length() >= 6;
     }
+
     /**
      * 判断验证码是否为 6 位纯数字，LeanCloud 统一的验证码均为 6  位纯数字。
      */
@@ -168,16 +169,18 @@ public class StringUtils {
         String regex = "^\\d{6}$";
         return smsCode.matches(regex);
     }
+
     //通过Uri转换成String，然后用于不同actvitiy之间传递
     public static String getRealPathFromURI(Context context, Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor cursor =context.getContentResolver().query(contentUri, proj, null, null, null);
+        String[] proj = {MediaStore.Images.Media.DATA};
+        Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
         int column_index
                 = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
     public static boolean isTuCaoValid(String password) {
-        return password.length() <=4;
+        return password.length() <= 4;
     }
 }

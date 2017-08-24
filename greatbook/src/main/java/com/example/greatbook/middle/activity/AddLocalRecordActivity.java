@@ -53,7 +53,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
     EditText etContent;
     private ArrayMap<String, LocalGroup> localMap;
     private LocalGroup seletLocalGroup;
-    private int[] photoArr=new int[]{R.drawable.icon_default_group_encourage,R.drawable.icon_default_group_jok,R.drawable.icon_default_group_short_eassy};
+    private int[] photoArr = new int[]{R.drawable.icon_default_group_encourage, R.drawable.icon_default_group_jok, R.drawable.icon_default_group_short_eassy};
 
     @Override
     public int getLayoutId() {
@@ -135,8 +135,8 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
         etContent.setText("");
         etTitle.setText("");
         //注意此时并不会回调onUserVisible方法(用EventBus处理一下)
-        LocalAddEvent event=new LocalAddEvent();
-        event.event=Constants.LOCAL_ADD_SUC_FINISH;
+        LocalAddEvent event = new LocalAddEvent();
+        event.event = Constants.LOCAL_ADD_SUC_FINISH;
         EventBus.getDefault().post(event);
         finish();
     }
@@ -181,7 +181,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
     public void onViewClickedAdd() {
         dialog = new BaseAlertDialog.Builder(this)
                 .setContentView(R.layout.dialog_add_group)
-                .setWidthAndHeight(ScreenUtils.getScreenWidth()-DpUtils.dp2px(60), ScreenUtils.getScreenHeight()-DpUtils.dp2px(200))
+                .setWidthAndHeight(ScreenUtils.getScreenWidth() - DpUtils.dp2px(60), ScreenUtils.getScreenHeight() - DpUtils.dp2px(200))
                 .setOnClickListener(R.id.btn_cancel, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -191,7 +191,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
                 .setOnClickListener(R.id.btn_detail, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent toDetaolAdd =new Intent(AddLocalRecordActivity.this,AddLocalGroupActivity.class);
+                        Intent toDetaolAdd = new Intent(AddLocalRecordActivity.this, AddLocalGroupActivity.class);
                         startActivity(toDetaolAdd);
                     }
                 }).create();
@@ -210,7 +210,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
                     localGroup.setTime(new Date());
                     localGroup.setTitle(name);
                     localGroup.setGroupPhotoPath("");
-                    localGroup.setBgColor(ContextCompat.getColor(AddLocalRecordActivity.this,R.color.blue)+"");
+                    localGroup.setBgColor(ContextCompat.getColor(AddLocalRecordActivity.this, R.color.blue) + "");
                     localGroup.setGroupLocalPhotoPath(photoArr[new Random().nextInt(3)]);
                     if (!StringUtils.isEmpty(content)) {
                         localGroup.setContent(content);
@@ -224,18 +224,18 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
 
     @OnClick(R.id.btn_set_group)
     public void onViewClickedSet() {
-        Intent toSet=new Intent(this,SetGroupsActivity.class);
+        Intent toSet = new Intent(this, SetGroupsActivity.class);
         startActivity(toSet);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(SetGroupEvent event){
-        switch (event.event){
+    public void onEvent(SetGroupEvent event) {
+        switch (event.event) {
             case Constants.SET_GROUP_FINISH:
                 presenter.initLocalGroup();
                 break;
             case Constants.ADD_GROUP_TO_RECORD_ABANDON:
-                if (dialog!=null){
+                if (dialog != null) {
                     dialog.dismiss();
                 }
                 break;

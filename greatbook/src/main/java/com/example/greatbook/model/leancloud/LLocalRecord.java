@@ -9,7 +9,7 @@ import java.util.Date;
  * Created by MDove on 2017/8/11.
  */
 @AVClassName("LLocalRecord")
-public class LLocalRecord extends AVObject{
+public class LLocalRecord extends AVObject {
     private Date time;
     private String title;
     private String content;
@@ -29,7 +29,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setBelong(User belong) {
-        put("belong",belong);
+        put("belong", belong);
     }
 
     public int getLikeNum() {
@@ -37,7 +37,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setLikeNum(int likeNum) {
-        put("likeNum",likeNum);
+        put("likeNum", likeNum);
     }
 
     public String getBelongLocalId() {
@@ -45,7 +45,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setBelongLocalId(String belongLocalId) {
-        put("belongLocalId",belongLocalId);
+        put("belongLocalId", belongLocalId);
     }
 
     public Date getTime() {
@@ -53,7 +53,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setTime(Date time) {
-        put("time",time);
+        put("time", time);
     }
 
     public String getTitle() {
@@ -61,7 +61,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setTitle(String title) {
-        put("title",title);
+        put("title", title);
     }
 
     public String getContent() {
@@ -69,7 +69,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setContent(String content) {
-        put("content",content);
+        put("content", content);
     }
 
     public String getBelongId() {
@@ -77,7 +77,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setBelongId(String belongId) {
-        put("belongId",belongId);
+        put("belongId", belongId);
     }
 
     public int getType() {
@@ -85,7 +85,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setType(int type) {
-        put("type",type);
+        put("type", type);
     }
 
     public Long getGroupId() {
@@ -93,7 +93,7 @@ public class LLocalRecord extends AVObject{
     }
 
     public void setGroupId(Long groupId) {
-        put("groupId",groupId);
+        put("groupId", groupId);
     }
 
     public String getGroupTitle() {

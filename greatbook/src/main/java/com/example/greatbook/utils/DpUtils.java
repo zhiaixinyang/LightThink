@@ -1,6 +1,5 @@
 package com.example.greatbook.utils;
 
-import android.content.Context;
 import android.graphics.Rect;
 import android.util.TypedValue;
 import android.view.View;
@@ -8,7 +7,7 @@ import android.view.View;
 import com.example.greatbook.App;
 
 /**
- * Created by MBENBEN on 2016/12/3.
+ * Created by MDove on 2016/12/3.
  */
 
 public class DpUtils {

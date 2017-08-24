@@ -70,7 +70,7 @@ public class MiddleMainFragment extends LazyFragment {
 
     @Override
     protected void initViewsAndEvents(View view) {
-        context=App.getInstance().getContext();
+        context = App.getInstance().getContext();
         localAddFragment = MiddleLocalAddFragment.newInstance();
         discoveryFragment = MiddleDiscoveryFragment.newInstance();
         myPrivateFragment = MyPrivateFragment.newInstance();
@@ -131,7 +131,7 @@ public class MiddleMainFragment extends LazyFragment {
                 selectTab3();
                 break;
             case R.id.btn_add:
-                Intent toAdd=new Intent(App.getInstance().getContext(), AddLocalRecordActivity.class);
+                Intent toAdd = new Intent(App.getInstance().getContext(), AddLocalRecordActivity.class);
                 startActivity(toAdd);
                 break;
         }
@@ -141,9 +141,9 @@ public class MiddleMainFragment extends LazyFragment {
         menuTalk.setImageResource(R.drawable.menu_talk_about_on);
         menuAdd.setImageResource(R.drawable.menu_add_off);
         menuDiscovery.setImageResource(R.drawable.menu_discovery_off);
-        tvAdd.setTextColor(ContextCompat.getColor(context,R.color.gray));
-        tvTalkAbout.setTextColor(ContextCompat.getColor(context,R.color.blue));
-        tvDiscovery.setTextColor(ContextCompat.getColor(context,R.color.gray));
+        tvAdd.setTextColor(ContextCompat.getColor(context, R.color.gray));
+        tvTalkAbout.setTextColor(ContextCompat.getColor(context, R.color.blue));
+        tvDiscovery.setTextColor(ContextCompat.getColor(context, R.color.gray));
 
         menuAdd.setVisibility(View.VISIBLE);
         tvAdd.setVisibility(View.VISIBLE);
@@ -155,9 +155,9 @@ public class MiddleMainFragment extends LazyFragment {
         menuDiscovery.setImageResource(R.drawable.menu_discovery_off);
         menuTalk.setImageResource(R.drawable.menu_talk_about_off);
         menuAdd.setImageResource(R.drawable.menu_add_off);
-        tvDiscovery.setTextColor(ContextCompat.getColor(context,R.color.gray));
-        tvAdd.setTextColor(ContextCompat.getColor(context,R.color.gray));
-        tvTalkAbout.setTextColor(ContextCompat.getColor(context,R.color.gray));
+        tvDiscovery.setTextColor(ContextCompat.getColor(context, R.color.gray));
+        tvAdd.setTextColor(ContextCompat.getColor(context, R.color.gray));
+        tvTalkAbout.setTextColor(ContextCompat.getColor(context, R.color.gray));
 
 
         menuAdd.setVisibility(View.GONE);
@@ -174,11 +174,11 @@ public class MiddleMainFragment extends LazyFragment {
 
     private void selectTab1() {
         menuDiscovery.setImageResource(R.drawable.menu_discovery_on);
-        tvDiscovery.setTextColor(ContextCompat.getColor(context,R.color.blue));
+        tvDiscovery.setTextColor(ContextCompat.getColor(context, R.color.blue));
         menuAdd.setImageResource(R.drawable.menu_add_off);
-        tvAdd.setTextColor(ContextCompat.getColor(context,R.color.gray));
+        tvAdd.setTextColor(ContextCompat.getColor(context, R.color.gray));
         menuTalk.setImageResource(R.drawable.menu_talk_about_off);
-        tvTalkAbout.setTextColor(ContextCompat.getColor(context,R.color.gray));
+        tvTalkAbout.setTextColor(ContextCompat.getColor(context, R.color.gray));
 
         menuAdd.setVisibility(View.VISIBLE);
         tvAdd.setVisibility(View.VISIBLE);

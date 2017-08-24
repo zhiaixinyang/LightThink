@@ -1,17 +1,14 @@
 package com.example.greatbook.middle.presenter;
 
-import android.util.Log;
-
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.middle.model.DiscoveryRecord;
-import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
 import com.example.greatbook.middle.model.DiscoveryTopGroup;
+import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
-import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
@@ -23,7 +20,6 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * Created by MDove on 2017/8/13.
@@ -32,23 +28,25 @@ import rx.functions.Func1;
 public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContract.View> implements MiddleDiscoveryContract.Presenter {
     private DiscoveryRecordReturn recordReturn;
     private DiscoveryGroupReturn groupReturn;
-    public MiddleDiscoveryPresenter(MiddleDiscoveryContract.View view){
-        mView=view;
+
+    public MiddleDiscoveryPresenter(MiddleDiscoveryContract.View view) {
+        mView = view;
     }
+
     @Override
     public void initDiscoveryTop() {
         if (NetUtil.isNetworkAvailable()) {
             Subscription subscription = Observable.create(new Observable.OnSubscribe<DiscoveryGroupReturn>() {
                 @Override
                 public void call(final Subscriber<? super DiscoveryGroupReturn> subscriber) {
-                    LogUtils.d(Thread.currentThread()+"!!!");
+                    LogUtils.d(Thread.currentThread() + "!!!");
                     AVQuery<LLocalGroup> query = AVQuery.getQuery(LLocalGroup.class);
                     query.limit(10);
                     query.addDescendingOrder("attentionNum");
                     query.findInBackground(new FindCallback<LLocalGroup>() {
                         @Override
                         public void done(List<LLocalGroup> list, AVException e) {
-                            LogUtils.d(Thread.currentThread()+"!@!@!");
+                            LogUtils.d(Thread.currentThread() + "!@!@!");
 
                             groupReturn = new DiscoveryGroupReturn();
 
@@ -62,7 +60,7 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     topRecord.groupId = lLocalGroup.getGroupId();
                                     topRecord.groupTitle = lLocalGroup.getGroupTitle();
                                     topRecord.time = lLocalGroup.getCreatedAt();
-                                    topRecord.groupPhotoPath =lLocalGroup.getGroupPhoto().getUrl();
+                                    topRecord.groupPhotoPath = lLocalGroup.getGroupPhoto().getUrl();
                                     data.add(topRecord);
                                 }
                                 groupReturn.data = data;
@@ -87,15 +85,15 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                     });
 
             addSubscrebe(subscription);
-        }else{
+        } else {
             mView.showError("请确保网络连接");
         }
     }
 
     @Override
     public void initDiscoveryRecord() {
-        if (NetUtil.isNetworkAvailable()){
-            Subscription subscription=Observable.create(new Observable.OnSubscribe<DiscoveryRecordReturn>() {
+        if (NetUtil.isNetworkAvailable()) {
+            Subscription subscription = Observable.create(new Observable.OnSubscribe<DiscoveryRecordReturn>() {
                 @Override
                 public void call(final Subscriber<? super DiscoveryRecordReturn> subscriber) {
                     AVQuery<LLocalRecord> query = AVQuery.getQuery(LLocalRecord.class);
@@ -114,8 +112,8 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     record.content = lLocalRecord.getContent();
                                     record.groupId = lLocalRecord.getGroupId();
                                     record.time = lLocalRecord.getCreatedAt();
-                                    record.title=lLocalRecord.getTitle();
-                                    record.objectId=lLocalRecord.getObjectId();
+                                    record.title = lLocalRecord.getTitle();
+                                    record.objectId = lLocalRecord.getObjectId();
                                     data.add(record);
                                 }
                                 recordReturn.data = data;
@@ -139,11 +137,13 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
 
         }
     }
-    public class DiscoveryRecordReturn{
+
+    public class DiscoveryRecordReturn {
         public String strReturn;
         public List<DiscoveryRecord> data;
     }
-    public class DiscoveryGroupReturn{
+
+    public class DiscoveryGroupReturn {
         public String strReturn;
         public List<DiscoveryTopGroup> data;
     }

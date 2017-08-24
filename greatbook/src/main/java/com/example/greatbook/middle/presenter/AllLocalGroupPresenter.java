@@ -2,7 +2,6 @@ package com.example.greatbook.middle.presenter;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.base.RxPresenter;
@@ -30,16 +29,16 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
 
     public AllLocalGroupPresenter(AllLocalGroupContract.View view) {
         mView = view;
-        localGroupDao= App.getDaoSession().getLocalGroupDao();
+        localGroupDao = App.getDaoSession().getLocalGroupDao();
     }
 
     @Override
     public void addLocalGroup(LocalGroup localGroup) {
         id = localGroupDao.insert(localGroup);
-        if (id>0) {
+        if (id > 0) {
             mView.addLocalGroupSuc("新建成功");
             addLocalGroupToNet(localGroup);
-        }else{
+        } else {
             mView.addLocalGroupErr("新建失败，请重试");
         }
     }
@@ -61,7 +60,7 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
                     if (!StringUtils.isEmpty(localGroup.getGroupPhotoPath())) {
                         lLocalGroup.setGroupPhoto(new AVFile(FileUtils.getFileName(localGroup.getGroupPhotoPath()),
                                 FileUtils.getByteFromPath(localGroup.getGroupPhotoPath())));
-                    }else{
+                    } else {
                         lLocalGroup.setGroupPhoto(null);
                     }
                     lLocalGroup.saveInBackground(new SaveCallback() {
@@ -83,7 +82,7 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
                         }
                     });
             addSubscrebe(subscription);
-        }else{
+        } else {
             mView.addLocalGroupToNetReturn("无网络");
         }
     }

@@ -1,7 +1,6 @@
 package com.example.greatbook.middle.model;
 
 import com.example.greatbook.middle.model.leancloud.LRecordRemark;
-import com.example.greatbook.middle.viewmodel.RecordRemarkBeanVM;
 
 import java.util.List;
 

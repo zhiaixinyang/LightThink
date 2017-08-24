@@ -45,12 +45,13 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
     LinearLayout btnTalkAbout;
     @BindView(R.id.tv_empty_view)
     TextView tvEmptyView;
-    @BindView(R.id.tv_load_view) TextView loadingView;
+    @BindView(R.id.tv_load_view)
+    TextView loadingView;
     private List<TalkAboutBean> data;
 
     private TalkAboutPresenter talkAboutPresenter = null;
     private TalkAboutAdapter talkAboutAdapter;
-    private boolean isShow=true;
+    private boolean isShow = true;
     //每一页展示多少条数据
     private static final int REQUEST_COUNT = 8;
     private int MAXT_BUN;
@@ -63,7 +64,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
 
     @Override
     public void init() {
-        new DefaultNavigationBar.Builder(this,null)
+        new DefaultNavigationBar.Builder(this, null)
                 .setLeftResId(R.drawable.btn_back_)
                 .setTitleText("吐槽")
                 .setOnLeftClickListener(new View.OnClickListener() {
@@ -72,10 +73,10 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
                         finish();
                     }
                 }).builder();
-        data=new ArrayList<>();
+        data = new ArrayList<>();
         talkAboutPresenter = new TalkAboutPresenter(this);
         talkAboutAdapter = new TalkAboutAdapter(App.getInstance().getContext(),
-                R.layout.item_talk_about,data);
+                R.layout.item_talk_about, data);
 
         btnTalkAbout.setOnClickListener(this);
 
@@ -94,9 +95,9 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 //上滑，评论按钮隐藏
-                if (dy < 0 && Math.abs(dy) > 30&&isShow) {
+                if (dy < 0 && Math.abs(dy) > 30 && isShow) {
                     btnTalkAbout.setClickable(false);
-                    isShow=false;
+                    isShow = false;
                     AnimatorSet set = new AnimatorSet();
                     set.playTogether(
                             new ObjectAnimator().ofFloat(btnTalkAbout, "translationX", btnTalkAbout.getWidth() / 2),
@@ -104,9 +105,9 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
                     );
                     set.setDuration(750);
                     set.start();
-                } else if (dy > 0 && Math.abs(dy) > 30&&!isShow) {
+                } else if (dy > 0 && Math.abs(dy) > 30 && !isShow) {
                     //下滑出现
-                    isShow=true;
+                    isShow = true;
                     btnTalkAbout.setClickable(true);
                     AnimatorSet set = new AnimatorSet();
                     set.playTogether(
@@ -128,7 +129,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
 
     @Override
     public void initTalkAboutData(List<TalkAboutBean> data) {
-        this.data=data;
+        this.data = data;
         talkAboutAdapter.addData(data);
         currentNum = talkAboutAdapter.getItemCount();
     }
@@ -138,7 +139,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
         RecyclerViewStateUtils.setFooterViewState(rlvTalkAbout, LoadingFooter.State.Normal);
         if (!data.isEmpty()) {
             currentNum = currentNum + data.size();
-            this.data=data;
+            this.data = data;
             talkAboutAdapter.addData(data);
         } else {
             ToastUtil.toastShort("暂无新的内容");
@@ -147,7 +148,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
 
     @Override
     public void showLoading() {
-        if (btnTalkAbout!=null) {
+        if (btnTalkAbout != null) {
             btnTalkAbout.setVisibility(View.GONE);
         }
     }
@@ -175,6 +176,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
                 break;
         }
     }
+
     @Override
     public void onRlvLoadMore() {
         if (NetUtil.isNetworkAvailable()) {

@@ -1,24 +1,19 @@
 package com.example.greatbook.base;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
-import com.example.greatbook.utils.StatusBarUtil;
 import com.example.greatbook.utils.SystemBarTintManager;
-import com.example.greatbook.utils.TransWindowUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by MBENBEN on 2016/11/21.
+ * Created by MDove on 2016/11/21.
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView{

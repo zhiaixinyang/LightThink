@@ -14,6 +14,7 @@ public class RxUtil {
 
     /**
      * 统一线程处理
+     *
      * @param <T>
      * @return
      */
@@ -53,6 +54,7 @@ public class RxUtil {
 
     /**
      * 生成Observable
+     *
      * @param <T>
      * @return
      */

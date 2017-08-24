@@ -12,15 +12,14 @@ import com.example.greatbook.App;
 
 
 /**
- * Created by MBENBEN on 2017/1/12.
+ * Created by MDove on 2017/1/12.
  */
 
 /**
  * 获得屏幕相关的辅助类
  */
 public class ScreenUtils {
-    private ScreenUtils()
-    {
+    private ScreenUtils() {
         /* cannot be instantiated */
         throw new UnsupportedOperationException("cannot be instantiated");
     }
@@ -28,8 +27,7 @@ public class ScreenUtils {
     /**
      * 获得屏幕高度
      */
-    public static int getScreenWidth()
-    {
+    public static int getScreenWidth() {
         WindowManager wm = (WindowManager) App.getInstance().getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
@@ -40,8 +38,7 @@ public class ScreenUtils {
     /**
      * 获得屏幕宽度
      */
-    public static int getScreenHeight()
-    {
+    public static int getScreenHeight() {
         WindowManager wm = (WindowManager) App.getInstance().getContext()
                 .getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
@@ -52,19 +49,16 @@ public class ScreenUtils {
     /**
      * 获得状态栏的高度
      */
-    public static int getStatusHeight()
-    {
+    public static int getStatusHeight() {
 
         int statusHeight = -1;
-        try
-        {
+        try {
             Class<?> clazz = Class.forName("com.android.internal.R$dimen");
             Object object = clazz.newInstance();
             int height = Integer.parseInt(clazz.getField("status_bar_height")
                     .get(object).toString());
             statusHeight = App.getInstance().getContext().getResources().getDimensionPixelSize(height);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return statusHeight;
@@ -76,8 +70,7 @@ public class ScreenUtils {
      * @param activity
      * @return
      */
-    public static Bitmap snapShotWithStatusBar(Activity activity)
-    {
+    public static Bitmap snapShotWithStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -97,8 +90,7 @@ public class ScreenUtils {
      * @param activity
      * @return
      */
-    public static Bitmap snapShotWithoutStatusBar(Activity activity)
-    {
+    public static Bitmap snapShotWithoutStatusBar(Activity activity) {
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();

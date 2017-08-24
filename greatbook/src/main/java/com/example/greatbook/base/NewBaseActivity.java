@@ -11,7 +11,7 @@ import com.example.greatbook.utils.SystemBarTintManager;
 import butterknife.ButterKnife;
 
 /**
- * Created by MBENBEN on 2016/11/21.
+ * Created by MDove on 2016/11/21.
  */
 
 public abstract class NewBaseActivity<T extends BasePresenter> extends AppCompatActivity implements BaseView {

@@ -24,18 +24,18 @@ import java.util.List;
 public class RecordRemarksDataBinding {
     @BindingAdapter("recordRemarkData")
     public static void recordRemarkData(RecyclerView view, RecordRemark recordRemark) {
-        List<RecordRemarkBeanVM> data_=new ArrayList<>();
-        RecordRemarksAdapter adapter= (RecordRemarksAdapter) view.getAdapter();
-        if (adapter!=null){
-            for (LRecordRemark lRecordRemark:recordRemark.date) {
+        List<RecordRemarkBeanVM> data_ = new ArrayList<>();
+        RecordRemarksAdapter adapter = (RecordRemarksAdapter) view.getAdapter();
+        if (adapter != null) {
+            for (LRecordRemark lRecordRemark : recordRemark.date) {
                 final RecordRemarkBeanVM recordRemarkBeanVM = new RecordRemarkBeanVM();
                 recordRemarkBeanVM.content.set(lRecordRemark.getContent());
                 recordRemarkBeanVM.time.set(DateUtils.getDateChinese(lRecordRemark.getCreatedAt()));
-                AVQuery<User> userAVQuery=AVQuery.getQuery(User.class);
+                AVQuery<User> userAVQuery = AVQuery.getQuery(User.class);
                 userAVQuery.findInBackground(new FindCallback<User>() {
                     @Override
                     public void done(List<User> list, AVException e) {
-                        if (e==null&&!list.isEmpty()){
+                        if (e == null && !list.isEmpty()) {
                             recordRemarkBeanVM.avatarPath.set(list.get(0).getAvatar().getUrl());
                             recordRemarkBeanVM.nick.set(list.get(0).getName());
                         }
@@ -48,7 +48,7 @@ public class RecordRemarksDataBinding {
     }
 
     @BindingAdapter("iconLikeRes")
-    public static void iconLikeRes(ImageView imageView,int res){
+    public static void iconLikeRes(ImageView imageView, int res) {
         imageView.setImageResource(res);
     }
 }

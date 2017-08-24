@@ -17,14 +17,14 @@ import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.middle.activity.DiscoveryRecordRemarkActivity;
+import com.example.greatbook.middle.activity.TalkAboutActivity;
 import com.example.greatbook.middle.adapter.DiscoveryLocalRecordAdapter;
 import com.example.greatbook.middle.adapter.MiddleDiscoveryAdapter;
 import com.example.greatbook.middle.model.DiscoveryRecord;
+import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.middle.presenter.MiddleDiscoveryPresenter;
 import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
-import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.model.HeadlineBean;
-import com.example.greatbook.middle.activity.TalkAboutActivity;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
@@ -79,7 +79,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         presenter = new MiddleDiscoveryPresenter(this);
         context = App.getInstance().getContext();
 
-        dataGroups=new ArrayList<>();
+        dataGroups = new ArrayList<>();
         adapterGroup = new MiddleDiscoveryAdapter(context, R.layout.item_rlv_discovery_group, dataGroups);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -93,9 +93,9 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         adapterRecord.setOnItemClickListener(new OnItemClickListener<DiscoveryRecord>() {
             @Override
             public void onItemClick(View view, DiscoveryRecord o, int position) {
-                if (o!=null){
-                    Intent toActivity=new Intent(context, DiscoveryRecordRemarkActivity.class);
-                    toActivity.putExtra(Constants.DISCOVERY_RECORD_ITEM_CLICK,o);
+                if (o != null) {
+                    Intent toActivity = new Intent(context, DiscoveryRecordRemarkActivity.class);
+                    toActivity.putExtra(Constants.DISCOVERY_RECORD_ITEM_CLICK, o);
                     startActivity(toActivity);
                 }
             }
@@ -157,10 +157,10 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void onUserVisible() {
-        if (dataGroups.isEmpty()){
+        if (dataGroups.isEmpty()) {
             presenter.initDiscoveryTop();
         }
-        if (dataRecords.isEmpty()){
+        if (dataRecords.isEmpty()) {
             presenter.initDiscoveryRecord();
         }
     }

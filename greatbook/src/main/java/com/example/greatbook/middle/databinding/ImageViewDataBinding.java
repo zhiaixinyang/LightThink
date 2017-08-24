@@ -13,16 +13,16 @@ import com.example.greatbook.widght.CircleImageView;
 
 public class ImageViewDataBinding {
     @BindingAdapter("loadAvatar")
-    public static void loadAvatar(CircleImageView imageView,String path){
-        if (!StringUtils.isEmpty(path)){
-            GlideUtils.loadSmallAvatar(path,imageView);
+    public static void loadAvatar(CircleImageView imageView, String path) {
+        if (!StringUtils.isEmpty(path)) {
+            GlideUtils.loadSmallAvatar(path, imageView);
         }
     }
 
     @BindingAdapter("loadImageView")
-    public static void loadImageView(ImageView imageView,String path){
-        if (!StringUtils.isEmpty(path)){
-            GlideUtils.loadSmallIv(path,imageView);
+    public static void loadImageView(ImageView imageView, String path) {
+        if (!StringUtils.isEmpty(path)) {
+            GlideUtils.loadSmallIv(path, imageView);
         }
     }
 }

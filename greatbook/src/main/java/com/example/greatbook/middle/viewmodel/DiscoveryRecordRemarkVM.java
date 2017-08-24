@@ -3,15 +3,10 @@ package com.example.greatbook.middle.viewmodel;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.databinding.tool.util.L;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 
-import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVOperationQueue;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.DeleteCallback;
@@ -31,7 +26,6 @@ import com.example.greatbook.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -39,7 +33,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import rx.Observable;
 
 /**
  * Created by MDove on 2017/8/21.
@@ -65,7 +58,7 @@ public class DiscoveryRecordRemarkVM {
     public ObservableBoolean loadingRemarks = new ObservableBoolean();
     public ObservableBoolean isRemarksEmpty = new ObservableBoolean();
     public ObservableBoolean isNetErr = new ObservableBoolean();
-    public ObservableInt iconLike=new ObservableInt();
+    public ObservableInt iconLike = new ObservableInt();
     //发送评论
     public String remarksContent;
     public ObservableField<String> etRemarksContent = new ObservableField<>();
@@ -74,17 +67,17 @@ public class DiscoveryRecordRemarkVM {
     private LLocalRecord lLocalRecord;
 
     public DiscoveryRecordRemarkVM(DiscoveryRecord discoveryRecord) {
-        this.discoveryRecord=discoveryRecord;
-        RecordRemark recordRemark=new RecordRemark();
-        recordRemark.date=new ArrayList<>();
+        this.discoveryRecord = discoveryRecord;
+        RecordRemark recordRemark = new RecordRemark();
+        recordRemark.date = new ArrayList<>();
         data.set(recordRemark);
         loadingRemarks.set(false);
         isRemarksEmpty.set(true);
         isNetErr.set(false);
-        if (discoveryRecord.likeNum>0){
+        if (discoveryRecord.likeNum > 0) {
             iconLike.set(R.drawable.icon_good_on);
-            likeNum.set(discoveryRecord.likeNum+"");
-        }else {
+            likeNum.set(discoveryRecord.likeNum + "");
+        } else {
             likeNum.set("0");
             iconLike.set(R.drawable.icon_good_off);
         }
@@ -102,13 +95,13 @@ public class DiscoveryRecordRemarkVM {
 
         @Override
         public void afterTextChanged(Editable s) {
-            remarksContent=s.toString();
+            remarksContent = s.toString();
         }
     };
 
     public void sendRemarkContent(final String content) {
         final User user = AVUser.getCurrentUser(User.class);
-        if (user!=null) {
+        if (user != null) {
             io.reactivex.Observable.create(new ObservableOnSubscribe<String>() {
                 @Override
                 public void subscribe(@NonNull final ObservableEmitter<String> emitter) throws Exception {
@@ -131,7 +124,7 @@ public class DiscoveryRecordRemarkVM {
                     .subscribe(new Consumer<String>() {
                         @Override
                         public void accept(@NonNull String s) throws Exception {
-                            switch (s){
+                            switch (s) {
                                 case "0":
                                     ToastUtil.toastShort("评论成功");
                                     initRemarks(discoveryRecord.objectId);
@@ -146,44 +139,44 @@ public class DiscoveryRecordRemarkVM {
         }
     }
 
-    public void btnLike(){
-        if (NetUtil.isNetworkAvailable()){
-            final User user=AVUser.getCurrentUser(User.class);
-            if (user!=null) {
+    public void btnLike() {
+        if (NetUtil.isNetworkAvailable()) {
+            final User user = AVUser.getCurrentUser(User.class);
+            if (user != null) {
                 AVQuery<LRecordLike> query = AVQuery.getQuery(LRecordLike.class);
                 query.whereEqualTo("belongId", discoveryRecord.objectId);
-                query.whereEqualTo("belongUserId",user.getObjectId());
+                query.whereEqualTo("belongUserId", user.getObjectId());
                 query.findInBackground(new FindCallback<LRecordLike>() {
                     @Override
                     public void done(List<LRecordLike> list, AVException e) {
-                        if (e==null){
+                        if (e == null) {
                             LogUtils.d(list.size());
-                            if (list.isEmpty()){
-                                LRecordLike like=new LRecordLike();
+                            if (list.isEmpty()) {
+                                LRecordLike like = new LRecordLike();
                                 like.setBelongId(discoveryRecord.objectId);
                                 like.setBelongUserId(user.getObjectId());
                                 like.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(AVException e) {
-                                        if (e==null){
-                                            lLocalRecord.setLikeNum(lLocalRecord.getLikeNum()+1);
+                                        if (e == null) {
+                                            lLocalRecord.setLikeNum(lLocalRecord.getLikeNum() + 1);
                                             lLocalRecord.saveInBackground();
                                             iconLike.set(R.drawable.icon_good_on);
-                                            likeNum.set((Integer.valueOf(likeNum.get())+1)+"");
+                                            likeNum.set((Integer.valueOf(likeNum.get()) + 1) + "");
                                             ToastUtil.toastShort("点赞成功");
                                         }
                                     }
                                 });
-                            }else{
-                                LRecordLike like=list.get(0);
+                            } else {
+                                LRecordLike like = list.get(0);
                                 like.deleteInBackground(new DeleteCallback() {
                                     @Override
                                     public void done(AVException e) {
-                                        if (e==null){
-                                            lLocalRecord.setLikeNum(lLocalRecord.getLikeNum()-1);
+                                        if (e == null) {
+                                            lLocalRecord.setLikeNum(lLocalRecord.getLikeNum() - 1);
                                             lLocalRecord.saveInBackground();
                                             iconLike.set(R.drawable.icon_good_off);
-                                            likeNum.set((Integer.valueOf(likeNum.get())-1)+"");
+                                            likeNum.set((Integer.valueOf(likeNum.get()) - 1) + "");
                                             ToastUtil.toastShort("取消点赞");
                                         }
                                     }
@@ -193,7 +186,7 @@ public class DiscoveryRecordRemarkVM {
                     }
                 });
             }
-        }else{
+        } else {
             ToastUtil.toastShort("请保证网络连接畅通");
         }
     }
@@ -230,15 +223,15 @@ public class DiscoveryRecordRemarkVM {
     public void initRemarks(final String objectId) {
         if (NetUtil.isNetworkAvailable()) {
             loadingRemarks.set(true);
-            AVQuery<LLocalRecord> queryRecord=AVQuery.getQuery(LLocalRecord.class);
-            queryRecord.whereEqualTo("objectId",objectId);
+            AVQuery<LLocalRecord> queryRecord = AVQuery.getQuery(LLocalRecord.class);
+            queryRecord.whereEqualTo("objectId", objectId);
             queryRecord.findInBackground(new FindCallback<LLocalRecord>() {
                 @Override
                 public void done(List<LLocalRecord> list, AVException e) {
-                    if (e==null&&!list.isEmpty()){
+                    if (e == null && !list.isEmpty()) {
                         isNetErr.set(false);
 
-                        lLocalRecord=list.get(0);
+                        lLocalRecord = list.get(0);
                         AVQuery<LRecordRemark> query = AVQuery.getQuery(LRecordRemark.class);
                         query.whereEqualTo("belongId", objectId);
                         query.findInBackground(new FindCallback<LRecordRemark>() {
@@ -257,13 +250,13 @@ public class DiscoveryRecordRemarkVM {
                                 }
                             }
                         });
-                    }else{
+                    } else {
                         isNetErr.set(true);
                     }
                 }
             });
 
-        }else{
+        } else {
             ToastUtil.toastShort("请保证网络链接");
         }
     }

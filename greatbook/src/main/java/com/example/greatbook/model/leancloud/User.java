@@ -6,7 +6,7 @@ import com.avos.avoscloud.AVUser;
 /**
  * Created by MBENBEN on 2016/4/16.
  */
-public class User extends AVUser{
+public class User extends AVUser {
     private String name;
     private String signature;
     private AVFile avatar;
@@ -19,7 +19,7 @@ public class User extends AVUser{
     }
 
     public void setCharm(int charm) {
-        put("charm",charm);
+        put("charm", charm);
     }
 
     public int getFans() {
@@ -27,7 +27,7 @@ public class User extends AVUser{
     }
 
     public void setFans(int fans) {
-        put("fans",fans);
+        put("fans", fans);
     }
 
     public int getMoney() {
@@ -35,7 +35,7 @@ public class User extends AVUser{
     }
 
     public void setMoney(int money) {
-        put("money",money);
+        put("money", money);
     }
 
     public void setName(String name) {
@@ -52,7 +52,7 @@ public class User extends AVUser{
     }
 
     public void setAvatar(AVFile avatar) {
-        put("avatar",avatar);
+        put("avatar", avatar);
     }
 
 
@@ -61,6 +61,6 @@ public class User extends AVUser{
     }
 
     public void setSignature(String signature) {
-        put("signature",signature);
+        put("signature", signature);
     }
 }

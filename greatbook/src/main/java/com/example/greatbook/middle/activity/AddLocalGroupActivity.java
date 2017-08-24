@@ -4,9 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -25,25 +23,18 @@ import com.example.greatbook.middle.model.event.SetGroupEvent;
 import com.example.greatbook.middle.presenter.AllLocalGroupPresenter;
 import com.example.greatbook.middle.presenter.contract.AllLocalGroupContract;
 import com.example.greatbook.model.leancloud.User;
-import com.example.greatbook.ui.main.activity.RegisterActivity;
 import com.example.greatbook.utils.AlbumUtils;
-import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
-import com.example.greatbook.widght.RoundImageView;
-import com.iflytek.cloud.thirdparty.V;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

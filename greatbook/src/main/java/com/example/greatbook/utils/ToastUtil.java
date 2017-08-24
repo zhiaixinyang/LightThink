@@ -4,27 +4,25 @@ import android.content.Context;
 import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
-import com.example.greatbook.widght.FlowLayout;
 
 
 /**
- * Created by MBENBEN on 2016/2/17.
+ * Created by MDove on 2016/2/17.
  */
 public class ToastUtil {
     private static Toast toast;
-    private static  Context context= App.getInstance().getContext();
+    private static Context context = App.getInstance().getContext();
     private String msg;
     private static ToastUtil toastUtil;
 
 
-    public ToastUtil(Context context){
-        this.context=context;
+    public ToastUtil(Context context) {
+        this.context = context;
     }
 
     public Toast createLong() {
@@ -37,6 +35,7 @@ public class ToastUtil {
         tvMsg.setText(msg);
         return toast;
     }
+
     public Toast createShort() {
         View contentView = View.inflate(context, R.layout.view_dialog_toast, null);
         contentView.getLayoutParams();
@@ -50,14 +49,15 @@ public class ToastUtil {
     }
 
     //获得全局Context;
-    public static void toastShort(String content){
+    public static void toastShort(String content) {
         if (toastUtil == null) {
             toastUtil = new ToastUtil(context);
         }
         toastUtil.setText(content);
         toastUtil.createShort().show();
     }
-    public static void toastLong(String content){
+
+    public static void toastLong(String content) {
         if (toastUtil == null) {
             toastUtil = new ToastUtil(context);
         }
@@ -66,21 +66,22 @@ public class ToastUtil {
     }
 
     //非UI线程使用Toast
-    public static void noUIToastShort(String content){
+    public static void noUIToastShort(String content) {
         Looper.prepare();
-        if(toast==null) {
-            toast=Toast.makeText(context, content, Toast.LENGTH_SHORT);
-        }else{
+        if (toast == null) {
+            toast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
+        } else {
             toast.setText(content);
         }
         toast.show();
         Looper.loop();
     }
-    public static void noUIToastLong(String content){
+
+    public static void noUIToastLong(String content) {
         Looper.prepare();
-        if(toast==null) {
-            toast=Toast.makeText(context, content, Toast.LENGTH_LONG);
-        }else{
+        if (toast == null) {
+            toast = Toast.makeText(context, content, Toast.LENGTH_LONG);
+        } else {
             toast.setText(content);
         }
         toast.show();

@@ -6,8 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +19,6 @@ import com.example.greatbook.middle.fragment.MiddleDiscoveryFragment;
 import com.example.greatbook.middle.fragment.MiddleLocalAddFragment;
 import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
 import com.example.greatbook.utils.ToastUtil;
-import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
 import com.example.greatbook.widght.DefaultNavigationBar;
 
 import butterknife.BindView;

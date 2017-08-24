@@ -9,12 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.greatbook.utils.LogUtils;
-
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by MDove on 2016/11/1.

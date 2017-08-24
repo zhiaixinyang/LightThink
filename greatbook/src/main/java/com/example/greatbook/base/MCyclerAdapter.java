@@ -13,7 +13,7 @@ import com.example.greatbook.R;
 import java.util.List;
 
 /**
- * Created by MBENBEN on 2016/12/2.
+ * Created by MDove on 2016/12/2.
  */
 
 public abstract class MCyclerAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

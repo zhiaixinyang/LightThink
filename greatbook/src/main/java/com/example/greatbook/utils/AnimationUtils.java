@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 /**
- * Created by MBENBEN on 2016/11/3.
+ * Created by MDove on 2016/11/3.
  */
 
 public class AnimationUtils {

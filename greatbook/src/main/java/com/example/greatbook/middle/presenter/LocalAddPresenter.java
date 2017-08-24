@@ -1,7 +1,6 @@
 package com.example.greatbook.middle.presenter;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
@@ -34,11 +33,13 @@ import rx.functions.Action1;
 public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implements LocalAddContract.Presenter {
     private LocalRecordDao localRecordDao;
     private LocalGroupDao localGroupDao;
-    public LocalAddPresenter(LocalAddContract.View view){
-        mView=view;
-        localRecordDao= App.getDaoSession().getLocalRecordDao();
-        localGroupDao=App.getDaoSession().getLocalGroupDao();
+
+    public LocalAddPresenter(LocalAddContract.View view) {
+        mView = view;
+        localRecordDao = App.getDaoSession().getLocalRecordDao();
+        localGroupDao = App.getDaoSession().getLocalGroupDao();
     }
+
     @Override
     public void sendContentToNet(LocalRecord localRecord) {
         if (NetUtil.isNetworkAvailable()) {
@@ -88,14 +89,14 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
 
     @Override
     public void addContentToLocal(LocalRecord localRecord) {
-        Date time=localRecord.getTimeDate();
-        String strContent=localRecord.getContent();
-        String groupId=localRecord.getId()+"";
-        String avUserId= localRecord.getBelongId();
+        Date time = localRecord.getTimeDate();
+        String strContent = localRecord.getContent();
+        String groupId = localRecord.getId() + "";
+        String avUserId = localRecord.getBelongId();
         if (!StringUtils.isEmpty(time.toString())
-                &&!StringUtils.isEmpty(strContent)
-                &&!StringUtils.isEmpty(groupId)
-                &&!StringUtils.isEmpty(avUserId)) {
+                && !StringUtils.isEmpty(strContent)
+                && !StringUtils.isEmpty(groupId)
+                && !StringUtils.isEmpty(avUserId)) {
             if (localRecordDao.insert(localRecord) != 0) {
                 mView.addContentToLocalSuc("记录成功");
                 //如果插入成功，同步数据到服务器
@@ -103,12 +104,12 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
             } else {
                 mView.addContentToLocalError("记录数据失败");
             }
-        }else{
+        } else {
             if (StringUtils.isEmpty(strContent)) {
                 mView.addContentToLocalError("内容不能为空");
-            }else if (StringUtils.isEmpty(avUserId)){
+            } else if (StringUtils.isEmpty(avUserId)) {
                 mView.addContentToLocalError("未登陆，请登陆");
-            }else if (StringUtils.isEmpty(groupId)){
+            } else if (StringUtils.isEmpty(groupId)) {
                 mView.addContentToLocalError("请选择，标签分组");
             }
         }
@@ -116,7 +117,7 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
 
     @Override
     public void addNewLocalGroup(final LocalGroup localGroup) {
-        Subscription subscription=Observable.create(new Observable.OnSubscribe<String>() {
+        Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
                 localGroupDao.insert(localGroup);
@@ -171,20 +172,20 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
 
     @Override
     public void initLocalGroup() {
-        Subscription subscription=Observable.create(new Observable.OnSubscribe<List<LocalGroup>>() {
+        Subscription subscription = Observable.create(new Observable.OnSubscribe<List<LocalGroup>>() {
             @Override
             public void call(Subscriber<? super List<LocalGroup>> subscriber) {
-                List<LocalGroup> groups=localGroupDao.loadAll();
-                if (groups!=null&&!groups.isEmpty()) {
-                    List<LocalGroup> data=new ArrayList<>();
+                List<LocalGroup> groups = localGroupDao.loadAll();
+                if (groups != null && !groups.isEmpty()) {
+                    List<LocalGroup> data = new ArrayList<>();
                     //选择所有常用文集
-                    for (LocalGroup group:groups){
-                        if (group.isUserd()){
+                    for (LocalGroup group : groups) {
+                        if (group.isUserd()) {
                             data.add(group);
                         }
                     }
                     subscriber.onNext(data);
-                }else{
+                } else {
                     mView.showError("本地数据加载失败");
                 }
             }

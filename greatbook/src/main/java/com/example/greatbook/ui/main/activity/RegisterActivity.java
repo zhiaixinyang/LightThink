@@ -1,18 +1,13 @@
 package com.example.greatbook.ui.main.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -49,7 +44,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -153,7 +147,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     public void call(File o) {
-                        fileA=o;
+                        fileA = o;
                         Glide.with(RegisterActivity.this).load(o).into(ivAvatar);
                     }
                 });
@@ -272,7 +266,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupJok.setTime(new Date());
         localGroupJok.setUserd(true);
         localGroupJok.setGroupPhotoPath("");
-        localGroupJok.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");
+        localGroupJok.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
         localGroupJok.setGroupLocalPhotoPath(R.drawable.icon_default_group_jok);
         localGroupJok.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupJok.setContent("随手记录让我一笑的段子。");
@@ -283,7 +277,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupEncourage.setTime(new Date());
         localGroupEncourage.setUserd(true);
         localGroupEncourage.setGroupPhotoPath("");
-        localGroupEncourage.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");
+        localGroupEncourage.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
         localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
         localGroupEncourage.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
@@ -293,7 +287,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         localGroupShortEssay.setTitle("我的本地清新集");
         localGroupShortEssay.setTime(new Date());
         localGroupShortEssay.setUserd(true);
-        localGroupShortEssay.setBgColor(ContextCompat.getColor(this,R.color.blue)+"");
+        localGroupShortEssay.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
         localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);
         localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
@@ -303,7 +297,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     @OnClick(R.id.btn_back)
     public void onViewClicked() {
-        Intent toLogin=new Intent(this,LoginActivity.class);
+        Intent toLogin = new Intent(this, LoginActivity.class);
         startActivity(toLogin);
         finish();
     }
@@ -311,6 +305,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        App.toIntent(this,LoginActivity.class);
+        App.toIntent(this, LoginActivity.class);
     }
 }

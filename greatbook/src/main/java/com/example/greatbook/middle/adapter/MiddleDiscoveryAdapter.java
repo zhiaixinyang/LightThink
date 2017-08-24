@@ -21,27 +21,27 @@ import java.util.List;
  * Created by MDove on 2017/8/13.
  */
 
-public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup>{
+public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup> {
     public MiddleDiscoveryAdapter(Context context, int layoutId, List<DiscoveryTopGroup> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
     public void convert(final ViewHolder holder, DiscoveryTopGroup discoveryTopGroup) {
-        holder.setText(R.id.tv_discovery_top_num,discoveryTopGroup.attentionNum>99?
-                "99+":discoveryTopGroup.attentionNum+"");
+        holder.setText(R.id.tv_discovery_top_num, discoveryTopGroup.attentionNum > 99 ?
+                "99+" : discoveryTopGroup.attentionNum + "");
         holder.setText(R.id.tv_discovery_top_group_name,
-                !StringUtils.isEmpty(discoveryTopGroup.groupTitle)?discoveryTopGroup.groupTitle:"未设置标题");
+                !StringUtils.isEmpty(discoveryTopGroup.groupTitle) ? discoveryTopGroup.groupTitle : "未设置标题");
         GlideUtils.loadSmallIv(discoveryTopGroup.groupPhotoPath, (ImageView) holder.getView(R.id.iv_group));
-        AVQuery<User> query=AVQuery.getQuery(User.class);
-        query.whereEqualTo("objectId",discoveryTopGroup.belongId);
+        AVQuery<User> query = AVQuery.getQuery(User.class);
+        query.whereEqualTo("objectId", discoveryTopGroup.belongId);
         query.findInBackground(new FindCallback<User>() {
             @Override
             public void done(List<User> list, AVException e) {
-                if (e==null&&!list.isEmpty()){
-                    User user=list.get(0);
+                if (e == null && !list.isEmpty()) {
+                    User user = list.get(0);
                     GlideUtils.loadSmallAvatar(user.getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_discovery_top_user_avatar));
-                    holder.setText(R.id.tv_discovery_top_user_name,!StringUtils.isEmpty(user.getName())?user.getName():"匿名用户");
+                    holder.setText(R.id.tv_discovery_top_user_name, !StringUtils.isEmpty(user.getName()) ? user.getName() : "匿名用户");
                 }
             }
         });

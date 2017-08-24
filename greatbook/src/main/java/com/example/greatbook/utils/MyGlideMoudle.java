@@ -9,7 +9,7 @@ import com.bumptech.glide.request.target.ViewTarget;
 import com.example.greatbook.R;
 
 /**
- * Created by MBENBEN on 2016/11/29.
+ * Created by MDove on 2016/11/29.
  */
 
 public class MyGlideMoudle implements GlideModule {

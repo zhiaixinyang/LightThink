@@ -1,7 +1,6 @@
 package com.example.greatbook.middle.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -14,10 +13,8 @@ import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.main.activity.LoginActivity;
 import com.example.greatbook.ui.main.activity.MainNewActivity;
 import com.example.greatbook.utils.ToastUtil;
-import com.iflytek.cloud.thirdparty.V;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -39,7 +36,7 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
     @Override
     public void syncDataSuc(String suc) {
         ToastUtil.toastShort(suc);
-        Intent toMain=new Intent(this, MainNewActivity.class);
+        Intent toMain = new Intent(this, MainNewActivity.class);
         startActivity(toMain);
         finish();
     }
@@ -57,29 +54,29 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
 
     @Override
     public void init() {
-        presenter=new InitSyncPresenter(this);
+        presenter = new InitSyncPresenter(this);
         user = AVUser.getCurrentUser(User.class);
-        if (user!=null) {
+        if (user != null) {
             presenter.syncData(user.getObjectId());
-        }else{
+        } else {
             toLogin();
         }
     }
 
     @OnClick(R.id.btn_net)
     public void onViewClicked() {
-        if (user!=null) {
+        if (user != null) {
             presenter.syncData(user.getObjectId());
             netLayout.setVisibility(View.GONE);
             syncLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             toLogin();
         }
     }
 
     private void toLogin() {
         ToastUtil.toastShort("请登录");
-        Intent toLogin=new Intent(this, LoginActivity.class);
+        Intent toLogin = new Intent(this, LoginActivity.class);
         startActivity(toLogin);
         finish();
     }

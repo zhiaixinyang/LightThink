@@ -63,7 +63,7 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
 
     @Override
     public void init() {
-        new DefaultNavigationBar.Builder(this,null)
+        new DefaultNavigationBar.Builder(this, null)
                 .setLeftText("返回")
                 .setTitleText("意见反馈区")
                 .setLeftResId(R.drawable.btn_back_)
@@ -74,9 +74,9 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
                     }
                 }).builder();
 
-        presenter=new FeedBackPresenter(this);
-        data=new ArrayList<>();
-        adapter = new FeedBackAdapter(this,R.layout.item_feedback,data);
+        presenter = new FeedBackPresenter(this);
+        data = new ArrayList<>();
+        adapter = new FeedBackAdapter(this, R.layout.item_feedback, data);
         rlvFeedback.setLayoutManager(new LinearLayoutManager(this));
         rlvFeedback.addRefreshViewCreator(new DefaultRefreshCreator());
         rlvFeedback.addLoadViewCreator(new DefaultLoadCreator());
@@ -93,33 +93,33 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
 
     private void initViewBackGround() {
         btnSend.setBackground(SelectorFactory.newShapeSelector()
-            .setCornerRadius(DpUtils.dp2px(4))
-            .setDefaultBgColor(ContextCompat.getColor(this,R.color.blue_light))
-            .setFocusedBgColor(ContextCompat.getColor(this,R.color.blue_light))
-            .create());
+                .setCornerRadius(DpUtils.dp2px(4))
+                .setDefaultBgColor(ContextCompat.getColor(this, R.color.blue_light))
+                .setFocusedBgColor(ContextCompat.getColor(this, R.color.blue_light))
+                .create());
         etContent.setBackground(SelectorFactory.newShapeSelector()
-            .setCornerRadius(DpUtils.dp2px(4))
-            .setDefaultBgColor(Color.WHITE)
-            .create());
+                .setCornerRadius(DpUtils.dp2px(4))
+                .setDefaultBgColor(Color.WHITE)
+                .create());
     }
 
 
     @OnClick(R.id.btn_send)
     public void onViewClicked() {
-        String content=etContent.getText().toString();
-        AVUser avUser=AVUser.getCurrentUser();
-        if (avUser!=null) {
+        String content = etContent.getText().toString();
+        AVUser avUser = AVUser.getCurrentUser();
+        if (avUser != null) {
             if (content != null && !StringUtils.isEmpty(content)) {
-                presenter.sendContent(avUser.getObjectId(),content);
-            }else{
+                presenter.sendContent(avUser.getObjectId(), content);
+            } else {
                 ToastUtil.toastShort("不少反馈点内容");
             }
-        }else{
+        } else {
             SnackbarUtils.showShortAndAction(getWindow().getDecorView(),
                     "请登录再进行操作", "登录", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent toLogin=new Intent(FeedBackActivity.this,LoginActivity.class);
+                            Intent toLogin = new Intent(FeedBackActivity.this, LoginActivity.class);
                             startActivity(toLogin);
                         }
                     });

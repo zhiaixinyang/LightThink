@@ -8,7 +8,7 @@ import com.avos.avoscloud.AVObject;
  * Created by MBENBEN on 2016/11/24.
  */
 @AVClassName("TalkAboutBean")
-public class TalkAboutBean extends AVObject{
+public class TalkAboutBean extends AVObject {
     private String belongId;
     private String content;
     private AVFile contentPhoto;
@@ -19,7 +19,7 @@ public class TalkAboutBean extends AVObject{
     }
 
     public void setBelongId(String belongId) {
-        put("belongId",belongId);
+        put("belongId", belongId);
     }
 
     public String getContent() {
@@ -27,7 +27,7 @@ public class TalkAboutBean extends AVObject{
     }
 
     public void setContent(String content) {
-        put("content",content);
+        put("content", content);
     }
 
     public AVFile getContentPhoto() {
@@ -35,7 +35,7 @@ public class TalkAboutBean extends AVObject{
     }
 
     public void setContentPhoto(AVFile contentPhoto) {
-        put("contentPhoto",contentPhoto);
+        put("contentPhoto", contentPhoto);
     }
 
     public AVFile getAvatar() {
@@ -43,6 +43,6 @@ public class TalkAboutBean extends AVObject{
     }
 
     public void setAvatar(AVFile avatar) {
-        put("avatar",avatar);
+        put("avatar", avatar);
     }
 }
