@@ -32,6 +32,7 @@ public class DiscoveryLocalRecordAdapter extends CommonAdapter<DiscoveryRecord> 
     public void convert(final ViewHolder holder, final DiscoveryRecord discoveryRecord) {
         holder.setText(R.id.tv_title,discoveryRecord.title);
         holder.setText(R.id.tv_content,discoveryRecord.content);
+        holder.setText(R.id.tv_good_num,discoveryRecord.likeNum+"");
         holder.setText(R.id.tv_time, DateUtils.getDateChinese(discoveryRecord.time));
         AVQuery<User> query=AVQuery.getQuery(User.class);
         query.whereEqualTo("objectId",discoveryRecord.belongId);

@@ -2,6 +2,7 @@ package com.example.greatbook.middle.databinding;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
@@ -44,5 +45,10 @@ public class RecordRemarksDataBinding {
             }
             adapter.setData(data_);
         }
+    }
+
+    @BindingAdapter("iconLikeRes")
+    public static void iconLikeRes(ImageView imageView,int res){
+        imageView.setImageResource(res);
     }
 }

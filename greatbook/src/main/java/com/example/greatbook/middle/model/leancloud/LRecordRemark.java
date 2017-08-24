@@ -12,12 +12,12 @@ import java.util.Date;
 @AVClassName("LRecordRemark")
 public class LRecordRemark extends AVObject {
 
-    public AVObject getBelong() {
-        return getAVObject("belong");
+    public String getBelongId() {
+        return getString("belongId");
     }
 
-    public void setBelong(LLocalRecord belong) {
-        put("belong",belong);
+    public void setBelongId(String belongId) {
+        put("belongId",belongId);
     }
 
     public String getBelongUserId() {

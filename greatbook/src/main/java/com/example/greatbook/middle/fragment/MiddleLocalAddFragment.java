@@ -169,7 +169,9 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     public void initLocalRecordSuc(List<LocalRecordRLV> records) {
         data=records;
         adapter.addData(data);
-        rlvLocal.onStopRefresh();
+        if (rlvLocal!=null) {
+            rlvLocal.onStopRefresh();
+        }
         loadingView.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
     }

@@ -10,6 +10,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.example.greatbook.greendao.DaoSession;
 import com.example.greatbook.greendao.utils.DaoManager;
+import com.example.greatbook.middle.model.leancloud.LRecordLike;
 import com.example.greatbook.middle.model.leancloud.LRecordRemark;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
@@ -77,6 +78,7 @@ public class App extends MultiDexApplication {
         AVObject.registerSubclass(LLocalRecord.class);
         AVObject.registerSubclass(LLocalGroup.class);
         AVObject.registerSubclass(LRecordRemark.class);
+        AVObject.registerSubclass(LRecordLike.class);
     }
 
     public void addActivity(Activity act) {

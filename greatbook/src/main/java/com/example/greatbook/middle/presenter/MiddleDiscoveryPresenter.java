@@ -95,8 +95,6 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
     @Override
     public void initDiscoveryRecord() {
         if (NetUtil.isNetworkAvailable()){
-
-
             Subscription subscription=Observable.create(new Observable.OnSubscribe<DiscoveryRecordReturn>() {
                 @Override
                 public void call(final Subscriber<? super DiscoveryRecordReturn> subscriber) {

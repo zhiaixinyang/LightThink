@@ -63,7 +63,7 @@ public class DiscoveryRecordRemarkActivity extends AppCompatActivity{
             remarkVM.likeNum.set(discoveryRecord.likeNum+"");
             remarkVM.title.set(discoveryRecord.title);
             remarkVM.initAllMes(discoveryRecord.belongId);
-            remarkVM.initRemarks(discoveryRecord.belongId);
+            remarkVM.initRemarks(discoveryRecord.objectId);
             dataBinding.setRemarkVM(remarkVM);
         }
 

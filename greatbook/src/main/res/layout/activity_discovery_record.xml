@@ -62,6 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:onClick="@{() -> remarkVM.btnLike()}"
                 android:layout_marginTop="@dimen/item_middle_local_add_margin"
                 android:layout_marginRight="@dimen/item_middle_local_add_margin"
                 android:gravity="center"
@@ -71,7 +72,7 @@
                     android:id="@+id/iv_good"
                     android:layout_width="@dimen/item_activity_record_remark_good_w_h"
                     android:layout_height="@dimen/item_activity_record_remark_good_w_h"
-                    android:src="@drawable/icon_good_off" />
+                    app:iconLikeRes="@{remarkVM.iconLike}" />
 
                 <TextView
                     android:id="@+id/tv_good_num"
@@ -90,6 +91,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/topPanel"
                 android:layout_marginRight="@dimen/item_middle_local_add_margin"
+                android:layout_marginBottom="@dimen/item_middle_local_add_margin"
                 android:src="@drawable/pictures_no"
                 app:loadImageView="@{remarkVM.photoPath}" />
 
@@ -170,9 +172,10 @@
                 android:addTextChangedListener="@{remarkVM.watcher}"
                 android:gravity="center|left"
                 android:hint="评论"
+                android:text="@{remarkVM.etRemarksContent}"
                 android:paddingLeft="@dimen/item_feedback_margin"
                 android:paddingRight="@dimen/item_feedback_margin"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/btn_send"
@@ -227,6 +230,13 @@
                 android:text="当前无评论，快抢沙发"
                 />
         </RelativeLayout>
-
+        <TextView
+            android:layout_width="match_parent"
+            android:text="网络错误"
+            android:background="@color/white"
+            android:textSize="30sp"
+            android:visibility="@{remarkVM.isNetErr?View.VISIBLE:View.GONE}"
+            android:gravity="center"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 </layout>
