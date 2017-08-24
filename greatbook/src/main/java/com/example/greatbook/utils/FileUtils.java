@@ -121,10 +121,13 @@ public class FileUtils {
 
     public static byte[] getByteFromPath(String path){
         Bitmap bitmap=FileAndImageUtils.getBitmap(path);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] bytes=baos.toByteArray();
-        return bytes;
+        if (bitmap!=null) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            return bytes;
+        }
+        return new byte[0];
     }
 
     public static byte[] getByteFromBitmap(Bitmap bitmap){

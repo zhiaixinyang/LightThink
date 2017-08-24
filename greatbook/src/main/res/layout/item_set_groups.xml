@@ -17,10 +17,10 @@
             app:type="round"
             app:borderRadius="4dp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="@dimen/item_set_groups_margin"
             android:layout_width="@dimen/item_set_groups_iv_w_h"
+            android:layout_toRightOf="@+id/iv_userd"
             android:src="@drawable/icon_default_group_encourage"
-            android:background="@color/blue"
             android:layout_height="@dimen/item_set_groups_iv_w_h" />
         <TextView
             android:id="@+id/tv_group_title"

@@ -1,6 +1,7 @@
 package com.example.greatbook.middle.activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -12,6 +13,7 @@ import com.example.greatbook.middle.presenter.contract.InitSyncContract;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.main.activity.LoginActivity;
 import com.example.greatbook.ui.main.activity.MainNewActivity;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 
 import butterknife.BindView;

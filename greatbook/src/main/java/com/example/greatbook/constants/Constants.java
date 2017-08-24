@@ -44,4 +44,7 @@ public class Constants {
     public static final int CAMERA_WITH_DATA=3;
     public static final String DISCOVERY_RECORD_ITEM_CLICK="discovery_record_item_click";
     public static final String DISCOVERY_GROUP_ITEM_CLICK="discovery_group_item_click";
+    public static final String RECORD_REMARKS_LIKE_TO_REFRESH ="record_remarks_like_to_refresh";
+    public static final String OPEN_RECORD_ITEM_POSITION ="open_record_item_position";
+
 }

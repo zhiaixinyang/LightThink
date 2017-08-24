@@ -13,16 +13,20 @@ import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.R;
+import com.example.greatbook.constants.Constants;
 import com.example.greatbook.middle.model.DiscoveryRecord;
 import com.example.greatbook.middle.model.RecordRemark;
 import com.example.greatbook.middle.model.leancloud.LRecordLike;
 import com.example.greatbook.middle.model.leancloud.LRecordRemark;
+import com.example.greatbook.model.event.LikeEvent;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +69,11 @@ public class DiscoveryRecordRemarkVM {
 
     private DiscoveryRecord discoveryRecord;
     private LLocalRecord lLocalRecord;
+    private int itemPosition;
 
-    public DiscoveryRecordRemarkVM(DiscoveryRecord discoveryRecord) {
+    public DiscoveryRecordRemarkVM(DiscoveryRecord discoveryRecord, int itemPosition) {
         this.discoveryRecord = discoveryRecord;
+        this.itemPosition = itemPosition;
         RecordRemark recordRemark = new RecordRemark();
         recordRemark.date = new ArrayList<>();
         data.set(recordRemark);
@@ -164,6 +170,10 @@ public class DiscoveryRecordRemarkVM {
                                             iconLike.set(R.drawable.icon_good_on);
                                             likeNum.set((Integer.valueOf(likeNum.get()) + 1) + "");
                                             ToastUtil.toastShort("点赞成功");
+                                            LikeEvent event = new LikeEvent();
+                                            event.itemPostion=itemPosition;
+                                            event.event = Constants.RECORD_REMARKS_LIKE_TO_REFRESH;
+                                            EventBus.getDefault().post(event);
                                         }
                                     }
                                 });

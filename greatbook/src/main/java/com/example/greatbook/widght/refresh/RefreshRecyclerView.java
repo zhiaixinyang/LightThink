@@ -104,17 +104,19 @@ public class RefreshRecyclerView extends WrapRecyclerView {
 
         int distance = currentTopMargin - finalTopMargin;
 
-        // 回弹到指定位置
-        ValueAnimator animator = ObjectAnimator.ofFloat(currentTopMargin, finalTopMargin).setDuration(distance);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float currentTopMargin = (float) animation.getAnimatedValue();
-                setRefreshViewMarginTop((int) currentTopMargin);
-            }
-        });
-        animator.start();
-        mCurrentDrag = false;
+        if (distance!=-1) {
+            // 回弹到指定位置
+            ValueAnimator animator = ObjectAnimator.ofFloat(currentTopMargin, finalTopMargin).setDuration(distance);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float currentTopMargin = (float) animation.getAnimatedValue();
+                    setRefreshViewMarginTop((int) currentTopMargin);
+                }
+            });
+            animator.start();
+            mCurrentDrag = false;
+        }
     }
 
 

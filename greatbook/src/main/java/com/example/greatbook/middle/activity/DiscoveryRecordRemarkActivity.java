@@ -29,6 +29,7 @@ public class DiscoveryRecordRemarkActivity extends AppCompatActivity {
     private DiscoveryRecord discoveryRecord;
     private ActivityDiscoveryRecordBinding dataBinding;
     private RecordRemarksAdapter adapter;
+    private int itemPosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,13 +48,14 @@ public class DiscoveryRecordRemarkActivity extends AppCompatActivity {
         initViewBackGround();
 
         discoveryRecord = (DiscoveryRecord) getIntent().getSerializableExtra(Constants.DISCOVERY_RECORD_ITEM_CLICK);
+        itemPosition=getIntent().getIntExtra(Constants.OPEN_RECORD_ITEM_POSITION,0);
 
         adapter = new RecordRemarksAdapter(this);
         dataBinding.rlvActivityDiscovery.setLayoutManager(new LinearLayoutManager(this));
         dataBinding.rlvActivityDiscovery.setAdapter(adapter);
 
         if (discoveryRecord != null) {
-            remarkVM = new DiscoveryRecordRemarkVM(discoveryRecord);
+            remarkVM = new DiscoveryRecordRemarkVM(discoveryRecord,itemPosition);
 
             remarkVM.belongId.set(discoveryRecord.belongId);
             remarkVM.time.set(DateUtils.getDateChinese(discoveryRecord.time));

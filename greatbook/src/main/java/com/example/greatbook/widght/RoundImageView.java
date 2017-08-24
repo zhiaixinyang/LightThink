@@ -114,6 +114,9 @@ public class RoundImageView extends ImageView {
 		}
 
 		Bitmap bmp = drawableToBitamp(drawable);
+		if (bmp==null){
+			return;
+		}
 		// 将bmp作为着色器，就是在指定区域内绘制bmp
 		mBitmapShader = new BitmapShader(bmp, TileMode.CLAMP, TileMode.CLAMP);
 		float scale = 1.0f;
@@ -126,9 +129,6 @@ public class RoundImageView extends ImageView {
 			// shader的变换矩阵，我们这里主要用于放大或者缩小
 			mMatrix.setScale(scale, scale);
 		} else if (type == TYPE_ROUND) {
-			Log.e("TAG",
-					"b'w = " + bmp.getWidth() + " , " + "b'h = "
-							+ bmp.getHeight());
 			if (!(bmp.getWidth() == getWidth())) {
 				widthScale = getWidth() * 1.0f / bmp.getWidth();
 			}

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,9 +26,14 @@ import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.middle.presenter.MiddleDiscoveryPresenter;
 import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
 import com.example.greatbook.model.HeadlineBean;
+import com.example.greatbook.model.event.LikeEvent;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +82,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     @Override
     protected void initViewsAndEvents(View view) {
         LogUtils.d("initViewsAndEvents");
+        EventBus.getDefault().register(this);
         presenter = new MiddleDiscoveryPresenter(this);
         context = App.getInstance().getContext();
 
@@ -96,6 +103,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
                 if (o != null) {
                     Intent toActivity = new Intent(context, DiscoveryRecordRemarkActivity.class);
                     toActivity.putExtra(Constants.DISCOVERY_RECORD_ITEM_CLICK, o);
+                    toActivity.putExtra(Constants.OPEN_RECORD_ITEM_POSITION,position);
                     startActivity(toActivity);
                 }
             }
@@ -204,5 +212,15 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     public void onRefresh() {
         presenter.initDiscoveryRecord();
         presenter.initDiscoveryTop();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(LikeEvent event){
+        switch (event.event){
+            case Constants.RECORD_REMARKS_LIKE_TO_REFRESH:
+                presenter.initDiscoveryRecord();
+
+                break;
+        }
     }
 }

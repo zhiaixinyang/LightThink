@@ -2,15 +2,20 @@ package com.example.greatbook.middle.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.RoundImageView;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
 
 import java.util.List;
@@ -67,10 +72,9 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
             ivUserd.setVisibility(View.GONE);
         }
         if (!StringUtils.isEmpty(localGroup.getGroupPhotoPath())) {
-            holder.setImageBitmap(R.id.iv_group, FileUtils.getBitmapFromByte(FileUtils.getByteFromPath(localGroup.getGroupPhotoPath())));
+            GlideUtils.loadSmallIv(localGroup.getGroupPhotoPath(), (RoundImageView) holder.getView(R.id.iv_group));
         } else {
             holder.setImageResource(R.id.iv_group, localGroup.getGroupLocalPhotoPath());
-            holder.setBackgroundColor(R.id.iv_group, Color.parseColor(localGroup.getBgColor()));
         }
     }
 

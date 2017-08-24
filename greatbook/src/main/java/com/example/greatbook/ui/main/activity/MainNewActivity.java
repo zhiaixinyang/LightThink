@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.example.greatbook.middle.fragment.MiddleDiscoveryFragment;
 import com.example.greatbook.middle.fragment.MiddleLocalAddFragment;
 import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
 import com.example.greatbook.widght.DefaultNavigationBar;
 
 import butterknife.BindView;
@@ -57,7 +60,7 @@ public class MainNewActivity extends BaseActivity {
     @Override
     public void init() {
         new DefaultNavigationBar.Builder(this,null)
-                .setTitleText("有趣随手记")
+                .setTitleText("趣记")
                 .setLeftResId(0)
                 .builder();
 
@@ -163,10 +166,10 @@ public class MainNewActivity extends BaseActivity {
         tvAdd.setTextColor(ContextCompat.getColor(this, R.color.gray));
         tvTalkAbout.setTextColor(ContextCompat.getColor(this, R.color.gray));
 
-//        ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//        sa.setDuration(250);
-//        sa.setInterpolator(new SpringAnimationInterpolar());
-//        btnAdd.startAnimation(sa);
+        ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        sa.setDuration(250);
+        sa.setInterpolator(new SpringAnimationInterpolar());
+        btnAdd.startAnimation(sa);
 
         viewPager.setCurrentItem(1);
     }
