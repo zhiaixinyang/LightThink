@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="remarkVm"
+            type="com.example.greatbook.middle.viewmodel.GroupAndRecordsBeanVM" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_activity_record_remark_margin"
+            android:layout_toRightOf="@+id/iv_avatar"
+            android:text="@{remarkVm.title}"
+            android:textColor="@color/blue"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/item_activity_record_remark_margin"
+            android:layout_alignParentRight="true"
+            android:text="@{remarkVm.time}"
+            android:textColor="@color/gray"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:text="@{remarkVm.content}"
+            android:textColor="@color/light_black"
+            android:layout_marginBottom="@dimen/item_activity_group_and_records_margin"
+            android:layout_marginLeft="@dimen/item_activity_group_and_records_margin"
+            android:layout_marginRight="@dimen/item_activity_group_and_records_margin"
+            android:layout_below="@+id/tv_time"
+            android:textSize="16sp"
+            android:layout_alignLeft="@+id/tv_nick"
+            android:layout_alignStart="@+id/tv_nick" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_content"
+            android:layout_marginBottom="@dimen/item_activity_group_and_records_margin"
+            android:layout_marginLeft="@dimen/item_activity_group_and_records_margin"
+            android:layout_marginRight="@dimen/item_activity_group_and_records_margin"
+            android:background="@color/gray_light" />
+    </RelativeLayout>
+
+</layout>

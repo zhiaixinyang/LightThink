@@ -61,6 +61,7 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     topRecord.groupTitle = lLocalGroup.getGroupTitle();
                                     topRecord.time = lLocalGroup.getCreatedAt();
                                     topRecord.groupPhotoPath = lLocalGroup.getGroupPhoto().getUrl();
+                                    topRecord.objectId=lLocalGroup.getObjectId();
                                     data.add(topRecord);
                                 }
                                 groupReturn.data = data;

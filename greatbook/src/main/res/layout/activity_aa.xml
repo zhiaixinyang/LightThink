@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:mdove="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+    <com.example.greatbook.widght.SimpleRoundImageView
+        android:layout_width="wrap_content"
+        mdove:simple_bg_color="@color/blue"
+        mdove:simple_text_in="回"
+        mdove:simple_text_out="傻逼"
+        mdove:simple_text_in_size="30sp"
+        mdove:simple_text_out_size="16sp"
+        mdove:simple_text_out_color="@color/red"
+        mdove:simple_text_in_color="@color/black"
+        android:layout_height="wrap_content" />
+</LinearLayout>

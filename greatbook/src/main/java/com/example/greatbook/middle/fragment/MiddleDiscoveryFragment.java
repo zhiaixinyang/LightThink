@@ -17,6 +17,7 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.middle.activity.DiscoveryGroupAndRecordsActivity;
 import com.example.greatbook.middle.activity.DiscoveryRecordRemarkActivity;
 import com.example.greatbook.middle.activity.TalkAboutActivity;
 import com.example.greatbook.middle.adapter.DiscoveryLocalRecordAdapter;
@@ -88,6 +89,14 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
         dataGroups = new ArrayList<>();
         adapterGroup = new MiddleDiscoveryAdapter(context, R.layout.item_rlv_discovery_group, dataGroups);
+        adapterGroup.setOnItemClickListener(new OnItemClickListener<DiscoveryTopGroup>() {
+            @Override
+            public void onItemClick(View view, DiscoveryTopGroup o, int position) {
+                Intent toGroup=new Intent(context, DiscoveryGroupAndRecordsActivity.class);
+                toGroup.putExtra(Constants.DISCOVERY_GROUP_ITEM_CLICK,o);
+                startActivity(toGroup);
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

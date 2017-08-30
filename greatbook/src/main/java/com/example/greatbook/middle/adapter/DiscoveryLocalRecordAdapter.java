@@ -7,7 +7,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.middle.model.DiscoveryRecord;
 import com.example.greatbook.model.leancloud.LLocalGroup;
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by MDove on 2017/8/14.
  */
 
-public class DiscoveryLocalRecordAdapter extends CommonAdapter<DiscoveryRecord> {
+public class DiscoveryLocalRecordAdapter extends LocalRecordAdapter<DiscoveryRecord> {
     public DiscoveryLocalRecordAdapter(Context context, int layoutId, List<DiscoveryRecord> datas) {
         super(context, layoutId, datas);
     }

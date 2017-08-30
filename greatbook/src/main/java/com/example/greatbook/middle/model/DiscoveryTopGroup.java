@@ -1,5 +1,6 @@
 package com.example.greatbook.middle.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  */
 
 //用于发现页的顶部文集推荐的bean
-public class DiscoveryTopGroup {
+public class DiscoveryTopGroup implements Serializable{
     public Date time;
     public String title;
     public String content;
@@ -19,4 +20,5 @@ public class DiscoveryTopGroup {
     public int attentionNum;
     public String groupPhotoPath;
     public String avatarPath;
+    public String objectId;
 }

@@ -7,7 +7,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.DateUtils;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by MDove on 2016/11/24.
  */
 
-public class TalkAboutAdapter extends CommonAdapter<TalkAboutBean> {
+public class TalkAboutAdapter extends LocalRecordAdapter<TalkAboutBean> {
 
     public TalkAboutAdapter(Context context, int layoutId, List<TalkAboutBean> datas) {
         super(context, layoutId, datas);

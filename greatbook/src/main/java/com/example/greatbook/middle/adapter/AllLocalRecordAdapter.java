@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.utils.DateUtils;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by MDove on 2017/8/13.
  */
 
-public class AllLocalRecordAdapter extends CommonAdapter<LocalRecordRLV> {
+public class AllLocalRecordAdapter extends LocalRecordAdapter<LocalRecordRLV> {
     public AllLocalRecordAdapter(Context context, int layoutId, List<LocalRecordRLV> datas) {
         super(context, layoutId, datas);
     }

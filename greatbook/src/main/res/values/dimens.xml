@@ -116,4 +116,5 @@
     <dimen name="activity_record_remark_bottom_margin">5dp</dimen>
     <dimen name="item_activity_record_remark_avatar_wh">35dp</dimen>
     <dimen name="item_activity_record_remark_good_w_h">20dp</dimen>
+    <dimen name="item_activity_group_and_records_margin">8dp</dimen>
 </resources>

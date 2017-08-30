@@ -1,18 +1,13 @@
 package com.example.greatbook.middle.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.greendao.entity.LocalGroup;
-import com.example.greatbook.utils.FileUtils;
 import com.example.greatbook.utils.GlideUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.RoundImageView;
@@ -24,7 +19,7 @@ import java.util.List;
  * Created by MDove on 2017/8/13.
  */
 
-public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
+public class SetGroupsAdapter extends LocalRecordAdapter<LocalGroup> {
     public SetGroupsAdapter(Context context, int layoutId, List<LocalGroup> datas) {
         super(context, layoutId, datas);
     }

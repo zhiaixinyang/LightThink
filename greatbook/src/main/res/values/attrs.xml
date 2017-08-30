@@ -17,6 +17,16 @@
         <attr name="civ_fill_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="SimpleRoundImageView">
+        <attr name="simple_text_in_color" format="color" />
+        <attr name="simple_text_in_size" format="dimension" />
+        <attr name="simple_text_out_color" format="color" />
+        <attr name="simple_text_out_size" format="dimension" />
+        <attr name="simple_text_out" format="string" />
+        <attr name="simple_text_in" format="string" />
+        <attr name="simple_bg_color" format="color" />
+    </declare-styleable>
+
     <declare-styleable name="SwipeFlingAdapterView">
         <attr name="SwipeFlingStyle" format="reference"/>
         <attr name="rotation_degrees" format="float"/>

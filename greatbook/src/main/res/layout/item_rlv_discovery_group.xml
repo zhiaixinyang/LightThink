@@ -22,7 +22,7 @@
         <TextView
             android:id="@+id/tv_discovery_top_user_name"
             android:text="用户"
-            android:textColor="@color/purple"
+            android:textColor="@color/black"
             android:textSize="10sp"
             android:layout_marginLeft="@dimen/item_rlv_discovery_top_margin"
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_below="@+id/topPanel"
         android:layout_marginLeft="@dimen/item_rlv_discovery_top_margin"
         android:layout_marginRight="@dimen/item_rlv_discovery_top_margin"
-        android:textColor="@color/black"
+        android:textColor="@color/blue"
         android:layout_centerHorizontal="true"
         android:textSize="14sp"
         android:layout_height="wrap_content" />
@@ -47,13 +47,15 @@
         android:layout_marginTop="@dimen/item_rlv_discovery_top_margin"
         android:layout_width="@dimen/item_rlv_discovery_top_iv_group_w_h"
         android:layout_height="@dimen/item_rlv_discovery_top_iv_group_w_h" />
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/bottom"
         android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/item_rlv_discovery_top_margin"
         android:layout_marginRight="@dimen/item_rlv_discovery_top_margin"
-        android:layout_width="@dimen/item_rlv_discovery_top_iv_w_h"
+        android:gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/item_rlv_discovery_top_iv_w_h">
         <ImageView
             android:src="@drawable/icon_attention_num"
@@ -68,5 +70,5 @@
             android:text="99+"
             android:textColor="@color/black"
             android:layout_height="wrap_content" />
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

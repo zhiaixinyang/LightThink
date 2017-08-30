@@ -7,7 +7,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.model.leancloud.User;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by MDove on 2017/8/13.
  */
 
-public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup> {
+public class MiddleDiscoveryAdapter extends LocalRecordAdapter<DiscoveryTopGroup> {
     public MiddleDiscoveryAdapter(Context context, int layoutId, List<DiscoveryTopGroup> datas) {
         super(context, layoutId, datas);
     }

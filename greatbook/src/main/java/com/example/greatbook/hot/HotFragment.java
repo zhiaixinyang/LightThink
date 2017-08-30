@@ -1,14 +1,13 @@
 package com.example.greatbook.hot;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.hot.model.HotTopMenuBean;
 import com.example.greatbook.hot.presenter.HotContract;
@@ -30,7 +29,7 @@ public class HotFragment extends BaseLazyFragment<HotPresenter> implements HotCo
     @BindView(R.id.rlv_hot_content)
     RecyclerView rlvHotContent;
     private List<HotTopMenuBean> topMenus;
-    private CommonAdapter<HotTopMenuBean> topMenuAdapter;
+    private LocalRecordAdapter<HotTopMenuBean> topMenuAdapter;
     private GridLayoutManager gln;
 
     @Override
@@ -83,7 +82,7 @@ public class HotFragment extends BaseLazyFragment<HotPresenter> implements HotCo
         jokMenu.menuName="热门段子";
         topMenus.add(jokMenu);
 
-        topMenuAdapter=new CommonAdapter<HotTopMenuBean>(App.getInstance().getContext(),R.layout.item_hot_top_menu,topMenus) {
+        topMenuAdapter=new LocalRecordAdapter<HotTopMenuBean>(App.getInstance().getContext(),R.layout.item_hot_top_menu,topMenus) {
             @Override
             public void convert(ViewHolder holder, HotTopMenuBean hotTopMenuBean) {
                 holder.setImageResource(R.id.iv_hot_top_menu,hotTopMenuBean.menuIconPath);

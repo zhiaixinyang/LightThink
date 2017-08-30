@@ -6,7 +6,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.model.LFeedBackBean;
 import com.example.greatbook.utils.GlideUtils;
@@ -20,7 +20,7 @@ import java.util.List;
  * Created by MDove on 2017/8/10.
  */
 
-public class FeedBackAdapter extends CommonAdapter<LFeedBackBean> {
+public class FeedBackAdapter extends LocalRecordAdapter<LFeedBackBean> {
     private SimpleDateFormat simpleDateFormat;
 
     public FeedBackAdapter(Context context, int layoutId, List<LFeedBackBean> datas) {

@@ -1,9 +1,12 @@
 package com.example.greatbook.middle.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,10 +14,12 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
-import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.LocalRecordAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.middle.adapter.MainMenuAdapter;
 import com.example.greatbook.middle.model.LocalRecordRLV;
+import com.example.greatbook.middle.model.MainMenuItemBean;
 import com.example.greatbook.middle.presenter.MiddleLocalAddPresenter;
 import com.example.greatbook.middle.presenter.contract.MiddleLocalAddContract;
 import com.example.greatbook.model.event.LocalAddEvent;
@@ -51,7 +56,11 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     RelativeLayout emptyView;
     @BindView(R.id.tv_load_view)
     TextView loadingView;
-    private CommonAdapter<LocalRecordRLV> adapter;
+    @BindView(R.id.rlv_main_menu)
+    RecyclerView rlvMainMenu;
+    private LocalRecordAdapter<LocalRecordRLV> adapter;
+    private MainMenuAdapter menuAdapter;
+    private List<MainMenuItemBean> menuData;
     private Context context;
     private List<LocalRecordRLV> data;
     private MiddleLocalAddPresenter presenter;
@@ -73,13 +82,16 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     protected void initViewsAndEvents(View view) {
         EventBus.getDefault().register(this);
         LogUtils.d("initViewsAndEvents");
-
         context = App.getInstance().getContext();
-        data = new ArrayList<>();
+        initData();
+        menuAdapter=new MainMenuAdapter(context,menuData);
+        rlvMainMenu.setLayoutManager(new GridLayoutManager(context,5));
+        rlvMainMenu.setAdapter(menuAdapter);
+
         presenter = new MiddleLocalAddPresenter(this);
         presenter.initLocalRecord();
 
-        adapter = new CommonAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
+        adapter = new LocalRecordAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
             @Override
             public void convert(ViewHolder holder, LocalRecordRLV localRecord) {
                 String content = localRecord.content;
@@ -108,6 +120,21 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         rlvLocal.addEmptyView(emptyView);
         rlvLocal.setOnRefreshListener(this);
         rlvLocal.setAdapter(adapter);
+    }
+
+    private void initData() {
+        data = new ArrayList<>();
+
+        menuData=new ArrayList<>();
+        for (int i=0;i<8;i++){
+            MainMenuItemBean bean=new MainMenuItemBean();
+            bean.bgColor= ContextCompat.getColor(context,R.color.blue);
+            bean.inColor=ContextCompat.getColor(context,R.color.white);
+            bean.outColor=ContextCompat.getColor(context,R.color.black);
+            bean.inText="段";
+            bean.outText="我的段子库"+i;
+            menuData.add(bean);
+        }
     }
 
     @Override
