@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.LocalRecordAdapter;
+import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.utils.GlideUtils;
@@ -19,7 +19,7 @@ import java.util.List;
  * Created by MDove on 2017/8/13.
  */
 
-public class SetGroupsAdapter extends LocalRecordAdapter<LocalGroup> {
+public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
     public SetGroupsAdapter(Context context, int layoutId, List<LocalGroup> datas) {
         super(context, layoutId, datas);
     }

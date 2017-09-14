@@ -11,7 +11,7 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
-import com.example.greatbook.middle.adapter.AllLocalRecordAdapter;
+import com.example.greatbook.middle.adapter.AllCommonAdapter;
 import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.middle.presenter.AllLocalRecordPresenter;
 import com.example.greatbook.middle.presenter.contract.AllLocalRecordContract;
@@ -35,13 +35,12 @@ import butterknife.BindView;
  */
 
 public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter> implements AllLocalRecordContract.View {
-    private static final String TAG = "AllLocalRecordActivity";
     @BindView(R.id.rlv_set_all_local_record)
     RecyclerView rlvSetAllLocalRecord;
     @BindView(R.id.tv_empty_view)
     RelativeLayout tvEmptyView;
     private List<LocalRecordRLV> data;
-    private AllLocalRecordAdapter adapter;
+    private AllCommonAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -66,7 +65,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
                 .setLeftResId(R.drawable.btn_back_)
                 .builder();
         data = new ArrayList<>();
-        adapter = new AllLocalRecordAdapter(this, R.layout.item_set_all_local_record, data);
+        adapter = new AllCommonAdapter(this, R.layout.item_set_all_local_record, data);
         adapter.setOnSwipeListener(new OnSwipeListener() {
             @Override
             public void onDelete(int pos) {
@@ -136,7 +135,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
 
     @Override
     public void deleteLocalGroupToNetReturn(String returnStr) {
-        LogUtils.d(TAG, returnStr);
+        LogUtils.d(returnStr);
     }
 
     @Override
@@ -148,7 +147,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
 
     @Override
     public void updateLocalRecordToNetReturn(String returnStr) {
-        LogUtils.d(TAG,returnStr);
+        LogUtils.d(returnStr);
     }
 
     @Override

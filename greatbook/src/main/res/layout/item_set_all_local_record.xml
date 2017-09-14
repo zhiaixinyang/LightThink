@@ -12,6 +12,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.example.greatbook.widght.RoundImageView
+            android:layout_width="@dimen/item_set_all_record_iv_w_h"
+            android:layout_height="@dimen/item_set_all_record_iv_w_h" />
         <TextView
             android:id="@+id/tv_group_title"
             android:layout_width="wrap_content"
@@ -28,7 +31,7 @@
             android:id="@+id/tv_title"
             android:text="标题"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:layout_marginLeft="@dimen/item_middle_local_add_margin"
             android:layout_marginBottom="@dimen/item_middle_local_add_margin"
             android:layout_marginTop="@dimen/item_middle_local_add_margin"
@@ -40,24 +43,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_content"
-
             app:DrawableAndTextGravity="right"
             app:collapseDrawable="@drawable/btn_expand_off"
+            android:layout_toLeftOf="@+id/iv_swipe"
             app:expandDrawable="@drawable/btn_expand_on"
             app:contentTextColor="@color/colorPrimaryDark"
             app:expandCollapseTextColor="@color/blue"
             app:expandText="更多"
             android:layout_alignLeft="@+id/tv_title"
             android:layout_below="@+id/tv_title"
-            android:textSize="16sp"
+            android:textSize="12sp"
             app:maxCollapsedLines="6"/>
         <TextView
             android:id="@+id/tv_time"
             android:text="时间"
             android:textColor="@color/gray"
-            android:textSize="12sp"
-            android:layout_alignParentRight="true"
+            android:textSize="10sp"
             android:layout_below="@+id/tv_content"
+            android:layout_toLeftOf="@+id/iv_swipe"
             android:layout_marginRight="@dimen/item_middle_local_add_margin"
             android:layout_marginBottom="@dimen/item_middle_local_add_margin"
             android:layout_marginTop="@dimen/item_middle_local_add_margin"
@@ -72,6 +75,7 @@
         <ImageView
             android:id="@+id/iv_swipe"
             android:src="@drawable/icon_swipe"
+            android:scaleType="fitXY"
             android:layout_width="@dimen/item_set_group_iv_w_h"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

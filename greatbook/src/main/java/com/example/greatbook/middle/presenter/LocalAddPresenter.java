@@ -142,10 +142,10 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
                         @Override
                         public void call(final Subscriber<? super String> subscriber) {
                             LLocalGroup lLocalGroup = new LLocalGroup();
-                            lLocalGroup.setContent(localGroup.getContent());
-                            lLocalGroup.setGroupId(localGroup.getId());
-                            lLocalGroup.setGroupTitle(localGroup.getTitle());
-                            lLocalGroup.setBelongId(localGroup.getBelongId());
+                            lLocalGroup.setContent(localGroup.content);
+                            lLocalGroup.setGroupId(localGroup.id);
+                            lLocalGroup.setGroupTitle(localGroup.title);
+                            lLocalGroup.setBelongId(localGroup.belongId);
                             lLocalGroup.setAttentionNum(0);
                             lLocalGroup.setUserd(false);
                             lLocalGroup.saveInBackground(new SaveCallback() {
@@ -180,7 +180,7 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
                     List<LocalGroup> data = new ArrayList<>();
                     //选择所有常用文集
                     for (LocalGroup group : groups) {
-                        if (group.isUserd()) {
+                        if (group.isUserd) {
                             data.add(group);
                         }
                     }

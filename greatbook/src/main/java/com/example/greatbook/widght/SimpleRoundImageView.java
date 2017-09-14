@@ -70,10 +70,12 @@ public class SimpleRoundImageView extends View {
         textInPaint = new Paint();
         textInPaint.setColor(textInColor);
         textInPaint.setTextSize(textInSize);
+        textInPaint.setAntiAlias(true);
 
         textOutPaint = new Paint();
         textOutPaint.setTextSize(textOutSize);
         textOutPaint.setColor(textOutColor);
+        textOutPaint.setAntiAlias(true);
 
     }
 

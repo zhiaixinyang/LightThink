@@ -21,7 +21,7 @@
             android:layout_toRightOf="@+id/iv_avatar"
             android:text="@{remarkVm.title}"
             android:textColor="@color/blue"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -44,7 +44,7 @@
             android:layout_marginLeft="@dimen/item_activity_group_and_records_margin"
             android:layout_marginRight="@dimen/item_activity_group_and_records_margin"
             android:layout_below="@+id/tv_time"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:layout_alignLeft="@+id/tv_nick"
             android:layout_alignStart="@+id/tv_nick" />
 

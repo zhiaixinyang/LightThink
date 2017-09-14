@@ -14,6 +14,7 @@ import com.example.greatbook.middle.model.event.SetGroupEvent;
 import com.example.greatbook.middle.presenter.SetGroupsPresenter;
 import com.example.greatbook.middle.presenter.contract.SetGroupsContract;
 import com.example.greatbook.utils.LogUtils;
+import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
@@ -36,6 +37,9 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
     private SetGroupsAdapter adapter;
     private List<LocalGroup> data;
 
+    public static final String IS_ALL_GROUPS_SHOW_TAG="is_all_groups_show_tag";
+    public static final String IS_ALL_GROUPS_SHOW="is_all_groups_show";
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_set_groups;
@@ -43,8 +47,12 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
 
     @Override
     public void init() {
+        String title=getIntent().getStringExtra(IS_ALL_GROUPS_SHOW_TAG);
+        if (StringUtils.isEmpty(title)){
+            title="文集设置";
+        }
         new DefaultNavigationBar.Builder(this, null)
-                .setTitleText("文集设置")
+                .setTitleText(title)
                 .setOnLeftClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -77,6 +85,8 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
             @Override
             public void onAlter(final int pos) {
                 Intent toDetail = new Intent(SetGroupsActivity.this, AddLocalGroupActivity.class);
+                toDetail.putExtra(AddLocalGroupActivity.IS_ALTER,data.get(pos));
+                toDetail.putExtra(AddLocalGroupActivity.IS_SHOW_ONE_GROUP_TAG,AddLocalGroupActivity.IS_SHOW_ONE_GROUP);
                 startActivity(toDetail);
             }
         });

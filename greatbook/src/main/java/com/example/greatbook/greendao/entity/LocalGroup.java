@@ -1,10 +1,14 @@
 package com.example.greatbook.greendao.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,23 +17,23 @@ import java.util.Date;
 
 //类似于歌单
 @Entity
-public class LocalGroup {
+public class LocalGroup implements Serializable{
     @Id
     @Property(nameInDb = "proid")
-    private Long id;
+    public Long id;
     //创建时间
-    private Date time;
+    public Date time;
     //创建标题
-    private String title;
+    public String title;
     //创建内容
-    private String content;
+    public String content;
     //对应的账号信息，用于网络同步
-    private String belongId;
+    public String belongId;
     //是否设置为常用文集
-    private boolean isUserd;
-    private String groupPhotoPath;
-    private int groupLocalPhotoPath;
-    private String bgColor;
+    public boolean isUserd;
+    public String groupPhotoPath;
+    public int groupLocalPhotoPath;
+    public String bgColor;
 
 
     
@@ -52,28 +56,46 @@ public class LocalGroup {
     public LocalGroup() {
     }
 
+    protected LocalGroup(Parcel in) {
+        title = in.readString();
+        content = in.readString();
+        belongId = in.readString();
+        isUserd = in.readByte() != 0;
+        groupPhotoPath = in.readString();
+        groupLocalPhotoPath = in.readInt();
+        bgColor = in.readString();
+    }
+
     public String getBgColor() {
-        return bgColor;
+        return this.bgColor;
     }
 
     public void setBgColor(String bgColor) {
         this.bgColor = bgColor;
     }
 
+    public int getGroupLocalPhotoPath() {
+        return this.groupLocalPhotoPath;
+    }
+
+    public void setGroupLocalPhotoPath(int groupLocalPhotoPath) {
+        this.groupLocalPhotoPath = groupLocalPhotoPath;
+    }
+
     public String getGroupPhotoPath() {
-        return groupPhotoPath;
+        return this.groupPhotoPath;
     }
 
     public void setGroupPhotoPath(String groupPhotoPath) {
         this.groupPhotoPath = groupPhotoPath;
     }
 
-    public boolean isUserd() {
-        return isUserd;
+    public boolean getIsUserd() {
+        return this.isUserd;
     }
 
-    public void setUserd(boolean userd) {
-        isUserd = userd;
+    public void setIsUserd(boolean isUserd) {
+        this.isUserd = isUserd;
     }
 
     public String getBelongId() {
@@ -114,21 +136,5 @@ public class LocalGroup {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public boolean getIsUserd() {
-        return this.isUserd;
-    }
-
-    public void setIsUserd(boolean isUserd) {
-        this.isUserd = isUserd;
-    }
-
-    public int getGroupLocalPhotoPath() {
-        return this.groupLocalPhotoPath;
-    }
-
-    public void setGroupLocalPhotoPath(int groupLocalPhotoPath) {
-        this.groupLocalPhotoPath = groupLocalPhotoPath;
     }
 }

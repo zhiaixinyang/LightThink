@@ -25,6 +25,7 @@ import com.example.greatbook.middle.presenter.contract.AllLocalGroupContract;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.AlbumUtils;
 import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -52,6 +53,11 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
     ImageView btnOffPhoto;
     private Bitmap bmp;
     private String imagePath;
+
+    public static final String IS_SHOW_ONE_GROUP_TAG="is_show_one_group_tag";
+    public static final String IS_SHOW_ONE_GROUP="is_show_one_group";
+
+    public static final String IS_ALTER="is_alter";
 
     @Override
     public void showError(String msg) {
@@ -84,9 +90,18 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
 
     @Override
     public void init() {
+        String title=getIntent().getStringExtra(IS_SHOW_ONE_GROUP_TAG);
+        if (StringUtils.isEmpty(title)){
+            title="添加文集";
+        }
+        LocalGroup localGroup=getIntent().getParcelableExtra(IS_ALTER);
+        if (localGroup!=null){
+            showAlter(localGroup);
+        }
+
         presenter = new AllLocalGroupPresenter(this);
         new DefaultNavigationBar.Builder(this, null)
-                .setTitleText("添加文集")
+                .setTitleText(title)
                 .setLeftResId(R.drawable.btn_back_)
                 .setOnLeftClickListener(new View.OnClickListener() {
                     @Override
@@ -145,18 +160,16 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
                     if (StringUtils.isEmpty(name)) {
                         ToastUtil.toastShort("给文集设置一个名字");
                     } else {
-
                         //此情况为选中图片
                         LocalGroup localGroup = new LocalGroup();
-                        localGroup.setUserd(false);
-                        localGroup.setTime(new Date());
-                        localGroup.setBelongId(user.getObjectId());
-                        localGroup.setGroupPhotoPath(imagePath);
-                        LogUtils.d(imagePath);
-                        localGroup.setContent(StringUtils.isEmpty(content) ? "未设置文集描述" : content);
-                        localGroup.setGroupLocalPhotoPath(0);
-                        localGroup.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
-                        localGroup.setTitle(name);
+                        localGroup.isUserd=false;
+                        localGroup.time=new Date();
+                        localGroup.belongId=user.getObjectId();
+                        localGroup.groupPhotoPath=imagePath;
+                        localGroup.content=StringUtils.isEmpty(content) ? "未设置文集描述" : content;
+                        localGroup.groupLocalPhotoPath=0;
+                        localGroup.bgColor=ContextCompat.getColor(this, R.color.blue) + "";
+                        localGroup.title=name;
                         presenter.addLocalGroup(localGroup);
                     }
                 } else {
@@ -204,5 +217,17 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
                 }
                 break;
         }
+    }
+
+    private void showAlter(LocalGroup group){
+        etGroupName.setText(StringUtils.isEmpty(group.title)?"":group.title);
+        etGroupContent.setText(group.content);
+        imagePath=group.groupPhotoPath;
+        if (StringUtils.isEmpty(imagePath)){
+            ivSelect.setImageResource(group.groupLocalPhotoPath);
+        }else{
+            GlideUtils.loadSmallIv(group.groupPhotoPath,ivSelect);
+        }
+        btnOffPhoto.setVisibility(View.VISIBLE);
     }
 }

@@ -89,7 +89,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         LocalGroup localGroupJok = new LocalGroup();
         localGroupJok.setTitle("我的本地段子集");
         localGroupJok.setTime(new Date());
-        localGroupJok.setUserd(true);
+        localGroupJok.isUserd=true;
         localGroupJok.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupJok.setContent("随手记录让我一笑的段子。");
         localGroupJok.setGroupPhotoPath("");
@@ -102,7 +102,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         localGroupEncourage.setTime(new Date());
         localGroupEncourage.setBelongId(AVUser.getCurrentUser().getObjectId());
         localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
-        localGroupEncourage.setUserd(true);
+        localGroupEncourage.isUserd=true;
         localGroupEncourage.setGroupPhotoPath("");
         localGroupEncourage.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
         localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
@@ -111,7 +111,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         LocalGroup localGroupShortEssay = new LocalGroup();
         localGroupShortEssay.setTitle("我的本地清新集");
         localGroupShortEssay.setTime(new Date());
-        localGroupShortEssay.setUserd(true);
+        localGroupShortEssay.isUserd=true;
         localGroupShortEssay.setGroupPhotoPath("");
         localGroupShortEssay.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
         localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);

@@ -264,7 +264,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         LocalGroup localGroupJok = new LocalGroup();
         localGroupJok.setTitle("我的本地段子集");
         localGroupJok.setTime(new Date());
-        localGroupJok.setUserd(true);
+        localGroupJok.isUserd=true;
         localGroupJok.setGroupPhotoPath("");
         localGroupJok.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
         localGroupJok.setGroupLocalPhotoPath(R.drawable.icon_default_group_jok);
@@ -275,7 +275,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         LocalGroup localGroupEncourage = new LocalGroup();
         localGroupEncourage.setTitle("我的本地鸡汤集");
         localGroupEncourage.setTime(new Date());
-        localGroupEncourage.setUserd(true);
+        localGroupEncourage.isUserd=true;
         localGroupEncourage.setGroupPhotoPath("");
         localGroupEncourage.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
         localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
@@ -286,7 +286,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         LocalGroup localGroupShortEssay = new LocalGroup();
         localGroupShortEssay.setTitle("我的本地清新集");
         localGroupShortEssay.setTime(new Date());
-        localGroupShortEssay.setUserd(true);
+        localGroupShortEssay.isUserd=true;
         localGroupShortEssay.setBgColor(ContextCompat.getColor(this, R.color.blue) + "");
         localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);
         localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());

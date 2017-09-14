@@ -10,5 +10,6 @@ public class MainMenuItemBean {
     public int inColor;
     public int outColor;
     public int bgColor;
+    public int menuType;
 
 }

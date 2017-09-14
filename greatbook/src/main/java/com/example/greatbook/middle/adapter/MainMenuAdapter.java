@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.greatbook.R;
+import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.middle.model.MainMenuItemBean;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.widght.SimpleRoundImageView;
+import com.example.greatbook.widght.swipecard.SwipeFlingAdapterView;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.ViewHolder> {
     private List<MainMenuItemBean> data;
     private Context context;
+    private OnItemClickListener listener;
 
     public MainMenuAdapter(Context context,List<MainMenuItemBean> data) {
         this.data = data;
@@ -32,13 +35,22 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        MainMenuItemBean bean=data.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final MainMenuItemBean bean=data.get(position);
         holder.imageView.setInText(bean.inText);
         holder.imageView.setOutText(bean.outText);
         holder.imageView.setTextInColor(bean.inColor);
         holder.imageView.setTextOutColor(bean.outColor);
         holder.imageView.setBgColor(bean.bgColor);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!=null){
+                    listener.onItemClick(v,bean,position);
+                }
+            }
+        });
     }
 
     @Override
@@ -51,7 +63,10 @@ public class MainMenuAdapter extends RecyclerView.Adapter<MainMenuAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             imageView= (SimpleRoundImageView) itemView.findViewById(R.id.main_menu);
-            LogUtils.d(imageView);
         }
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

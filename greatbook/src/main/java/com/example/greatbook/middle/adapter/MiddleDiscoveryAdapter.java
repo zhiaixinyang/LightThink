@@ -7,13 +7,14 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.LocalRecordAdapter;
+import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.middle.model.DiscoveryTopGroup;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.widght.CircleImageView;
+import com.example.greatbook.widght.RoundImageView;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by MDove on 2017/8/13.
  */
 
-public class MiddleDiscoveryAdapter extends LocalRecordAdapter<DiscoveryTopGroup> {
+public class MiddleDiscoveryAdapter extends CommonAdapter<DiscoveryTopGroup> {
     public MiddleDiscoveryAdapter(Context context, int layoutId, List<DiscoveryTopGroup> datas) {
         super(context, layoutId, datas);
     }
@@ -32,7 +33,11 @@ public class MiddleDiscoveryAdapter extends LocalRecordAdapter<DiscoveryTopGroup
                 "99+" : discoveryTopGroup.attentionNum + "");
         holder.setText(R.id.tv_discovery_top_group_name,
                 !StringUtils.isEmpty(discoveryTopGroup.groupTitle) ? discoveryTopGroup.groupTitle : "未设置标题");
-        GlideUtils.loadSmallIv(discoveryTopGroup.groupPhotoPath, (ImageView) holder.getView(R.id.iv_group));
+        if (!StringUtils.isEmpty(discoveryTopGroup.groupPhotoPath)) {
+            GlideUtils.loadSmallIv(discoveryTopGroup.groupPhotoPath, (RoundImageView) holder.getView(R.id.iv_group));
+        }else{
+            GlideUtils.load(R.drawable.icon_default_group_jok,(RoundImageView) holder.getView(R.id.iv_group));
+        }
         AVQuery<User> query = AVQuery.getQuery(User.class);
         query.whereEqualTo("objectId", discoveryTopGroup.belongId);
         query.findInBackground(new FindCallback<User>() {

@@ -1,7 +1,7 @@
 package com.example.greatbook.middle.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,9 +14,13 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
-import com.example.greatbook.base.adapter.LocalRecordAdapter;
+import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.middle.activity.AddLocalGroupActivity;
+import com.example.greatbook.middle.activity.AllLocalRecordActivity;
+import com.example.greatbook.middle.activity.SetGroupsActivity;
 import com.example.greatbook.middle.adapter.MainMenuAdapter;
 import com.example.greatbook.middle.model.LocalRecordRLV;
 import com.example.greatbook.middle.model.MainMenuItemBean;
@@ -58,12 +62,14 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     TextView loadingView;
     @BindView(R.id.rlv_main_menu)
     RecyclerView rlvMainMenu;
-    private LocalRecordAdapter<LocalRecordRLV> adapter;
+    private CommonAdapter<LocalRecordRLV> adapter;
     private MainMenuAdapter menuAdapter;
     private List<MainMenuItemBean> menuData;
     private Context context;
     private List<LocalRecordRLV> data;
     private MiddleLocalAddPresenter presenter;
+    public static final int MY_ALL_CONTENT=1;
+    public static final int MY_ALL_GROUP=2;
 
     public static MiddleLocalAddFragment newInstance() {
         Bundle args = new Bundle();
@@ -81,17 +87,35 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     @Override
     protected void initViewsAndEvents(View view) {
         EventBus.getDefault().register(this);
-        LogUtils.d("initViewsAndEvents");
         context = App.getInstance().getContext();
         initData();
         menuAdapter=new MainMenuAdapter(context,menuData);
         rlvMainMenu.setLayoutManager(new GridLayoutManager(context,5));
         rlvMainMenu.setAdapter(menuAdapter);
+        menuAdapter.setListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Object o, int position) {
+                MainMenuItemBean menuItemBean= (MainMenuItemBean) o;
+                switch (menuItemBean.menuType){
+                    case MY_ALL_CONTENT:
+                        Intent toMyAllContent=new Intent(getContext(), AllLocalRecordActivity.class);
+                        startActivity(toMyAllContent);
+                        break;
+                    case MY_ALL_GROUP:
+                        Intent toMyAllGroup=new Intent(getContext(), SetGroupsActivity.class);
+                        toMyAllGroup.putExtra(SetGroupsActivity.IS_ALL_GROUPS_SHOW_TAG,SetGroupsActivity.IS_ALL_GROUPS_SHOW);
+                        startActivity(toMyAllGroup);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
 
         presenter = new MiddleLocalAddPresenter(this);
         presenter.initLocalRecord();
 
-        adapter = new LocalRecordAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
+        adapter = new CommonAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
             @Override
             public void convert(ViewHolder holder, LocalRecordRLV localRecord) {
                 String content = localRecord.content;
@@ -126,36 +150,36 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         data = new ArrayList<>();
 
         menuData=new ArrayList<>();
-        for (int i=0;i<8;i++){
-            MainMenuItemBean bean=new MainMenuItemBean();
-            bean.bgColor= ContextCompat.getColor(context,R.color.blue);
-            bean.inColor=ContextCompat.getColor(context,R.color.white);
-            bean.outColor=ContextCompat.getColor(context,R.color.black);
-            bean.inText="段";
-            bean.outText="我的段子库"+i;
-            menuData.add(bean);
-        }
+
+        MainMenuItemBean myAll=new MainMenuItemBean();
+        myAll.bgColor= ContextCompat.getColor(context,R.color.blue);
+        myAll.inColor=ContextCompat.getColor(context,R.color.white);
+        myAll.outColor=ContextCompat.getColor(context,R.color.black);
+        myAll.inText="段";
+        myAll.outText="我的段子库";
+        myAll.menuType=MY_ALL_CONTENT;
+        menuData.add(myAll);
+
+        MainMenuItemBean myGroup=new MainMenuItemBean();
+        myGroup.bgColor= ContextCompat.getColor(context,R.color.red);
+        myGroup.inColor=ContextCompat.getColor(context,R.color.white);
+        myGroup.outColor=ContextCompat.getColor(context,R.color.black);
+        myGroup.inText="集";
+        myGroup.outText="我的文集";
+        myGroup.menuType=MY_ALL_GROUP;
+        menuData.add(myAll);
+
     }
 
     @Override
     protected void onFirstUserVisible() {
-        LogUtils.d("onFirstUserVisible");
         presenter.initLocalRecord();
 
     }
 
     @Override
     protected void onUserVisible() {
-        LogUtils.d("onUserVisible");
-
         presenter.initLocalRecord();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LogUtils.d("onDestroy");
 
     }
 
@@ -169,18 +193,6 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
     }
-
-//    @OnClick({R.id.menu_all, R.id.menu_photo})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.menu_all:
-//                Intent toAll =new Intent(context, AllLocalRecordActivity.class);
-//                startActivity(toAll);
-//                break;
-//            case R.id.menu_photo:
-//                break;
-//        }
-//    }
 
     @Override
     public void onLoadRlvRefresh() {

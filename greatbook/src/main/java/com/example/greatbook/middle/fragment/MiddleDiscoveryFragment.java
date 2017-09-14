@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +19,7 @@ import com.example.greatbook.constants.Constants;
 import com.example.greatbook.middle.activity.DiscoveryGroupAndRecordsActivity;
 import com.example.greatbook.middle.activity.DiscoveryRecordRemarkActivity;
 import com.example.greatbook.middle.activity.TalkAboutActivity;
-import com.example.greatbook.middle.adapter.DiscoveryLocalRecordAdapter;
+import com.example.greatbook.middle.adapter.DiscoveryCommonAdapter;
 import com.example.greatbook.middle.adapter.MiddleDiscoveryAdapter;
 import com.example.greatbook.middle.model.DiscoveryRecord;
 import com.example.greatbook.middle.model.DiscoveryTopGroup;
@@ -62,7 +61,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
     private Context context;
     private MiddleDiscoveryPresenter presenter;
     private MiddleDiscoveryAdapter adapterGroup;
-    private DiscoveryLocalRecordAdapter adapterRecord;
+    private DiscoveryCommonAdapter adapterRecord;
     private RecyclerViewSkeletonScreen skeletonScreenGroup;
     private RecyclerViewSkeletonScreen skeletonScreenRecord;
     private List<HeadlineBean> talkABoutData;
@@ -82,7 +81,6 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void initViewsAndEvents(View view) {
-        LogUtils.d("initViewsAndEvents");
         EventBus.getDefault().register(this);
         presenter = new MiddleDiscoveryPresenter(this);
         context = App.getInstance().getContext();
@@ -105,7 +103,7 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         srlTop.setOnRefreshListener(this);
 
         dataRecords = new ArrayList<>();
-        adapterRecord = new DiscoveryLocalRecordAdapter(context, R.layout.item_rlv_discovery_record, dataRecords);
+        adapterRecord = new DiscoveryCommonAdapter(context, R.layout.item_rlv_discovery_record, dataRecords);
         adapterRecord.setOnItemClickListener(new OnItemClickListener<DiscoveryRecord>() {
             @Override
             public void onItemClick(View view, DiscoveryRecord o, int position) {
@@ -136,7 +134,6 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
 
     @Override
     protected void onFirstUserVisible() {
-        LogUtils.d("onFirstUserVisible");
         talkABoutData = new ArrayList<>();
         talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
         talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
@@ -146,12 +143,6 @@ public class MiddleDiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPre
         presenter.initDiscoveryTop();
         presenter.initDiscoveryRecord();
         showSkeleton();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LogUtils.d("onDestroy");
     }
 
     private void showSkeleton() {

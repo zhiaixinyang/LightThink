@@ -88,7 +88,7 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
         //遍历当前Groups中所有设置为常用的个数，超过5个，则回调满
         int userdNum = 0;
         for (LocalGroup group : groups) {
-            if (group.isUserd()) {
+            if (group.isUserd) {
                 ++userdNum;
             }
         }
@@ -98,14 +98,14 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
         } else {
             if (localGroup.getIsUserd()) {
                 if (userdNum > 1) {
-                    localGroup.setUserd(false);
+                    localGroup.isUserd=false;
                     localGroupDao.update(localGroup);
                     mView.returnSetUserdGroups(groups);
                 } else {
                     ToastUtil.toastShort("至少要选择一个常用文集");
                 }
             } else {
-                localGroup.setUserd(true);
+                localGroup.isUserd=true;
                 localGroupDao.update(localGroup);
                 mView.returnSetUserdGroups(groups);
             }

@@ -95,7 +95,7 @@
     <dimen name="item_rlv_discovery_top_num_iv_w_h">20dp</dimen>
     <dimen name="item_rlv_discovery_top_margin">5dp</dimen>
     <dimen name="item_set_groups_margin">8dp</dimen>
-    <dimen name="item_set_group_iv_w_h">40dp</dimen>
+    <dimen name="item_set_group_iv_w_h">35dp</dimen>
     <dimen name="item_set_group_iv_userd_w_h">26dp</dimen>
     <dimen name="margin_activity_clip">10dp</dimen>
     <dimen name="item_rlv_discovery_record_iv_w_h">25dp</dimen>
@@ -117,4 +117,5 @@
     <dimen name="item_activity_record_remark_avatar_wh">35dp</dimen>
     <dimen name="item_activity_record_remark_good_w_h">20dp</dimen>
     <dimen name="item_activity_group_and_records_margin">8dp</dimen>
+    <dimen name="item_set_all_record_iv_w_h">60dp</dimen>
 </resources>

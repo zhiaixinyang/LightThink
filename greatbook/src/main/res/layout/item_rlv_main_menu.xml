@@ -9,7 +9,7 @@
     <com.example.greatbook.widght.SimpleRoundImageView
         android:id="@+id/main_menu"
         android:layout_width="wrap_content"
-        mdove:simple_text_out_size="10sp"
+        mdove:simple_text_out_size="12sp"
         mdove:simple_text_in_size="32sp"
         android:layout_height="wrap_content" />
 </LinearLayout>

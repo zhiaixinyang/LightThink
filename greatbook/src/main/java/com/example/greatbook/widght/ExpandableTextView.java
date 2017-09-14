@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.example.greatbook.R;
 
 /**
- * Created by MBENBEN on 2017/1/15.
+ * Created by MDove on 2017/1/15.
  *
  * 原作者项目GitHub：https://github.com/Chen-Sir/ExpandableTextView
  */

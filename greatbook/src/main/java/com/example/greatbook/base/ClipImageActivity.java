@@ -13,6 +13,7 @@ import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.utils.BitmapCompressUtils;
 import com.example.greatbook.utils.FileUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.clipimage.ClipImageLayout;
 
@@ -112,7 +113,6 @@ public class ClipImageActivity extends BaseActivity {
                     @Override
                     public void call(File o) {
                         photo = o;
-
                         mClipImageLayout.setImageBitmap(FileUtils.getBitmapFromByte(FileUtils.getBytesFromFile(photo)));
                     }
                 });
@@ -122,13 +122,17 @@ public class ClipImageActivity extends BaseActivity {
     @OnClick({R.id.btn_ok, R.id.btn_cancle})
     public void onClicked(View v) {
         if (v.getId() == R.id.btn_ok) {
-
             dialog.show();
             Bitmap bitmap = mClipImageLayout.clip();
             if (bitmap.getByteCount() / 1024 / 1024 > 3) {
                 String path = Environment.getExternalStorageDirectory() + "/"
                         + FileUtils.getFileName(realPath);
+                LogUtils.d(path);
+
+
+                bitmap=BitmapCompressUtils.compressScale(bitmap);
                 FileUtils.saveBitmap(bitmap, path);
+
                 Intent intent = new Intent();
                 intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
                 setResult(RESULT_OK, intent);
@@ -150,16 +154,18 @@ public class ClipImageActivity extends BaseActivity {
 //
 //                            @Override
 //                            public void call(File o) {
-//                                String path = Environment.getExternalStorageDirectory() + "/"
-//                                        + "as" +FileUtils.getFileName(realPath);
-//                                FileUtils.saveBitmap(FileUtils.getBitmapFromByte(FileUtils.getBytesFromFile(o)), path);
-//
+//                                if (o!=null) {
+//                                    String path = Environment.getExternalStorageDirectory() + "/"
+//                                            + "as" + FileUtils.getFileName(realPath);
+//                                    LogUtils.d(path);
+//                                    FileUtils.saveBitmap(FileUtils.getBitmapFromByte(FileUtils.getBytesFromFile(o)), path);
+//                                    Intent intent = new Intent();
+//                                    intent.putExtra(Constants.RETURN_CLIP_PHOTO, path);
+//                                    setResult(RESULT_OK, intent);
+//                                }
 //                            }
 //                        });
-
             }
-
-
         }
         finish();
     }

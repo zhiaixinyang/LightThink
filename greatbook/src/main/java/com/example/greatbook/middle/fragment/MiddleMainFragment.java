@@ -165,7 +165,7 @@ public class MiddleMainFragment extends LazyFragment {
         btnAdd.setVisibility(View.VISIBLE);
 
         ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(250);
+        sa.setDuration(200);
         sa.setInterpolator(new SpringAnimationInterpolar());
         btnAdd.startAnimation(sa);
 

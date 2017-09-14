@@ -45,6 +45,7 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
 
     @Override
     public void syncDataErr(String err) {
+        LogUtils.d(err);
         netLayout.setVisibility(View.VISIBLE);
         syncLayout.setVisibility(View.GONE);
     }

@@ -7,14 +7,16 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
-import com.example.greatbook.base.adapter.LocalRecordAdapter;
+import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.middle.model.DiscoveryRecord;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.widght.CircleImageView;
+import com.example.greatbook.widght.RoundImageView;
 
 import java.util.List;
 
@@ -22,8 +24,8 @@ import java.util.List;
  * Created by MDove on 2017/8/14.
  */
 
-public class DiscoveryLocalRecordAdapter extends LocalRecordAdapter<DiscoveryRecord> {
-    public DiscoveryLocalRecordAdapter(Context context, int layoutId, List<DiscoveryRecord> datas) {
+public class DiscoveryCommonAdapter extends CommonAdapter<DiscoveryRecord> {
+    public DiscoveryCommonAdapter(Context context, int layoutId, List<DiscoveryRecord> datas) {
         super(context, layoutId, datas);
     }
 
@@ -51,7 +53,12 @@ public class DiscoveryLocalRecordAdapter extends LocalRecordAdapter<DiscoveryRec
                         public void done(List<LLocalGroup> list, AVException e) {
                             if (e == null && !list.isEmpty()) {
                                 LLocalGroup lLocalGroup = list.get(0);
-                                GlideUtils.loadSmallIv(lLocalGroup.getGroupPhoto().getUrl(), (ImageView) holder.getView(R.id.iv_group));
+                                String url = lLocalGroup.getGroupPhoto().getUrl();
+                                if (!StringUtils.isEmpty(url)) {
+                                    GlideUtils.loadSmallIv(lLocalGroup.getGroupPhoto().getUrl(), (RoundImageView) holder.getView(R.id.iv_group));
+                                }else{
+                                    GlideUtils.load(R.drawable.icon_default_group_jok,(RoundImageView) holder.getView(R.id.iv_group));
+                                }
                                 holder.setText(R.id.tv_group_title, lLocalGroup.getGroupTitle());
                             }
                         }

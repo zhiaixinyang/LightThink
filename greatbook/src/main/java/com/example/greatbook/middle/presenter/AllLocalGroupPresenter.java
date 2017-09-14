@@ -50,16 +50,16 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
                 @Override
                 public void call(final Subscriber<? super String> subscriber) {
                     LLocalGroup lLocalGroup = new LLocalGroup();
-                    lLocalGroup.setBelongId(localGroup.getBelongId());
+                    lLocalGroup.setBelongId(localGroup.belongId);
                     lLocalGroup.setAttentionNum(0);
-                    lLocalGroup.setContent(localGroup.getContent());
-                    lLocalGroup.setGroupId(localGroup.getId());
-                    lLocalGroup.setGroupTitle(localGroup.getTitle());
-                    lLocalGroup.setUserd(localGroup.getIsUserd());
-                    lLocalGroup.setTime(localGroup.getTime());
-                    if (!StringUtils.isEmpty(localGroup.getGroupPhotoPath())) {
-                        lLocalGroup.setGroupPhoto(new AVFile(FileUtils.getFileName(localGroup.getGroupPhotoPath()),
-                                FileUtils.getByteFromPath(localGroup.getGroupPhotoPath())));
+                    lLocalGroup.setContent(localGroup.content);
+                    lLocalGroup.setGroupId(localGroup.id);
+                    lLocalGroup.setGroupTitle(localGroup.title);
+                    lLocalGroup.setUserd(localGroup.isUserd);
+                    lLocalGroup.setTime(localGroup.time);
+                    if (!StringUtils.isEmpty(localGroup.groupPhotoPath)) {
+                        lLocalGroup.setGroupPhoto(new AVFile(FileUtils.getFileName(localGroup.groupPhotoPath),
+                                FileUtils.getByteFromPath(localGroup.groupPhotoPath)));
                     } else {
                         lLocalGroup.setGroupPhoto(null);
                     }
@@ -86,4 +86,5 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
             mView.addLocalGroupToNetReturn("无网络");
         }
     }
+
 }
