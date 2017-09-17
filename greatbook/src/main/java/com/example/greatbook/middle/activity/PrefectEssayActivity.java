@@ -19,6 +19,8 @@ import com.example.greatbook.utils.LogUtils;
 
 /**
  * Created by MDove on 2017/9/17.
+ *
+ * 协同Activity
  */
 
 public class PrefectEssayActivity extends AppCompatActivity {
