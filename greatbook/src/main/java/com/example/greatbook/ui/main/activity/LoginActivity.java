@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.middle.activity.InitSyncActivity;
 import com.example.greatbook.ui.main.presenter.LoginPresenter;
 import com.example.greatbook.ui.main.presenter.contract.LoginContract;
 import com.example.greatbook.utils.NetUtil;

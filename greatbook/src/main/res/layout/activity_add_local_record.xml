@@ -71,6 +71,7 @@
         android:textColorHint="@color/gray_icon"
         android:layout_marginRight="@dimen/activity_local_add_flow_margin"
         android:layout_marginLeft="@dimen/activity_local_add_flow_margin"
+        android:maxLines="2"
         android:layout_height="wrap_content" />
     <com.example.greatbook.widght.DottedView
         android:layout_width="match_parent"

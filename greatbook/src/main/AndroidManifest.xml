@@ -1,72 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.greatbook">
+
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <application android:allowBackup="true"
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <application
         android:name=".App"
+        android:allowBackup="true"
         android:icon="@mipmap/icon"
-        android:label="@string/app_name" android:supportsRtl="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
         android:theme="@style/TestDayNight">
-        <activity android:name=".ui.main.activity.MainNewActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+        <activity
+            android:name=".ui.main.activity.MainNewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".middle.activity.DiscoveryGroupAndRecordsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.activity.FeedBackActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.activity.LoginActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.activity.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".middle.activity.TalkAboutActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.activity.SendTalkAboutActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.activity.MyPrivateAdjustActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
-        <activity android:name=".middle.activity.SetGroupsActivity"
+        <activity
+            android:name=".middle.activity.DiscoveryGroupAndRecordsActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".middle.activity.AllLocalRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.FeedBackActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.RegisterActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.TalkAboutActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.SendTalkAboutActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.MyPlanActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.AddPlanActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.AddTemplatePlanActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.PrefectEssayActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.activity.MyPrivateAdjustActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.SetGroupsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.AllLocalRecordActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.example.greatbook.utils.MyGlideMoudle"
             android:screenOrientation="portrait"
             android:value="GlideModule" />
-        <activity android:name=".middle.activity.InitSyncActivity"
+
+        <activity
+            android:name=".ui.main.activity.InitSyncActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".middle.activity.AddLocalRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <!--不要设置启动复用-->
-        <activity android:name=".base.ClipImageActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".middle.activity.AddLocalGroupActivity"
+        <activity
+            android:name=".base.ClipImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.AddLocalGroupActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".middle.activity.DiscoveryRecordRemarkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".middle.activity.DiscoveryRecordRemarkActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

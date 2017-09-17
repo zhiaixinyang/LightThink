@@ -1,12 +1,18 @@
 package com.example.greatbook.middle.presenter;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+
 import com.example.greatbook.App;
+import com.example.greatbook.R;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.LocalRecord;
+import com.example.greatbook.middle.fragment.MiddleLocalAddFragment;
 import com.example.greatbook.middle.model.LocalRecordRLV;
+import com.example.greatbook.middle.model.MainMenuItemBean;
 import com.example.greatbook.middle.presenter.contract.MiddleLocalAddContract;
 import com.example.greatbook.utils.RxUtil;
 
@@ -76,5 +82,49 @@ public class MiddleLocalAddPresenter extends RxPresenter<MiddleLocalAddContract.
                 });
 
         addSubscrebe(subscription);
+    }
+
+    @Override
+    public void initMenu(Context context) {
+        List<MainMenuItemBean> menuData = new ArrayList<>();
+
+        MainMenuItemBean myAll = new MainMenuItemBean();
+        myAll.bgColor = ContextCompat.getColor(context, R.color.blue);
+        myAll.inColor = ContextCompat.getColor(context, R.color.white);
+        myAll.outColor = ContextCompat.getColor(context, R.color.black);
+        myAll.inText = "段";
+        myAll.outText = "我的段子库";
+        myAll.menuType = MiddleLocalAddFragment.MY_ALL_CONTENT;
+        menuData.add(myAll);
+
+        MainMenuItemBean myGroup = new MainMenuItemBean();
+        myGroup.bgColor = ContextCompat.getColor(context, R.color.red);
+        myGroup.inColor = ContextCompat.getColor(context, R.color.white);
+        myGroup.outColor = ContextCompat.getColor(context, R.color.black);
+        myGroup.inText = "集";
+        myGroup.outText = "我的文集";
+        myGroup.menuType = MiddleLocalAddFragment.MY_ALL_GROUP;
+        menuData.add(myGroup);
+
+
+        MainMenuItemBean myCooperateTopic = new MainMenuItemBean();
+        myCooperateTopic.bgColor = ContextCompat.getColor(context, R.color.orange);
+        myCooperateTopic.inColor = ContextCompat.getColor(context, R.color.white);
+        myCooperateTopic.outColor = ContextCompat.getColor(context, R.color.black);
+        myCooperateTopic.inText = "协";
+        myCooperateTopic.outText = "协同主题";
+        myCooperateTopic.menuType = MiddleLocalAddFragment.MY_COOPATER_TOPIC;
+        menuData.add(myCooperateTopic);
+
+        MainMenuItemBean myPlan = new MainMenuItemBean();
+        myPlan.bgColor = ContextCompat.getColor(context, R.color.pink);
+        myPlan.inColor = ContextCompat.getColor(context, R.color.white);
+        myPlan.outColor = ContextCompat.getColor(context, R.color.black);
+        myPlan.inText = "标";
+        myPlan.outText = "我的目标";
+        myPlan.menuType = MiddleLocalAddFragment.MY_PLAN;
+        menuData.add(myPlan);
+
+        mView.showMenu(menuData);
     }
 }

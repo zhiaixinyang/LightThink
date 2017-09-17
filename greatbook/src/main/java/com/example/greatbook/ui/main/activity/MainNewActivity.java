@@ -59,7 +59,7 @@ public class MainNewActivity extends BaseActivity {
 
     @Override
     public void init() {
-        new DefaultNavigationBar.Builder(this,null)
+        new DefaultNavigationBar.Builder(this, null)
                 .setTitleText("趣记")
                 .setLeftResId(0)
                 .builder();
@@ -127,7 +127,7 @@ public class MainNewActivity extends BaseActivity {
                 selectTab1();
                 break;
             case R.id.btn_add:
-                Intent toAdd=new Intent(App.getInstance().getContext(), AddLocalRecordActivity.class);
+                Intent toAdd = new Intent(App.getInstance().getContext(), AddLocalRecordActivity.class);
                 startActivity(toAdd);
                 break;
             case R.id.menu_add:
@@ -188,6 +188,7 @@ public class MainNewActivity extends BaseActivity {
 
         viewPager.setCurrentItem(0);
     }
+
     private void initActivity() {
         int num = MySharedPreferences.getFristActivityInstance().getInt("count", 0);
         if (num == 0) {
@@ -195,7 +196,7 @@ public class MainNewActivity extends BaseActivity {
             overridePendingTransition(R.anim.login_in, R.anim.login_out);
             startActivity(intent);
             finish();
-        }else{
+        } else {
             if (AVUser.getCurrentUser() == null) {
                 ToastUtil.toastShort("无账号错误...");
             } else {

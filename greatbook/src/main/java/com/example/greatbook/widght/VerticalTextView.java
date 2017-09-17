@@ -23,7 +23,7 @@ import com.example.greatbook.utils.DpUtils;
  * Created by MDove on 2017/9/15.
  */
 
-public class VerticalTextView extends  View {
+public class VerticalTextView extends View {
 
     public static final int LAYOUT_CHANGED = 1;
     private Paint paint;
@@ -31,6 +31,7 @@ public class VerticalTextView extends  View {
     private int mTextPosy = 0;// y坐标
     private int mTextWidth = 0;// 绘制宽度
     private int mTextHeight = 0;// 绘制高度
+    private int lineHeight = 0;//最大行高
     private int mFontHeight = 0;// 绘制字体高度
     private float mFontSize = 24;// 字体大小
     private int textColor;
@@ -51,10 +52,10 @@ public class VerticalTextView extends  View {
     public VerticalTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray array=context.obtainStyledAttributes(attrs, R.styleable.VerticalTextView);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.VerticalTextView);
 
-        textColor=array.getColor(R.styleable.VerticalTextView_vtv_textColor,Color.BLACK);
-        mFontSize=array.getDimension(R.styleable.VerticalTextView_vtv_textSize, DpUtils.sp2px(12));
+        textColor = array.getColor(R.styleable.VerticalTextView_vtv_textColor, Color.BLACK);
+        mFontSize = array.getDimension(R.styleable.VerticalTextView_vtv_textSize, DpUtils.sp2px(12));
 
         matrix = new Matrix();
         paint = new Paint();//新建画笔
@@ -85,13 +86,16 @@ public class VerticalTextView extends  View {
     public final void setText(String text) {
         this.text = text;
         this.TextLength = text.length();
-        if (mTextHeight > 0) GetTextInfo();
+        if (mTextHeight >0) {
+            GetTextInfo();
+        }
     }
 
     //设置字体大小
     public final void setTextSize(float size) {
         if (size != paint.getTextSize()) {
             mFontSize = size;
+            paint.setTextSize(mFontSize);
             if (mTextHeight > 0) GetTextInfo();
         }
     }
@@ -99,6 +103,7 @@ public class VerticalTextView extends  View {
     //设置字体颜色
     public final void setTextColor(int color) {
         paint.setColor(color);
+        invalidate();
     }
 
     //设置字体颜色
@@ -131,7 +136,6 @@ public class VerticalTextView extends  View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.v("TextViewVertical", "onDraw");
         if (drawable != null) {
             //画背景
             Bitmap b = Bitmap.createBitmap(drawable.getBitmap(), 0, 0, mTextWidth, mTextHeight);
@@ -148,6 +152,7 @@ public class VerticalTextView extends  View {
         for (int i = 0; i < this.TextLength; i++) {
             ch = thetext.charAt(i);
             if (ch == '\n') {
+
                 if (textStartAlign == Align.LEFT) {
                     mTextPosx += mLineWidth;// 换列
                 } else {
@@ -176,7 +181,6 @@ public class VerticalTextView extends  View {
 
     //计算文字行数和总宽
     private void GetTextInfo() {
-        Log.v("TextViewVertical", "GetTextInfo");
         char ch;
         int h = 0;
         paint.setTextSize(mFontSize);
@@ -192,10 +196,18 @@ public class VerticalTextView extends  View {
 
         //计算文字行数
         mRealLine = 0;
+        int curLineHeight = 0;
         for (int i = 0; i < this.TextLength; i++) {
             ch = this.text.charAt(i);
+            curLineHeight +=  mFontHeight;
+
             if (ch == '\n') {
+                if (curLineHeight > lineHeight) {
+                    lineHeight = curLineHeight;
+                }
+                curLineHeight = 0;
                 mRealLine++;// 真实的行数加一
+
                 h = 0;
             } else {
                 h += mFontHeight;
@@ -216,6 +228,7 @@ public class VerticalTextView extends  View {
         layout(getLeft(), getTop(), getLeft() + mTextWidth, getBottom());//重新绘制容器
     }
 
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int measuredHeight = measureHeight(heightMeasureSpec);
@@ -231,9 +244,14 @@ public class VerticalTextView extends  View {
     private int measureHeight(int measureSpec) {
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
+
         int result = 500;
         if (specMode == MeasureSpec.AT_MOST) {
-            result = specSize;
+            if (lineHeight > 0) {
+                result = lineHeight;
+            } else {
+                result = specSize;
+            }
         } else if (specMode == MeasureSpec.EXACTLY) {
             result = specSize;
         }

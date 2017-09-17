@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+
+    <com.example.greatbook.widght.VerticalTextView
+        android:id="@+id/tv_plan_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:layout_width="@dimen/item_my_plan_iv_w_h"
+        android:src="@drawable/icon_up"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/item_my_plan_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_height="@dimen/item_my_plan_iv_w_h" />
+</RelativeLayout>

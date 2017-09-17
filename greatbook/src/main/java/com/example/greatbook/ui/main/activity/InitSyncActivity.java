@@ -1,4 +1,4 @@
-package com.example.greatbook.middle.activity;
+package com.example.greatbook.ui.main.activity;
 
 import android.content.Intent;
 import android.util.Log;

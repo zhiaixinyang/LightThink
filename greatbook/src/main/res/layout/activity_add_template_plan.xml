@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="addTemplateVm"
+            type="com.example.greatbook.middle.viewmodel.AddMyPlanTemplateVM" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/panel_template"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+            android:layout_marginTop="@dimen/activity_add_template_plan_margin"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:id="@+id/panel_show_title"
+                android:layout_width="180dp"
+                android:layout_height="240dp"
+                android:background="@{addTemplateVm.bgColor}"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.example.greatbook.widght.VerticalTextView
+                    android:id="@+id/tv_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/panel_show_title_2"
+                    app:setVTVText="@{addTemplateVm.title1}"
+                    app:setVTVTextColor="@{addTemplateVm.textColor}"
+                    app:vtv_textSize="@dimen/sp_16" />
+
+                <com.example.greatbook.widght.VerticalTextView
+                    android:id="@+id/tv_title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:setVTVTextColor="@{addTemplateVm.textColor}"
+                    app:setVTVText="@{addTemplateVm.title2}"
+                    app:vtv_textSize="@dimen/sp_16" />
+
+                <com.example.greatbook.widght.VerticalTextView
+                    android:id="@+id/tv_title_2_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:setVTVText="@{addTemplateVm.tips}"
+                    app:setVTVTextColor="@{addTemplateVm.textColor}"
+                    app:vtv_textSize="@dimen/sp_16" />
+
+                <com.example.greatbook.widght.VerticalTextView
+                    android:id="@+id/tv_title_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:setVTVText="@{addTemplateVm.title3}"
+                    app:setVTVTextColor="@{addTemplateVm.textColor}"
+                    app:vtv_textSize="@dimen/sp_16" />
+
+                <com.example.greatbook.widght.VerticalTextView
+                    android:id="@+id/tv_title_3_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    app:setVTVText="@{addTemplateVm.tips}"
+                    app:setVTVTextColor="@{addTemplateVm.textColor}"
+                    app:vtv_textSize="@dimen/sp_16" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/panel_edit_1"
+            android:layout_toRightOf="@+id/panel_template"
+            android:layout_alignTop="@+id/panel_template"
+            android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_edit_1"
+                android:src="@drawable/icon_edit"
+                android:layout_width="@dimen/activity_add_template_plan_iv_edit_w_h"
+                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h" />
+
+            <EditText
+                android:id="@+id/et_title_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_add_template_plan_margin_small"
+                android:addTextChangedListener="@{addTemplateVm.watcher1}"
+                android:background="@null"
+                android:hint="我决定"
+                android:textColor="@{addTemplateVm.textColor}"
+                android:textColorHint="@{addTemplateVm.textColor}"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel_title_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panel_edit_1"
+            android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+            android:layout_marginTop="@dimen/activity_add_template_plan_margin_1"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/panel_template">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="......"
+                android:textColor="@{addTemplateVm.textColor}"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/icon_edit_2"
+                android:src="@drawable/icon_edit"
+                android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+                android:layout_width="@dimen/activity_add_template_plan_iv_edit_w_h"
+                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h" />
+
+            <EditText
+                android:id="@+id/et_title_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_add_template_plan_margin_small"
+                android:addTextChangedListener="@{addTemplateVm.watcher2}"
+                android:background="@null"
+                android:hint="之前"
+                android:textColor="@{addTemplateVm.textColor}"
+                android:textColorHint="@{addTemplateVm.textColor}"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/panel_title_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panel_title_2"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+            android:layout_marginTop="@dimen/activity_add_template_plan_margin_1"
+            android:layout_toRightOf="@+id/panel_template">
+
+            <ImageView
+                android:id="@+id/icon_edit_3"
+                android:src="@drawable/icon_edit"
+                android:layout_width="@dimen/activity_add_template_plan_iv_edit_w_h"
+                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h" />
+
+            <EditText
+                android:id="@+id/et_title_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_add_template_plan_margin_small"
+                android:addTextChangedListener="@{addTemplateVm.watcher3}"
+                android:background="@null"
+                android:hint="成为"
+                android:textColor="@{addTemplateVm.textColor}"
+                android:textColorHint="@{addTemplateVm.textColor}"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+                android:text="......"
+                android:textColor="@{addTemplateVm.textColor}"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/panel_template"
+            android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+            android:layout_marginRight="@dimen/activity_add_template_plan_margin"
+            android:layout_toRightOf="@+id/panel_template">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/cb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_cb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="字体颜色"
+                    android:textColor="@{addTemplateVm.textColor}"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/cb_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_cb_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="背景颜色"
+                    android:textColor="@{addTemplateVm.bgColor}"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.example.greatbook.widght.ColorPickerView
+            android:id="@+id/color_picker"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/activity_add_template_plan_margin_1"
+            app:cp_src="@drawable/palette" />
+    </RelativeLayout>
+
+</layout>

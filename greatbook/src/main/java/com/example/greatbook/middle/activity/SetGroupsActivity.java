@@ -38,7 +38,7 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
     private List<LocalGroup> data;
 
     public static final String IS_ALL_GROUPS_SHOW_TAG="is_all_groups_show_tag";
-    public static final String IS_ALL_GROUPS_SHOW="is_all_groups_show";
+    public static final String IS_ALL_GROUPS_SHOW="我的文集";
 
     @Override
     public int getLayoutId() {

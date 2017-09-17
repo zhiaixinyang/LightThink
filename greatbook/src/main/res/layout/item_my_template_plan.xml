@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/item_my_template_plan_margin"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:id="@+id/bg"
+        android:background="@color/gray">
+
+        <com.example.greatbook.widght.VerticalTextView
+            android:id="@+id/tv_template"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -2,6 +2,7 @@ package com.example.greatbook.ui.main.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 
 import com.avos.avoscloud.AVException;
@@ -13,9 +14,12 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
+import com.example.greatbook.greendao.MyPlanTemplateDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
+import com.example.greatbook.greendao.entity.MyPlanTemplate;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.main.presenter.contract.LoginContract;
+import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.Date;
@@ -31,12 +35,15 @@ import rx.functions.Action1;
 public class LoginPresenter extends RxPresenter<LoginContract.View> implements LoginContract.Presenter {
     private LocalGroupDao localGroupDao;
     private LocalRecordDao localRecordDao;
+    private MyPlanTemplateDao templateDao;
     private Context context;
 
     public LoginPresenter(LoginContract.View view) {
         mView = view;
         localGroupDao = App.getDaoSession().getLocalGroupDao();
         localRecordDao = App.getDaoSession().getLocalRecordDao();
+        templateDao=App.getDaoSession().getMyPlanTemplateDao();
+
         context=App.getInstance().getContext();
     }
 
@@ -85,6 +92,32 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
         //第一次登陆往本地数据库初始化一些数据
         localGroupDao.deleteAll();
         localRecordDao.deleteAll();
+        templateDao.deleteAll();
+
+        MyPlanTemplate plan1 = new MyPlanTemplate();
+        plan1.bgColor = Color.BLACK;
+        plan1.textColor = Color.WHITE;
+        plan1.textSize= 16;
+        plan1.detailColor = ContextCompat.getColor(context,R.color.purple);
+        plan1.content = "我决定\n......之前\n成为......";
+        templateDao.insert(plan1);
+
+        MyPlanTemplate plan2 = new MyPlanTemplate();
+        plan2.bgColor = Color.BLACK;
+        plan2.textColor = Color.WHITE;
+        plan2.detailColor = ContextCompat.getColor(context,R.color.blue);
+        plan2.textSize= 16;
+        plan2.content = "我发誓\n......之前\n完成......";
+        templateDao.insert(plan2);
+
+        MyPlanTemplate plan3 = new MyPlanTemplate();
+        plan3.bgColor = ContextCompat.getColor(context,R.color.pink);
+        plan3.textColor = Color.WHITE;
+        plan3.detailColor = ContextCompat.getColor(context,R.color.black);
+        plan3.textSize= 16;
+        plan3.content = "立Flag\n......之前\n绝对......";
+        templateDao.insert(plan3);
+
 
         LocalGroup localGroupJok = new LocalGroup();
         localGroupJok.setTitle("我的本地段子集");

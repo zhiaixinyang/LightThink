@@ -40,12 +40,6 @@ import android.widget.RelativeLayout;
  * Created by mikeafc on 15/11/25.
  */
 class UltraViewPagerAdapter extends PagerAdapter {
-    interface UltraViewPagerCenterListener {
-        void center();
-
-        void resetPosition();
-    }
-
     private static final int INFINITE_RATIO = 400;
 
     private PagerAdapter adapter;
@@ -54,7 +48,7 @@ class UltraViewPagerAdapter extends PagerAdapter {
     private boolean hasCentered; //ensure that the first item_guide_view is in the middle when enabling loop-mode
     private int scrWidth;
     private int infiniteRatio;
-    private UltraViewPagerCenterListener centerListener;
+    private IUltraViewPagerCenterListener centerListener;
 
     private SparseArray viewArray = new SparseArray();
 
@@ -256,7 +250,7 @@ class UltraViewPagerAdapter extends PagerAdapter {
         return !Float.isNaN(multiScrRatio) && multiScrRatio < 1f;
     }
 
-    void setCenterListener(UltraViewPagerCenterListener listener) {
+    void setCenterListener(IUltraViewPagerCenterListener listener) {
         centerListener = listener;
     }
 

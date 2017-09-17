@@ -37,11 +37,10 @@ import android.view.ViewGroup;
 
 import com.example.greatbook.widght.viewpager.transformer.UltraVerticalTransformer;
 
-
 /**
  * Created by mikeafc on 15/11/25.
  */
-public class UltraViewPagerView extends ViewPager implements UltraViewPagerAdapter.UltraViewPagerCenterListener {
+public class UltraViewPagerView extends ViewPager implements IUltraViewPagerCenterListener {
 
     private UltraViewPagerAdapter pagerAdapter;
 

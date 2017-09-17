@@ -34,6 +34,12 @@
         <attr name="max_visible" format="integer"/>
     </declare-styleable>
 
+    <!-- 颜色选择器 -->
+    <declare-styleable name="ColorPickerView">
+        <attr name="cp_src" format="reference"/>
+        <attr name="cp_selector" format="reference"/>
+    </declare-styleable>
+
     <!-- 特殊动画 -->
     <declare-styleable name="refresh">
         <attr name="refresh_line_color" format="color" />

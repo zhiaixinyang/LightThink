@@ -18,8 +18,9 @@ import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.Constants;
-import com.example.greatbook.middle.activity.AddLocalGroupActivity;
 import com.example.greatbook.middle.activity.AllLocalRecordActivity;
+import com.example.greatbook.middle.activity.MyPlanActivity;
+import com.example.greatbook.middle.activity.PrefectEssayActivity;
 import com.example.greatbook.middle.activity.SetGroupsActivity;
 import com.example.greatbook.middle.adapter.MainMenuAdapter;
 import com.example.greatbook.middle.model.LocalRecordRLV;
@@ -30,7 +31,6 @@ import com.example.greatbook.model.event.LocalAddEvent;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.GlideUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
@@ -68,8 +68,10 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     private Context context;
     private List<LocalRecordRLV> data;
     private MiddleLocalAddPresenter presenter;
-    public static final int MY_ALL_CONTENT=1;
-    public static final int MY_ALL_GROUP=2;
+    public static final int MY_ALL_CONTENT = 1;
+    public static final int MY_ALL_GROUP = 2;
+    public static final int MY_COOPATER_TOPIC = 3;
+    public static final int MY_PLAN = 4;
 
     public static MiddleLocalAddFragment newInstance() {
         Bundle args = new Bundle();
@@ -87,24 +89,34 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     @Override
     protected void initViewsAndEvents(View view) {
         EventBus.getDefault().register(this);
+        presenter = new MiddleLocalAddPresenter(this);
         context = App.getInstance().getContext();
-        initData();
-        menuAdapter=new MainMenuAdapter(context,menuData);
-        rlvMainMenu.setLayoutManager(new GridLayoutManager(context,5));
+        presenter.initMenu(context);
+        menuAdapter = new MainMenuAdapter(context, menuData);
+        rlvMainMenu.setLayoutManager(new GridLayoutManager(context, 5));
         rlvMainMenu.setAdapter(menuAdapter);
+
         menuAdapter.setListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, Object o, int position) {
-                MainMenuItemBean menuItemBean= (MainMenuItemBean) o;
-                switch (menuItemBean.menuType){
+                MainMenuItemBean menuItemBean = (MainMenuItemBean) o;
+                switch (menuItemBean.menuType) {
                     case MY_ALL_CONTENT:
-                        Intent toMyAllContent=new Intent(getContext(), AllLocalRecordActivity.class);
+                        Intent toMyAllContent = new Intent(getContext(), AllLocalRecordActivity.class);
                         startActivity(toMyAllContent);
                         break;
                     case MY_ALL_GROUP:
-                        Intent toMyAllGroup=new Intent(getContext(), SetGroupsActivity.class);
-                        toMyAllGroup.putExtra(SetGroupsActivity.IS_ALL_GROUPS_SHOW_TAG,SetGroupsActivity.IS_ALL_GROUPS_SHOW);
+                        Intent toMyAllGroup = new Intent(getContext(), SetGroupsActivity.class);
+                        toMyAllGroup.putExtra(SetGroupsActivity.IS_ALL_GROUPS_SHOW_TAG, SetGroupsActivity.IS_ALL_GROUPS_SHOW);
                         startActivity(toMyAllGroup);
+                        break;
+                    case MY_PLAN:
+                        Intent toMyPlan = new Intent(getContext(), MyPlanActivity.class);
+                        startActivity(toMyPlan);
+                        break;
+                    case MY_COOPATER_TOPIC:
+                        Intent to = new Intent(getContext(), PrefectEssayActivity.class);
+                        startActivity(to);
                         break;
                     default:
                         break;
@@ -112,7 +124,7 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
             }
         });
 
-        presenter = new MiddleLocalAddPresenter(this);
+
         presenter.initLocalRecord();
 
         adapter = new CommonAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
@@ -146,41 +158,14 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         rlvLocal.setAdapter(adapter);
     }
 
-    private void initData() {
-        data = new ArrayList<>();
-
-        menuData=new ArrayList<>();
-
-        MainMenuItemBean myAll=new MainMenuItemBean();
-        myAll.bgColor= ContextCompat.getColor(context,R.color.blue);
-        myAll.inColor=ContextCompat.getColor(context,R.color.white);
-        myAll.outColor=ContextCompat.getColor(context,R.color.black);
-        myAll.inText="段";
-        myAll.outText="我的段子库";
-        myAll.menuType=MY_ALL_CONTENT;
-        menuData.add(myAll);
-
-        MainMenuItemBean myGroup=new MainMenuItemBean();
-        myGroup.bgColor= ContextCompat.getColor(context,R.color.red);
-        myGroup.inColor=ContextCompat.getColor(context,R.color.white);
-        myGroup.outColor=ContextCompat.getColor(context,R.color.black);
-        myGroup.inText="集";
-        myGroup.outText="我的文集";
-        myGroup.menuType=MY_ALL_GROUP;
-        menuData.add(myAll);
-
-    }
-
     @Override
     protected void onFirstUserVisible() {
         presenter.initLocalRecord();
-
     }
 
     @Override
     protected void onUserVisible() {
         presenter.initLocalRecord();
-
     }
 
     @Override
@@ -215,6 +200,11 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
         }
         loadingView.setVisibility(View.GONE);
         emptyView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMenu(List<MainMenuItemBean> menuData) {
+        this.menuData = menuData;
     }
 
     @Override
