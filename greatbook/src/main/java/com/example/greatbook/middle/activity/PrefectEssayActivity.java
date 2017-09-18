@@ -1,6 +1,7 @@
 package com.example.greatbook.middle.activity;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,25 +16,43 @@ import android.widget.EditText;
 import com.example.greatbook.R;
 import com.example.greatbook.base.SimpleTextWatcher;
 import com.example.greatbook.databinding.ActivityPrefectEssayBinding;
+import com.example.greatbook.middle.presenter.EssayListActivity;
+import com.example.greatbook.middle.presenter.PrefectEssayPresenter;
+import com.example.greatbook.middle.presenter.contract.PrefectEssayContract;
 import com.example.greatbook.utils.LogUtils;
+import com.example.greatbook.utils.ToastUtil;
 
 /**
  * Created by MDove on 2017/9/17.
- *
+ * <p>
  * 协同Activity
  */
 
-public class PrefectEssayActivity extends AppCompatActivity {
+public class PrefectEssayActivity extends AppCompatActivity implements PrefectEssayContract.View {
     private ActivityPrefectEssayBinding binding;
     //当前行未修改内容
     private SparseArray<String> originText;
     private SparseArray<String> laterText;
-    private int curLine = 0;
+    public static final String ESSAY_ID = "essay_id";
+    private PrefectEssayPresenter presenter;
+
+    public static void startPrefectEssay(Context context, long essayId) {
+        Intent start = new Intent(context, PrefectEssayActivity.class);
+        start.putExtra(ESSAY_ID, essayId);
+        context.startActivity(start);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prefect_essay);
+
+        long essayId = getIntent().getLongExtra(ESSAY_ID, 0);
+        if (essayId >0){
+            presenter=new PrefectEssayPresenter(essayId);
+        }else{
+            finish();
+        }
 
         originText = new SparseArray<>();
         laterText = new SparseArray<>();
@@ -45,23 +64,6 @@ public class PrefectEssayActivity extends AppCompatActivity {
             }
         });
 
-        binding.etContent.addTextChangedListener(new SimpleTextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                int line = getCurrentCursorLine(binding.etContent);
-                LogUtils.d("beforeTextChanged!!line:" + line + "text:" + s.toString() + "start:" + start + "after:" + after + "count:" + count);
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int line = getCurrentCursorLine(binding.etContent);
-                LogUtils.d("onTextChanged!!line:" + line + "text:" + s.toString() + "start:" + start + "before:" + before + "count:" + count);
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                LogUtils.d("afterTextChanged!!:"+s.toString());
-
-            }
-        });
     }
 
 
@@ -73,5 +75,20 @@ public class PrefectEssayActivity extends AppCompatActivity {
             return layout.getLineForOffset(selectionStart) + 1;
         }
         return -1;
+    }
+
+    @Override
+    public void showError(String msg) {
+        ToastUtil.toastShort(msg);
+    }
+
+    @Override
+    public void insertContentCommitSuc() {
+
+    }
+
+    @Override
+    public void saveEssaySuc() {
+
     }
 }

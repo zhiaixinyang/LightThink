@@ -5,7 +5,9 @@
     <color name="colorAccent">@color/blue</color>
 
     <color name="white">#ffffff</color>
+
     <color name="orange">#ff6d44</color>
+
     <color name="black">#000000</color>
     <color name="light_black">#454545</color>
     <color name="gray">#b0adb0</color>

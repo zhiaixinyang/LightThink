@@ -53,7 +53,7 @@
             android:layout_alignLeft="@+id/tv_title"
             android:layout_below="@+id/tv_title"
             android:textSize="12sp"
-            app:maxCollapsedLines="6"/>
+            app:maxCollapsedLines="2"/>
         <TextView
             android:id="@+id/tv_time"
             android:text="时间"

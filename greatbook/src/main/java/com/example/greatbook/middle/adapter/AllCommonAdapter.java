@@ -1,6 +1,7 @@
 package com.example.greatbook.middle.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.example.greatbook.R;
@@ -19,16 +20,20 @@ import java.util.List;
  */
 
 public class AllCommonAdapter extends CommonAdapter<LocalRecordRLV> {
+    private Context context;
+
     public AllCommonAdapter(Context context, int layoutId, List<LocalRecordRLV> datas) {
         super(context, layoutId, datas);
+        this.context = context;
     }
 
     @Override
     public void convert(final ViewHolder holder, LocalRecordRLV localGroup) {
-        ((ExpandableTextView)holder.getView(R.id.tv_content)).setText( StringUtils.isEmpty(localGroup.content) ? "未设置" : localGroup.content);
+        ((ExpandableTextView) holder.getView(R.id.tv_content)).setText(StringUtils.isEmpty(localGroup.content) ? "未设置" : localGroup.content);
         holder.setText(R.id.tv_title, StringUtils.isEmpty(localGroup.title) ? "未设置" : localGroup.title);
         holder.setText(R.id.tv_time, StringUtils.isEmpty(DateUtils.getDateChinese(localGroup.time)) ? "未设置" : DateUtils.getDateChinese(localGroup.time));
         holder.setText(R.id.tv_group_title, StringUtils.isEmpty(localGroup.groupTitle) ? "未设置" : localGroup.groupTitle);
+        holder.getView(R.id.tv_group_title).setBackgroundColor(ContextCompat.getColor(context, R.color.blue));
         holder.setOnClickListener(R.id.btn_alter, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -34,6 +34,17 @@
             android:name=".ui.main.activity.FeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".middle.presenter.EssayListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".middle.activity.PrefectEssayActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.main.activity.LoginActivity"
             android:launchMode="singleTask"
@@ -62,10 +73,7 @@
             android:name=".middle.activity.AddTemplatePlanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".middle.activity.PrefectEssayActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.main.activity.MyPrivateAdjustActivity"
             android:launchMode="singleTask"
