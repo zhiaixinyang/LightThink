@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="remarkVM"
-            type="com.example.greatbook.middle.viewmodel.DiscoveryRecordRemarkVM" />
+            type="com.example.greatbook.local.viewmodel.DiscoveryRecordRemarkVM" />
     </data>
 
     <RelativeLayout

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="planTemplateVm"
-            type="com.example.greatbook.middle.viewmodel.MyPlanTemplateVM"/>
+            type="com.example.greatbook.local.viewmodel.MyPlanTemplateVM"/>
     </data>
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"

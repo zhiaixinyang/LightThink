@@ -6,7 +6,7 @@
 
         <variable
             name="addTemplateVm"
-            type="com.example.greatbook.middle.viewmodel.AddMyPlanTemplateVM" />
+            type="com.example.greatbook.local.viewmodel.AddMyPlanTemplateVM" />
     </data>
 
     <RelativeLayout

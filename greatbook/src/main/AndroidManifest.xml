@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".middle.activity.DiscoveryGroupAndRecordsActivity"
+            android:name=".nethot.activity.DiscoveryGroupAndRecordsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -36,12 +36,12 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".middle.presenter.EssayListActivity"
+            android:name=".local.presenter.EssayListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".middle.activity.PrefectEssayActivity"
+            android:name=".local.activity.PrefectEssayActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -54,7 +54,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.TalkAboutActivity"
+            android:name=".local.activity.TalkAboutActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -62,15 +62,15 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.MyPlanActivity"
+            android:name=".local.activity.MyPlanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.AddPlanActivity"
+            android:name=".local.activity.AddPlanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.AddTemplatePlanActivity"
+            android:name=".local.activity.AddTemplatePlanActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -79,11 +79,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.SetGroupsActivity"
+            android:name=".local.activity.SetGroupsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.AllLocalRecordActivity"
+            android:name=".local.activity.AllLocalRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -97,7 +97,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.AddLocalRecordActivity"
+            android:name=".local.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!--不要设置启动复用-->
@@ -105,11 +105,11 @@
             android:name=".base.ClipImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.AddLocalGroupActivity"
+            android:name=".local.activity.AddLocalGroupActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".middle.activity.DiscoveryRecordRemarkActivity"
+            android:name=".nethot.activity.DiscoveryRecordRemarkActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>

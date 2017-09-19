@@ -16,12 +16,30 @@ public class ContentCommit {
     @Id
     @Property(nameInDb = "proid")
     public Long id;
-    public String essayId;
+    public Long essayId;
 
     public Date time;
     public String commitTips;
     public String commitContet;
     public String belongUserId;
+    public String belongUserAccount
+            ;
+
+    @Generated(hash = 928671448)
+    public ContentCommit(Long id, Long essayId, Date time, String commitTips,
+            String commitContet, String belongUserId, String belongUserAccount) {
+        this.id = id;
+        this.essayId = essayId;
+        this.time = time;
+        this.commitTips = commitTips;
+        this.commitContet = commitContet;
+        this.belongUserId = belongUserId;
+        this.belongUserAccount = belongUserAccount;
+    }
+    @Generated(hash = 1711378026)
+    public ContentCommit() {
+    }
+
     public String getBelongUserId() {
         return this.belongUserId;
     }
@@ -46,29 +64,24 @@ public class ContentCommit {
     public void setTime(Date time) {
         this.time = time;
     }
-    public String getEssayId() {
-        return this.essayId;
-    }
-    public void setEssayId(String essayId) {
-        this.essayId = essayId;
-    }
+
     public Long getId() {
         return this.id;
     }
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 1546889303)
-    public ContentCommit(Long id, String essayId, Date time, String commitTips,
-            String commitContet, String belongUserId) {
-        this.id = id;
+    public Long getEssayId() {
+        return this.essayId;
+    }
+    public void setEssayId(Long essayId) {
         this.essayId = essayId;
-        this.time = time;
-        this.commitTips = commitTips;
-        this.commitContet = commitContet;
-        this.belongUserId = belongUserId;
     }
-    @Generated(hash = 1711378026)
-    public ContentCommit() {
+    public String getBelongUserAccount() {
+        return this.belongUserAccount;
     }
+    public void setBelongUserAccount(String belongUserAccount) {
+        this.belongUserAccount = belongUserAccount;
+    }
+
 }

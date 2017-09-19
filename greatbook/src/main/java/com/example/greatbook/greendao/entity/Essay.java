@@ -15,6 +15,21 @@ public class Essay {
     public Long id;
     public String content;
     public String belongId;
+    public String belongUserAccount;
+
+
+    @Generated(hash = 1192389446)
+    public Essay(Long id, String content, String belongId, String belongUserAccount) {
+        this.id = id;
+        this.content = content;
+        this.belongId = belongId;
+        this.belongUserAccount = belongUserAccount;
+    }
+    @Generated(hash = 2009741210)
+    public Essay() {
+    }
+
+
     public String getBelongId() {
         return this.belongId;
     }
@@ -33,13 +48,11 @@ public class Essay {
     public void setId(Long id) {
         this.id = id;
     }
-    @Generated(hash = 379078881)
-    public Essay(Long id, String content, String belongId) {
-        this.id = id;
-        this.content = content;
-        this.belongId = belongId;
+    public String getBelongUserAccount() {
+        return this.belongUserAccount;
     }
-    @Generated(hash = 2009741210)
-    public Essay() {
+    public void setBelongUserAccount(String belongUserAccount) {
+        this.belongUserAccount = belongUserAccount;
     }
+
 }

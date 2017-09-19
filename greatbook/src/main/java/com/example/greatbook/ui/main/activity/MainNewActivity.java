@@ -16,9 +16,9 @@ import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.middle.activity.AddLocalRecordActivity;
-import com.example.greatbook.middle.fragment.MiddleDiscoveryFragment;
-import com.example.greatbook.middle.fragment.MiddleLocalAddFragment;
+import com.example.greatbook.local.activity.AddLocalRecordActivity;
+import com.example.greatbook.nethot.fragment.DiscoveryFragment;
+import com.example.greatbook.local.fragment.MiddleLocalAddFragment;
 import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
@@ -49,7 +49,7 @@ public class MainNewActivity extends BaseActivity {
     @BindView(R.id.menu_my)
     ImageView menuMy;
     private MiddleLocalAddFragment localAddFragment;
-    private MiddleDiscoveryFragment discoveryFragment;
+    private DiscoveryFragment discoveryFragment;
     private MyPrivateFragment myPrivateFragment;
 
     @Override
@@ -66,7 +66,7 @@ public class MainNewActivity extends BaseActivity {
 
         initActivity();
         localAddFragment = new MiddleLocalAddFragment();
-        discoveryFragment = new MiddleDiscoveryFragment();
+        discoveryFragment = new DiscoveryFragment();
         myPrivateFragment = new MyPrivateFragment();
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {

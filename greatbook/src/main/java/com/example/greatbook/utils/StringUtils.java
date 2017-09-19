@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.Layout;
+import android.text.Selection;
+import android.widget.EditText;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -47,6 +50,17 @@ public class StringUtils {
         return (!Character.isLetter(c) || Character.isUpperCase(c)) ? str : new StringBuilder(str.length())
                 .append(Character.toUpperCase(c)).append(str.substring(1)).toString();
     }
+
+    private static int getCurrentCursorLine(EditText editText) {
+        int selectionStart = Selection.getSelectionStart(editText.getText());
+        Layout layout = editText.getLayout();
+
+        if (selectionStart != -1) {
+            return layout.getLineForOffset(selectionStart) + 1;
+        }
+        return -1;
+    }
+
 
     public static String utf8Encode(String str) {
         if (!isEmpty(str) && str.getBytes().length != str.length()) {

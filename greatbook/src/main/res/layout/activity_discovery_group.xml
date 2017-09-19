@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
             name="groupVM"
-            type="com.example.greatbook.middle.viewmodel.DiscoveryGroupAndRecordsVM"/>
+            type="com.example.greatbook.local.viewmodel.DiscoveryGroupAndRecordsVM"/>
     </data>
 
     <RelativeLayout

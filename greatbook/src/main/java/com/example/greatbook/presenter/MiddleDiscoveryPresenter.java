@@ -1,10 +1,7 @@
 package com.example.greatbook.presenter;
 
-import com.avos.avoscloud.AVQuery;
 import com.example.greatbook.base.RxPresenter;
-import com.example.greatbook.middle.presenter.contract.MiddleDiscoveryContract;
-import com.example.greatbook.middle.presenter.contract.MiddleLocalAddContract;
-import com.example.greatbook.model.leancloud.LLocalGroup;
+import com.example.greatbook.local.presenter.contract.MiddleDiscoveryContract;
 
 /**
  * Created by MDove on 2017/8/13.

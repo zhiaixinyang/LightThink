@@ -25,11 +25,12 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "proid");
-        public final static Property EssayId = new Property(1, String.class, "essayId", false, "ESSAY_ID");
+        public final static Property EssayId = new Property(1, Long.class, "essayId", false, "ESSAY_ID");
         public final static Property Time = new Property(2, java.util.Date.class, "time", false, "TIME");
         public final static Property CommitTips = new Property(3, String.class, "commitTips", false, "COMMIT_TIPS");
         public final static Property CommitContet = new Property(4, String.class, "commitContet", false, "COMMIT_CONTET");
         public final static Property BelongUserId = new Property(5, String.class, "belongUserId", false, "BELONG_USER_ID");
+        public final static Property BelongUserAccount = new Property(6, String.class, "belongUserAccount", false, "BELONG_USER_ACCOUNT");
     };
 
 
@@ -46,11 +47,12 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"CONTENT_COMMIT\" (" + //
                 "\"proid\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"ESSAY_ID\" TEXT," + // 1: essayId
+                "\"ESSAY_ID\" INTEGER," + // 1: essayId
                 "\"TIME\" INTEGER," + // 2: time
                 "\"COMMIT_TIPS\" TEXT," + // 3: commitTips
                 "\"COMMIT_CONTET\" TEXT," + // 4: commitContet
-                "\"BELONG_USER_ID\" TEXT);"); // 5: belongUserId
+                "\"BELONG_USER_ID\" TEXT," + // 5: belongUserId
+                "\"BELONG_USER_ACCOUNT\" TEXT);"); // 6: belongUserAccount
     }
 
     /** Drops the underlying database table. */
@@ -68,9 +70,9 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
             stmt.bindLong(1, id);
         }
  
-        String essayId = entity.getEssayId();
+        Long essayId = entity.getEssayId();
         if (essayId != null) {
-            stmt.bindString(2, essayId);
+            stmt.bindLong(2, essayId);
         }
  
         java.util.Date time = entity.getTime();
@@ -91,6 +93,11 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
         String belongUserId = entity.getBelongUserId();
         if (belongUserId != null) {
             stmt.bindString(6, belongUserId);
+        }
+ 
+        String belongUserAccount = entity.getBelongUserAccount();
+        if (belongUserAccount != null) {
+            stmt.bindString(7, belongUserAccount);
         }
     }
 
@@ -103,9 +110,9 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
             stmt.bindLong(1, id);
         }
  
-        String essayId = entity.getEssayId();
+        Long essayId = entity.getEssayId();
         if (essayId != null) {
-            stmt.bindString(2, essayId);
+            stmt.bindLong(2, essayId);
         }
  
         java.util.Date time = entity.getTime();
@@ -127,6 +134,11 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
         if (belongUserId != null) {
             stmt.bindString(6, belongUserId);
         }
+ 
+        String belongUserAccount = entity.getBelongUserAccount();
+        if (belongUserAccount != null) {
+            stmt.bindString(7, belongUserAccount);
+        }
     }
 
     @Override
@@ -138,11 +150,12 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
     public ContentCommit readEntity(Cursor cursor, int offset) {
         ContentCommit entity = new ContentCommit( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // essayId
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // essayId
             cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)), // time
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // commitTips
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // commitContet
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // belongUserId
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // belongUserId
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // belongUserAccount
         );
         return entity;
     }
@@ -150,11 +163,12 @@ public class ContentCommitDao extends AbstractDao<ContentCommit, Long> {
     @Override
     public void readEntity(Cursor cursor, ContentCommit entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setEssayId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setEssayId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
         entity.setTime(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
         entity.setCommitTips(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setCommitContet(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setBelongUserId(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setBelongUserAccount(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

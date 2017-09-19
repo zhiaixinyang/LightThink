@@ -27,6 +27,7 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "proid");
         public final static Property Content = new Property(1, String.class, "content", false, "CONTENT");
         public final static Property BelongId = new Property(2, String.class, "belongId", false, "BELONG_ID");
+        public final static Property BelongUserAccount = new Property(3, String.class, "belongUserAccount", false, "BELONG_USER_ACCOUNT");
     };
 
 
@@ -44,7 +45,8 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"ESSAY\" (" + //
                 "\"proid\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"CONTENT\" TEXT," + // 1: content
-                "\"BELONG_ID\" TEXT);"); // 2: belongId
+                "\"BELONG_ID\" TEXT," + // 2: belongId
+                "\"BELONG_USER_ACCOUNT\" TEXT);"); // 3: belongUserAccount
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +73,11 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         if (belongId != null) {
             stmt.bindString(3, belongId);
         }
+ 
+        String belongUserAccount = entity.getBelongUserAccount();
+        if (belongUserAccount != null) {
+            stmt.bindString(4, belongUserAccount);
+        }
     }
 
     @Override
@@ -91,6 +98,11 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         if (belongId != null) {
             stmt.bindString(3, belongId);
         }
+ 
+        String belongUserAccount = entity.getBelongUserAccount();
+        if (belongUserAccount != null) {
+            stmt.bindString(4, belongUserAccount);
+        }
     }
 
     @Override
@@ -103,7 +115,8 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         Essay entity = new Essay( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // content
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // belongId
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // belongId
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // belongUserAccount
         );
         return entity;
     }
@@ -113,6 +126,7 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setContent(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setBelongId(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setBelongUserAccount(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

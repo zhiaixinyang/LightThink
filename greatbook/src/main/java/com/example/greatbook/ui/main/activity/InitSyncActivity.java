@@ -1,18 +1,15 @@
 package com.example.greatbook.ui.main.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.middle.presenter.InitSyncPresenter;
-import com.example.greatbook.middle.presenter.contract.InitSyncContract;
+import com.example.greatbook.local.presenter.InitSyncPresenter;
+import com.example.greatbook.local.presenter.contract.InitSyncContract;
 import com.example.greatbook.model.leancloud.User;
-import com.example.greatbook.ui.main.activity.LoginActivity;
-import com.example.greatbook.ui.main.activity.MainNewActivity;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ToastUtil;
 

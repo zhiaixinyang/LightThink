@@ -5,7 +5,7 @@
     <data>
         <variable
             name="remarkVm"
-            type="com.example.greatbook.middle.viewmodel.RecordRemarkBeanVM"/>
+            type="com.example.greatbook.local.viewmodel.RecordRemarkBeanVM"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
