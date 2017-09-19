@@ -52,6 +52,11 @@ public class DateUtils {
         return format.format(time);
     }
 
+    public static String getDateEnglish(Date time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd/ hh:mm");
+        return format.format(time);
+    }
+
     public static String getDateMinute(String time) {
         return time.substring(time.length()-2,time.length());
 

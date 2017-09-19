@@ -36,7 +36,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".local.presenter.EssayListActivity"
+            android:name=".local.activity.EssayListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 

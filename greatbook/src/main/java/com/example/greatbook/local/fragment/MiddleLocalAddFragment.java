@@ -19,6 +19,7 @@ import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.local.activity.AllLocalRecordActivity;
+import com.example.greatbook.local.activity.EssayListActivity;
 import com.example.greatbook.local.activity.MyPlanActivity;
 import com.example.greatbook.local.activity.PrefectEssayActivity;
 import com.example.greatbook.local.activity.SetGroupsActivity;
@@ -115,7 +116,7 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
                         startActivity(toMyPlan);
                         break;
                     case MY_COOPATER_TOPIC:
-                        Intent to = new Intent(getContext(), PrefectEssayActivity.class);
+                        Intent to = new Intent(getContext(), EssayListActivity.class);
                         startActivity(to);
                         break;
                     default:

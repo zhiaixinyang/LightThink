@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/item_show_commit_log_margin"
         android:layout_marginTop="@dimen/item_show_commit_log_margin"
-        android:text="提交信息:"
+        android:text="文章信息:"
         android:textColor="@color/gray_plus"
         android:textSize="12sp" />
 
@@ -22,20 +22,31 @@
         android:layout_marginRight="@dimen/item_show_commit_log_margin"
         android:layout_marginTop="@dimen/item_show_commit_log_margin"
         android:layout_toRightOf="@+id/tips"
-        android:text="提交信息"
+        android:text="文章内容"
         android:textColor="@color/black"
         android:textSize="14sp" />
+    <TextView
+        android:id="@+id/tv_last_commit_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_essay_content"
+        android:layout_marginRight="@dimen/item_show_commit_log_margin"
+        android:layout_marginTop="@dimen/item_show_commit_log_margin"
+        android:layout_toRightOf="@+id/tips"
+        android:text="暂无提交内容"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tv_author_user_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_essay_content"
+        android:layout_below="@+id/tv_last_commit_tips"
         android:layout_marginBottom="@dimen/item_show_commit_log_margin"
         android:layout_marginRight="@dimen/item_show_commit_log_margin"
         android:layout_marginTop="@dimen/item_show_commit_log_margin"
         android:layout_toLeftOf="@+id/tv_time"
-        android:text="提交者账号"
+        android:text="作者账号"
         android:textColor="@color/black"
         android:textSize="12sp" />
 
@@ -44,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_essay_content"
+        android:layout_below="@+id/tv_last_commit_tips"
         android:layout_marginBottom="@dimen/item_show_commit_log_margin"
         android:layout_marginRight="@dimen/item_show_commit_log_margin"
         android:layout_marginTop="@dimen/item_show_commit_log_margin"

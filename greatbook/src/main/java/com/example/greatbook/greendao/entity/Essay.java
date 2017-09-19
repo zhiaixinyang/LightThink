@@ -5,6 +5,8 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.util.Date;
+
 /**
  * Created by MDove on 17/9/18.
  */
@@ -16,20 +18,23 @@ public class Essay {
     public String content;
     public String belongId;
     public String belongUserAccount;
+    public Date time;
 
 
-    @Generated(hash = 1192389446)
-    public Essay(Long id, String content, String belongId, String belongUserAccount) {
+    @Generated(hash = 1107247052)
+    public Essay(Long id, String content, String belongId,
+            String belongUserAccount, Date time) {
         this.id = id;
         this.content = content;
         this.belongId = belongId;
         this.belongUserAccount = belongUserAccount;
+        this.time = time;
     }
     @Generated(hash = 2009741210)
     public Essay() {
     }
 
-
+    
     public String getBelongId() {
         return this.belongId;
     }
@@ -53,6 +58,12 @@ public class Essay {
     }
     public void setBelongUserAccount(String belongUserAccount) {
         this.belongUserAccount = belongUserAccount;
+    }
+    public Date getTime() {
+        return this.time;
+    }
+    public void setTime(Date time) {
+        this.time = time;
     }
 
 }

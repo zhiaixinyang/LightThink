@@ -38,7 +38,10 @@ public class PrefectEssayPresenter implements PrefectEssayContract.Presenter {
 
     @Override
     public void insertContentCommit(ContentCommit contentCommit) {
-
+        long id = mContentCommitDao.insert(contentCommit);
+        if (id>0){
+            mView.insertContentCommitSuc();
+        }
     }
 
     @Override

@@ -86,7 +86,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                         //无需判空，就是提交内容
                         mContent = binding.etContent.getText().toString();
                         if (StringUtils.isEmpty(title)) {
-                            title = DateUtils.getDateChinese(new Date());
+                            title = DateUtils.getDateEnglish(new Date());
                         }
                         ContentCommit contentCommit = new ContentCommit();
                         contentCommit.essayId = mEssayId;
@@ -120,6 +120,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     @Override
     public void insertContentCommitSuc() {
         ToastUtil.toastShort("当前内容已提交");
+        mDialog.dismiss();
     }
 
     @Override
@@ -136,7 +137,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     @Override
     public void showCommitLog(List<ContentCommit> data) {
         CommitLogDialog dialog=new CommitLogDialog(this);
-        dialog.setData(data);
         dialog.show();
+        dialog.setData(data);
     }
 }

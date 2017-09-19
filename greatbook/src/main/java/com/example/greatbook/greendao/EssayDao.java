@@ -28,6 +28,7 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         public final static Property Content = new Property(1, String.class, "content", false, "CONTENT");
         public final static Property BelongId = new Property(2, String.class, "belongId", false, "BELONG_ID");
         public final static Property BelongUserAccount = new Property(3, String.class, "belongUserAccount", false, "BELONG_USER_ACCOUNT");
+        public final static Property Time = new Property(4, java.util.Date.class, "time", false, "TIME");
     };
 
 
@@ -46,7 +47,8 @@ public class EssayDao extends AbstractDao<Essay, Long> {
                 "\"proid\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"CONTENT\" TEXT," + // 1: content
                 "\"BELONG_ID\" TEXT," + // 2: belongId
-                "\"BELONG_USER_ACCOUNT\" TEXT);"); // 3: belongUserAccount
+                "\"BELONG_USER_ACCOUNT\" TEXT," + // 3: belongUserAccount
+                "\"TIME\" INTEGER);"); // 4: time
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,11 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         if (belongUserAccount != null) {
             stmt.bindString(4, belongUserAccount);
         }
+ 
+        java.util.Date time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(5, time.getTime());
+        }
     }
 
     @Override
@@ -103,6 +110,11 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         if (belongUserAccount != null) {
             stmt.bindString(4, belongUserAccount);
         }
+ 
+        java.util.Date time = entity.getTime();
+        if (time != null) {
+            stmt.bindLong(5, time.getTime());
+        }
     }
 
     @Override
@@ -116,7 +128,8 @@ public class EssayDao extends AbstractDao<Essay, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // content
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // belongId
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // belongUserAccount
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // belongUserAccount
+            cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)) // time
         );
         return entity;
     }
@@ -127,6 +140,7 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         entity.setContent(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setBelongId(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setBelongUserAccount(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTime(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
      }
     
     @Override

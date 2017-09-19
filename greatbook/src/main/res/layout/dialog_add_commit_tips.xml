@@ -27,7 +27,7 @@
         android:layout_margin="@dimen/dialog_add_group_margin" />
 
     <EditText
-        android:id="@+id/et_group_content"
+        android:id="@+id/et_commit_tips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dottedView"

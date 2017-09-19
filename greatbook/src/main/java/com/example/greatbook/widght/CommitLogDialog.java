@@ -3,7 +3,6 @@ package com.example.greatbook.widght;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,9 +44,9 @@ public class CommitLogDialog extends BottomSheetDialog {
         mAdapter = new CommonAdapter<ContentCommit>(mContext, R.layout.item_show_commit_log, mData) {
             @Override
             public void convert(ViewHolder holder, ContentCommit contentCommit) {
-                holder.setText(R.id.tv_commit_tips, contentCommit.commitTips);
+                holder.setText(R.id.tv_essay_content, contentCommit.commitTips);
                 holder.setText(R.id.tv_time, DateUtils.getDateChinese(contentCommit.time));
-                holder.setText(R.id.tv_commit_user_account, contentCommit.belongUserAccount);
+                holder.setText(R.id.tv_author_user_account, contentCommit.belongUserAccount);
             }
         };
         mRlvShowCommitLog.setLayoutManager(new LinearLayoutManager(mContext));

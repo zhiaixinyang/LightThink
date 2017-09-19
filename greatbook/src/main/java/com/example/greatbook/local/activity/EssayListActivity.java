@@ -1,19 +1,23 @@
-package com.example.greatbook.local.presenter;
+package com.example.greatbook.local.activity;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.R;
 import com.example.greatbook.databinding.ActivityEssayListBinding;
-import com.example.greatbook.greendao.entity.Essay;
-import com.example.greatbook.local.activity.PrefectEssayActivity;
+import com.example.greatbook.local.adapter.EssayListAdapter;
+import com.example.greatbook.local.model.EssayListItem;
+import com.example.greatbook.local.presenter.EssayListPresenter;
 import com.example.greatbook.local.presenter.contract.EssayListContract;
 import com.example.greatbook.model.leancloud.User;
+import com.example.greatbook.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,22 +26,33 @@ import java.util.List;
 
 public class EssayListActivity extends AppCompatActivity implements EssayListContract.View {
     private ActivityEssayListBinding binding;
-    private EssayListPresenter presenter;
+    private EssayListPresenter mPresenter;
+    private List<EssayListItem> mData;
+    private EssayListAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_essay_list);
-        presenter = new EssayListPresenter();
+        mPresenter = new EssayListPresenter();
+        mPresenter.attachView(this);
+
+        mData = new ArrayList<>();
+        mAdapter = new EssayListAdapter(this, R.layout.item_essay_list, mData);
+        binding.rlvEssay.setLayoutManager(new LinearLayoutManager(this));
+        binding.rlvEssay.setAdapter(mAdapter);
+
         binding.btnAddEssay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 User currentUser = AVUser.getCurrentUser(User.class);
                 if (currentUser != null) {
-                    presenter.addEssay(currentUser);
+                    mPresenter.addEssay(currentUser);
                 }
             }
         });
+
+        mPresenter.initEssayList();
     }
 
     @Override
@@ -46,12 +61,17 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
     }
 
     @Override
-    public void initEssayListSuc(List<Essay> data) {
+    public void initEssayListSuc(List<EssayListItem> data) {
+        mAdapter.addData(data);
+    }
 
+    @Override
+    public void initEssayListEmpty() {
+        ToastUtil.toastShort("您还没有写过文章吧？");
     }
 
     @Override
     public void addEssaySuc(long essayId) {
-        PrefectEssayActivity.startPrefectEssay(this,essayId);
+        PrefectEssayActivity.startPrefectEssay(this, essayId);
     }
 }
