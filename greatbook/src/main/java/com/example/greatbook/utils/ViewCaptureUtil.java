@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 
 public class ViewCaptureUtil {
-    private static final String DC_FOLDER_NAME = "DCollage";
+    private static final String DC_FOLDER_NAME = "LightThink";
 
     public static void save(View view, String fileName) {
         if (!createDCFolderIfNotExist()) {

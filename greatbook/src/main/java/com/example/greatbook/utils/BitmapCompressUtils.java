@@ -45,29 +45,32 @@ public class BitmapCompressUtils {
         return bitMap;
     }
 
-    public static Bitmap zoomImage(String path){
-        Bitmap bitmap=null;
-        try {
-            //获得图片的宽、高
-            BitmapFactory.Options tmpOptions = new BitmapFactory.Options();
-            tmpOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(App.getInstance().getContext().getAssets().open(path), null, tmpOptions);
-            int width = tmpOptions.outWidth;
-            int height = tmpOptions.outHeight;
-            Matrix matrix = new Matrix();
-            // 计算宽高缩放率
-            float scale = 150f/width;
-            matrix.postScale(scale, scale);
-            bitmap = Bitmap.createBitmap(FileAndImageUtils.getBitmap(path), 0, 0, width,
-                    height, matrix, true);
+    public static Bitmap zoomImage(String path) {
+        //获得图片的宽、高
+        BitmapFactory.Options tmpOptions = new BitmapFactory.Options();
+        tmpOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, tmpOptions);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bitmap;
+        tmpOptions.inSampleSize = calculateInSampleSize(tmpOptions, 480, 800);
+        tmpOptions.inJustDecodeBounds = false;
 
+        Bitmap bitmap = BitmapFactory.decodeFile(path, tmpOptions);
+        return compressImage(bitmap);
     }
 
+    //计算图片的缩放值
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+        return inSampleSize;
+    }
 
     /***
      * 图片的缩放方法
@@ -128,8 +131,8 @@ public class BitmapCompressUtils {
      * 按像素压缩图像
      *
      * @param imgPath image path
-     * @param pixelW target pixel of width
-     * @param pixelH target pixel of height
+     * @param pixelW  target pixel of width
+     * @param pixelH  target pixel of height
      * @return
      */
     public static Bitmap ratio(String imgPath, float pixelW, float pixelH) {
@@ -138,7 +141,7 @@ public class BitmapCompressUtils {
         newOpts.inJustDecodeBounds = true;
         newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
         // Get bitmap info, but notice that bitmap is null now
-        Bitmap bitmap = BitmapFactory.decodeFile(imgPath,newOpts);
+        Bitmap bitmap = BitmapFactory.decodeFile(imgPath, newOpts);
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
@@ -170,10 +173,10 @@ public class BitmapCompressUtils {
      * @param pixelH target pixel of height
      * @return
      */
-    public static Bitmap  ratio(Bitmap image, float pixelW, float pixelH) {
+    public static Bitmap ratio(Bitmap image, float pixelW, float pixelH) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, os);
-        if( os.toByteArray().length / 1024>1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if (os.toByteArray().length / 1024 > 1024) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             os.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 50, os);//这里压缩50%，把压缩后的数据存放到baos中
         }
@@ -220,7 +223,7 @@ public class BitmapCompressUtils {
         // Store the bitmap into output stream(no compress)
         image.compress(Bitmap.CompressFormat.JPEG, options, os);
         // Compress by loop
-        while ( os.toByteArray().length / 1024 > maxSize) {
+        while (os.toByteArray().length / 1024 > maxSize) {
             // Clean up os
             os.reset();
             // interval 10
@@ -233,64 +236,6 @@ public class BitmapCompressUtils {
         fos.write(os.toByteArray());
         fos.flush();
         fos.close();
-    }
-
-    /**
-     * Compress by quality,  and generate image to the path specified
-     *
-     * @param imgPath
-     * @param outPath
-     * @param maxSize target will be compressed to be smaller than this size.(kb)
-     * @param needsDelete Whether delete original file after compress
-     * @throws IOException
-     */
-    public void compressAndGenImage(String imgPath, String outPath, int maxSize, boolean needsDelete) throws IOException {
-        compressAndGenImage(getBitmap(imgPath), outPath, maxSize);
-
-        // Delete original file
-        if (needsDelete) {
-            File file = new File (imgPath);
-            if (file.exists()) {
-                file.delete();
-            }
-        }
-    }
-
-    /**
-     * Ratio and generate thumb to the path specified
-     *
-     * @param image
-     * @param outPath
-     * @param pixelW target pixel of width
-     * @param pixelH target pixel of height
-     * @throws FileNotFoundException
-     */
-    public void ratioAndGenThumb(Bitmap image, String outPath, float pixelW, float pixelH) throws FileNotFoundException {
-        Bitmap bitmap = ratio(image, pixelW, pixelH);
-        storeImage( bitmap, outPath);
-    }
-
-    /**
-     * Ratio and generate thumb to the path specified
-     *
-     * @param imgPath
-     * @param outPath
-     * @param pixelW target pixel of width
-     * @param pixelH target pixel of height
-     * @param needsDelete Whether delete original file after compress
-     * @throws FileNotFoundException
-     */
-    public void ratioAndGenThumb(String imgPath, String outPath, float pixelW, float pixelH, boolean needsDelete) throws FileNotFoundException {
-        Bitmap bitmap = ratio(imgPath, pixelW, pixelH);
-        storeImage( bitmap, outPath);
-
-        // Delete original file
-        if (needsDelete) {
-            File file = new File(imgPath);
-            if (file.exists()) {
-                file.delete();
-            }
-        }
     }
 
     /**
@@ -348,6 +293,7 @@ public class BitmapCompressUtils {
         bitmap = BitmapFactory.decodeFile(srcPath, newOpts);
         return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
     }
+
     /**
      * 图片按比例大小压缩方法
      *
@@ -395,6 +341,7 @@ public class BitmapCompressUtils {
 
         return compressImage(bitmap);// 压缩好比例大小后再进行质量压缩
     }
+
     public static void compressPicture(String srcPath, String desPath) {
         FileOutputStream fos = null;
         BitmapFactory.Options op = new BitmapFactory.Options();
