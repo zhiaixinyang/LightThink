@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">书·心</string>
     <string name="book_talk">吐槽(%s)</string>
+    <string name="dialog_show_single_commit_log_tips">提交信息：%s</string>
+    <string name="dialog_show_single_commit_log_time">提交时间：%s</string>
+    <string name="dialog_show_single_commit_log_origin_content">前一版本内容：%s</string>
+    <string name="dialog_show_single_commit_log_cur_content">当前版本内容：%s</string>
+    <string name="dialog_show_single_commit_log_author">提交者：%s</string>
     <string name="item_essay_list_last_commit">最后一次提交，提交者账号:%1$s\n提交信息:%2$s\n提交时间:%3$s</string>
     <string formatted="false" name="tts_toast_format">缓冲进度为%d%%，播放进度为%d%%</string>
 </resources>

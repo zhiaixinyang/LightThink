@@ -129,4 +129,5 @@
     <dimen name="activity_add_template_plan_margin_small">5dp</dimen>
     <dimen name="dialog_add_commit_tips_margin">10dp</dimen>
     <dimen name="item_show_commit_log_margin">8dp</dimen>
+    <dimen name="dialog_show_single_commit_log_margin">15dp</dimen>
 </resources>

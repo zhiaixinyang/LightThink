@@ -1,20 +1,30 @@
 package com.example.greatbook.widght;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
+import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
+import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.greendao.entity.ContentCommit;
+import com.example.greatbook.local.activity.PrefectEssayActivity;
 import com.example.greatbook.utils.DateUtils;
+import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.utils.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +39,7 @@ public class CommitLogDialog extends BottomSheetDialog {
     private TextView mTitle;
     private CommonAdapter<ContentCommit> mAdapter;
     private Context mContext;
+    private BaseAlertDialog mDialog;
 
     public CommitLogDialog(@NonNull Context context) {
         super(context);
@@ -58,6 +69,49 @@ public class CommitLogDialog extends BottomSheetDialog {
                 holder.setText(R.id.tv_author_user_account, contentCommit.belongUserAccount);
             }
         };
+        mAdapter.setOnItemClickListener(new OnItemClickListener<ContentCommit>() {
+            @Override
+            public void onItemClick(View view, ContentCommit contentCommit, int position) {
+                mDialog = new BaseAlertDialog.Builder(getContext())
+                        .setContentView(R.layout.dialog_show_single_commit_log)
+                        .setWidthAndHeight(DpUtils.dp2px(350), ScreenUtils.getScreenWidth()-DpUtils.dp2px(50))
+                        .create();
+                mDialog.show();
+                TextView tvCommitTips = mDialog.getView(R.id.tv_commit_tips);
+                TextView tvCommitAuthor = mDialog.getView(R.id.tv_commit_author);
+                TextView tvCommitTime = mDialog.getView(R.id.tv_commit_time);
+                ExpandableTextView tvCommitCurContent = mDialog.getView(R.id.tv_commit_cur_content);
+                ExpandableTextView tvCommitOriginContent = mDialog.getView(R.id.tv_commit_origin_content);
+
+                Resources resources = getContext().getResources();
+                tvCommitAuthor.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_author),
+                        contentCommit.belongUserAccount));
+                tvCommitTips.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_tips),
+                        contentCommit.commitTips));
+                tvCommitTime.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_time),
+                        DateUtils.getDateChinese(contentCommit.time)));
+                tvCommitCurContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_cur_content),
+                        contentCommit.originContent));
+                tvCommitOriginContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_origin_content),
+                        contentCommit.commitContent));
+
+                mDialog.setOnClickListener(R.id.btn_finish, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
+                //版本回退
+                mDialog.setOnClickListener(R.id.btn_back_version, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+            }
+        });
+
         mRlvShowCommitLog.setLayoutManager(new LinearLayoutManager(mContext));
         mRlvShowCommitLog.setAdapter(mAdapter);
     }

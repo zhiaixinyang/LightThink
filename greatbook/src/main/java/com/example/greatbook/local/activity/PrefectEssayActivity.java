@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVUser;
@@ -23,6 +24,7 @@ import com.example.greatbook.local.presenter.contract.PrefectEssayContract;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.utils.ScreenUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.CommitLogDialog;
@@ -69,15 +71,6 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                         exitPopup();
                     }
                 })
-                .setRightResId(R.drawable.btn_send)
-                .setOnRightClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mPresenter != null && !StringUtils.isEmpty(mContent)) {
-                            mPresenter.saveEssay(mContent);
-                        }
-                    }
-                })
                 .builder();
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prefect_essay);
@@ -98,7 +91,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
             public void onClick(View v) {
                 mDialog = new BaseAlertDialog.Builder(PrefectEssayActivity.this)
                         .setContentView(R.layout.dialog_add_commit_tips)
-                        .setWidthAndHeight(DpUtils.dp2px(350), DpUtils.dp2px(350))
+                        .setWidthAndHeight(DpUtils.dp2px(350), ScreenUtils.getScreenWidth()-DpUtils.dp2px(50))
                         .create();
                 mDialog.show();
                 final EditText etCommitTips = mDialog.getView(R.id.et_commit_tips);
@@ -111,25 +104,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                 mDialog.setOnClickListener(R.id.btn_commit, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String title = etCommitTips.getText().toString();
-                        //无需判空，直接提交内容,同时保存到文章中
-                        mContent = binding.etContent.getText().toString();
-                        mPresenter.saveEssay(mContent);
-
-                        if (StringUtils.isEmpty(title)) {
-                            title = DateUtils.getDateEnglish(new Date());
-                        }
-                        ContentCommit contentCommit = new ContentCommit();
-                        contentCommit.essayId = mEssayId;
-                        contentCommit.belongUserId = mUser.getObjectId();
-                        contentCommit.belongUserAccount = mUser.getUsername();
-                        contentCommit.commitContent = title;
-                        contentCommit.commitTips = title;
-                        contentCommit.commitContent = mContent;
-                        contentCommit.time = new Date();
-                        contentCommit.originContent = mEssay.content;
-
-                        mPresenter.insertContentCommit(contentCommit);
+                        commit(etCommitTips);
                     }
                 });
 
@@ -140,10 +115,10 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
         binding.etContent.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String curContent = binding.etContent.getText().toString();
+                mContent = binding.etContent.getText().toString();
                 String originContent = binding.tvEssayContent.getText().toString();
-                if (curContent.length() == originContent.length()) {
-                    if (StringUtils.isEquals(curContent, originContent)) {
+                if (mContent.length() == originContent.length()) {
+                    if (StringUtils.isEquals(mContent, originContent)) {
                         isAltered = false;
                     } else {
                         isAltered = true;
@@ -162,9 +137,34 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
         });
     }
 
+    private void commit(EditText etCommitTips) {
+        if (isAltered) {
+            String title = etCommitTips.getText().toString();
+            //提交内容,同时保存到文章中
+            mContent = binding.etContent.getText().toString();
+            mPresenter.saveEssay(mContent);
+
+            if (StringUtils.isEmpty(title)) {
+                title = DateUtils.getDateEnglish(new Date());
+            }
+            ContentCommit contentCommit = new ContentCommit();
+            contentCommit.essayId = mEssayId;
+            contentCommit.belongUserId = mUser.getObjectId();
+            contentCommit.belongUserAccount = mUser.getUsername();
+            contentCommit.commitContent = title;
+            contentCommit.commitTips = title;
+            contentCommit.commitContent = mContent;
+            contentCommit.time = new Date();
+            contentCommit.originContent = mEssay.content;
+
+            mPresenter.insertContentCommit(contentCommit);
+        } else {
+            ToastUtil.toastShort("当前为修改任何内容");
+        }
+    }
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         exitPopup();
     }
 
@@ -179,6 +179,10 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
             //未做修改，直接退出
             finish();
         } else {
+            if (ScreenUtils.isSoftShowing(this)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
             //弹窗提示
             AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle("确定要退出？")
@@ -186,8 +190,8 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
                             dialog.dismiss();
+                            finish();
                         }
                     })
                     .setNegativeButton("不不不", new DialogInterface.OnClickListener() {
@@ -195,7 +199,9 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
-                    }).show();
+                    })
+                    .show();
+
         }
     }
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    app:cardCornerRadius="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_commit_tips"
+            android:text="@string/dialog_show_single_commit_log_tips"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.example.greatbook.widght.ExpandableTextView
+            android:id="@+id/tv_commit_origin_content"
+            android:text="@string/dialog_show_single_commit_log_origin_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
+            android:textSize="12sp"
+            android:layout_below="@+id/tv_commit_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:DrawableAndTextGravity="right"
+            app:collapseDrawable="@drawable/btn_expand_off"
+            app:contentTextColor="@color/colorPrimaryDark"
+            app:expandCollapseTextColor="@color/blue"
+            app:expandDrawable="@drawable/btn_expand_on"
+            app:expandText="更多"
+            app:maxCollapsedLines="2"/>
+
+        <com.example.greatbook.widght.ExpandableTextView
+            android:id="@+id/tv_commit_cur_content"
+            android:text="@string/dialog_show_single_commit_log_cur_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
+            android:textSize="12sp"
+            android:layout_below="@+id/tv_commit_origin_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:DrawableAndTextGravity="right"
+            app:collapseDrawable="@drawable/btn_expand_off"
+            app:contentTextColor="@color/colorPrimaryDark"
+            app:expandCollapseTextColor="@color/blue"
+            app:expandDrawable="@drawable/btn_expand_on"
+            app:expandText="更多"
+            app:maxCollapsedLines="2"/>
+
+        <TextView
+            android:id="@+id/tv_commit_author"
+            android:text="@string/dialog_show_single_commit_log_author"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
+            android:textSize="12sp"
+            android:layout_below="@+id/tv_commit_cur_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_commit_time"
+            android:text="@string/dialog_show_single_commit_log_time"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
+            android:textSize="12sp"
+            android:layout_below="@+id/tv_commit_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/btn_back_version"
+            android:text="版本回退"
+            android:textSize="16sp"
+            android:textColor="@color/red"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginRight="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/btn_finish"
+            android:text="取消"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
