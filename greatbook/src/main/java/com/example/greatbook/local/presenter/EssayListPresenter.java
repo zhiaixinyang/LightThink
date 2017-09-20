@@ -52,44 +52,36 @@ public class EssayListPresenter implements EssayListContract.Presenter {
 
     @Override
     public void initEssayList() {
-
-        Observable.create(new Observable.OnSubscribe<Map<Essay, List<ContentCommit>>>() {
+        Observable.create(new Observable.OnSubscribe<List<Essay>>() {
             @Override
-            public void call(Subscriber<? super Map<Essay, List<ContentCommit>>> subscriber) {
-                Map<Essay, List<ContentCommit>> map = new HashMap<>();
-                List<Essay> data = essayDao.loadAll();
-                LogUtils.d("a:"+data.size());
+            public void call(Subscriber<? super List<Essay>> subscriber) {
+                List<Essay> data = essayDao.queryBuilder().build().list();
                 if (data != null && !data.isEmpty()) {
-                    for (Essay essay : data) {
-                        List<ContentCommit> commits = mContentCommitDao.queryBuilder()
-                                .where(ContentCommitDao.Properties.EssayId.eq(essay.id))
-                                .list();
-                        if (commits != null && !commits.isEmpty()) {
-                            map.put(essay, commits);
-                        } else {
-                            map.put(essay, new ArrayList<ContentCommit>());
-                        }
-                    }
-                    subscriber.onNext(map);
-                }else {
-                    subscriber.onNext(map);
+                    subscriber.onNext(data);
+                } else {
+                    subscriber.onNext(new ArrayList<Essay>());
                 }
             }
-        }).map(new Func1<Map<Essay, List<ContentCommit>>, List<EssayListItem>>() {
+        }).map(new Func1<List<Essay>, List<EssayListItem>>() {
+
             @Override
-            public List<EssayListItem> call(Map<Essay, List<ContentCommit>> essayListMap) {
+            public List<EssayListItem> call(List<Essay> essays) {
                 List<EssayListItem> data = new ArrayList<>();
-                if (essayListMap.isEmpty()) {
-                    return data;
-                } else {
-                    for (Map.Entry<Essay, List<ContentCommit>> essaySet : essayListMap.entrySet()) {
+                if (essays != null && !essays.isEmpty()) {
+                    for (Essay essay : essays) {
                         EssayListItem item = new EssayListItem();
-                        item.mEssay = essaySet.getKey();
-                        item.mLastContentCommit = essaySet
-                                .getValue()
-                                .get(essaySet.getValue().size() - 1);
+                        item.mEssay = essay;
+                        //此处不能直接使用List的public变量
+                        if (essay.getContentCommits() != null && !essay.getContentCommits().isEmpty()) {
+                            item.mLastContentCommit = essay.contentCommits
+                                    .get(essay.contentCommits.size() - 1);
+                        } else {
+                            item.mLastContentCommit = null;
+                        }
                         data.add(item);
                     }
+                    return data;
+                } else {
                     return data;
                 }
             }
@@ -97,9 +89,9 @@ public class EssayListPresenter implements EssayListContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<EssayListItem>>() {
                     @Override
-                    public void call(List<EssayListItem> essayListMap) {
-                        if (essayListMap == null && !essayListMap.isEmpty()) {
-                            mView.initEssayListSuc(essayListMap);
+                    public void call(List<EssayListItem> essayList) {
+                        if (essayList != null && !essayList.isEmpty()) {
+                            mView.initEssayListSuc(essayList);
                         } else {
                             mView.initEssayListEmpty();
                         }

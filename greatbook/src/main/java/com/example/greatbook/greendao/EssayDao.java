@@ -24,12 +24,14 @@ public class EssayDao extends AbstractDao<Essay, Long> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "proid");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Content = new Property(1, String.class, "content", false, "CONTENT");
         public final static Property BelongId = new Property(2, String.class, "belongId", false, "BELONG_ID");
         public final static Property BelongUserAccount = new Property(3, String.class, "belongUserAccount", false, "BELONG_USER_ACCOUNT");
         public final static Property Time = new Property(4, java.util.Date.class, "time", false, "TIME");
     };
+
+    private DaoSession daoSession;
 
 
     public EssayDao(DaoConfig config) {
@@ -38,13 +40,14 @@ public class EssayDao extends AbstractDao<Essay, Long> {
     
     public EssayDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ESSAY\" (" + //
-                "\"proid\" INTEGER PRIMARY KEY ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"CONTENT\" TEXT," + // 1: content
                 "\"BELONG_ID\" TEXT," + // 2: belongId
                 "\"BELONG_USER_ACCOUNT\" TEXT," + // 3: belongUserAccount
@@ -115,6 +118,12 @@ public class EssayDao extends AbstractDao<Essay, Long> {
         if (time != null) {
             stmt.bindLong(5, time.getTime());
         }
+    }
+
+    @Override
+    protected final void attachEntity(Essay entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     @Override

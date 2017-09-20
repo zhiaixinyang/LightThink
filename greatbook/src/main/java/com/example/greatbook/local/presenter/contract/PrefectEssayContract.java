@@ -25,10 +25,11 @@ public interface PrefectEssayContract {
     interface View extends BaseView {
         void insertContentCommitSuc();
 
-        void saveEssaySuc();
+        void saveEssaySuc(Essay essay);
 
         void showInitEssay(Essay essay);
 
         void showCommitLog(List<ContentCommit> data);
+        void showCommitLogEmpty();
     }
 }

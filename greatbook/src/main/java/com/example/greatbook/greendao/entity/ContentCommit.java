@@ -4,7 +4,6 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 
-import java.sql.Time;
 import java.util.Date;
 import org.greenrobot.greendao.annotation.Generated;
 
@@ -16,23 +15,27 @@ public class ContentCommit {
     @Id
     @Property(nameInDb = "proid")
     public Long id;
-    public Long essayId;
+
+
+    public long essayId;
 
     public Date time;
     public String commitTips;
-    public String commitContet;
+    public String commitContent;
+    public String originContent;
     public String belongUserId;
-    public String belongUserAccount
-            ;
+    public String belongUserAccount;
 
-    @Generated(hash = 928671448)
-    public ContentCommit(Long id, Long essayId, Date time, String commitTips,
-            String commitContet, String belongUserId, String belongUserAccount) {
+    @Generated(hash = 1591792913)
+    public ContentCommit(Long id, long essayId, Date time, String commitTips,
+            String commitContent, String originContent, String belongUserId,
+            String belongUserAccount) {
         this.id = id;
         this.essayId = essayId;
         this.time = time;
         this.commitTips = commitTips;
-        this.commitContet = commitContet;
+        this.commitContent = commitContent;
+        this.originContent = originContent;
         this.belongUserId = belongUserId;
         this.belongUserAccount = belongUserAccount;
     }
@@ -46,11 +49,11 @@ public class ContentCommit {
     public void setBelongUserId(String belongUserId) {
         this.belongUserId = belongUserId;
     }
-    public String getCommitContet() {
-        return this.commitContet;
+    public String getCommitContent() {
+        return this.commitContent;
     }
-    public void setCommitContet(String commitContet) {
-        this.commitContet = commitContet;
+    public void setCommitContent(String commitContent) {
+        this.commitContent = commitContent;
     }
     public String getCommitTips() {
         return this.commitTips;
@@ -82,6 +85,15 @@ public class ContentCommit {
     }
     public void setBelongUserAccount(String belongUserAccount) {
         this.belongUserAccount = belongUserAccount;
+    }
+    public void setEssayId(long essayId) {
+        this.essayId = essayId;
+    }
+    public String getOriginContent() {
+        return this.originContent;
+    }
+    public void setOriginContent(String originContent) {
+        this.originContent = originContent;
     }
 
 }

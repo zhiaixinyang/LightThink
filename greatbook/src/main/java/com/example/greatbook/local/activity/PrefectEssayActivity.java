@@ -36,11 +36,12 @@ import java.util.List;
 public class PrefectEssayActivity extends AppCompatActivity implements PrefectEssayContract.View {
     private ActivityPrefectEssayBinding binding;
     public static final String ESSAY_ID = "essay_id";
-    private PrefectEssayPresenter presenter;
+    private PrefectEssayPresenter mPresenter;
     private long mEssayId;
     private BaseAlertDialog mDialog;
     private String mContent;
     private User mUser;
+    private Essay mEssay;
 
     public static void startPrefectEssay(Context context, long essayId) {
         Intent start = new Intent(context, PrefectEssayActivity.class);
@@ -57,9 +58,9 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
         mUser = AVUser.getCurrentUser(User.class);
 
         if (mEssayId > 0 && mUser != null) {
-            presenter = new PrefectEssayPresenter();
-            presenter.attachView(this);
-            presenter.initEssay(mEssayId);
+            mPresenter = new PrefectEssayPresenter();
+            mPresenter.attachView(this);
+            mPresenter.initEssay(mEssayId);
         } else {
             finish();
         }
@@ -83,8 +84,10 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                     @Override
                     public void onClick(View v) {
                         String title = etCommitTips.getText().toString();
-                        //无需判空，就是提交内容
+                        //无需判空，直接提交内容,同时保存到文章中
                         mContent = binding.etContent.getText().toString();
+                        mPresenter.saveEssay(mContent);
+
                         if (StringUtils.isEmpty(title)) {
                             title = DateUtils.getDateEnglish(new Date());
                         }
@@ -92,11 +95,13 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
                         contentCommit.essayId = mEssayId;
                         contentCommit.belongUserId = mUser.getObjectId();
                         contentCommit.belongUserAccount = mUser.getUsername();
-                        contentCommit.commitContet = title;
+                        contentCommit.commitContent = title;
                         contentCommit.commitTips = title;
-                        contentCommit.commitContet = mContent;
+                        contentCommit.commitContent = mContent;
+                        contentCommit.time = new Date();
+                        contentCommit.originContent = mEssay.content;
 
-                        presenter.insertContentCommit(contentCommit);
+                        mPresenter.insertContentCommit(contentCommit);
                     }
                 });
 
@@ -106,7 +111,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
         binding.btnCommitLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.showCommitLog(mUser.getObjectId());
+                mPresenter.showCommitLog(mUser.getObjectId());
             }
         });
     }
@@ -124,20 +129,30 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     }
 
     @Override
-    public void saveEssaySuc() {
-
+    public void saveEssaySuc(Essay essay) {
+        mEssay = essay;
+        binding.etContent.setText(essay.content);
+        binding.tvUserAccount.setText(essay.belongUserAccount);
+        binding.tvEssayContent.setText(essay.content);
     }
 
     @Override
     public void showInitEssay(Essay essay) {
+        mEssay = essay;
         binding.etContent.setText(essay.content);
         binding.tvUserAccount.setText(essay.belongUserAccount);
+        binding.tvEssayContent.setText(essay.content);
     }
 
     @Override
     public void showCommitLog(List<ContentCommit> data) {
-        CommitLogDialog dialog=new CommitLogDialog(this);
+        CommitLogDialog dialog = new CommitLogDialog(this);
         dialog.show();
         dialog.setData(data);
+    }
+
+    @Override
+    public void showCommitLogEmpty() {
+        ToastUtil.toastShort("当前暂无提交数据");
     }
 }

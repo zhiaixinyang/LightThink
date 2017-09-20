@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.greatbook.R;
@@ -37,6 +39,13 @@ public class CommitLogDialog extends BottomSheetDialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_show_commit_log);
+        Window window = getWindow();
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(lp);
+
         mRlvShowCommitLog = (RecyclerView) findViewById(R.id.rlv_show_commit_log);
         mTitle = (TextView) findViewById(R.id.tv_title);
 
@@ -54,7 +63,6 @@ public class CommitLogDialog extends BottomSheetDialog {
     }
 
     public void setData(List<ContentCommit> data) {
-        mData = data;
-        mAdapter.notifyDataSetChanged();
+        mAdapter.addData(data);
     }
 }

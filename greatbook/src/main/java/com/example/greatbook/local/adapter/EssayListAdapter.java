@@ -31,7 +31,7 @@ public class EssayListAdapter extends CommonAdapter<EssayListItem> {
         holder.setText(R.id.tv_essay_content, essay.content);
         holder.setText(R.id.tv_author_user_account, essay.belongUserAccount);
         holder.setText(R.id.tv_time, DateUtils.getDateChinese(essay.time));
-        if (lastContentCommit!=null) {
+        if (lastContentCommit != null) {
             holder.setText(R.id.tv_last_commit_tips,
                     String.format(mContext.getResources().getString(R.string.item_essay_list_last_commit),
                             lastContentCommit.belongUserAccount,
