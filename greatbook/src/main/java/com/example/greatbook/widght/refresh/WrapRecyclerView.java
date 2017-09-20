@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.greatbook.base.OnItemClickListener;
+import com.example.greatbook.utils.LogUtils;
 
 /**
  * Created by Darren on 2016/12/29.
@@ -186,6 +187,13 @@ public class WrapRecyclerView extends RecyclerView {
             // 没有数据
             if (mEmptyView != null) {
                 mEmptyView.setVisibility(VISIBLE);
+            } else {
+                mEmptyView.setVisibility(GONE);
+            }
+        }else{
+            // 没有数据
+            if (mEmptyView != null) {
+                mEmptyView.setVisibility(GONE);
             } else {
                 mEmptyView.setVisibility(GONE);
             }

@@ -99,7 +99,7 @@ public class AddTemplatePlanActivity extends AppCompatActivity implements AddTem
         vm = new AddMyPlanTemplateVM();
         vm.tips.set("......");
         vm.bgColor.set(Color.GRAY);
-        vm.textColor.set(Color.RED);
+        vm.textColor.set(Color.BLACK);
         vm.detailColor.set(Color.BLACK);
         vm.title1.set("我决定");
         vm.title2.set("之前");

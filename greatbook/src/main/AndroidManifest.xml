@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/TestDayNight">
         <activity
-            android:name=".ui.main.activity.MainNewActivity"
+            android:name=".ui.main.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>

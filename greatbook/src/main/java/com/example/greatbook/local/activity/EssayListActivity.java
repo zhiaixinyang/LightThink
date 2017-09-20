@@ -19,6 +19,7 @@ import com.example.greatbook.local.presenter.EssayListPresenter;
 import com.example.greatbook.local.presenter.contract.EssayListContract;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.DefaultNavigationBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,34 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
     private EssayListPresenter mPresenter;
     private List<EssayListItem> mData;
     private EssayListAdapter mAdapter;
+    private User currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentUser = AVUser.getCurrentUser(User.class);
+        if (currentUser == null) {
+            finish();
+        }
+
+        new DefaultNavigationBar.Builder(this, null)
+                .setLeftResId(R.drawable.btn_back_)
+                .setOnLeftClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                })
+                .setRightResId(R.drawable.btn_plan_add)
+                .setOnRightClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPresenter.addEssay(currentUser);
+                    }
+                })
+                .setTitleText("文章列表")
+                .builder();
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_essay_list);
         mPresenter = new EssayListPresenter();
         mPresenter.attachView(this);
@@ -55,7 +80,7 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
         binding.btnAddEssay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User currentUser = AVUser.getCurrentUser(User.class);
+
                 if (currentUser != null) {
                     mPresenter.addEssay(currentUser);
                 }

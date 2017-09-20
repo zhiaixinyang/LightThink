@@ -153,7 +153,7 @@ public class SendTalkAboutActivity extends BaseActivity implements View.OnClickL
 
 
     private void back() {
-        Intent back = new Intent(this, MainNewActivity.class);
+        Intent back = new Intent(this, MainActivity.class);
         back.putExtra(IntentConstants.BACK_TALK_ABOUT, 1);
         startActivity(back);
         overridePendingTransition(R.anim.login_in, R.anim.login_out);

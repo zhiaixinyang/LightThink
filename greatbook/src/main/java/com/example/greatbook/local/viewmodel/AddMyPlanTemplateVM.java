@@ -22,22 +22,24 @@ public class AddMyPlanTemplateVM {
     public ObservableField<String> tips=new ObservableField<>();
 
     public TextWatcher watcher1 = new SimpleTextWatcher() {
-        @Override public void afterTextChanged(Editable s) {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (!StringUtils.isEquals(title1.get(), s.toString())) {
-                LogUtils.d(s.toString());
                 title1.set(s.toString());
             }
         }
     };
     public TextWatcher watcher2 = new SimpleTextWatcher() {
-        @Override public void afterTextChanged(Editable s) {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (!StringUtils.isEquals(title2.get(), s.toString())) {
                 title2.set(s.toString());
             }
         }
     };
     public TextWatcher watcher3 = new SimpleTextWatcher() {
-        @Override public void afterTextChanged(Editable s) {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (!StringUtils.isEquals(title3.get(), s.toString())) {
                 title3.set(s.toString());
             }

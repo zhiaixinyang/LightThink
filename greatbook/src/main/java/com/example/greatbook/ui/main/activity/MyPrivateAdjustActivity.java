@@ -121,37 +121,37 @@ public class MyPrivateAdjustActivity extends BaseActivity<MyPrivateAdjustPresent
     float oneX;
     float twoX;
     private boolean isOpen = false;
-    private int tag = 1;
 
     private void openPhoto() {
-        if (tag == 1) {
-            tag++;
+        //打开
+        if (!isOpen) {
             isOpen = true;
-            if (isOpen) {
-                btnGetPhoto.setVisibility(View.VISIBLE);
-                btnTakePhoto.setVisibility(View.VISIBLE);
+            btnGetPhoto.setVisibility(View.VISIBLE);
+            btnTakePhoto.setVisibility(View.VISIBLE);
 
-                ValueAnimator one = new ObjectAnimator().ofFloat(btnTakePhoto, "translationX", btnTakePhoto.getX() - 200, oneX);
-                one.setInterpolator(new BounceInterpolator());
-                ValueAnimator two = new ObjectAnimator().ofFloat(btnGetPhoto, "translationX", btnTakePhoto.getX() + 200, twoX);
-                two.setInterpolator(new BounceInterpolator());
-                AnimatorSet set = new AnimatorSet();
-                set.playTogether(
-                        one, two
-                );
-                set.setDuration(500).start();
-                isOpen = false;
-            }
-        } else if (tag == 2) {
+            ValueAnimator one = new ObjectAnimator().ofFloat(btnTakePhoto, "translationX", btnTakePhoto.getX() - 200, oneX);
+            one.setInterpolator(new BounceInterpolator());
+            ValueAnimator two = new ObjectAnimator().ofFloat(btnGetPhoto, "translationX", btnTakePhoto.getX() + 200, twoX);
+            two.setInterpolator(new BounceInterpolator());
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(
+                    one, two
+            );
+            set.setDuration(500).start();
+
+        } else {
+            //关闭
+            isOpen = false;
             btnGetPhoto.setVisibility(View.GONE);
             btnTakePhoto.setVisibility(View.GONE);
-            ValueAnimator one = ObjectAnimator.ofFloat(btnGetPhoto, "alpha", 1f, 0f);
-            ValueAnimator two = ObjectAnimator.ofFloat(btnTakePhoto, "alpha", 1f, 0f);
-            AnimatorSet set = new AnimatorSet();
-            set.playTogether(one, two);
-            set.setDuration(500).start();
-            tag--;
+//            ValueAnimator one = ObjectAnimator.ofFloat(btnGetPhoto, "alpha", 1f, 0f);
+//            ValueAnimator two = ObjectAnimator.ofFloat(btnTakePhoto, "alpha", 1f, 0f);
+//            AnimatorSet set = new AnimatorSet();
+//            set.playTogether(one, two);
+//            set.setDuration(500).start();
         }
+
+
     }
 
     private void takePhoto() {

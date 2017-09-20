@@ -20,6 +20,8 @@ public interface PrefectEssayContract {
         void showCommitLog(String userId);
 
         void saveEssay(String content);
+
+        void deleteEssay(Essay essay);
     }
 
     interface View extends BaseView {

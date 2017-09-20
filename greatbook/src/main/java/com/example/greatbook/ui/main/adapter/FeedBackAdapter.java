@@ -9,6 +9,7 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.ui.model.LFeedBackBean;
+import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.widght.CircleImageView;
@@ -21,17 +22,14 @@ import java.util.List;
  */
 
 public class FeedBackAdapter extends CommonAdapter<LFeedBackBean> {
-    private SimpleDateFormat simpleDateFormat;
 
     public FeedBackAdapter(Context context, int layoutId, List<LFeedBackBean> datas) {
         super(context, layoutId, datas);
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
     }
-
 
     @Override
     public void convert(final com.example.greatbook.base.adapter.ViewHolder holder, final LFeedBackBean lFeedBackBean) {
-        holder.setText(R.id.tv_time, simpleDateFormat.format(lFeedBackBean.getCreatedAt()));
+        holder.setText(R.id.tv_time, DateUtils.getDateEnglish(lFeedBackBean.getCreatedAt()));
         holder.setText(R.id.tv_content, lFeedBackBean.getContent());
         holder.setText(R.id.tv_good_num, lFeedBackBean.getLike() + "");
         AVQuery<User> query = AVQuery.getQuery(User.class);

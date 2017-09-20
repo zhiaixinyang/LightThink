@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
@@ -46,7 +47,7 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
     @BindView(R.id.tv_load_view)
     TextView tvLoadView;
     @BindView(R.id.tv_empty_view)
-    TextView tvEmptyView;
+    RelativeLayout tvEmptyView;
     private FeedBackAdapter adapter;
     private List<LFeedBackBean> data;
     private int currentNum = 0;
@@ -141,6 +142,7 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
 
     @Override
     public void showLoading() {
+        tvLoadView.setVisibility(View.VISIBLE);
     }
 
     @Override

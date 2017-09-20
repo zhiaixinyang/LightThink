@@ -1,16 +1,19 @@
 package com.example.greatbook.local.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.R;
+import com.example.greatbook.base.SimpleTextWatcher;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.databinding.ActivityPrefectEssayBinding;
 import com.example.greatbook.greendao.entity.ContentCommit;
@@ -23,6 +26,7 @@ import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.CommitLogDialog;
+import com.example.greatbook.widght.DefaultNavigationBar;
 
 import java.util.Date;
 import java.util.List;
@@ -40,8 +44,11 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     private long mEssayId;
     private BaseAlertDialog mDialog;
     private String mContent;
+    //用于标记当前提交内容与上一版本的内容是否一致，如果不一致标记为true，被修改
+    private boolean isAltered = false;
     private User mUser;
     private Essay mEssay;
+    private int mCurCommitSize;
 
     public static void startPrefectEssay(Context context, long essayId) {
         Intent start = new Intent(context, PrefectEssayActivity.class);
@@ -52,6 +59,27 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new DefaultNavigationBar.Builder(this, null)
+                .setTitleText("编辑文章")
+                .setLeftResId(R.drawable.btn_back_)
+                .setOnLeftClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        exitPopup();
+                    }
+                })
+                .setRightResId(R.drawable.btn_send)
+                .setOnRightClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mPresenter != null && !StringUtils.isEmpty(mContent)) {
+                            mPresenter.saveEssay(mContent);
+                        }
+                    }
+                })
+                .builder();
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_prefect_essay);
 
         mEssayId = getIntent().getLongExtra(ESSAY_ID, 0);
@@ -70,7 +98,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
             public void onClick(View v) {
                 mDialog = new BaseAlertDialog.Builder(PrefectEssayActivity.this)
                         .setContentView(R.layout.dialog_add_commit_tips)
-                        .setWidthAndHeight(DpUtils.dp2px(250), DpUtils.dp2px(300))
+                        .setWidthAndHeight(DpUtils.dp2px(350), DpUtils.dp2px(350))
                         .create();
                 mDialog.show();
                 final EditText etCommitTips = mDialog.getView(R.id.et_commit_tips);
@@ -108,6 +136,24 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
             }
         });
 
+        //判断内容是否内修改
+        binding.etContent.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String curContent = binding.etContent.getText().toString();
+                String originContent = binding.tvEssayContent.getText().toString();
+                if (curContent.length() == originContent.length()) {
+                    if (StringUtils.isEquals(curContent, originContent)) {
+                        isAltered = false;
+                    } else {
+                        isAltered = true;
+                    }
+                } else {
+                    isAltered = true;
+                }
+            }
+        });
+
         binding.btnCommitLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +162,42 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        exitPopup();
+    }
+
+    private void exitPopup() {
+        if (StringUtils.isEmpty(mContent) && mCurCommitSize == 0) {
+            //此时说明什么都没修改，且文章为空，直接删除此文章
+            if (mEssay != null) {
+                mPresenter.deleteEssay(mEssay);
+                finish();
+            }
+        } else if (!isAltered) {
+            //未做修改，直接退出
+            finish();
+        } else {
+            //弹窗提示
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("确定要退出？")
+                    .setMessage("您此时有未提交的内容，如果退出，将丢失这部分内容。你确定要退出么？")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("不不不", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        }
+    }
 
     @Override
     public void showError(String msg) {
@@ -130,7 +212,9 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
 
     @Override
     public void saveEssaySuc(Essay essay) {
+        mCurCommitSize = essay.getContentCommits().size();
         mEssay = essay;
+
         binding.etContent.setText(essay.content);
         binding.tvUserAccount.setText(essay.belongUserAccount);
         binding.tvEssayContent.setText(essay.content);
@@ -138,7 +222,9 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
 
     @Override
     public void showInitEssay(Essay essay) {
+        mCurCommitSize = essay.getContentCommits().size();
         mEssay = essay;
+
         binding.etContent.setText(essay.content);
         binding.tvUserAccount.setText(essay.belongUserAccount);
         binding.tvEssayContent.setText(essay.content);

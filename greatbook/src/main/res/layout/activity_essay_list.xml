@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:id="@+id/btn_add_essay"
             android:layout_width="match_parent"
-            android:text="添加文章"
-            android:layout_height="wrap_content" />
+            android:layout_height="60dp"
+            android:background="@color/gray">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_add_big"
+
+                android:text="添加文章" />
+        </RelativeLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_essay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </layout>

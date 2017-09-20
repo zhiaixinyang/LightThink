@@ -35,7 +35,7 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
     @Override
     public void syncDataSuc(String suc) {
         ToastUtil.toastShort(suc);
-        Intent toMain = new Intent(this, MainNewActivity.class);
+        Intent toMain = new Intent(this, MainActivity.class);
         startActivity(toMain);
         finish();
     }

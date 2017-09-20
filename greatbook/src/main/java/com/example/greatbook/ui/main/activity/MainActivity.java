@@ -31,7 +31,7 @@ import butterknife.OnClick;
  * Created by MDve on 2017/8/15.
  */
 
-public class MainNewActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.tv_discovery)
     TextView tvDiscovery;
     @BindView(R.id.tv_add)

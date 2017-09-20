@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,14 +16,29 @@
             android:text="提交日志"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
+        <com.example.greatbook.widght.ExpandableTextView
             android:id="@+id/tv_essay_content"
-            android:text="文章内容"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_below="@+id/btn_commit_log"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_commit_log"
+            android:textSize="12sp"
+            app:DrawableAndTextGravity="right"
+            app:collapseDrawable="@drawable/btn_expand_off"
+            app:contentTextColor="@color/colorPrimaryDark"
+            app:expandCollapseTextColor="@color/blue"
+            app:expandDrawable="@drawable/btn_expand_on"
+            app:expandText="更多"
+            app:maxCollapsedLines="4"/>
+        <com.example.greatbook.widght.DottedView
+            android:id="@+id/dottedView"
+            android:layout_width="match_parent"
+            app:dv_line_height="4dp"
+            app:dv_line_width="12dp"
+            app:dv_line_interval="4dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_essay_content"
+            android:layout_margin="@dimen/dialog_add_group_margin" />
+
         <EditText
             android:id="@+id/et_content"
             android:layout_below="@+id/tv_user_account"
@@ -34,7 +50,7 @@
             android:textColor="@color/gray_plus"
             android:textSize="12sp"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/tv_essay_content"
+            android:layout_below="@+id/dottedView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

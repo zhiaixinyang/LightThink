@@ -77,4 +77,9 @@ public class PrefectEssayPresenter implements PrefectEssayContract.Presenter {
             ToastUtil.toastShort("保存内容失败");
         }
     }
+
+    @Override
+    public void deleteEssay(Essay essay) {
+        mEssayDao.delete(essay);
+    }
 }

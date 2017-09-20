@@ -62,4 +62,9 @@
         android:text="日期"
         android:textColor="@color/gray_plus"
         android:textSize="12sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/tv_time"
+        android:background="@color/gray_light"/>
 </RelativeLayout>

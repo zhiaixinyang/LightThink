@@ -219,7 +219,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                                 editor.putInt("count", 1);
                                                 editor.commit();
-                                                Intent intent = new Intent(App.getInstance().getContext(), MainNewActivity.class);
+                                                Intent intent = new Intent(App.getInstance().getContext(), MainActivity.class);
                                                 startActivity(intent);
                                                 finish();
                                                 overridePendingTransition(R.anim.login_in, R.anim.login_out);
