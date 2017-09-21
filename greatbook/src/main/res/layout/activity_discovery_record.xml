@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="remarkVM"
             type="com.example.greatbook.local.viewmodel.DiscoveryRecordRemarkVM" />
@@ -57,15 +59,16 @@
 
 
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/btn_good"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:onClick="@{() -> remarkVM.btnLike()}"
-                android:layout_marginTop="@dimen/item_middle_local_add_margin"
                 android:layout_marginRight="@dimen/item_middle_local_add_margin"
+                android:layout_marginTop="@dimen/item_middle_local_add_margin"
                 android:gravity="center"
+                android:onClick="@{() -> remarkVM.btnLike()}"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -84,14 +87,15 @@
                     android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
+
             <ImageView
                 android:id="@+id/iv_group"
                 android:layout_width="@dimen/item_rlv_discovery_record_iv_group_w_h"
                 android:layout_height="@dimen/item_rlv_discovery_record_iv_group_w_h"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/topPanel"
-                android:layout_marginRight="@dimen/item_middle_local_add_margin"
                 android:layout_marginBottom="@dimen/item_middle_local_add_margin"
+                android:layout_marginRight="@dimen/item_middle_local_add_margin"
                 android:src="@drawable/pictures_no"
                 app:loadImageView="@{remarkVM.photoPath}" />
 
@@ -152,6 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom"
             android:layout_below="@+id/line"
+            android:overScrollMode="never"
             app:recordRemarkData="@{remarkVM.data}" />
 
         <RelativeLayout
@@ -172,9 +177,9 @@
                 android:addTextChangedListener="@{remarkVM.watcher}"
                 android:gravity="center|left"
                 android:hint="评论"
-                android:text="@{remarkVM.etRemarksContent}"
                 android:paddingLeft="@dimen/item_feedback_margin"
                 android:paddingRight="@dimen/item_feedback_margin"
+                android:text="@{remarkVM.etRemarksContent}"
                 android:textSize="18sp" />
 
             <TextView
@@ -192,51 +197,55 @@
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_load_view"
             android:layout_width="match_parent"
-            android:layout_below="@+id/line"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:background="@color/white"
-            android:src="@mipmap/list_load_more"
             android:layout_above="@+id/bottom"
+            android:layout_below="@+id/line"
+            android:background="@color/white"
+            android:gravity="center"
+            android:src="@mipmap/list_load_more"
             android:text="正在加载评论..."
             android:textSize="24sp"
             android:visibility="@{remarkVM.loadingRemarks? View.VISIBLE:View.GONE}" />
+
         <RelativeLayout
-            android:layout_below="@+id/line"
             android:id="@+id/tv_empty_view"
-            android:visibility="@{remarkVM.isRemarksEmpty? View.VISIBLE:View.GONE}"
-            android:background="@color/white"
-            android:layout_above="@+id/bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
+            android:layout_below="@+id/line"
+            android:background="@color/white"
+            android:visibility="@{remarkVM.isRemarksEmpty? View.VISIBLE:View.GONE}">
+
             <ImageView
                 android:id="@+id/iv_empty"
-                android:src="@drawable/icon_data_empty"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_width="80dp"
-                android:layout_height="80dp" />
+                android:src="@drawable/icon_data_empty" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textColor="@color/gray_icon"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/iv_empty"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="当前无评论，快抢沙发"
-                />
+                android:textColor="@color/gray_icon"
+                android:textSize="24sp" />
         </RelativeLayout>
+
         <TextView
             android:layout_width="match_parent"
-            android:text="网络错误"
+            android:layout_height="match_parent"
             android:background="@color/white"
-            android:textSize="30sp"
-            android:visibility="@{remarkVM.isNetErr?View.VISIBLE:View.GONE}"
             android:gravity="center"
-            android:layout_height="match_parent" />
+            android:text="网络错误"
+            android:textSize="30sp"
+            android:visibility="@{remarkVM.isNetErr?View.VISIBLE:View.GONE}" />
     </RelativeLayout>
 </layout>

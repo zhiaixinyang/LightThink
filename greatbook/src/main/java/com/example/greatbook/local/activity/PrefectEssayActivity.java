@@ -19,16 +19,22 @@ import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.databinding.ActivityPrefectEssayBinding;
 import com.example.greatbook.greendao.entity.ContentCommit;
 import com.example.greatbook.greendao.entity.Essay;
+import com.example.greatbook.local.model.event.BackCommitEvent;
 import com.example.greatbook.local.presenter.PrefectEssayPresenter;
 import com.example.greatbook.local.presenter.contract.PrefectEssayContract;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ScreenUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.CommitLogDialog;
 import com.example.greatbook.widght.DefaultNavigationBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
 import java.util.List;
@@ -61,7 +67,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EventBus.getDefault().register(this);
         new DefaultNavigationBar.Builder(this, null)
                 .setTitleText("编辑文章")
                 .setLeftResId(R.drawable.btn_back_)
@@ -91,7 +97,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
             public void onClick(View v) {
                 mDialog = new BaseAlertDialog.Builder(PrefectEssayActivity.this)
                         .setContentView(R.layout.dialog_add_commit_tips)
-                        .setWidthAndHeight(DpUtils.dp2px(350), ScreenUtils.getScreenWidth()-DpUtils.dp2px(50))
+                        .setWidthAndHeight(DpUtils.dp2px(350), ScreenUtils.getScreenWidth() - DpUtils.dp2px(50))
                         .create();
                 mDialog.show();
                 final EditText etCommitTips = mDialog.getView(R.id.et_commit_tips);
@@ -140,6 +146,7 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     private void commit(EditText etCommitTips) {
         if (isAltered) {
             String title = etCommitTips.getText().toString();
+            String originContent = binding.tvEssayContent.getText().toString();
             //提交内容,同时保存到文章中
             mContent = binding.etContent.getText().toString();
             mPresenter.saveEssay(mContent);
@@ -151,11 +158,10 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
             contentCommit.essayId = mEssayId;
             contentCommit.belongUserId = mUser.getObjectId();
             contentCommit.belongUserAccount = mUser.getUsername();
-            contentCommit.commitContent = title;
             contentCommit.commitTips = title;
-            contentCommit.commitContent = mContent;
             contentCommit.time = new Date();
-            contentCommit.originContent = mEssay.content;
+            contentCommit.originContent = originContent;
+            contentCommit.commitContent = mContent;
 
             mPresenter.insertContentCommit(contentCommit);
         } else {
@@ -178,13 +184,13 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
         } else if (!isAltered) {
             //未做修改，直接退出
             finish();
-        } else {
+        } else if (isAltered) {
             if (ScreenUtils.isSoftShowing(this)) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
             }
             //弹窗提示
-            AlertDialog dialog = new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this)
                     .setTitle("确定要退出？")
                     .setMessage("您此时有未提交的内容，如果退出，将丢失这部分内容。你确定要退出么？")
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -211,8 +217,16 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void insertContentCommitSuc() {
         ToastUtil.toastShort("当前内容已提交");
+        //置为未修改状态
+        isAltered = false;
         mDialog.dismiss();
     }
 
@@ -247,4 +261,23 @@ public class PrefectEssayActivity extends AppCompatActivity implements PrefectEs
     public void showCommitLogEmpty() {
         ToastUtil.toastShort("当前暂无提交数据");
     }
+
+    @Override
+    public void backCommits(Essay essay) {
+        isAltered = false;
+        binding.etContent.setText(essay.content);
+        binding.tvEssayContent.setText(essay.content);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BackCommitEvent event) {
+        switch (event.event) {
+            case BackCommitEvent.BACK_COMMIT_EVENT:
+                mPresenter.backCommits(event.eventContent);
+                break;
+            default:
+                break;
+        }
+    }
+
 }

@@ -34,11 +34,11 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
     private static final String TAG = "SetGroupsActivity";
     @BindView(R.id.rlv_set_groups)
     RecyclerView rlvSetGroups;
-    private SetGroupsAdapter adapter;
-    private List<LocalGroup> data;
+    private SetGroupsAdapter mAdapter;
+    private List<LocalGroup> mData;
 
-    public static final String IS_ALL_GROUPS_SHOW_TAG="is_all_groups_show_tag";
-    public static final String IS_ALL_GROUPS_SHOW="我的文集";
+    public static final String IS_ALL_GROUPS_SHOW_TAG = "is_all_groups_show_tag";
+    public static final String IS_ALL_GROUPS_SHOW = "我的文集";
 
     @Override
     public int getLayoutId() {
@@ -47,9 +47,9 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
 
     @Override
     public void init() {
-        String title=getIntent().getStringExtra(IS_ALL_GROUPS_SHOW_TAG);
-        if (StringUtils.isEmpty(title)){
-            title="文集设置";
+        String title = getIntent().getStringExtra(IS_ALL_GROUPS_SHOW_TAG);
+        if (StringUtils.isEmpty(title)) {
+            title = "文集设置";
         }
         new DefaultNavigationBar.Builder(this, null)
                 .setTitleText(title)
@@ -65,33 +65,33 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
                 .setLeftResId(R.drawable.btn_back_)
                 .builder();
         presenter = new SetGroupsPresenter(this);
-        data = new ArrayList<>();
-        adapter = new SetGroupsAdapter(this, R.layout.item_set_groups, data);
-        adapter.setOnSwipeListener(new OnSwipeListener() {
+        mData = new ArrayList<>();
+        mAdapter = new SetGroupsAdapter(this, R.layout.item_set_groups, mData);
+        mAdapter.setOnSwipeListener(new OnSwipeListener() {
             @Override
             public void onDelete(int pos) {
-                presenter.deleteLocalGroup(data.get(pos));
+                presenter.deleteLocalGroup(mData.get(pos));
                 //通知页面变化
-                data.remove(data.get(pos));
-                adapter.addData(data);
+                mData.remove(mData.get(pos));
+                mAdapter.addData(mData);
             }
 
             @Override
             public void onTop(int pos) {
                 //在returnSetUserdGroups回调中处理即可
-                presenter.setUserdGroups(data, pos);
+                presenter.setUserdGroups(mData, pos);
             }
 
             @Override
             public void onAlter(final int pos) {
                 Intent toDetail = new Intent(SetGroupsActivity.this, AddLocalGroupActivity.class);
-                toDetail.putExtra(AddLocalGroupActivity.IS_ALTER,data.get(pos));
-                toDetail.putExtra(AddLocalGroupActivity.IS_SHOW_ONE_GROUP_TAG,AddLocalGroupActivity.IS_SHOW_ONE_GROUP);
+                toDetail.putExtra(AddLocalGroupActivity.IS_ALTER, mData.get(pos));
+                toDetail.putExtra(AddLocalGroupActivity.IS_SHOW_ONE_GROUP_TAG, mData.get(pos).title);
                 startActivity(toDetail);
             }
         });
         rlvSetGroups.setLayoutManager(new LinearLayoutManager(this));
-        rlvSetGroups.setAdapter(adapter);
+        rlvSetGroups.setAdapter(mAdapter);
         presenter.initLocalGroup();
     }
 
@@ -108,7 +108,7 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
     @Override
     public void updateGroupMesReturn(String returnStr) {
         dialog.dismiss();
-        adapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
         ToastUtil.toastShort(returnStr);
     }
 
@@ -119,13 +119,13 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
 
     @Override
     public void initLocalGroup(List<LocalGroup> groups) {
-        data = groups;
-        adapter.addData(data);
+        mData = groups;
+        mAdapter.addData(mData);
     }
 
     @Override
     public void returnSetUserdGroups(List<LocalGroup> groups) {
-        adapter.addData(groups);
+        mAdapter.addData(groups);
     }
 
     @Override

@@ -82,4 +82,13 @@ public class PrefectEssayPresenter implements PrefectEssayContract.Presenter {
     public void deleteEssay(Essay essay) {
         mEssayDao.delete(essay);
     }
+
+    @Override
+    public void backCommits(String contentCommit) {
+        if (mEssay != null && mEssayDao != null) {
+            mEssay.content = contentCommit;
+            mEssayDao.update(mEssay);
+            mView.backCommits(mEssay);
+        }
+    }
 }

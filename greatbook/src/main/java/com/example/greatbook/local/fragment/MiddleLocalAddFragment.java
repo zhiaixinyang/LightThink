@@ -21,7 +21,6 @@ import com.example.greatbook.constants.Constants;
 import com.example.greatbook.local.activity.AllLocalRecordActivity;
 import com.example.greatbook.local.activity.EssayListActivity;
 import com.example.greatbook.local.activity.MyPlanActivity;
-import com.example.greatbook.local.activity.PrefectEssayActivity;
 import com.example.greatbook.local.activity.SetGroupsActivity;
 import com.example.greatbook.local.adapter.MainMenuAdapter;
 import com.example.greatbook.local.model.LocalRecordRLV;
@@ -39,6 +38,8 @@ import com.example.greatbook.widght.RoundImageView;
 import com.example.greatbook.widght.refresh.DefaultRefreshCreator;
 import com.example.greatbook.widght.refresh.LoadRefreshRecyclerView;
 import com.example.greatbook.widght.refresh.RefreshRecyclerView;
+import com.example.greatbook.widght.rlvanim.SlideInLeftAnimator;
+import com.example.greatbook.widght.rlvanim.adapter.SlideInLeftAnimationAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -63,7 +64,7 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     TextView loadingView;
     @BindView(R.id.rlv_main_menu)
     RecyclerView rlvMainMenu;
-    private CommonAdapter<LocalRecordRLV> adapter;
+    private CommonAdapter<LocalRecordRLV> mAdapter;
     private MainMenuAdapter menuAdapter;
     private List<MainMenuItemBean> menuData;
     private Context context;
@@ -125,10 +126,9 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
             }
         });
 
-
         presenter.initLocalRecord();
 
-        adapter = new CommonAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
+        mAdapter = new CommonAdapter<LocalRecordRLV>(context, R.layout.item_middle_local_add, data) {
             @Override
             public void convert(ViewHolder holder, LocalRecordRLV localRecord) {
                 String content = localRecord.content;
@@ -152,11 +152,12 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
             }
         };
         rlvLocal.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        rlvLocal.setItemAnimator(new SlideInLeftAnimator());
         rlvLocal.addRefreshViewCreator(new DefaultRefreshCreator());
         rlvLocal.addLoadingView(loadingView);
         rlvLocal.addEmptyView(emptyView);
         rlvLocal.setOnRefreshListener(this);
-        rlvLocal.setAdapter(adapter);
+        rlvLocal.setAdapter(mAdapter);
     }
 
     @Override
@@ -189,13 +190,13 @@ public class MiddleLocalAddFragment extends BaseLazyFragment<MiddleLocalAddPrese
     public void initLocalRecordError(String error) {
         ToastUtil.toastShort(error);
         data = new ArrayList<>();
-        adapter.addData(data);
+        mAdapter.addData(data);
     }
 
     @Override
     public void initLocalRecordSuc(List<LocalRecordRLV> records) {
         data = records;
-        adapter.addData(data);
+        mAdapter.addData(data);
         if (rlvLocal != null) {
             rlvLocal.onStopRefresh();
         }

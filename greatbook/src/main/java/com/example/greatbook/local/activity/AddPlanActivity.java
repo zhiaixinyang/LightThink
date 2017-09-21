@@ -23,6 +23,7 @@ import com.example.greatbook.presenter.contract.AddPlanContract;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
+import com.example.greatbook.widght.rlvanim.adapter.SlideInLeftAnimationAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,9 +37,9 @@ import java.util.List;
 
 public class AddPlanActivity extends AppCompatActivity implements AddPlanContract.View {
     private ActivityAddPlanBinding binding;
-    private AddPlanPresenter planPresenter;
-    private PlanTemplateAdapter adapter;
-    private MyPlanTemplate curPlanTemplate;
+    private AddPlanPresenter mPlanPresenter;
+    private PlanTemplateAdapter mAdapter;
+    private MyPlanTemplate mCurPlanTemplate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,25 +62,24 @@ public class AddPlanActivity extends AppCompatActivity implements AddPlanContrac
                 })
                 .builder();
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_plan);
-        planPresenter = new AddPlanPresenter();
-        planPresenter.attachView(this);
-        planPresenter.initTemplate();
+        mPlanPresenter = new AddPlanPresenter();
+        mPlanPresenter.attachView(this);
+        mPlanPresenter.initTemplate();
     }
-
+    SlideInLeftAnimationAdapter adapter;
     @Override
     public void showTemplates(List<MyPlanTemplate> data) {
         initTitle(data);
 
-        adapter = new PlanTemplateAdapter(this, data);
-        adapter.setOnItemClickListener(new OnItemClickListener<MyPlanTemplate>() {
+        mAdapter = new PlanTemplateAdapter(this, data);
+        mAdapter.setOnItemClickListener(new OnItemClickListener<MyPlanTemplate>() {
             @Override
             public void onItemClick(View view, MyPlanTemplate myPlanTemplate, int position) {
                 if (myPlanTemplate == null) {
                     //此时说明Add图标被点击
-                    Intent toAddTemplate = new Intent(AddPlanActivity.this, AddTemplatePlanActivity.class);
-                    startActivity(toAddTemplate);
+                    AddTemplatePlanActivity.startAddTemplate(AddPlanActivity.this);
                 } else {
-                    curPlanTemplate = myPlanTemplate;
+                    mCurPlanTemplate = myPlanTemplate;
                     String[] titles = myPlanTemplate.content.split("\n");
                     MyPlanTemplateVM vm = new MyPlanTemplateVM();
                     vm.title1.set(titles[0]);
@@ -94,21 +94,25 @@ public class AddPlanActivity extends AppCompatActivity implements AddPlanContrac
                 }
             }
         });
+        adapter=new SlideInLeftAnimationAdapter(mAdapter);
+        adapter.setDuration(500);
+
+
         binding.rlvTemplate.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rlvTemplate.setAdapter(adapter);
     }
 
     private void initTitle(List<MyPlanTemplate> data) {
-        curPlanTemplate = data.get(0);
-        String[] titles = curPlanTemplate.content.split("\n");
+        mCurPlanTemplate = data.get(0);
+        String[] titles = mCurPlanTemplate.content.split("\n");
         MyPlanTemplateVM vm = new MyPlanTemplateVM();
         vm.title1.set(titles[0]);
         vm.title2.set(titles[1].substring(6, titles[1].length()));
         vm.title3.set(titles[2].substring(0, titles[2].length() - 6));
-        vm.bgColor.set(curPlanTemplate.bgColor);
-        vm.detailColor.set(curPlanTemplate.detailColor);
+        vm.bgColor.set(mCurPlanTemplate.bgColor);
+        vm.detailColor.set(mCurPlanTemplate.detailColor);
         vm.textColor.set(Color.BLACK);
-        vm.textSize.set(curPlanTemplate.textSize);
+        vm.textSize.set(mCurPlanTemplate.textSize);
 
         binding.setPlanTemplateVm(vm);
     }
@@ -142,12 +146,12 @@ public class AddPlanActivity extends AppCompatActivity implements AddPlanContrac
                     + tvTime + binding.tvTitle2.getText() + "\n"
                     + binding.tvTitle3.getText() + tvPlan;
             myPlan.content = content;
-            myPlan.bgColor = curPlanTemplate.bgColor;
-            myPlan.textColor = curPlanTemplate.textColor;
-            myPlan.textSize = curPlanTemplate.textSize;
-            myPlan.detailColor = curPlanTemplate.detailColor;
+            myPlan.bgColor = mCurPlanTemplate.bgColor;
+            myPlan.textColor = mCurPlanTemplate.textColor;
+            myPlan.textSize = mCurPlanTemplate.textSize;
+            myPlan.detailColor = mCurPlanTemplate.detailColor;
 
-            planPresenter.insertPlan(myPlan);
+            mPlanPresenter.insertPlan(myPlan);
 
         } else {
             ToastUtil.toastShort("请完整的填写目标信息");
@@ -158,7 +162,7 @@ public class AddPlanActivity extends AppCompatActivity implements AddPlanContrac
     public void onEvent(AddTemplateEvent event){
         switch (event.event){
             case AddTemplateEvent.ADD_TEMPLATE_PLAN_EVENT:
-                planPresenter.initTemplate();
+                mPlanPresenter.initTemplate();
                 break;
             default:
                 break;

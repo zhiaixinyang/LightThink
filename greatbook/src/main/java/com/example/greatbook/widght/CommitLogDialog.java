@@ -22,9 +22,13 @@ import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.greendao.entity.ContentCommit;
 import com.example.greatbook.local.activity.PrefectEssayActivity;
+import com.example.greatbook.local.model.event.BackCommitEvent;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ScreenUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +75,10 @@ public class CommitLogDialog extends BottomSheetDialog {
         };
         mAdapter.setOnItemClickListener(new OnItemClickListener<ContentCommit>() {
             @Override
-            public void onItemClick(View view, ContentCommit contentCommit, int position) {
+            public void onItemClick(View view, final ContentCommit contentCommit, int position) {
                 mDialog = new BaseAlertDialog.Builder(getContext())
                         .setContentView(R.layout.dialog_show_single_commit_log)
-                        .setWidthAndHeight(DpUtils.dp2px(350), ScreenUtils.getScreenWidth()-DpUtils.dp2px(50))
+                        .setWidthAndHeight(DpUtils.dp2px(350), ScreenUtils.getScreenWidth() - DpUtils.dp2px(50))
                         .create();
                 mDialog.show();
                 TextView tvCommitTips = mDialog.getView(R.id.tv_commit_tips);
@@ -90,9 +94,9 @@ public class CommitLogDialog extends BottomSheetDialog {
                         contentCommit.commitTips));
                 tvCommitTime.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_time),
                         DateUtils.getDateChinese(contentCommit.time)));
-                tvCommitCurContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_cur_content),
+                tvCommitCurContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_origin_content),
                         contentCommit.originContent));
-                tvCommitOriginContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_origin_content),
+                tvCommitOriginContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_cur_content),
                         contentCommit.commitContent));
 
                 mDialog.setOnClickListener(R.id.btn_finish, new View.OnClickListener() {
@@ -105,7 +109,12 @@ public class CommitLogDialog extends BottomSheetDialog {
                 mDialog.setOnClickListener(R.id.btn_back_version, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        BackCommitEvent event = new BackCommitEvent();
+                        event.event = BackCommitEvent.BACK_COMMIT_EVENT;
+                        event.eventContent = contentCommit.originContent;
+                        EventBus.getDefault().post(event);
+                        mDialog.dismiss();
+                        dismiss();
                     }
                 });
 

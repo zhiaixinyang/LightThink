@@ -1,5 +1,7 @@
 package com.example.greatbook.local.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,6 +32,12 @@ public class AddTemplatePlanActivity extends AppCompatActivity implements AddTem
     private AddMyPlanTemplateVM vm;
     private int curSelect = 0;
     private AddTemplatePlanPresenter planPresenter;
+
+
+    public static void startAddTemplate(Context context){
+        Intent toAddTemplate =new Intent(context,AddTemplatePlanActivity.class);
+        context.startActivity(toAddTemplate);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -101,13 +101,5 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         notifyDataSetChanged();
     }
 
-    /**
-     * 为ImageView设置图片
-     *
-     * @param viewId
-     * @return
-     */
-
-
 }
 

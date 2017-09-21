@@ -27,7 +27,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_group_name"
-        android:layout_margin="@dimen/activity_add_group_margin" />
+        android:layout_margin="@dimen/activity_add_group_margin"
+        app:dv_line_height="4dp"
+        app:dv_line_interval="4dp"
+        app:dv_line_width="12dp" />
 
     <EditText
         android:id="@+id/et_group_content"
@@ -44,12 +47,17 @@
         android:padding="4dp"
         android:textColorHint="@color/gray"
         android:textSize="16sp" />
+
     <com.example.greatbook.widght.DottedView
         android:id="@+id/dottedView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_group_content"
-        android:layout_margin="@dimen/activity_add_group_margin" />
+        android:layout_margin="@dimen/activity_add_group_margin"
+        app:dv_line_height="4dp"
+        app:dv_line_interval="4dp"
+        app:dv_line_width="12dp" />
+
     <RelativeLayout
         android:id="@+id/btn_photo"
         android:layout_width="wrap_content"
@@ -57,29 +65,31 @@
         android:layout_below="@+id/dottedView1"
         android:layout_centerHorizontal="true"
         android:padding="8dp">
+
         <ImageView
             android:id="@+id/iv_select"
             android:layout_width="@dimen/activity_add_group_iv_w_h"
             android:layout_height="@dimen/activity_add_group_iv_w_h"
             android:layout_centerHorizontal="true"
             android:src="@drawable/btn_photo" />
+
         <ImageView
             android:id="@+id/btn_off_photo"
             android:layout_width="20dp"
-            android:visibility="gone"
-            android:src="@drawable/btn_off_photo"
+            android:layout_height="20dp"
             android:layout_alignRight="@+id/iv_select"
             android:layout_margin="4dp"
-            android:layout_height="20dp" />
+            android:src="@drawable/btn_off_photo"
+            android:visibility="gone" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_select"
             android:text="给文集设置一个图片"
             android:textColor="@color/gray_icon"
-            android:layout_below="@+id/iv_select"
-            android:textSize="16sp"
-            android:id="@+id/textView" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -51,11 +51,9 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
     ImageView ivSelect;
     @BindView(R.id.btn_off_photo)
     ImageView btnOffPhoto;
-    private Bitmap bmp;
     private String imagePath;
 
     public static final String IS_SHOW_ONE_GROUP_TAG="is_show_one_group_tag";
-    public static final String IS_SHOW_ONE_GROUP="is_show_one_group";
 
     public static final String IS_ALTER="is_alter";
 
@@ -94,7 +92,7 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
         if (StringUtils.isEmpty(title)){
             title="添加文集";
         }
-        LocalGroup localGroup=getIntent().getParcelableExtra(IS_ALTER);
+        LocalGroup localGroup= (LocalGroup) getIntent().getSerializableExtra(IS_ALTER);
         if (localGroup!=null){
             showAlter(localGroup);
         }

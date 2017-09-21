@@ -46,7 +46,7 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
 
     private static final String TAG = "AddLocalRecordActivity";
     @BindView(R.id.flowLayout)
-    FlowLayout flowLayout;
+    FlowLayout mFlowLayout;
     @BindView(R.id.et_title)
     EditText etTitle;
     @BindView(R.id.et_content)
@@ -160,15 +160,15 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
             names.add(localGroup.getTitle());
             localMap.put(localGroup.getTitle(), localGroup);
         }
-        flowLayout.setList(names);
-        flowLayout.setOnItemClickListener(new FlowLayout.onItemClickListener() {
+        mFlowLayout.setList(names);
+        mFlowLayout.setOnItemClickListener(new FlowLayout.onItemClickListener() {
             @Override
             public void onItemClick(int position, String text) {
                 seletLocalGroup = localMap.get(text);
             }
         });
         //默认选择情况
-        flowLayout.setIndexItemSelected(0);
+        mFlowLayout.setIndexItemSelected(0);
         seletLocalGroup = localMap.get(groups.get(0).getTitle());
     }
 

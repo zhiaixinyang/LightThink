@@ -40,7 +40,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
     @BindView(R.id.tv_empty_view)
     RelativeLayout tvEmptyView;
     private List<LocalRecordRLV> data;
-    private AllCommonAdapter adapter;
+    private AllCommonAdapter mAdapter;
 
     @Override
     public int getLayoutId() {
@@ -65,8 +65,8 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
                 .setLeftResId(R.drawable.btn_back_)
                 .builder();
         data = new ArrayList<>();
-        adapter = new AllCommonAdapter(this, R.layout.item_set_all_local_record, data);
-        adapter.setOnSwipeListener(new OnSwipeListener() {
+        mAdapter = new AllCommonAdapter(this, R.layout.item_set_all_local_record, data);
+        mAdapter.setOnSwipeListener(new OnSwipeListener() {
             @Override
             public void onDelete(int pos) {
                 presenter.deleteLocalRecord(data.get(pos));
@@ -109,7 +109,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
             }
         });
         rlvSetAllLocalRecord.setLayoutManager(new LinearLayoutManager(this));
-        rlvSetAllLocalRecord.setAdapter(adapter);
+        rlvSetAllLocalRecord.setAdapter(mAdapter);
 
         presenter.initLocalRecords();
     }
@@ -129,7 +129,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
             tvEmptyView.setVisibility(View.VISIBLE);
         }else {
             tvEmptyView.setVisibility(View.GONE);
-            adapter.addData(records);
+            mAdapter.addData(records);
         }
     }
 
@@ -142,7 +142,7 @@ public class AllLocalRecordActivity extends BaseActivity<AllLocalRecordPresenter
     public void updateLocalRecordReturn(String returnStr) {
         ToastUtil.toastShort(returnStr);
         dialog.dismiss();
-        adapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.example.greatbook.base.BaseView;
 import com.example.greatbook.greendao.entity.ContentCommit;
 import com.example.greatbook.greendao.entity.Essay;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ public interface PrefectEssayContract {
         void saveEssay(String content);
 
         void deleteEssay(Essay essay);
+
+        void backCommits(String contentCommit);
     }
 
     interface View extends BaseView {
@@ -32,6 +35,9 @@ public interface PrefectEssayContract {
         void showInitEssay(Essay essay);
 
         void showCommitLog(List<ContentCommit> data);
+
         void showCommitLogEmpty();
+
+        void backCommits(Essay essay);
     }
 }
