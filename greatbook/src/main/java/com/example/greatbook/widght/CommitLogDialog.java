@@ -27,6 +27,7 @@ import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ScreenUtils;
+import com.example.greatbook.widght.rlvanim.SlideInLeftAnimator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -94,9 +95,9 @@ public class CommitLogDialog extends BottomSheetDialog {
                         contentCommit.commitTips));
                 tvCommitTime.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_time),
                         DateUtils.getDateChinese(contentCommit.time)));
-                tvCommitCurContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_origin_content),
+                tvCommitOriginContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_origin_content),
                         contentCommit.originContent));
-                tvCommitOriginContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_cur_content),
+                tvCommitCurContent.setText(String.format(resources.getString(R.string.dialog_show_single_commit_log_cur_content),
                         contentCommit.commitContent));
 
                 mDialog.setOnClickListener(R.id.btn_finish, new View.OnClickListener() {

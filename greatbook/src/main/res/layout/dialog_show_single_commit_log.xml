@@ -23,7 +23,7 @@
         <com.example.greatbook.widght.ExpandableTextView
             android:id="@+id/tv_commit_origin_content"
             android:text="@string/dialog_show_single_commit_log_origin_content"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:layout_marginTop="@dimen/dialog_show_single_commit_log_margin"
             android:layout_marginLeft="@dimen/dialog_show_single_commit_log_margin"
             android:textSize="12sp"
