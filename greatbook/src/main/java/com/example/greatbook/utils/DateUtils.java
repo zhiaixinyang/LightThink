@@ -68,18 +68,6 @@ public class DateUtils {
         return formatHM.format(time);
     }
 
-    public static String getRecorderDate(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date date = new Date(time);
-        return format.format(date);
-    }
-
-
-    public static String getPersonalExpenseDetailDate(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-        Date date = new Date(time);
-        return format.format(date);
-    }
 
     public static String getPointDate(long time) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
@@ -165,15 +153,15 @@ public class DateUtils {
     }
 
 
-    public static String getyyyyMMdd(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+    public static String getyyyyMMddEnglish(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         time *= 1000;
         Date date = new Date(time);
         return format.format(date);
     }
 
-    public static String getyyyyMMdd1(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+    public static String getyyyyMMddChinese(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         time *= 1000;
         Date date = new Date(time);
         String data = format.format(date);

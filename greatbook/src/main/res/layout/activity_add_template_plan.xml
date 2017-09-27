@@ -81,6 +81,7 @@
             android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
+            android:background="@color/trans_gray"
             android:gravity="center"
             android:layout_height="wrap_content">
 
@@ -109,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/panel_edit_1"
+            android:background="@color/trans_gray"
             android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
             android:layout_marginTop="@dimen/activity_add_template_plan_margin_1"
             android:gravity="center"
@@ -146,6 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/panel_title_2"
+            android:background="@color/trans_gray"
             android:gravity="center"
             android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
             android:layout_marginTop="@dimen/activity_add_template_plan_margin_1"
