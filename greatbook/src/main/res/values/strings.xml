@@ -8,4 +8,7 @@
     <string name="dialog_show_single_commit_log_author">提交者：%s</string>
     <string name="item_essay_list_last_commit">最后一次提交，提交者账号:%1$s\n提交信息:%2$s\n提交时间:%3$s</string>
     <string formatted="false" name="tts_toast_format">缓冲进度为%d%%，播放进度为%d%%</string>
+    <string name="chat_self_add_suc">发送成功</string>
+    <string name="chat_self_show_empty">无日记内容</string>
+    <string name="chat_self_send_empty">发送内容不能为空</string>
 </resources>

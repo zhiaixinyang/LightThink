@@ -23,20 +23,22 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void createAllTables(Database db, boolean ifNotExists) {
         LocalGroupDao.createTable(db, ifNotExists);
         LocalRecordDao.createTable(db, ifNotExists);
-        MyPlanTemplateDao.createTable(db, ifNotExists);
         MyPlanDao.createTable(db, ifNotExists);
+        MyPlanTemplateDao.createTable(db, ifNotExists);
         EssayDao.createTable(db, ifNotExists);
         ContentCommitDao.createTable(db, ifNotExists);
+        DiarySelfDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         LocalGroupDao.dropTable(db, ifExists);
         LocalRecordDao.dropTable(db, ifExists);
-        MyPlanTemplateDao.dropTable(db, ifExists);
         MyPlanDao.dropTable(db, ifExists);
+        MyPlanTemplateDao.dropTable(db, ifExists);
         EssayDao.dropTable(db, ifExists);
         ContentCommitDao.dropTable(db, ifExists);
+        DiarySelfDao.dropTable(db, ifExists);
     }
 
     /**
@@ -57,10 +59,11 @@ public class DaoMaster extends AbstractDaoMaster {
         super(db, SCHEMA_VERSION);
         registerDaoClass(LocalGroupDao.class);
         registerDaoClass(LocalRecordDao.class);
-        registerDaoClass(MyPlanTemplateDao.class);
         registerDaoClass(MyPlanDao.class);
+        registerDaoClass(MyPlanTemplateDao.class);
         registerDaoClass(EssayDao.class);
         registerDaoClass(ContentCommitDao.class);
+        registerDaoClass(DiarySelfDao.class);
     }
 
     public DaoSession newSession() {

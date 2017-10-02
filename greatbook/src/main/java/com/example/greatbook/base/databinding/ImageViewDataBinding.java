@@ -1,4 +1,4 @@
-package com.example.greatbook.local.databinding;
+package com.example.greatbook.base.databinding;
 
 import android.databinding.BindingAdapter;
 import android.widget.ImageView;

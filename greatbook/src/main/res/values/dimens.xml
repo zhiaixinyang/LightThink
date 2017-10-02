@@ -131,4 +131,6 @@
     <dimen name="item_show_commit_log_margin">8dp</dimen>
     <dimen name="dialog_show_single_commit_log_margin">15dp</dimen>
     <dimen name="item_diary_all_day_content">10dp</dimen>
+    <dimen name="item_diary_avatar_w_h">45dp</dimen>
+    <dimen name="item_diary_margin">10dp</dimen>
 </resources>
