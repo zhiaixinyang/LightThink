@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.adapter;
+package com.example.greatbook.main.adapter;
 
 import android.content.Context;
 import android.widget.ImageView;

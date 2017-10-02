@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.activity;
+package com.example.greatbook.main.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -17,9 +17,9 @@ import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.local.activity.AddLocalRecordActivity;
+import com.example.greatbook.local.fragment.MiddleMainFragment;
 import com.example.greatbook.nethot.fragment.DiscoveryFragment;
-import com.example.greatbook.local.fragment.MiddleLocalAddFragment;
-import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
+import com.example.greatbook.main.fragment.MyPrivateFragment;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
 import com.example.greatbook.widght.DefaultNavigationBar;
@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
     ImageView btnAdd;
     @BindView(R.id.menu_my)
     ImageView menuMy;
-    private MiddleLocalAddFragment localAddFragment;
+    private MiddleMainFragment localAddFragment;
     private DiscoveryFragment discoveryFragment;
     private MyPrivateFragment myPrivateFragment;
 
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
                 .builder();
 
         initActivity();
-        localAddFragment = new MiddleLocalAddFragment();
+        localAddFragment = new MiddleMainFragment();
         discoveryFragment = new DiscoveryFragment();
         myPrivateFragment = new MyPrivateFragment();
         viewPager.setOffscreenPageLimit(2);

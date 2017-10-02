@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.activity;
+package com.example.greatbook.main.activity;
 
 /**
  * Created by MDove on 2017/8/14.

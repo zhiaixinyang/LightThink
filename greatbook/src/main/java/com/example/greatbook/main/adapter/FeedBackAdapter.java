@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.adapter;
+package com.example.greatbook.main.adapter;
 
 import android.content.Context;
 
@@ -8,13 +8,12 @@ import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.model.leancloud.User;
-import com.example.greatbook.ui.model.LFeedBackBean;
+import com.example.greatbook.main.model.LFeedBackBean;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.widght.CircleImageView;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**

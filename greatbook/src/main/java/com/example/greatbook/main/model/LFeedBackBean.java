@@ -1,10 +1,10 @@
-package com.example.greatbook.ui.model;
+package com.example.greatbook.main.model;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
 /**
- * Created by quanzizhangben on 2017/8/10.
+ * Created by MDove on 2017/8/10.
  */
 @AVClassName("LFeedBackBean")
 public class LFeedBackBean extends AVObject {

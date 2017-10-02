@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.activity;
+package com.example.greatbook.main.activity;
 
 import android.Manifest;
 import android.content.Intent;

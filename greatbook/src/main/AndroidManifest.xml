@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/TestDayNight">
         <activity
-            android:name=".ui.main.activity.MainActivity"
+            android:name=".main.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -31,7 +31,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.FeedBackActivity"
+            android:name=".main.activity.FeedBackActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -46,11 +46,11 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.main.activity.LoginActivity"
+            android:name=".main.activity.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.RegisterActivity"
+            android:name=".main.activity.RegisterActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -58,7 +58,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.activity.SendTalkAboutActivity"
+            android:name=".main.activity.SendTalkAboutActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -75,7 +75,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.main.activity.MyPrivateAdjustActivity"
+            android:name=".main.activity.MyPrivateAdjustActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -93,7 +93,7 @@
             android:value="GlideModule" />
 
         <activity
-            android:name=".ui.main.activity.InitSyncActivity"
+            android:name=".main.activity.InitSyncActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity

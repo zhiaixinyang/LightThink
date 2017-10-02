@@ -2,50 +2,51 @@ package com.example.greatbook.local.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
-import com.example.greatbook.base.LazyFragment;
-import com.example.greatbook.local.activity.AddLocalRecordActivity;
-import com.example.greatbook.nethot.fragment.DiscoveryFragment;
-import com.example.greatbook.ui.main.fragment.MyPrivateFragment;
-import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
+import com.example.greatbook.base.adapter.OnItemClickListener;
+import com.example.greatbook.databinding.FragMiddleMainBinding;
+import com.example.greatbook.diary.DiarySelfFragment;
+import com.example.greatbook.local.activity.AllLocalRecordActivity;
+import com.example.greatbook.local.activity.EssayListActivity;
+import com.example.greatbook.local.activity.MyPlanActivity;
+import com.example.greatbook.local.activity.SetGroupsActivity;
+import com.example.greatbook.local.adapter.MainMenuAdapter;
+import com.example.greatbook.local.model.MainMenuItemBean;
+import com.example.greatbook.local.presenter.MiddleLocalAddPresenter;
+import com.example.greatbook.local.presenter.contract.MiddleLocalAddContract;
+import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.refresh.RefreshRecyclerView;
 
-import butterknife.BindView;
-import butterknife.OnClick;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 /**
  * Created by MDove on 2017/8/11.
  */
 
-public class MiddleMainFragment extends LazyFragment {
-    @BindView(R.id.tv_discovery)
-    TextView tvDiscovery;
-    @BindView(R.id.tv_add)
-    TextView tvAdd;
-    @BindView(R.id.tv_talk_about)
-    TextView tvTalkAbout;
-    @BindView(R.id.content)
-    ViewPager viewPager;
-    @BindView(R.id.menu_discovery)
-    ImageView menuDiscovery;
-    @BindView(R.id.menu_add)
-    ImageView menuAdd;
-    @BindView(R.id.btn_add)
-    ImageView btnAdd;
-    @BindView(R.id.menu_my)
-    ImageView menuTalk;
-    private Context context;
+public class MiddleMainFragment extends Fragment implements MiddleLocalAddContract.View,
+        RefreshRecyclerView.OnRefreshListener {
+    private MainMenuAdapter menuAdapter;
+    private List<MainMenuItemBean> menuData;
+    private DiarySelfFragment mDiarySelfFragment;
+    private FragMiddleMainBinding mBinding;
+    private MiddleLocalAddPresenter mPresenter;
+
+    public static final int MY_ALL_CONTENT = 1;
+    public static final int MY_ALL_GROUP = 2;
+    public static final int MY_COOPATER_TOPIC = 3;
+    public static final int MY_PLAN = 4;
 
     public static MiddleMainFragment newInstance() {
         Bundle args = new Bundle();
@@ -55,136 +56,83 @@ public class MiddleMainFragment extends LazyFragment {
         return fragment;
     }
 
-    private MiddleLocalAddFragment localAddFragment;
-    private DiscoveryFragment discoveryFragment;
-    private MyPrivateFragment myPrivateFragment;
-
+    @Nullable
     @Override
-    protected void onVisible() {
-        viewPager.setCurrentItem(1);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mBinding= DataBindingUtil.inflate(LayoutInflater.from(getContext()),
+                R.layout.frag_middle_main,container,false);
+
+        initEvents();
+        return mBinding.getRoot();
     }
 
-    @Override
-    protected int getContentViewLayoutID() {
-        return R.layout.frag_middle_main;
-    }
+    protected void initEvents() {
+        mDiarySelfFragment=DiarySelfFragment.newInstance();
 
-    @Override
-    protected void initViewsAndEvents(View view) {
-        context = App.getInstance().getContext();
-        localAddFragment = MiddleLocalAddFragment.newInstance();
-        discoveryFragment = DiscoveryFragment.newInstance();
-        myPrivateFragment = MyPrivateFragment.newInstance();
-        viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                if (position == 0) {
-                    return discoveryFragment;
-                } else if (position == 1) {
-                    return localAddFragment;
-                }
-                return myPrivateFragment;
-            }
+        mPresenter = new MiddleLocalAddPresenter();
+        mPresenter.attachView(this);
+        mPresenter.initMenu(getContext());
+        menuAdapter = new MainMenuAdapter(getContext(), menuData);
+        mBinding.rlvMainMenu.setLayoutManager(new GridLayoutManager(getContext(), 5));
+        mBinding.rlvMainMenu.setAdapter(menuAdapter);
 
+        menuAdapter.setListener(new OnItemClickListener() {
             @Override
-            public int getCount() {
-                return 3;
-            }
-        });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        selectTab1();
+            public void onItemClick(View view, Object o, int position) {
+                MainMenuItemBean menuItemBean = (MainMenuItemBean) o;
+                switch (menuItemBean.menuType) {
+                    case MY_ALL_CONTENT:
+                        Intent toMyAllContent = new Intent(getContext(), AllLocalRecordActivity.class);
+                        startActivity(toMyAllContent);
                         break;
-                    case 1:
-                        selectTab2();
+                    case MY_ALL_GROUP:
+                        Intent toMyAllGroup = new Intent(getContext(), SetGroupsActivity.class);
+                        toMyAllGroup.putExtra(SetGroupsActivity.IS_ALL_GROUPS_SHOW_TAG, SetGroupsActivity.IS_ALL_GROUPS_SHOW);
+                        startActivity(toMyAllGroup);
                         break;
-                    case 2:
-                        selectTab3();
+                    case MY_PLAN:
+                        Intent toMyPlan = new Intent(getContext(), MyPlanActivity.class);
+                        startActivity(toMyPlan);
+                        break;
+                    case MY_COOPATER_TOPIC:
+                        Intent to = new Intent(getContext(), EssayListActivity.class);
+                        startActivity(to);
+                        break;
+                    default:
                         break;
                 }
             }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
         });
-    }
 
-    @OnClick({R.id.menu_discovery, R.id.menu_add, R.id.btn_add, R.id.menu_my})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.menu_discovery:
-                selectTab1();
-                break;
-            case R.id.menu_add:
-                selectTab2();
-                break;
-            case R.id.menu_my:
-                selectTab3();
-                break;
-            case R.id.btn_add:
-                Intent toAdd = new Intent(App.getInstance().getContext(), AddLocalRecordActivity.class);
-                startActivity(toAdd);
-                break;
+        if (getActivity()!=null) {
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content, mDiarySelfFragment)
+                    .commit();
         }
     }
 
-    private void selectTab3() {
-        menuTalk.setImageResource(R.drawable.menu_talk_about_on);
-        menuAdd.setImageResource(R.drawable.menu_add_off);
-        menuDiscovery.setImageResource(R.drawable.menu_discovery_off);
-        tvAdd.setTextColor(ContextCompat.getColor(context, R.color.gray));
-        tvTalkAbout.setTextColor(ContextCompat.getColor(context, R.color.blue));
-        tvDiscovery.setTextColor(ContextCompat.getColor(context, R.color.gray));
 
-        menuAdd.setVisibility(View.VISIBLE);
-        tvAdd.setVisibility(View.VISIBLE);
-        btnAdd.setVisibility(View.GONE);
-        viewPager.setCurrentItem(2);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.detachView();
     }
 
-    private void selectTab2() {
-        menuDiscovery.setImageResource(R.drawable.menu_discovery_off);
-        menuTalk.setImageResource(R.drawable.menu_talk_about_off);
-        menuAdd.setImageResource(R.drawable.menu_add_off);
-        tvDiscovery.setTextColor(ContextCompat.getColor(context, R.color.gray));
-        tvAdd.setTextColor(ContextCompat.getColor(context, R.color.gray));
-        tvTalkAbout.setTextColor(ContextCompat.getColor(context, R.color.gray));
+    @Override
+    public void onLoadRlvRefresh() {
 
-
-        menuAdd.setVisibility(View.GONE);
-        tvAdd.setVisibility(View.GONE);
-        btnAdd.setVisibility(View.VISIBLE);
-
-        ScaleAnimation sa = new ScaleAnimation(0.5f, 1f, 0.5f, 1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(200);
-        sa.setInterpolator(new SpringAnimationInterpolar());
-        btnAdd.startAnimation(sa);
-
-        viewPager.setCurrentItem(1);
     }
 
-    private void selectTab1() {
-        menuDiscovery.setImageResource(R.drawable.menu_discovery_on);
-        tvDiscovery.setTextColor(ContextCompat.getColor(context, R.color.blue));
-        menuAdd.setImageResource(R.drawable.menu_add_off);
-        tvAdd.setTextColor(ContextCompat.getColor(context, R.color.gray));
-        menuTalk.setImageResource(R.drawable.menu_talk_about_off);
-        tvTalkAbout.setTextColor(ContextCompat.getColor(context, R.color.gray));
+    @Override
+    public void showMenu(List<MainMenuItemBean> menuData) {
+        this.menuData = menuData;
+    }
 
-        menuAdd.setVisibility(View.VISIBLE);
-        tvAdd.setVisibility(View.VISIBLE);
-        btnAdd.setVisibility(View.GONE);
-        viewPager.setCurrentItem(0);
+    @Override
+    public void showError(String msg) {
+        ToastUtil.toastShort(msg);
     }
 
 }

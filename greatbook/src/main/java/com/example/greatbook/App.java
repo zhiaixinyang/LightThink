@@ -16,7 +16,7 @@ import com.example.greatbook.local.model.leancloud.LRecordRemark;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
-import com.example.greatbook.ui.model.LFeedBackBean;
+import com.example.greatbook.main.model.LFeedBackBean;
 
 import java.util.HashSet;
 import java.util.Set;

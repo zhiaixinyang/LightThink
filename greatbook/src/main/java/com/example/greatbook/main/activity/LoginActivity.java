@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.activity;
+package com.example.greatbook.main.activity;
 
 import android.content.Intent;
 import android.view.View;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.ui.main.presenter.LoginPresenter;
-import com.example.greatbook.ui.main.presenter.contract.LoginContract;
+import com.example.greatbook.main.presenter.LoginPresenter;
+import com.example.greatbook.main.presenter.contract.LoginContract;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;

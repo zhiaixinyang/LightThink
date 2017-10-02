@@ -1,9 +1,11 @@
 package com.example.greatbook.diary;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.example.greatbook.diary.adapter.DiarySelfAdapter;
 import com.example.greatbook.diary.presenter.DiarySelfPresenter;
 import com.example.greatbook.diary.presenter.contract.DiarySelfContract;
 import com.example.greatbook.greendao.entity.DiarySelf;
+import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 
@@ -54,6 +58,8 @@ public class DiarySelfFragment extends Fragment implements DiarySelfContract.Vie
     }
 
     public void initEvent() {
+        initViewBackGround();
+
         mData = new ArrayList<>();
         mAdapter = new DiarySelfAdapter(getContext(), R.layout.item_diary, mData);
         mBinding.rlvDiary.setAdapter(mAdapter);
@@ -86,9 +92,22 @@ public class DiarySelfFragment extends Fragment implements DiarySelfContract.Vie
         ToastUtil.toastShort(getResources().getString(R.string.chat_self_show_empty));
     }
 
+    private void initViewBackGround() {
+        mBinding.btnSend.setBackground(SelectorFactory.newShapeSelector()
+                .setCornerRadius(DpUtils.dp2px(4))
+                .setDefaultBgColor(ContextCompat.getColor(getContext(), R.color.blue_light))
+                .setFocusedBgColor(ContextCompat.getColor(getContext(), R.color.blue_light))
+                .create());
+        mBinding.etContent.setBackground(SelectorFactory.newShapeSelector()
+                .setCornerRadius(DpUtils.dp2px(4))
+                .setDefaultBgColor(Color.WHITE)
+                .create());
+    }
+
     @Override
     public void addDiarySelfSuc() {
         mBinding.etContent.setText("");
+        mPresenter.initDiartSelf();
         ToastUtil.toastShort(getResources().getString(R.string.chat_self_add_suc));
     }
 }

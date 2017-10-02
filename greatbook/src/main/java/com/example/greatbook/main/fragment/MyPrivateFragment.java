@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.fragment;
+package com.example.greatbook.main.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,9 +16,9 @@ import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.model.leancloud.User;
-import com.example.greatbook.ui.main.activity.FeedBackActivity;
-import com.example.greatbook.ui.main.activity.LoginActivity;
-import com.example.greatbook.ui.main.activity.MyPrivateAdjustActivity;
+import com.example.greatbook.main.activity.FeedBackActivity;
+import com.example.greatbook.main.activity.LoginActivity;
+import com.example.greatbook.main.activity.MyPrivateAdjustActivity;
 import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
@@ -80,7 +80,7 @@ public class MyPrivateFragment extends BaseLazyFragment implements SwipeRefreshL
 
     @Override
     protected void initViewsAndEvents(View view) {
-        LogUtils.d("initViewsAndEvents");
+        LogUtils.d("initEvents");
 
         srfMyPrivate.setOnRefreshListener(this);
     }

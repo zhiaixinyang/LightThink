@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.activity;
+package com.example.greatbook.main.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
-import com.example.greatbook.ui.main.adapter.FeedBackAdapter;
-import com.example.greatbook.ui.main.presenter.FeedBackPresenter;
-import com.example.greatbook.ui.main.presenter.contract.FeedBackContract;
-import com.example.greatbook.ui.model.LFeedBackBean;
+import com.example.greatbook.main.adapter.FeedBackAdapter;
+import com.example.greatbook.main.presenter.FeedBackPresenter;
+import com.example.greatbook.main.presenter.contract.FeedBackContract;
+import com.example.greatbook.main.model.LFeedBackBean;
 import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.SnackbarUtils;

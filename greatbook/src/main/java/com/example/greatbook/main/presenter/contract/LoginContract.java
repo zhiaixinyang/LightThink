@@ -1,10 +1,7 @@
-package com.example.greatbook.ui.main.presenter.contract;
+package com.example.greatbook.main.presenter.contract;
 
 import com.example.greatbook.base.BasePresenter;
 import com.example.greatbook.base.BaseView;
-import com.example.greatbook.ui.model.LFeedBackBean;
-
-import java.util.List;
 
 /**
  * Created by MDove on 2017/8/14.

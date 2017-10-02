@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.presenter;
+package com.example.greatbook.main.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,8 +18,7 @@ import com.example.greatbook.greendao.MyPlanTemplateDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.MyPlanTemplate;
 import com.example.greatbook.model.leancloud.User;
-import com.example.greatbook.ui.main.presenter.contract.LoginContract;
-import com.example.greatbook.utils.DpUtils;
+import com.example.greatbook.main.presenter.contract.LoginContract;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.Date;

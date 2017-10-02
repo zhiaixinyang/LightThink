@@ -1,4 +1,4 @@
-package com.example.greatbook.ui.main.activity;
+package com.example.greatbook.main.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
