@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.LazyFragment;
-import com.example.greatbook.diary.DiarySelfFragment;
+import com.example.greatbook.diary.fragment.DiarySelfFragment;
 import com.example.greatbook.local.activity.AddLocalRecordActivity;
 import com.example.greatbook.local.fragment.MiddleMainFragment;
 import com.example.greatbook.nethot.fragment.DiscoveryFragment;

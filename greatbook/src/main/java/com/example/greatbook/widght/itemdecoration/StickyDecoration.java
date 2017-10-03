@@ -1,4 +1,4 @@
-package com.example.greatbook.widght.sticky;
+package com.example.greatbook.widght.itemdecoration;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,8 +10,10 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.example.greatbook.widght.itemdecoration.listener.GroupListener;
+
 /**
- * Created by MDove on 17/8/12.
+ * Created MDove 2017/10/3
  */
 
 public class StickyDecoration extends RecyclerView.ItemDecoration {

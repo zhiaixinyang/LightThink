@@ -2,7 +2,7 @@ package com.example.greatbook.diary.presenter;
 
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.App;
-import com.example.greatbook.diary.presenter.contract.DiarySelfContract;
+import com.example.greatbook.diary.presenter.contract.DiarySelfFragContract;
 import com.example.greatbook.greendao.DiarySelfDao;
 import com.example.greatbook.greendao.entity.DiarySelf;
 import com.example.greatbook.model.leancloud.User;
@@ -14,19 +14,19 @@ import java.util.List;
  * Created by MDove on 2017/10/2.
  */
 
-public class DiarySelfPresenter implements DiarySelfContract.Presenter {
-    private DiarySelfContract.View mView;
+public class DiarySelfFragPresenter implements DiarySelfFragContract.Presenter {
+    private DiarySelfFragContract.View mView;
     private List<DiarySelf> mData;
     private DiarySelfDao mDiarySelfDao;
     private User mUser;
 
-    public DiarySelfPresenter() {
+    public DiarySelfFragPresenter() {
         mDiarySelfDao = App.getDaoSession().getDiarySelfDao();
         mUser = AVUser.getCurrentUser(User.class);
     }
 
     @Override
-    public void attachView(DiarySelfContract.View view) {
+    public void attachView(DiarySelfFragContract.View view) {
         mView = view;
     }
 
@@ -37,7 +37,11 @@ public class DiarySelfPresenter implements DiarySelfContract.Presenter {
 
     @Override
     public void initDiartSelf() {
-        mData = mDiarySelfDao.queryBuilder().list();
+        mData = mDiarySelfDao
+                .queryBuilder()
+                .orderDesc(DiarySelfDao.Properties.Time)
+                .list();
+
         if (mData != null && !mData.isEmpty()) {
             mView.showDiarySelf(mData);
         } else {

@@ -85,6 +85,7 @@
         <activity
             android:name=".local.activity.AllLocalRecordActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="stateHidden|adjustUnspecified"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -96,6 +97,12 @@
             android:name=".main.activity.InitSyncActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".diary.activity.DiarySelfActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".local.activity.AddLocalRecordActivity"
             android:launchMode="singleTask"

@@ -1,9 +1,9 @@
-package com.example.greatbook.widght.sticky;
+package com.example.greatbook.widght.itemdecoration.listener;
 
 import android.view.View;
 
 /**
- * Created by MDove on 17/8/12.
+ * Created MDove 2017/10/3
  */
 
 public interface PowerGroupListener {

@@ -35,6 +35,15 @@ public class MiddleLocalAddPresenter extends RxPresenter<MiddleLocalAddContract.
     public void initMenu(Context context) {
         List<MainMenuItemBean> menuData = new ArrayList<>();
 
+        MainMenuItemBean chatSelf = new MainMenuItemBean();
+        chatSelf.bgColor = ContextCompat.getColor(context, R.color.purple);
+        chatSelf.inColor = ContextCompat.getColor(context, R.color.white);
+        chatSelf.outColor = ContextCompat.getColor(context, R.color.black);
+        chatSelf.inText = "自";
+        chatSelf.outText = "自言自语";
+        chatSelf.menuType = MiddleMainFragment.CHAT_SELF;
+        menuData.add(chatSelf);
+
         MainMenuItemBean myAll = new MainMenuItemBean();
         myAll.bgColor = ContextCompat.getColor(context, R.color.blue);
         myAll.inColor = ContextCompat.getColor(context, R.color.white);

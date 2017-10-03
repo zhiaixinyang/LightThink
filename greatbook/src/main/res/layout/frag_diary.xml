@@ -3,6 +3,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:background="@color/gray_light"
         android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -17,14 +18,21 @@
                 android:layout_height="match_parent"
                  />
 
+            <include
+                android:id="@+id/include_empty_loading"
+                layout="@layout/include_empty_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
         <RelativeLayout
             android:id="@+id/bottom"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/gray_light">
+            >
 
             <EditText
                 android:id="@+id/et_content"
@@ -35,7 +43,8 @@
                 android:layout_marginTop="@dimen/feedback_bottom_margin"
                 android:layout_toLeftOf="@+id/btn_send"
                 android:gravity="center|left"
-                android:hint="你就尽情反馈，反正我也不改.."
+                android:hint="总有一些话，说给自己听.."
+                android:background="@null"
                 android:paddingLeft="@dimen/item_feedback_margin"
                 android:paddingRight="@dimen/item_feedback_margin"
                 android:textSize="16sp" />
@@ -52,7 +61,7 @@
                 android:paddingRight="10dp"
                 android:text="发送"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

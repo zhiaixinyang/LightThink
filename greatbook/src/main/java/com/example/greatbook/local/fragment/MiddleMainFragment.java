@@ -1,6 +1,5 @@
 package com.example.greatbook.local.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -11,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.greatbook.App;
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.databinding.FragMiddleMainBinding;
-import com.example.greatbook.diary.DiarySelfFragment;
+import com.example.greatbook.diary.activity.DiarySelfActivity;
+import com.example.greatbook.diary.fragment.DiarySelfFragment;
 import com.example.greatbook.local.activity.AllLocalRecordActivity;
 import com.example.greatbook.local.activity.EssayListActivity;
 import com.example.greatbook.local.activity.MyPlanActivity;
@@ -26,8 +25,6 @@ import com.example.greatbook.local.presenter.MiddleLocalAddPresenter;
 import com.example.greatbook.local.presenter.contract.MiddleLocalAddContract;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.refresh.RefreshRecyclerView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -43,10 +40,11 @@ public class MiddleMainFragment extends Fragment implements MiddleLocalAddContra
     private FragMiddleMainBinding mBinding;
     private MiddleLocalAddPresenter mPresenter;
 
-    public static final int MY_ALL_CONTENT = 1;
-    public static final int MY_ALL_GROUP = 2;
-    public static final int MY_COOPATER_TOPIC = 3;
-    public static final int MY_PLAN = 4;
+    public static final int MY_ALL_CONTENT = 2;
+    public static final int MY_ALL_GROUP = 3;
+    public static final int MY_COOPATER_TOPIC = 4;
+    public static final int MY_PLAN = 5;
+    public static final int CHAT_SELF = 1;
 
     public static MiddleMainFragment newInstance() {
         Bundle args = new Bundle();
@@ -59,15 +57,15 @@ public class MiddleMainFragment extends Fragment implements MiddleLocalAddContra
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding= DataBindingUtil.inflate(LayoutInflater.from(getContext()),
-                R.layout.frag_middle_main,container,false);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),
+                R.layout.frag_middle_main, container, false);
 
         initEvents();
         return mBinding.getRoot();
     }
 
     protected void initEvents() {
-        mDiarySelfFragment=DiarySelfFragment.newInstance();
+        mDiarySelfFragment = DiarySelfFragment.newInstance();
 
         mPresenter = new MiddleLocalAddPresenter();
         mPresenter.attachView(this);
@@ -98,13 +96,17 @@ public class MiddleMainFragment extends Fragment implements MiddleLocalAddContra
                         Intent to = new Intent(getContext(), EssayListActivity.class);
                         startActivity(to);
                         break;
+                    case CHAT_SELF:
+                        Intent toDiarySelf = new Intent(getContext(), DiarySelfActivity.class);
+                        startActivity(toDiarySelf);
+                        break;
                     default:
                         break;
                 }
             }
         });
 
-        if (getActivity()!=null) {
+        if (getActivity() != null) {
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()

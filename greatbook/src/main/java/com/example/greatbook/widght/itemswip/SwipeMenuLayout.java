@@ -49,7 +49,7 @@ import com.example.greatbook.R;
  * 2016 12 09,fix ListView快速滑动快速删除时，偶现菜单不消失的bug。
  * Created by zhangxutong .
  * Date: 16/04/24
- *
+ * <p>
  * 原项目GitHub：https://github.com/mcxtzhang/SwipeDelMenuLayout
  */
 public class SwipeMenuLayout extends ViewGroup {
@@ -306,12 +306,10 @@ public class SwipeMenuLayout extends ViewGroup {
                 }
             }
         }
-        //Log.d(TAG, "onLayout() called with: " + "maxScrollGap = [" + maxScrollGap + "], l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        //LogUtils.d(TAG, "dispatchTouchEvent() called with: " + "ev = [" + ev + "]");
         if (isSwipeEnable) {
             acquireVelocityTracker(ev);
             final VelocityTracker verTracker = mVelocityTracker;
@@ -379,6 +377,7 @@ public class SwipeMenuLayout extends ViewGroup {
                     }
 
                     mLastP.set(ev.getRawX(), ev.getRawY());
+
                     break;
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
@@ -545,7 +544,6 @@ public class SwipeMenuLayout extends ViewGroup {
      * 平滑关闭
      */
     public void smoothClose() {
-        //Log.d(TAG, "smoothClose() called" + this);
 /*        mScroller.startScroll(getScrollX(), 0, -getScrollX(), 0);
         invalidate();*/
         mViewCache = null;
@@ -572,7 +570,6 @@ public class SwipeMenuLayout extends ViewGroup {
             }
         });
         mCloseAnim.setDuration(300).start();
-        //LogUtils.d(TAG, "smoothClose() called with:getScrollX() " + getScrollX());
     }
 
 

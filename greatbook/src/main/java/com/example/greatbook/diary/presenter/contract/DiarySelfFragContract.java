@@ -10,8 +10,8 @@ import java.util.List;
  * Created by MDove on 2017/10/2.
  */
 
-public interface DiarySelfContract {
-    interface Presenter extends BasePresenter<DiarySelfContract.View> {
+public interface DiarySelfFragContract {
+    interface Presenter extends BasePresenter<DiarySelfFragContract.View> {
         void initDiartSelf();
 
         void addDiarySelf(String content);

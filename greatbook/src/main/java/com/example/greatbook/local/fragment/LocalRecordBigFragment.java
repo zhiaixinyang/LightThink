@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,6 @@ import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
-import com.example.greatbook.widght.DefaultNavigationBar;
 import com.example.greatbook.widght.RoundImageView;
 
 import java.util.ArrayList;
@@ -33,16 +33,17 @@ import java.util.List;
  * Created by MDove on 2017/10/2.
  */
 
-public class LocalRecordBigFragment extends Fragment implements LocalRecordBigContract.View {
+public class LocalRecordBigFragment extends Fragment implements LocalRecordBigContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
     private List<LocalRecordRLV> mData;
     private CommonAdapter<LocalRecordRLV> mAdapter;
     private LocalRecordBigPresenter mPresenter;
     private FragMiddleLocalRecordBigBinding mBinding;
 
     public static LocalRecordBigFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         LocalRecordBigFragment fragment = new LocalRecordBigFragment();
         fragment.setArguments(args);
         return fragment;
@@ -61,10 +62,8 @@ public class LocalRecordBigFragment extends Fragment implements LocalRecordBigCo
 
         mPresenter = new LocalRecordBigPresenter();
         mPresenter.attachView(this);
-        mPresenter.initLocalRecord();
 
         mData = new ArrayList<>();
-
         mAdapter = new CommonAdapter<LocalRecordRLV>(getContext(), R.layout.item_middle_local_add, mData) {
             @Override
             public void convert(ViewHolder holder, LocalRecordRLV localRecord) {
@@ -91,6 +90,10 @@ public class LocalRecordBigFragment extends Fragment implements LocalRecordBigCo
 
         mBinding.rlvLocalRecordBig.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rlvLocalRecordBig.setAdapter(mAdapter);
+
+        mBinding.srlLocalRecordBig.setRefreshing(true);
+        mPresenter.initLocalRecord();
+        mBinding.srlLocalRecordBig.setOnRefreshListener(this);
     }
 
     @Override
@@ -107,11 +110,20 @@ public class LocalRecordBigFragment extends Fragment implements LocalRecordBigCo
     @Override
     public void initLocalRecordSuc(List<LocalRecordRLV> records) {
         mBinding.includeEmptyLoading.ivEmpty.setVisibility(View.GONE);
+        mBinding.srlLocalRecordBig.setRefreshing(false);
         mAdapter.addData(records);
     }
 
     @Override
     public void localRecordEmpty() {
         mBinding.includeEmptyLoading.ivEmpty.setVisibility(View.VISIBLE);
+        mBinding.srlLocalRecordBig.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (mPresenter != null) {
+            mPresenter.initLocalRecord();
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.greatbook.App;
 
@@ -109,6 +110,13 @@ public class ScreenUtils {
         activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
 
         return screenHeight - rect.bottom - getSoftButtonsBarHeight(activity) != 0;
+    }
+
+    public static void hideSoft(Activity activity){
+        if (isSoftShowing(activity)) {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     /**

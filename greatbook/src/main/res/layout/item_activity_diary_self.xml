@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.greatbook.widght.itemswip.SwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:ios="false"
+    app:leftSwipe="true"
+    app:swipeEnable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.example.greatbook.widght.CircleImageView
+            android:id="@+id/iv_avatar_chat_self"
+            android:layout_width="@dimen/item_diary_avatar_w_h"
+            android:layout_height="@dimen/item_diary_avatar_w_h"
+            android:layout_marginLeft="@dimen/item_diary_margin"
+            android:layout_marginTop="@dimen/item_diary_margin"
+            android:src="@drawable/no_avatar"
+            app:civ_border_color="@color/blue"
+            app:civ_border_width="1dp" />
+
+        <ImageView
+            android:id="@+id/iv_chat_decorate"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_diary_chat_self"
+            android:layout_marginLeft="@dimen/item_diary_margin"
+            android:layout_marginRight="@dimen/item_diary_margin"
+            android:layout_marginTop="@dimen/item_diary_margin"
+            android:src="@drawable/icon_dusk" />
+
+        <TextView
+            android:id="@+id/tv_time_chat_self"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_chat_decorate"
+            android:layout_below="@+id/tv_diary_chat_self"
+            android:layout_marginLeft="@dimen/item_diary_margin"
+            android:layout_marginTop="@dimen/item_diary_margin"
+            android:layout_toLeftOf="@+id/iv_chat_decorate"
+            android:gravity="center"
+            android:text="2017/10/1"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_diary_chat_self"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_diary_margin"
+            android:layout_marginRight="@dimen/item_diary_margin"
+            android:layout_marginTop="@dimen/item_diary_margin"
+            android:layout_toRightOf="@+id/iv_avatar_chat_self"
+            android:padding="8dp"
+            android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+    <!-- 以下都是侧滑菜单的内容依序排列 -->
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        android:text="删除"
+        android:textColor="@android:color/white" />
+</com.example.greatbook.widght.itemswip.SwipeMenuLayout>

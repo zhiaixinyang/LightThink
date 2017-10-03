@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by MDove on 2017/10/2.
  */
 
-public class LocalRecordSmallFragment extends Fragment implements LocalRecordSmallContract.View {
+public class LocalRecordSmallFragment extends Fragment implements LocalRecordSmallContract.View,SwipeRefreshLayout.OnRefreshListener {
     private LocalRecordSmallPresenter mPresenter;
     private FragMiddleLocalRecordSmallBinding mBinding;
     private List<LocalRecordRLV> mData;
@@ -59,6 +60,9 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
     private void initEvent() {
         mPresenter=new LocalRecordSmallPresenter();
         mPresenter.attachView(this);
+        mBinding.srlLocalRecordSmall.setRefreshing(true);
+        mPresenter.initLocalRecords();
+        mBinding.srlLocalRecordSmall.setOnRefreshListener(this);
 
         mData = new ArrayList<>();
         mAdapter = new AllCommonAdapter(getContext(), R.layout.item_set_all_local_record, mData);
@@ -108,7 +112,6 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
         mBinding.rlvSetAllLocalRecord.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rlvSetAllLocalRecord.setAdapter(mAdapter);
 
-        mPresenter.initLocalRecords();
     }
 
 
@@ -125,6 +128,7 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
 
     @Override
     public void initLocalRecords(List<LocalRecordRLV> records) {
+        mBinding.srlLocalRecordSmall.setRefreshing(false);
         mData=records;
         if (records.isEmpty()){
             mBinding.includeEmptyLoading.ivEmpty.setVisibility(View.VISIBLE);
@@ -137,15 +141,18 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
     @Override
     public void deleteLocalGroupReturn(String returnStr) {
         ToastUtil.toastShort(returnStr);
+        mBinding.srlLocalRecordSmall.setRefreshing(false);
     }
 
     @Override
     public void deleteLocalGroupToNetReturn(String returnStr) {
         ToastUtil.toastShort(returnStr);
+        mBinding.srlLocalRecordSmall.setRefreshing(false);
     }
 
     @Override
     public void updateLocalRecordReturn(String returnStr) {
+        mBinding.srlLocalRecordSmall.setRefreshing(false);
         ToastUtil.toastShort(returnStr);
         mDialog.dismiss();
         mAdapter.notifyDataSetChanged();
@@ -154,5 +161,13 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
     @Override
     public void updateLocalRecordToNetReturn(String returnStr) {
         ToastUtil.toastShort(returnStr);
+        mBinding.srlLocalRecordSmall.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (mPresenter!=null){
+            mPresenter.initLocalRecords();
+        }
     }
 }

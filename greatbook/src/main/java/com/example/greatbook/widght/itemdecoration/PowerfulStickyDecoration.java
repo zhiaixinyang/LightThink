@@ -1,4 +1,4 @@
-package com.example.greatbook.widght.sticky;
+package com.example.greatbook.widght.itemdecoration;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,9 +8,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.greatbook.widght.itemdecoration.listener.PowerGroupListener;
 
 /**
- *  * Created by MDove on 17/8/12.
+ * Created MDove 2017/10/3
  */
 
 public class PowerfulStickyDecoration extends RecyclerView.ItemDecoration {

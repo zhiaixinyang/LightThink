@@ -47,13 +47,19 @@ public class DateUtils {
 
     }
 
+    //HH为24小时进制
     public static String getDateChinese(Date time){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm");
+        return format.format(time);
+    }
+
+    public static String getDateChineseYMD(Date time){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         return format.format(time);
     }
 
     public static String getDateEnglish(Date time){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd/ hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd/ HH:mm");
         return format.format(time);
     }
 
@@ -61,13 +67,6 @@ public class DateUtils {
         return time.substring(time.length()-2,time.length());
 
     }
-
-    static SimpleDateFormat formatHM = new SimpleDateFormat("HH:mm");
-
-    public static String getDateHM(long time) {
-        return formatHM.format(time);
-    }
-
 
     public static String getPointDate(long time) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
@@ -152,48 +151,6 @@ public class DateUtils {
         return format.format(date);
     }
 
-
-    public static String getyyyyMMddEnglish(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-        time *= 1000;
-        Date date = new Date(time);
-        return format.format(date);
-    }
-
-    public static String getyyyyMMddChinese(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-        time *= 1000;
-        Date date = new Date(time);
-        String data = format.format(date);
-        return data;
-    }
-
-    public static String getyyyyMMdd2(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-        Date date = new Date(time);
-        String data = format.format(date);
-        return data;
-    }
-
-
-    public static String getyyyyMMdd3(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-        String data = format.format(time);
-        return data;
-    }
-
-    public static String getyyyyMMdd4(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String data = format.format(time);
-        return data;
-    }
-
-    public static String getyyyyMMdd5(long time) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
-        String data = format.format(time);
-        return data;
-    }
-
     public static String getTrackTime(long time) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String data = format.format(time);
@@ -244,6 +201,13 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time);
         return cal.get(Calendar.DAY_OF_MONTH);
+
+    }
+
+    public static int getHour(long time) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(time);
+        return cal.get(Calendar.HOUR_OF_DAY);
 
     }
 
