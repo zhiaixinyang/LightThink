@@ -102,6 +102,14 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter!=null){
+            mPresenter.detachView();
+        }
+    }
+
+    @Override
     public void initEssayListSuc(List<EssayListItem> data) {
         mAdapter.addData(data);
     }

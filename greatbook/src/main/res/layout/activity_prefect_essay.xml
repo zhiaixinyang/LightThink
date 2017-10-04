@@ -1,21 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
+
+        <LinearLayout
             android:id="@+id/btn_commit"
-            android:text="提交"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_marginTop="@dimen/activity_prefect_essay_btn_margin"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/activity_prefect_essay_iv_w_h"
+                android:layout_height="@dimen/activity_prefect_essay_iv_w_h"
+                android:src="@drawable/btn_commit" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_prefect_essay_btn_margin"
+                android:text="提交"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/btn_commit_log"
-            android:layout_below="@+id/btn_commit"
-            android:text="提交日志"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_marginTop="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_toRightOf="@+id/btn_commit"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/activity_prefect_essay_iv_w_h"
+                android:layout_height="@dimen/activity_prefect_essay_iv_w_h"
+                android:src="@drawable/btn_commit_log" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_prefect_essay_btn_margin"
+                android:text="提交记录"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
         <com.example.greatbook.widght.ExpandableTextView
             android:id="@+id/tv_essay_content"
             android:layout_width="match_parent"
@@ -27,31 +65,42 @@
             app:contentTextColor="@color/colorPrimaryDark"
             app:expandCollapseTextColor="@color/blue"
             app:expandDrawable="@drawable/btn_expand_on"
+            android:layout_marginRight="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_marginLeft="@dimen/activity_prefect_essay_btn_margin"
             app:expandText="更多"
-            app:maxCollapsedLines="4"/>
+            app:maxCollapsedLines="4" />
+
         <com.example.greatbook.widght.DottedView
             android:id="@+id/dottedView"
             android:layout_width="match_parent"
-            app:dv_line_height="4dp"
-            app:dv_line_width="12dp"
-            app:dv_line_interval="4dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_essay_content"
-            android:layout_margin="@dimen/dialog_add_group_margin" />
+            android:layout_margin="@dimen/activity_prefect_essay_btn_margin"
+            app:dv_line_height="4dp"
+            app:dv_line_interval="4dp"
+            app:dv_line_width="12dp" />
 
         <EditText
             android:id="@+id/et_content"
-            android:layout_below="@+id/tv_user_account"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="文章区域"
+            android:textSize="16sp"
+            android:layout_marginRight="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_marginLeft="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_below="@+id/tv_user_account" />
+
         <TextView
             android:id="@+id/tv_user_account"
-            android:text="账号信息"
-            android:textColor="@color/gray_plus"
-            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/dottedView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginBottom="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_marginRight="@dimen/activity_prefect_essay_btn_margin"
+            android:text="账号信息"
+            android:textColor="@color/gray_plus"
+            android:textSize="12sp" />
     </RelativeLayout>
 </layout>

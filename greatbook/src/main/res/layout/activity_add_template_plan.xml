@@ -43,8 +43,8 @@
                     android:id="@+id/tv_title_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:setVTVTextColor="@{addTemplateVm.textColor}"
                     app:setVTVText="@{addTemplateVm.title2}"
+                    app:setVTVTextColor="@{addTemplateVm.textColor}"
                     app:vtv_textSize="@dimen/sp_16" />
 
                 <com.example.greatbook.widght.VerticalTextView
@@ -76,20 +76,24 @@
 
         <LinearLayout
             android:id="@+id/panel_edit_1"
-            android:layout_toRightOf="@+id/panel_template"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/panel_template"
             android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
+            android:layout_toRightOf="@+id/panel_template"
             android:background="@color/trans_gray"
             android:gravity="center"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_add_template_plan_padding_small"
+            android:paddingLeft="@dimen/activity_add_template_plan_padding"
+            android:paddingRight="@dimen/activity_add_template_plan_padding"
+            android:paddingTop="@dimen/activity_add_template_plan_padding_small">
 
             <ImageView
                 android:id="@+id/icon_edit_1"
-                android:src="@drawable/icon_edit"
                 android:layout_width="@dimen/activity_add_template_plan_iv_edit_w_h"
-                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h" />
+                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h"
+                android:src="@drawable/icon_edit" />
 
             <EditText
                 android:id="@+id/et_title_1"
@@ -110,11 +114,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/panel_edit_1"
-            android:background="@color/trans_gray"
             android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
             android:layout_marginTop="@dimen/activity_add_template_plan_margin_1"
+            android:layout_toRightOf="@+id/panel_template"
+            android:background="@color/trans_gray"
             android:gravity="center"
-            android:layout_toRightOf="@+id/panel_template">
+            android:paddingBottom="@dimen/activity_add_template_plan_padding_small"
+            android:paddingLeft="@dimen/activity_add_template_plan_padding"
+            android:paddingRight="@dimen/activity_add_template_plan_padding"
+            android:paddingTop="@dimen/activity_add_template_plan_padding_small">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,10 +133,10 @@
 
             <ImageView
                 android:id="@+id/icon_edit_2"
-                android:src="@drawable/icon_edit"
-                android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
                 android:layout_width="@dimen/activity_add_template_plan_iv_edit_w_h"
-                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h" />
+                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h"
+                android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
+                android:src="@drawable/icon_edit" />
 
             <EditText
                 android:id="@+id/et_title_2"
@@ -148,17 +156,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/panel_title_2"
-            android:background="@color/trans_gray"
-            android:gravity="center"
             android:layout_marginLeft="@dimen/activity_add_template_plan_margin"
             android:layout_marginTop="@dimen/activity_add_template_plan_margin_1"
-            android:layout_toRightOf="@+id/panel_template">
+            android:layout_toRightOf="@+id/panel_template"
+            android:background="@color/trans_gray"
+            android:gravity="center"
+            android:paddingBottom="@dimen/activity_add_template_plan_padding_small"
+            android:paddingLeft="@dimen/activity_add_template_plan_padding"
+            android:paddingRight="@dimen/activity_add_template_plan_padding"
+            android:paddingTop="@dimen/activity_add_template_plan_padding_small">
 
             <ImageView
                 android:id="@+id/icon_edit_3"
-                android:src="@drawable/icon_edit"
                 android:layout_width="@dimen/activity_add_template_plan_iv_edit_w_h"
-                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h" />
+                android:layout_height="@dimen/activity_add_template_plan_iv_edit_w_h"
+                android:src="@drawable/icon_edit" />
 
             <EditText
                 android:id="@+id/et_title_3"
@@ -194,6 +206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:background="@color/trans_gray"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -215,6 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:background="@color/trans_gray"
                 android:gravity="center"
                 android:orientation="vertical">
 

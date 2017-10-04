@@ -67,8 +67,8 @@ public class MiddleLocalAddPresenter extends RxPresenter<MiddleLocalAddContract.
         myCooperateTopic.bgColor = ContextCompat.getColor(context, R.color.orange);
         myCooperateTopic.inColor = ContextCompat.getColor(context, R.color.white);
         myCooperateTopic.outColor = ContextCompat.getColor(context, R.color.black);
-        myCooperateTopic.inText = "协";
-        myCooperateTopic.outText = "协同主题";
+        myCooperateTopic.inText = "精";
+        myCooperateTopic.outText = "精雕细琢";
         myCooperateTopic.menuType = MiddleMainFragment.MY_COOPATER_TOPIC;
         menuData.add(myCooperateTopic);
 

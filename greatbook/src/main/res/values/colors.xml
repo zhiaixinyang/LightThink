@@ -21,7 +21,7 @@
     <color name="red">#ff0026</color>
 
     <color name="trans_purple">#77c03ee4</color>
-    <color name="trans_gray">#77dadada</color>
+    <color name="trans_gray">#77cccccc</color>
     <color name="trans">#2dffffff</color>
     <color name="trans_black">#b42c2c2c</color>
     <color name="trans_white">#bfffffff</color>

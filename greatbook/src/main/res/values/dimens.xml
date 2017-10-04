@@ -133,4 +133,8 @@
     <dimen name="item_diary_all_day_content">10dp</dimen>
     <dimen name="item_diary_avatar_w_h">40dp</dimen>
     <dimen name="item_diary_margin">10dp</dimen>
+    <dimen name="activity_prefect_essay_iv_w_h">35dp</dimen>
+    <dimen name="activity_prefect_essay_btn_margin">8dp</dimen>
+    <dimen name="activity_add_template_plan_padding">12dp</dimen>
+    <dimen name="activity_add_template_plan_padding_small">4dp</dimen>
 </resources>

@@ -2,6 +2,7 @@ package com.example.greatbook.diary.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 
 import com.avos.avoscloud.AVUser;
 import com.example.greatbook.R;
@@ -32,7 +33,7 @@ public class DiarySelfActivityAdapter extends CommonAdapter<DiarySelf> {
     }
 
     @Override
-    public void convert(ViewHolder holder, DiarySelf diarySelf) {
+    public void convert(final ViewHolder holder, DiarySelf diarySelf) {
         holder.setText(R.id.tv_diary_chat_self, diarySelf.content);
         holder.getView(R.id.tv_diary_chat_self).setBackground(SelectorFactory.newShapeSelector()
                 .setCornerRadius(DpUtils.dp2px(4))
@@ -46,6 +47,15 @@ public class DiarySelfActivityAdapter extends CommonAdapter<DiarySelf> {
         if (currentUser != null) {
             GlideUtils.load(currentUser.getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_avatar_chat_self));
         }
+
+        holder.setOnClickListener(R.id.btn_delete, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != mOnSwipeListener) {
+                    mOnSwipeListener.onDelete(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     private int getResFromTime(Date time) {
