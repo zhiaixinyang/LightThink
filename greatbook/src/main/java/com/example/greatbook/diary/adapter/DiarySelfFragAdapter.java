@@ -32,6 +32,7 @@ public class DiarySelfFragAdapter extends CommonAdapter<DiarySelf> {
     @Override
     public void convert(ViewHolder holder, DiarySelf diarySelf) {
         holder.setText(R.id.tv_diary_chat_self, diarySelf.content);
+        holder.setText(R.id.tv_name, diarySelf.belongUserAccount);
         holder.setText(R.id.tv_time_chat_self, DateUtils.getDateChinese(diarySelf.time));
         User currentUser = AVUser.getCurrentUser(User.class);
         holder.setImageResource(R.id.iv_chat_decorate, getResFromTime(diarySelf.time));

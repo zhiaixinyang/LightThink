@@ -105,10 +105,14 @@ public class DiarySelfFragPresenter implements DiarySelfFragContract.Presenter {
 
     @Override
     public void retrySavaNet() {
-        for (DiarySelf diarySelf : mNoSaveNetData) {
+        if (NetUtil.isNetworkAvailable()) {
             if (!mNoSaveNetData.isEmpty()) {
-                addDiarySelfToNet(diarySelf);
+                for (DiarySelf diarySelf : mNoSaveNetData) {
+                    addDiarySelfToNet(diarySelf);
+                }
             }
+        }else{
+            mView.showError("保持网络畅通，数据将传至云端");
         }
     }
 }

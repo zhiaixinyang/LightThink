@@ -37,6 +37,7 @@ public class DiarySelfActivityAdapter extends CommonAdapter<DiarySelf> {
     public void convert(final ViewHolder holder, DiarySelf diarySelf) {
         mViewHolder = holder;
         holder.setText(R.id.tv_diary_chat_self, diarySelf.content);
+        holder.setText(R.id.tv_name, diarySelf.belongUserAccount);
         holder.getView(R.id.tv_diary_chat_self).setBackground(SelectorFactory.newShapeSelector()
                 .setCornerRadius(DpUtils.dp2px(4))
                 .setDefaultBgColor(ContextCompat.getColor(context, R.color.blue))

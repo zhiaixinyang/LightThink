@@ -22,6 +22,19 @@
             app:civ_border_color="@color/blue"
             app:civ_border_width="1dp" />
         <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:text="lo007ves"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/item_diary_margin"
+            android:layout_marginLeft="@dimen/item_diary_margin"
+            android:layout_centerVertical="true"
+            android:layout_below="@+id/iv_avatar_chat_self"
+            android:layout_toLeftOf="@+id/tv_diary_chat_self"
+            android:textSize="12sp"
+            android:layout_height="wrap_content" />
+        <TextView
             android:id="@+id/tv_level"
             android:layout_width="match_parent"
             android:text="@string/string_level"
@@ -30,7 +43,9 @@
             android:layout_marginTop="@dimen/item_diary_margin"
             android:layout_marginLeft="@dimen/item_diary_margin"
             android:layout_centerVertical="true"
-            android:layout_below="@+id/iv_avatar_chat_self"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_below="@+id/tv_name"
             android:layout_toLeftOf="@+id/tv_diary_chat_self"
             android:textSize="12sp"
             android:layout_height="wrap_content" />
