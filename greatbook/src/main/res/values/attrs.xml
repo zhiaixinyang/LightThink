@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 使用上边声明的属性 -->
+    <declare-styleable name="MyHorinzontalProgressBarView">
+        <attr name="myprogress_unreach_color" format="color" />
+        <attr name="myprogress_unreach_height" format="dimension" />
+        <attr name="myprogress_reach_color" format="color" />
+        <attr name="myprogress_reach_height" format="dimension" />
+
+        <attr name="myprogress_text_offset" format="dimension" />
+        <attr name="myprogress_text_size" format="dimension" />
+        <attr name="myprogress_text_color" format="color" />
+    </declare-styleable>
+
     <attr name="borderRadius" format="dimension" />
     <attr name="type">
         <enum name="circle" value="0" />
@@ -28,16 +40,16 @@
     </declare-styleable>
 
     <declare-styleable name="SwipeFlingAdapterView">
-        <attr name="SwipeFlingStyle" format="reference"/>
-        <attr name="rotation_degrees" format="float"/>
-        <attr name="min_adapter_stack" format="integer"/>
-        <attr name="max_visible" format="integer"/>
+        <attr name="SwipeFlingStyle" format="reference" />
+        <attr name="rotation_degrees" format="float" />
+        <attr name="min_adapter_stack" format="integer" />
+        <attr name="max_visible" format="integer" />
     </declare-styleable>
 
     <!-- 颜色选择器 -->
     <declare-styleable name="ColorPickerView">
-        <attr name="cp_src" format="reference"/>
-        <attr name="cp_selector" format="reference"/>
+        <attr name="cp_src" format="reference" />
+        <attr name="cp_selector" format="reference" />
     </declare-styleable>
 
     <!-- 特殊动画 -->
@@ -47,9 +59,9 @@
     </declare-styleable>
     <!-- Item侧滑删除效果 -->
     <declare-styleable name="SwipeMenuLayout">
-        <attr name="swipeEnable" format="boolean"/>
-        <attr name="ios" format="boolean"/>
-        <attr name="leftSwipe" format="boolean"/>
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
 
     <!-- 多选，单选的Layout -->
@@ -65,7 +77,6 @@
         <attr name="item_textColor" format="color" />
         <attr name="item_selectedTextColor" format="reference|color" />
         <attr name="item_textSize" format="dimension" />
-
 
 
         <!-- 边框圆角半径-->
@@ -85,12 +96,12 @@
 
         <!--单位dp,为了适应wrap_content用integer-->
         <attr name="item_width" format="integer|enum">
-            <enum name="wrap_content" value="-2"/>
-            <enum name="match_parent" value="-1"/>
+            <enum name="wrap_content" value="-2" />
+            <enum name="match_parent" value="-1" />
         </attr>
         <attr name="item_height" format="integer|enum">
-            <enum name="wrap_content" value="-2"/>
-            <enum name="match_parent" value="-1"/>
+            <enum name="wrap_content" value="-2" />
+            <enum name="match_parent" value="-1" />
         </attr>
         <attr name="item_maxEms" format="integer" />
     </declare-styleable>
@@ -140,10 +151,10 @@
     </declare-styleable>
 
     <declare-styleable name="DottedView">
-        <attr name="dv_line_color" format="color"/>
-        <attr name="dv_line_height" format="dimension"/>
-        <attr name="dv_line_width" format="dimension"/>
-        <attr name="dv_line_interval" format="dimension"/>
+        <attr name="dv_line_color" format="color" />
+        <attr name="dv_line_height" format="dimension" />
+        <attr name="dv_line_width" format="dimension" />
+        <attr name="dv_line_interval" format="dimension" />
     </declare-styleable>
 
     <!--阿里开源的ViewPager-->
@@ -166,7 +177,7 @@
     </declare-styleable>
 
     <declare-styleable name="VerticalTextView">
-        <attr name="vtv_textColor" format="color"/>
-        <attr name="vtv_textSize" format="dimension"/>
+        <attr name="vtv_textColor" format="color" />
+        <attr name="vtv_textSize" format="dimension" />
     </declare-styleable>
 </resources>

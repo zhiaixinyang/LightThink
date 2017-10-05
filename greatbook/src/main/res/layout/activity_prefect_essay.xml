@@ -52,13 +52,28 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
-
-
+        <View
+            android:id="@+id/line"
+            android:layout_below="@+id/btn_commit_log"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/activity_prefect_essay_btn_margin"
+            android:background="@color/trans_gray"
+            android:layout_height="2dp"/>
+        <TextView
+            android:id="@+id/tv_tips"
+            android:text="当前版本内容"
+            android:textColor="@color/gray_plus"
+            android:textSize="16sp"
+            android:layout_below="@+id/line"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_marginRight="@dimen/activity_prefect_essay_btn_margin"
+            android:layout_height="wrap_content" />
         <com.example.greatbook.widght.ExpandableTextView
             android:id="@+id/tv_essay_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_commit_log"
+            android:layout_below="@+id/tv_tips"
             android:textSize="12sp"
             app:DrawableAndTextGravity="right"
             app:collapseDrawable="@drawable/btn_expand_off"

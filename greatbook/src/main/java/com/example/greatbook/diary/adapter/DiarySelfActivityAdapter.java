@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.avos.avoscloud.AVUser;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
@@ -16,6 +17,7 @@ import com.example.greatbook.utils.GlideUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.widght.CircleImageView;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
+import com.example.greatbook.widght.itemswip.SwipeMenuLayout;
 
 import java.util.Date;
 import java.util.List;
@@ -25,21 +27,29 @@ import java.util.List;
  */
 
 public class DiarySelfActivityAdapter extends CommonAdapter<DiarySelf> {
-    private Context mContext;
+    private ViewHolder mViewHolder;
 
     public DiarySelfActivityAdapter(Context context, int layoutId, List<DiarySelf> datas) {
         super(context, layoutId, datas);
-        mContext = context;
     }
 
     @Override
     public void convert(final ViewHolder holder, DiarySelf diarySelf) {
+        mViewHolder = holder;
         holder.setText(R.id.tv_diary_chat_self, diarySelf.content);
         holder.getView(R.id.tv_diary_chat_self).setBackground(SelectorFactory.newShapeSelector()
                 .setCornerRadius(DpUtils.dp2px(4))
-                .setDefaultBgColor(ContextCompat.getColor(mContext, R.color.blue))
-                .setFocusedBgColor(ContextCompat.getColor(mContext, R.color.blue))
+                .setDefaultBgColor(ContextCompat.getColor(context, R.color.blue))
+                .setFocusedBgColor(ContextCompat.getColor(context, R.color.blue))
                 .create());
+        holder.getView(R.id.tv_level).setBackground(SelectorFactory.newShapeSelector()
+                .setCornerRadius(DpUtils.dp2px(4))
+                .setStrokeWidth(DpUtils.dp2px(1))
+                .setDefaultStrokeColor(ContextCompat.getColor(context, R.color.red))
+                .create());
+        holder.setText(R.id.tv_level,String.format(context.getResources()
+                .getString(R.string.string_level),
+                MySharedPreferences.getCurLevel()));
 
         holder.setText(R.id.tv_time_chat_self, DateUtils.getDateChinese(diarySelf.time));
         User currentUser = AVUser.getCurrentUser(User.class);
@@ -75,5 +85,13 @@ public class DiarySelfActivityAdapter extends CommonAdapter<DiarySelf> {
 
     public void setOnSwipeListener(OnSwipeListener mOnDelListener) {
         this.mOnSwipeListener = mOnDelListener;
+    }
+
+    public SwipeMenuLayout getSwipeItem() {
+        if (mViewHolder != null) {
+            return (SwipeMenuLayout) mViewHolder.itemView;
+        } else {
+            throw new NullPointerException("ViewHolder 为空");
+        }
     }
 }

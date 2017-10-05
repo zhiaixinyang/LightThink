@@ -8,6 +8,7 @@ import android.support.multidex.MultiDexApplication;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.example.greatbook.constants.Constants;
+import com.example.greatbook.diary.model.LDiarySelf;
 import com.example.greatbook.greendao.DaoSession;
 import com.example.greatbook.greendao.utils.DaoManager;
 import com.example.greatbook.local.model.leancloud.LGroupFollowers;
@@ -80,6 +81,7 @@ public class App extends MultiDexApplication {
         AVObject.registerSubclass(LRecordRemark.class);
         AVObject.registerSubclass(LRecordLike.class);
         AVObject.registerSubclass(LGroupFollowers.class);
+        AVObject.registerSubclass(LDiarySelf.class);
     }
 
     public void addActivity(Activity act) {

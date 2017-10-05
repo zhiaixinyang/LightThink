@@ -22,7 +22,6 @@ import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
-import com.iflytek.cloud.thirdparty.V;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,8 @@ import java.util.List;
  * Created by MDove on 17/9/27.
  */
 
-public class DiarySelfFragment extends Fragment implements DiarySelfFragContract.View,SwipeRefreshLayout.OnRefreshListener {
+public class DiarySelfFragment extends Fragment implements DiarySelfFragContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
     private DiarySelfFragAdapter mAdapter;
     private List<DiarySelf> mData;
     private FragDiaryBinding mBinding;
@@ -146,9 +146,16 @@ public class DiarySelfFragment extends Fragment implements DiarySelfFragContract
     }
 
     @Override
+    public void addDiarySelfToNetErr(String netErr) {
+        ToastUtil.toastShort(netErr);
+    }
+
+    @Override
     public void onRefresh() {
-        if (mPresenter!=null){
+        if (mPresenter != null) {
             mPresenter.initDiartSelf();
+            //重新将未传至服务器的数据
+            mPresenter.retrySavaNet();
         }
     }
 }

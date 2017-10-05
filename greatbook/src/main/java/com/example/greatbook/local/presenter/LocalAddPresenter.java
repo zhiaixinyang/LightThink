@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
@@ -90,6 +91,9 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
     @Override
     public void addContentToLocal(LocalRecord localRecord) {
         Date time = localRecord.getTimeDate();
+        //统计累计书写字数
+        MySharedPreferences.putCurWords(localRecord.getContent().length());
+
         String strContent = localRecord.getContent();
         String groupId = localRecord.getId() + "";
         String avUserId = localRecord.getBelongId();
@@ -117,6 +121,10 @@ public class LocalAddPresenter extends RxPresenter<LocalAddContract.View> implem
 
     @Override
     public void addNewLocalGroup(final LocalGroup localGroup) {
+        //统计累计书写字数
+        MySharedPreferences.putCurWords(localGroup.content.length());
+        MySharedPreferences.putCurWords(StringUtils.isEmpty(localGroup.title) ? 0 : localGroup.title.length());
+
         Subscription subscription = Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {

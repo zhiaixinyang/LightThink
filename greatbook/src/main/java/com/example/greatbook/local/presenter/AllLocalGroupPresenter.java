@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
@@ -34,6 +35,9 @@ public class AllLocalGroupPresenter extends RxPresenter<AllLocalGroupContract.Vi
 
     @Override
     public void addLocalGroup(LocalGroup localGroup) {
+        //统计累计书写字数
+        MySharedPreferences.putCurWords(StringUtils.isEmpty(localGroup.content) ? 0 : localGroup.content.length());
+        MySharedPreferences.putCurWords(StringUtils.isEmpty(localGroup.title) ? 0 : localGroup.title.length());
         id = localGroupDao.insert(localGroup);
         if (id > 0) {
             mView.addLocalGroupSuc("新建成功");

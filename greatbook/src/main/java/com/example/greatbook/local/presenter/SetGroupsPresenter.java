@@ -7,6 +7,7 @@ import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.entity.LocalGroup;
@@ -14,6 +15,7 @@ import com.example.greatbook.local.presenter.contract.SetGroupsContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
+import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 
 import java.util.List;
@@ -98,29 +100,19 @@ public class SetGroupsPresenter extends RxPresenter<SetGroupsContract.View> impl
         } else {
             if (localGroup.getIsUserd()) {
                 if (userdNum > 1) {
-                    localGroup.isUserd=false;
+                    localGroup.isUserd = false;
                     localGroupDao.update(localGroup);
                     mView.returnSetUserdGroups(groups);
                 } else {
                     ToastUtil.toastShort("至少要选择一个常用文集");
                 }
             } else {
-                localGroup.isUserd=true;
+                localGroup.isUserd = true;
                 localGroupDao.update(localGroup);
                 mView.returnSetUserdGroups(groups);
             }
         }
     }
-
-    @Override
-    public void updateGroupMes(LocalGroup group, String title, String content) {
-        group.setTitle(title);
-        group.setContent(content);
-        localGroupDao.update(group);
-        mView.updateGroupMesReturn("修改完毕");
-        updateGroupMesToNet(group);
-    }
-
     @Override
     public void updateGroupMesToNet(final LocalGroup group) {
         if (NetUtil.isNetworkAvailable()) {

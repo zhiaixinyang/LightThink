@@ -3,6 +3,7 @@ package com.example.greatbook.presenter;
 import android.graphics.Color;
 
 import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.greendao.MyPlanDao;
 import com.example.greatbook.greendao.MyPlanTemplateDao;
 import com.example.greatbook.greendao.entity.MyPlan;
@@ -37,6 +38,8 @@ public class AddPlanPresenter implements AddPlanContract.Presenter {
     @Override
     public void insertPlan(MyPlan plan) {
         long insert = myPlanDao.insert(plan);
+        //统计累计书写字数
+        MySharedPreferences.putCurWords(plan.content.length());
         if (insert > 0) {
             view.insertPlanSUc();
         }

@@ -70,7 +70,8 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
             @Override
             public void onDelete(int pos) {
                 mPresenter.deleteLocalRecord(mData.get(pos));
-                mPresenter.initLocalRecords();
+                mAdapter.getSwipeItem().quickClose();
+                mAdapter.notifyItemRemoved(pos);
             }
 
             @Override

@@ -11,4 +11,8 @@
     <string name="chat_self_add_suc">发送成功</string>
     <string name="chat_self_show_empty">无日记内容</string>
     <string name="chat_self_send_empty">发送内容不能为空</string>
+
+    <string name="string_level">Lv.%d</string>
+    <string name="string_level_cur_words">%1$d / %2$d</string>
+    <integer name="up_level_need">1000</integer>
 </resources>

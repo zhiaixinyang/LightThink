@@ -12,6 +12,7 @@ import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.widght.ExpandableTextView;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
+import com.example.greatbook.widght.itemswip.SwipeMenuLayout;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class AllCommonAdapter extends CommonAdapter<LocalRecordRLV> {
     private Context context;
+    private ViewHolder mViewHolder;
 
     public AllCommonAdapter(Context context, int layoutId, List<LocalRecordRLV> datas) {
         super(context, layoutId, datas);
@@ -29,6 +31,7 @@ public class AllCommonAdapter extends CommonAdapter<LocalRecordRLV> {
 
     @Override
     public void convert(final ViewHolder holder, LocalRecordRLV localGroup) {
+        mViewHolder = holder;
         ((ExpandableTextView) holder.getView(R.id.tv_content)).setText(StringUtils.isEmpty(localGroup.content) ? "未设置" : localGroup.content);
         holder.setText(R.id.tv_title, StringUtils.isEmpty(localGroup.title) ? "未设置" : localGroup.title);
         holder.setText(R.id.tv_time, StringUtils.isEmpty(DateUtils.getDateChinese(localGroup.time)) ? "未设置" : DateUtils.getDateChinese(localGroup.time));
@@ -48,6 +51,14 @@ public class AllCommonAdapter extends CommonAdapter<LocalRecordRLV> {
                 }
             }
         });
+    }
+
+    public SwipeMenuLayout getSwipeItem() {
+        if (mViewHolder != null) {
+            return (SwipeMenuLayout) mViewHolder.itemView;
+        } else {
+            throw new NullPointerException("ViewHolder 为空");
+        }
     }
 
     private OnSwipeListener mOnSwipeListener;

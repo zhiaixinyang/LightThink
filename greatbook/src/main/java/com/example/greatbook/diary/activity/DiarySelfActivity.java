@@ -61,6 +61,9 @@ public class DiarySelfActivity extends AppCompatActivity implements DiarySelfAct
             @Override
             public void onDelete(int pos) {
                 mPresenter.deleteDiarySelf(mData.get(pos));
+
+                mAdapter.getSwipeItem().quickClose();
+                mAdapter.notifyItemRemoved(pos);
             }
 
             @Override
@@ -109,10 +112,6 @@ public class DiarySelfActivity extends AppCompatActivity implements DiarySelfAct
     @Override
     public void deleteDiarySelfSuc() {
         mBinding.srlChatSelf.setRefreshing(false);
-
-        if (mPresenter != null) {
-            mPresenter.showAllDiartSelf();
-        }
     }
 
     @Override

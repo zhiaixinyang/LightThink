@@ -1,15 +1,19 @@
 package com.example.greatbook.diary.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 
 import com.avos.avoscloud.AVUser;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.greendao.entity.DiarySelf;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.DateUtils;
+import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.widght.CircleImageView;
 
 import java.util.Date;
@@ -20,11 +24,9 @@ import java.util.List;
  */
 
 public class DiarySelfFragAdapter extends CommonAdapter<DiarySelf> {
-    private Context mContext;
 
     public DiarySelfFragAdapter(Context context, int layoutId, List<DiarySelf> datas) {
         super(context, layoutId, datas);
-        mContext = context;
     }
 
     @Override
@@ -36,6 +38,14 @@ public class DiarySelfFragAdapter extends CommonAdapter<DiarySelf> {
         if (currentUser != null) {
             GlideUtils.load(currentUser.getAvatar().getUrl(), (CircleImageView) holder.getView(R.id.iv_avatar_chat_self));
         }
+        holder.getView(R.id.tv_level).setBackground(SelectorFactory.newShapeSelector()
+                .setCornerRadius(DpUtils.dp2px(4))
+                .setStrokeWidth(DpUtils.dp2px(1))
+                .setDefaultStrokeColor(ContextCompat.getColor(context, R.color.red))
+                .create());
+        holder.setText(R.id.tv_level,String.format(context.getResources()
+                        .getString(R.string.string_level),
+                MySharedPreferences.getCurLevel()));
     }
 
     private int getResFromTime(Date time) {

@@ -13,6 +13,24 @@ public class User extends AVUser {
     private int charm;
     private int fans;
     private int money;
+    private int words;
+    private int level;
+
+    public int getLevel() {
+        return getInt("level");
+    }
+
+    public void setLevel(int level) {
+        put("level", level);
+    }
+
+    public int getWords() {
+        return getInt("words");
+    }
+
+    public void setWords(int words) {
+        put("words", words);
+    }
 
     public int getCharm() {
         return getInt("charm");

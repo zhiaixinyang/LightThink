@@ -7,6 +7,7 @@ import com.avos.avoscloud.DeleteCallback;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalRecord;
@@ -15,6 +16,7 @@ import com.example.greatbook.local.presenter.contract.LocalRecordSmallContract;
 import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
+import com.example.greatbook.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,10 +116,19 @@ public class LocalRecordSmallPresenter extends RxPresenter<LocalRecordSmallContr
 
     @Override
     public void updateLocalRecord(LocalRecordRLV localRecord, String title, String content) {
+        if (StringUtils.isEquals(localRecord.content, content) && StringUtils.isEquals(localRecord.title, title)) {
+            mView.updateLocalRecordReturn("至少有点变化吧");
+
+            return;
+        }
         LocalRecord record = new LocalRecord();
         record.setId(localRecord.id);
         record.setContent(content);
         record.setTitle(title);
+        //统计累计书写字数
+        MySharedPreferences.putCurWords(StringUtils.isEmpty(content) ? 0 : content.length());
+        MySharedPreferences.putCurWords(StringUtils.isEmpty(title) ? 0 : title.length());
+
         localRecordDao.update(record);
         mView.updateLocalRecordReturn("修改成功");
         updateLocalRecordToNet(record);

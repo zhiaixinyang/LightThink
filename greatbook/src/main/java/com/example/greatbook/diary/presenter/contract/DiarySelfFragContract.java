@@ -15,6 +15,10 @@ public interface DiarySelfFragContract {
         void initDiartSelf();
 
         void addDiarySelf(String content);
+
+        void addDiarySelfToNet(DiarySelf diarySelf);
+
+        void retrySavaNet();
     }
 
     interface View extends BaseView {
@@ -23,5 +27,8 @@ public interface DiarySelfFragContract {
         void diarySelfEmpty();
 
         void addDiarySelfSuc();
+
+        void addDiarySelfToNetErr(String netErr);
+
     }
 }

@@ -21,12 +21,17 @@
 
                 android:text="添加文章" />
         </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rlv_essay"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/srl_essay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_essay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
     </LinearLayout>
 
 </layout>

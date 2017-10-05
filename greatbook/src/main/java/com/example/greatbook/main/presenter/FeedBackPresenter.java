@@ -4,11 +4,13 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.main.presenter.contract.FeedBackContract;
 import com.example.greatbook.main.model.LFeedBackBean;
 import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.RxUtil;
+import com.example.greatbook.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +120,9 @@ public class FeedBackPresenter extends RxPresenter<FeedBackContract.View> implem
 
     @Override
     public void sendContent(String belongId, String content) {
+        //统计累计书写字数
+        MySharedPreferences.putCurWords(StringUtils.isEmpty(content) ? 0 : content.length());
+
         final LFeedBackBean lFeedBackBean=new LFeedBackBean();
         lFeedBackBean.setBelongId(belongId);
         lFeedBackBean.setLike(0);

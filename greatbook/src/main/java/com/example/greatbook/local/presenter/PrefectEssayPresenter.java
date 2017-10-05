@@ -1,12 +1,13 @@
 package com.example.greatbook.local.presenter;
 
 import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.greendao.ContentCommitDao;
 import com.example.greatbook.greendao.EssayDao;
 import com.example.greatbook.greendao.entity.ContentCommit;
 import com.example.greatbook.greendao.entity.Essay;
 import com.example.greatbook.local.presenter.contract.PrefectEssayContract;
-import com.example.greatbook.utils.LogUtils;
+import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 
 import java.util.List;
@@ -70,6 +71,8 @@ public class PrefectEssayPresenter implements PrefectEssayContract.Presenter {
     @Override
     public void saveEssay(String content) {
         if (mEssay != null) {
+            //统计累计书写字数
+            MySharedPreferences.putCurWords(StringUtils.isEmpty(content) ? 0 : content.length());
             mEssay.content = content;
             mEssayDao.update(mEssay);
             mView.saveEssaySuc(mEssay);

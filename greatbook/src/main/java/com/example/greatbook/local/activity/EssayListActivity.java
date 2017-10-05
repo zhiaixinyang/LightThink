@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -12,7 +13,6 @@ import com.avos.avoscloud.AVUser;
 import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.databinding.ActivityEssayListBinding;
-import com.example.greatbook.greendao.entity.Essay;
 import com.example.greatbook.local.adapter.EssayListAdapter;
 import com.example.greatbook.local.model.EssayListItem;
 import com.example.greatbook.local.presenter.EssayListPresenter;
@@ -28,8 +28,9 @@ import java.util.List;
  * Created by MDove on 17/9/18.
  */
 
-public class EssayListActivity extends AppCompatActivity implements EssayListContract.View {
-    private ActivityEssayListBinding binding;
+public class EssayListActivity extends AppCompatActivity implements EssayListContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
+    private ActivityEssayListBinding mBinding;
     private EssayListPresenter mPresenter;
     private List<EssayListItem> mData;
     private EssayListAdapter mAdapter;
@@ -61,14 +62,16 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
                 .setTitleText("文章列表")
                 .builder();
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_essay_list);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_essay_list);
         mPresenter = new EssayListPresenter();
         mPresenter.attachView(this);
 
+        mBinding.srlEssay.setOnRefreshListener(this);
+
         mData = new ArrayList<>();
         mAdapter = new EssayListAdapter(this, R.layout.item_essay_list, mData);
-        binding.rlvEssay.setLayoutManager(new LinearLayoutManager(this));
-        binding.rlvEssay.setAdapter(mAdapter);
+        mBinding.rlvEssay.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.rlvEssay.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new OnItemClickListener<EssayListItem>() {
             @Override
@@ -77,7 +80,7 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
             }
         });
 
-        binding.btnAddEssay.setOnClickListener(new View.OnClickListener() {
+        mBinding.btnAddEssay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -87,6 +90,7 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
             }
         });
 
+        mBinding.srlEssay.setRefreshing(true);
         mPresenter.initEssayList();
     }
 
@@ -104,23 +108,35 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter!=null){
+        if (mPresenter != null) {
             mPresenter.detachView();
         }
     }
 
     @Override
     public void initEssayListSuc(List<EssayListItem> data) {
+        mBinding.srlEssay.setRefreshing(false);
+
         mAdapter.addData(data);
     }
 
     @Override
     public void initEssayListEmpty() {
+        mBinding.srlEssay.setRefreshing(false);
+
         ToastUtil.toastShort("您还没有写过文章吧？");
     }
 
     @Override
     public void addEssaySuc(long essayId) {
         PrefectEssayActivity.startPrefectEssay(this, essayId);
+    }
+
+    @Override
+    public void onRefresh() {
+        mBinding.srlEssay.setRefreshing(true);
+        if (mPresenter != null) {
+            mPresenter.initEssayList();
+        }
     }
 }

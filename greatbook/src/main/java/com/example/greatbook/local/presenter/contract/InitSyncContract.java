@@ -10,6 +10,7 @@ import com.example.greatbook.base.BaseView;
 public interface InitSyncContract {
     interface Presenter extends BasePresenter<InitSyncContract.View> {
         void syncData(String belongId);
+        void syncDiarySlef();
     }
 
     interface View extends BaseView {

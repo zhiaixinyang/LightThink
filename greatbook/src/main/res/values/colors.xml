@@ -20,6 +20,10 @@
     <color name="pink">#ff5972</color>
     <color name="red">#ff0026</color>
 
+    <color name="blue_light_progress">#6acfed</color>
+    <color name="blue_dark_progress">#008fff</color>
+    <color name="trans_blue_dark_progress">#7d008fff</color>
+
     <color name="trans_purple">#77c03ee4</color>
     <color name="trans_gray">#77cccccc</color>
     <color name="trans">#2dffffff</color>
