@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.example.greatbook.R;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.databinding.FragMiddleLocalRecordSmallBinding;
+import com.example.greatbook.local.activity.AddLocalRecordActivity;
 import com.example.greatbook.local.activity.AllLocalRecordActivity;
 import com.example.greatbook.local.adapter.AllCommonAdapter;
 import com.example.greatbook.local.model.LocalRecordRLV;
@@ -113,6 +114,12 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
         mBinding.rlvSetAllLocalRecord.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rlvSetAllLocalRecord.setAdapter(mAdapter);
 
+        mBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddLocalRecordActivity.startAddLocalRecord(getContext());
+            }
+        });
     }
 
 

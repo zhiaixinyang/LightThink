@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 17/9/21.
+ * Created by MDove on 17/9/21.
  */
 
 public abstract class BaseItemAnimator extends SimpleItemAnimator {

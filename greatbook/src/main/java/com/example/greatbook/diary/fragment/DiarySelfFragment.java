@@ -22,6 +22,7 @@ import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
+import com.example.greatbook.widght.rlvanim.SlideInLeftAnimator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,26 +69,9 @@ public class DiarySelfFragment extends Fragment implements DiarySelfFragContract
 
         mBinding.rlvDiary.setAdapter(mAdapter);
         mBinding.rlvDiary.setLayoutManager(new LinearLayoutManager(getContext()));
-
-//        StickyDecoration decoration = StickyDecoration.Builder
-//                .init(new GroupListener() {
-//                    @Override
-//                    public String getGroupName(int position) {
-//                        if (mData.size() > position) {
-//                            LogUtils.d("" + DateUtils.getDateChineseYMD(mData.get(position).time));
-//                            return DateUtils.getDateChineseYMD(mData.get(position).time);
-//                        }
-//                        return null;
-//                    }
-//                })
-//                .setGroupBackground(Color.parseColor("#48BDFF"))
-//                .setGroupHeight(DpUtils.dp2px(35))
-//                .setGroupTextColor(Color.WHITE)
-//                .setGroupTextSize(DpUtils.dp2px(15))
-//                .setTextLeftMargin(DpUtils.dp2px(10))
-//                .build();
-//
-//        mBinding.rlvDiary.addItemDecoration(decoration);
+        SlideInLeftAnimator slideInLeftAnimator=new SlideInLeftAnimator();
+        slideInLeftAnimator.setAddDuration(500);
+        mBinding.rlvDiary.setItemAnimator(slideInLeftAnimator);
 
         mPresenter = new DiarySelfFragPresenter();
         mPresenter.attachView(this);

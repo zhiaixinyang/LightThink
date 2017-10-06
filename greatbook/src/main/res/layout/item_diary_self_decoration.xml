@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_day"
+        android:layout_width="40dp"
+        android:text="28"
+        android:layout_marginLeft="@dimen/view_show_time_style_margin"
+        android:layout_marginTop="@dimen/view_show_time_style_margin"
+        android:layout_marginBottom="@dimen/view_show_time_style_margin"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_height="40dp" />
+    <TextView
+        android:id="@+id/tv_week"
+        android:layout_width="wrap_content"
+        android:text="星期一"
+        android:layout_toRightOf="@+id/tv_day"
+        android:layout_alignTop="@+id/tv_day"
+        android:textColor="@color/gray_plus"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/view_show_time_style_margin"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tv_year_month"
+        android:layout_width="wrap_content"
+        android:text="2017-12"
+        android:layout_toRightOf="@+id/tv_day"
+        android:layout_alignBottom="@+id/tv_day"
+        android:textColor="@color/gray_plus"
+        android:textSize="14sp"
+        android:layout_marginLeft="@dimen/view_show_time_style_margin"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

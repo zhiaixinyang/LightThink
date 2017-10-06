@@ -66,4 +66,5 @@ public class AllCommonAdapter extends CommonAdapter<LocalRecordRLV> {
     public void setOnSwipeListener(OnSwipeListener mOnDelListener) {
         this.mOnSwipeListener = mOnDelListener;
     }
+
 }

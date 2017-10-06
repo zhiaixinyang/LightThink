@@ -99,7 +99,6 @@ public class DateUtils {
         }
     }
 
-
     public static String getGroupExpenseTime(long time) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
         time *= 1000;
@@ -201,7 +200,6 @@ public class DateUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(time);
         return cal.get(Calendar.DAY_OF_MONTH);
-
     }
 
     public static int getHour(long time) {
@@ -248,9 +246,9 @@ public class DateUtils {
 
     }
 
-    public static String getCreateExpenseDate(long time) {
+    public static String getYearMonth(long time) {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
         Date date = new Date(time);
         return format.format(date);
     }

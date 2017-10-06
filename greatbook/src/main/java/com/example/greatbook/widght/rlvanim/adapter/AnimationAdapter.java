@@ -10,7 +10,7 @@ import android.view.animation.LinearInterpolator;
 import com.example.greatbook.widght.rlvanim.ViewHelper;
 
 /**
- * Created by admin on 17/9/21.
+ * Created by MDove on 17/9/21.
  */
 
 public abstract class AnimationAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

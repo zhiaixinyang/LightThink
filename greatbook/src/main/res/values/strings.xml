@@ -14,5 +14,6 @@
 
     <string name="string_level">Lv.%d</string>
     <string name="string_level_cur_words">%1$d / %2$d</string>
+    <string name="behavior_bottom_buttom" >com.example.greatbook.behavior.BottomButtonBehavior</string>
     <integer name="up_level_need">1000</integer>
 </resources>

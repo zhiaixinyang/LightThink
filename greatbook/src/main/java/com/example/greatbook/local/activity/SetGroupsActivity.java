@@ -1,6 +1,8 @@
 package com.example.greatbook.local.activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -30,10 +32,14 @@ import butterknife.BindView;
  * Created by MDove on 2017/8/13.
  */
 
-public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implements SetGroupsContract.View {
-    private static final String TAG = "SetGroupsActivity";
+public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implements SetGroupsContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.rlv_set_groups)
-    RecyclerView rlvSetGroups;
+    RecyclerView mRlvSetGroups;
+    @BindView(R.id.btn_add)
+    FloatingActionButton mBtnAdd;
+    @BindView(R.id.srl_set_groups)
+    SwipeRefreshLayout mSrlSetGroups;
     private SetGroupsAdapter mAdapter;
     private List<LocalGroup> mData;
 
@@ -67,9 +73,16 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
         presenter = new SetGroupsPresenter(this);
         mData = new ArrayList<>();
         mAdapter = new SetGroupsAdapter(this, R.layout.item_set_groups, mData);
+        mBtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddLocalGroupActivity.startAddLocadGroup(SetGroupsActivity.this);
+            }
+        });
         mAdapter.setOnSwipeListener(new OnSwipeListener() {
             @Override
             public void onDelete(int pos) {
+                mAdapter.getSwipeItem().quickClose();
                 presenter.deleteLocalGroup(mData.get(pos));
                 //通知页面变化
                 mData.remove(mData.get(pos));
@@ -90,23 +103,28 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
                 startActivity(toDetail);
             }
         });
-        rlvSetGroups.setLayoutManager(new LinearLayoutManager(this));
-        rlvSetGroups.setAdapter(mAdapter);
+        mRlvSetGroups.setLayoutManager(new LinearLayoutManager(this));
+        mRlvSetGroups.setAdapter(mAdapter);
+        mSrlSetGroups.setOnRefreshListener(this);
+        mSrlSetGroups.setRefreshing(true);
         presenter.initLocalGroup();
     }
 
     @Override
     public void deleteLocalGroupToNetReturn(String returnStr) {
-        LogUtils.d(TAG, returnStr);
+        LogUtils.d(returnStr);
+        mSrlSetGroups.setRefreshing(false);
     }
 
     @Override
     public void deleteLocalGroupReturn(String returnStr) {
         ToastUtil.toastShort(returnStr);
+        mSrlSetGroups.setRefreshing(false);
     }
 
     @Override
     public void updateGroupMesReturn(String returnStr) {
+        mSrlSetGroups.setRefreshing(false);
         dialog.dismiss();
         mAdapter.notifyDataSetChanged();
         ToastUtil.toastShort(returnStr);
@@ -114,17 +132,22 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
 
     @Override
     public void updateGroupMesToNetReturn(String returnStr) {
-        LogUtils.d(TAG, returnStr);
+        mSrlSetGroups.setRefreshing(false);
+        LogUtils.d(returnStr);
     }
 
     @Override
     public void initLocalGroup(List<LocalGroup> groups) {
+        mSrlSetGroups.setRefreshing(false);
+
         mData = groups;
         mAdapter.addData(mData);
     }
 
     @Override
     public void returnSetUserdGroups(List<LocalGroup> groups) {
+        mSrlSetGroups.setRefreshing(false);
+
         mAdapter.addData(groups);
     }
 
@@ -144,5 +167,10 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
         SetGroupEvent event = new SetGroupEvent();
         event.event = Constants.SET_GROUP_FINISH;
         EventBus.getDefault().post(event);
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.initLocalGroup();
     }
 }

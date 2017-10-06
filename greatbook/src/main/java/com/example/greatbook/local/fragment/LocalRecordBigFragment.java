@@ -15,6 +15,7 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.databinding.FragMiddleLocalRecordBigBinding;
+import com.example.greatbook.local.activity.AddLocalRecordActivity;
 import com.example.greatbook.local.model.LocalRecordRLV;
 import com.example.greatbook.local.presenter.LocalRecordBigPresenter;
 import com.example.greatbook.local.presenter.contract.LocalRecordBigContract;
@@ -87,6 +88,13 @@ public class LocalRecordBigFragment extends Fragment implements LocalRecordBigCo
                 }
             }
         };
+
+        mBinding.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddLocalRecordActivity.startAddLocalRecord(getContext());
+            }
+        });
 
         mBinding.rlvLocalRecordBig.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rlvLocalRecordBig.setAdapter(mAdapter);

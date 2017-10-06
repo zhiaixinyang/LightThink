@@ -12,6 +12,7 @@ import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.RoundImageView;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
+import com.example.greatbook.widght.itemswip.SwipeMenuLayout;
 
 import java.util.List;
 
@@ -20,12 +21,15 @@ import java.util.List;
  */
 
 public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
+    private ViewHolder mViewHolder;
+
     public SetGroupsAdapter(Context context, int layoutId, List<LocalGroup> datas) {
         super(context, layoutId, datas);
     }
 
     @Override
     public void convert(final ViewHolder holder, final LocalGroup localGroup) {
+        mViewHolder = holder;
         holder.setOnClickListener(R.id.btn_alter, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,5 +83,12 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
         this.mOnSwipeListener = mOnDelListener;
     }
 
+    public SwipeMenuLayout getSwipeItem() {
+        if (mViewHolder != null) {
+            return (SwipeMenuLayout) mViewHolder.itemView;
+        } else {
+            throw new NullPointerException("ViewHolder 为空");
+        }
+    }
 }
 

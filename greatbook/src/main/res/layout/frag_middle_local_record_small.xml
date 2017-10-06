@@ -14,6 +14,16 @@
                 android:layout_height="match_parent"
                 android:overScrollMode="never" />
         </android.support.v4.widget.SwipeRefreshLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/icon_add"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            />
 
         <include
             android:id="@+id/include_empty_loading"

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by admin on 17/9/21.
+ * Created by MDove on 17/9/21.
  */
 
 public class SlideInLeftAnimationAdapter extends AnimationAdapter {

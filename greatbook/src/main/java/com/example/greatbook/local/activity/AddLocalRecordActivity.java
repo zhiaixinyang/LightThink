@@ -1,5 +1,6 @@
 package com.example.greatbook.local.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.ArrayMap;
@@ -54,6 +55,11 @@ public class AddLocalRecordActivity extends BaseActivity<LocalAddPresenter> impl
     private ArrayMap<String, LocalGroup> localMap;
     private LocalGroup seletLocalGroup;
     private int[] photoArr = new int[]{R.drawable.icon_default_group_encourage, R.drawable.icon_default_group_jok, R.drawable.icon_default_group_short_eassy};
+
+    public static void startAddLocalRecord(Context context) {
+        Intent toStart = new Intent(context, AddLocalRecordActivity.class);
+        context.startActivity(toStart);
+    }
 
     @Override
     public int getLayoutId() {

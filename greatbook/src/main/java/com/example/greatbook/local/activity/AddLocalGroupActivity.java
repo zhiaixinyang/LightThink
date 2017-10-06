@@ -1,9 +1,9 @@
 package com.example.greatbook.local.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -53,13 +53,19 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
     ImageView btnOffPhoto;
     private String imagePath;
 
-    public static final String IS_SHOW_ONE_GROUP_TAG="is_show_one_group_tag";
+    public static final String IS_SHOW_ONE_GROUP_TAG = "is_show_one_group_tag";
 
-    public static final String IS_ALTER="is_alter";
+    public static final String IS_ALTER = "is_alter";
 
     @Override
     public void showError(String msg) {
         ToastUtil.toastShort(msg);
+    }
+
+
+    public static void startAddLocadGroup(Context context) {
+        Intent toLocadGroup = new Intent(context, AddLocalGroupActivity.class);
+        context.startActivity(toLocadGroup);
     }
 
     @Override
@@ -88,12 +94,12 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
 
     @Override
     public void init() {
-        String title=getIntent().getStringExtra(IS_SHOW_ONE_GROUP_TAG);
-        if (StringUtils.isEmpty(title)){
-            title="添加文集";
+        String title = getIntent().getStringExtra(IS_SHOW_ONE_GROUP_TAG);
+        if (StringUtils.isEmpty(title)) {
+            title = "添加文集";
         }
-        LocalGroup localGroup= (LocalGroup) getIntent().getSerializableExtra(IS_ALTER);
-        if (localGroup!=null){
+        LocalGroup localGroup = (LocalGroup) getIntent().getSerializableExtra(IS_ALTER);
+        if (localGroup != null) {
             showAlter(localGroup);
         }
 
@@ -160,14 +166,14 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
                     } else {
                         //此情况为选中图片
                         LocalGroup localGroup = new LocalGroup();
-                        localGroup.isUserd=false;
-                        localGroup.time=new Date();
-                        localGroup.belongId=user.getObjectId();
-                        localGroup.groupPhotoPath=imagePath;
-                        localGroup.content=StringUtils.isEmpty(content) ? "未设置文集描述" : content;
-                        localGroup.groupLocalPhotoPath=0;
-                        localGroup.bgColor=ContextCompat.getColor(this, R.color.blue) + "";
-                        localGroup.title=name;
+                        localGroup.isUserd = false;
+                        localGroup.time = new Date();
+                        localGroup.belongId = user.getObjectId();
+                        localGroup.groupPhotoPath = imagePath;
+                        localGroup.content = StringUtils.isEmpty(content) ? "未设置文集描述" : content;
+                        localGroup.groupLocalPhotoPath = 0;
+                        localGroup.bgColor = ContextCompat.getColor(this, R.color.blue) + "";
+                        localGroup.title = name;
                         presenter.addLocalGroup(localGroup);
                     }
                 } else {
@@ -217,14 +223,14 @@ public class AddLocalGroupActivity extends BaseActivity<AllLocalGroupPresenter> 
         }
     }
 
-    private void showAlter(LocalGroup group){
-        etGroupName.setText(StringUtils.isEmpty(group.title)?"":group.title);
+    private void showAlter(LocalGroup group) {
+        etGroupName.setText(StringUtils.isEmpty(group.title) ? "" : group.title);
         etGroupContent.setText(group.content);
-        imagePath=group.groupPhotoPath;
-        if (StringUtils.isEmpty(imagePath)){
+        imagePath = group.groupPhotoPath;
+        if (StringUtils.isEmpty(imagePath)) {
             ivSelect.setImageResource(group.groupLocalPhotoPath);
-        }else{
-            GlideUtils.loadSmallIv(group.groupPhotoPath,ivSelect);
+        } else {
+            GlideUtils.loadSmallIv(group.groupPhotoPath, ivSelect);
         }
         btnOffPhoto.setVisibility(View.VISIBLE);
     }

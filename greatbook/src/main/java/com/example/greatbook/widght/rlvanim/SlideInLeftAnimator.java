@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.animation.Interpolator;
 
 /**
- * Created by admin on 17/9/21.
+ * Created by MDove on 17/9/21.
  */
 
 public class SlideInLeftAnimator extends BaseItemAnimator {
