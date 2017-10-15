@@ -3,6 +3,7 @@ package com.example.greatbook.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.greatbook.App;
 import com.example.greatbook.R;
@@ -27,7 +28,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         setContentView(getLayoutId());
         unbinder = ButterKnife.bind(this);
         //StatusBarUtil.setImgTransparent(this);
-        App.getInstance().addActivity(this);
         setTrans();
         if (presenter!=null) {
             presenter.attachView(this);
@@ -54,7 +54,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.getInstance().removeActivity(this);
         unbinder.unbind();
         if (dialog!=null){
             dialog.dismiss();

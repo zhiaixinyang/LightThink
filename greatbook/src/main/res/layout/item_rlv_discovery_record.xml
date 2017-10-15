@@ -58,7 +58,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tv_content"
         android:layout_marginRight="@dimen/item_feedback_margin"
-        android:layout_marginTop="@dimen/item_feedback_good_w_h">
+        android:layout_marginTop="@dimen/item_feedback_margin">
 
         <ImageView
             android:id="@+id/iv_good"
@@ -73,7 +73,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:text="99+"
-            android:textColor="@color/black"
+            android:textColor="@color/red"
             android:textSize="12sp" />
     </RelativeLayout>
 
@@ -98,12 +98,12 @@
         android:layout_alignLeft="@+id/tv_title"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tv_title"
-        android:layout_marginBottom="@dimen/item_middle_local_add_margin"
         android:layout_marginLeft="@dimen/item_middle_local_add_margin"
         android:layout_marginRight="@dimen/item_middle_local_add_margin"
         android:layout_toLeftOf="@+id/iv_group"
-        android:maxLines="2"
+        android:maxLines="3"
         android:text="内容"
+        android:ellipsize="end"
         android:textColor="@color/black"
         android:textSize="16sp" />
 

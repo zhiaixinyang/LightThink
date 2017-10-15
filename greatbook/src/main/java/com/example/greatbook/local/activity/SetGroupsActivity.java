@@ -82,17 +82,17 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
         mAdapter.setOnSwipeListener(new OnSwipeListener() {
             @Override
             public void onDelete(int pos) {
-                mAdapter.getSwipeItem().quickClose();
                 presenter.deleteLocalGroup(mData.get(pos));
-                //通知页面变化
-                mData.remove(mData.get(pos));
-                mAdapter.addData(mData);
+                mAdapter.getSwipeItem().quickClose();
+                mAdapter.notifyItemChanged(pos);
             }
 
             @Override
             public void onTop(int pos) {
                 //在returnSetUserdGroups回调中处理即可
                 presenter.setUserdGroups(mData, pos);
+                mAdapter.getSwipeItem().quickClose();
+                mAdapter.notifyItemChanged(pos);
             }
 
             @Override
@@ -108,6 +108,19 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
         mSrlSetGroups.setOnRefreshListener(this);
         mSrlSetGroups.setRefreshing(true);
         presenter.initLocalGroup();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtils.d("onResume");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LogUtils.d("onDestroy");
     }
 
     @Override
@@ -147,8 +160,6 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
     @Override
     public void returnSetUserdGroups(List<LocalGroup> groups) {
         mSrlSetGroups.setRefreshing(false);
-
-        mAdapter.addData(groups);
     }
 
     @Override

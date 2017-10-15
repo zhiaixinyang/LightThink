@@ -1,4 +1,4 @@
-package com.example.greatbook.local.viewmodel;
+package com.example.greatbook.nethot.viewmodel;
 
 import android.databinding.ObservableField;
 

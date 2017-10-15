@@ -18,7 +18,7 @@
         android:theme="@style/TestDayNight">
         <activity
             android:name=".main.activity.MainActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +26,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".nethot.activity.DiscoveryGroupAndRecordsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".main.activity.FeedBackActivity"
             android:launchMode="singleTask"

@@ -11,7 +11,8 @@ import com.example.greatbook.constants.Constants;
 import com.example.greatbook.diary.model.LDiarySelf;
 import com.example.greatbook.greendao.DaoSession;
 import com.example.greatbook.greendao.utils.DaoManager;
-import com.example.greatbook.local.model.leancloud.LGroupFollowers;
+import com.example.greatbook.local.model.leancloud.LGroupCollects;
+import com.example.greatbook.local.model.leancloud.LGroupRemark;
 import com.example.greatbook.local.model.leancloud.LRecordLike;
 import com.example.greatbook.local.model.leancloud.LRecordRemark;
 import com.example.greatbook.model.leancloud.LLocalGroup;
@@ -19,7 +20,6 @@ import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.main.model.LFeedBackBean;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,10 +29,6 @@ import java.util.Set;
 public class App extends MultiDexApplication {
     private static Context context;
     private static App app;
-    public static int SCREEN_WIDTH = -1;
-    public static int SCREEN_HEIGHT = -1;
-    public static float DIMEN_RATE = -1.0F;
-    public static int DIMEN_DPI = -1;
     private Set<Activity> allActivities;
     private static DaoSession daoSession;
     private DaoManager daoManager;
@@ -80,21 +76,9 @@ public class App extends MultiDexApplication {
         AVObject.registerSubclass(LLocalGroup.class);
         AVObject.registerSubclass(LRecordRemark.class);
         AVObject.registerSubclass(LRecordLike.class);
-        AVObject.registerSubclass(LGroupFollowers.class);
+        AVObject.registerSubclass(LGroupRemark.class);
+        AVObject.registerSubclass(LGroupCollects.class);
         AVObject.registerSubclass(LDiarySelf.class);
-    }
-
-    public void addActivity(Activity act) {
-        if (allActivities == null) {
-            allActivities = new HashSet<Activity>();
-        }
-        allActivities.add(act);
-    }
-
-    public void removeActivity(Activity act) {
-        if (allActivities != null) {
-            allActivities.remove(act);
-        }
     }
 
     public static void toIntent(Activity activityFrom,Class activityTo){

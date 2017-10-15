@@ -1,13 +1,13 @@
-package com.example.greatbook.local.databinding;
+package com.example.greatbook.nethot.databinding;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
-import com.example.greatbook.nethot.adapter.GroupAndRecordsAdapter;
-import com.example.greatbook.local.model.GroupAndRecords;
-import com.example.greatbook.local.viewmodel.GroupAndRecordsBeanVM;
 import com.example.greatbook.model.leancloud.LLocalRecord;
+import com.example.greatbook.nethot.adapter.GroupRecordsAdapter;
+import com.example.greatbook.nethot.model.GroupRecords;
+import com.example.greatbook.nethot.viewmodel.GroupAndRecordsBeanVM;
 import com.example.greatbook.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ import java.util.List;
 
 public class GroupAndRecordsDataBinding {
     @BindingAdapter("groupAndRecordsData")
-    public static void groupAndRecordsData(RecyclerView view, GroupAndRecords groupAndRecords) {
+    public static void groupAndRecordsData(RecyclerView view, GroupRecords groupRecords) {
         List<GroupAndRecordsBeanVM> data_ = new ArrayList<>();
-        GroupAndRecordsAdapter adapter = (GroupAndRecordsAdapter) view.getAdapter();
-        if (adapter != null) {
-            for (LLocalRecord lLocalRecord : groupAndRecords.data) {
+        GroupRecordsAdapter adapter = (GroupRecordsAdapter) view.getAdapter();
+        if (adapter != null && groupRecords != null && !groupRecords.data.isEmpty()) {
+            for (LLocalRecord lLocalRecord : groupRecords.data) {
                 final GroupAndRecordsBeanVM recordRemarkBeanVM = new GroupAndRecordsBeanVM();
                 recordRemarkBeanVM.content.set(lLocalRecord.getContent());
                 recordRemarkBeanVM.time.set(DateUtils.getDateChinese(lLocalRecord.getCreatedAt()));
@@ -35,8 +35,8 @@ public class GroupAndRecordsDataBinding {
     }
 
 
-    @BindingAdapter("iconLikeRes")
-    public static void iconLikeRes(ImageView imageView, int res) {
+    @BindingAdapter("iconFollowerRes")
+    public static void iconFollowerRes(ImageView imageView, int res) {
         imageView.setImageResource(res);
     }
 }

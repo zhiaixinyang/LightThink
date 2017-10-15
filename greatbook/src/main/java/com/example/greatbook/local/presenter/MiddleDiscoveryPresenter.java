@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.base.RxPresenter;
+import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.nethot.model.DiscoveryRecord;
 import com.example.greatbook.nethot.model.DiscoveryTopGroup;
 import com.example.greatbook.local.presenter.contract.MiddleDiscoveryContract;
@@ -46,12 +47,11 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                     query.findInBackground(new FindCallback<LLocalGroup>() {
                         @Override
                         public void done(List<LLocalGroup> list, AVException e) {
-                            LogUtils.d(Thread.currentThread() + "!@!@!");
-
                             groupReturn = new DiscoveryGroupReturn();
 
                             if (e == null && !list.isEmpty()) {
                                 List<DiscoveryTopGroup> data = new ArrayList<>();
+
                                 for (LLocalGroup lLocalGroup : list) {
                                     DiscoveryTopGroup topRecord = new DiscoveryTopGroup();
                                     topRecord.attentionNum = lLocalGroup.getAttentionNum();
@@ -62,6 +62,7 @@ public class MiddleDiscoveryPresenter extends RxPresenter<MiddleDiscoveryContrac
                                     topRecord.time = lLocalGroup.getCreatedAt();
                                     topRecord.groupPhotoPath = lLocalGroup.getGroupPhoto().getUrl();
                                     topRecord.objectId=lLocalGroup.getObjectId();
+
                                     data.add(topRecord);
                                 }
                                 groupReturn.data = data;

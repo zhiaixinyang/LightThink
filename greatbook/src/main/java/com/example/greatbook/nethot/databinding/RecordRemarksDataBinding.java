@@ -1,4 +1,4 @@
-package com.example.greatbook.local.databinding;
+package com.example.greatbook.nethot.databinding;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
@@ -7,11 +7,11 @@ import android.widget.ImageView;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.example.greatbook.local.adapter.RecordRemarksAdapter;
-import com.example.greatbook.nethot.model.RecordRemark;
 import com.example.greatbook.local.model.leancloud.LRecordRemark;
-import com.example.greatbook.local.viewmodel.RecordRemarkBeanVM;
 import com.example.greatbook.model.leancloud.User;
+import com.example.greatbook.nethot.adapter.RecordRemarksAdapter;
+import com.example.greatbook.nethot.model.RecordRemarks;
+import com.example.greatbook.nethot.viewmodel.RecordRemarkBeanVM;
 import com.example.greatbook.utils.DateUtils;
 
 import java.util.ArrayList;
@@ -23,11 +23,11 @@ import java.util.List;
 
 public class RecordRemarksDataBinding {
     @BindingAdapter("recordRemarkData")
-    public static void recordRemarkData(RecyclerView view, RecordRemark recordRemark) {
+    public static void recordRemarkData(RecyclerView view, RecordRemarks recordRemarks) {
         List<RecordRemarkBeanVM> data_ = new ArrayList<>();
         RecordRemarksAdapter adapter = (RecordRemarksAdapter) view.getAdapter();
-        if (adapter != null) {
-            for (LRecordRemark lRecordRemark : recordRemark.date) {
+        if (adapter != null && recordRemarks != null && !recordRemarks.date.isEmpty()) {
+            for (LRecordRemark lRecordRemark : recordRemarks.date) {
                 final RecordRemarkBeanVM recordRemarkBeanVM = new RecordRemarkBeanVM();
                 recordRemarkBeanVM.content.set(lRecordRemark.getContent());
                 recordRemarkBeanVM.time.set(DateUtils.getDateChinese(lRecordRemark.getCreatedAt()));

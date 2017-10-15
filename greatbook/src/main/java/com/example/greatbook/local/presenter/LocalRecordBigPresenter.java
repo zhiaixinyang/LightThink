@@ -37,7 +37,10 @@ public class LocalRecordBigPresenter extends RxPresenter<LocalRecordBigContract.
         Subscription subscription = Observable.create(new Observable.OnSubscribe<List<LocalRecord>>() {
             @Override
             public void call(Subscriber<? super List<LocalRecord>> subscriber) {
-                List<LocalRecord> data = mLocalRecordDao.loadAll();
+                List<LocalRecord> data = mLocalRecordDao
+                        .queryBuilder()
+                        .orderDesc(LocalRecordDao.Properties.TimeDate)
+                        .list();
                 subscriber.onNext(data);
             }
         }).flatMap(new Func1<List<LocalRecord>, Observable<List<LocalRecordRLV>>>() {
@@ -45,7 +48,9 @@ public class LocalRecordBigPresenter extends RxPresenter<LocalRecordBigContract.
             public Observable<List<LocalRecordRLV>> call(List<LocalRecord> localRecords) {
                 List<LocalRecordRLV> data = new ArrayList<>();
                 for (LocalRecord local : localRecords) {
-                    LocalGroup localGroup = mLocalGroupDao.queryBuilder().where(LocalGroupDao.Properties.Id.eq(local.getGroupId())).list().get(0);
+                    LocalGroup localGroup = mLocalGroupDao.queryBuilder()
+                            .where(LocalGroupDao.Properties.Id.eq(local.getGroupId()))
+                            .list().get(0);
                     LocalRecordRLV localRLV = new LocalRecordRLV();
                     localRLV.belongId = local.getBelongId();
                     localRLV.content = local.getContent();

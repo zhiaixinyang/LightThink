@@ -1,4 +1,4 @@
-package com.example.greatbook.nethot.presenter;
+package com.example.greatbook.nethot.presenter.contract;
 
 import com.example.greatbook.base.BasePresenter;
 import com.example.greatbook.base.BaseView;

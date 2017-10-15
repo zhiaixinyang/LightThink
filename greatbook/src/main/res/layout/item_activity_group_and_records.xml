@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="remarkVm"
-            type="com.example.greatbook.local.viewmodel.GroupAndRecordsBeanVM" />
+            type="com.example.greatbook.nethot.viewmodel.GroupAndRecordsBeanVM" />
     </data>
 
     <RelativeLayout
@@ -18,41 +19,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_activity_record_remark_margin"
+            android:layout_marginTop="@dimen/item_activity_record_remark_margin"
             android:layout_toRightOf="@+id/iv_avatar"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{remarkVm.title}"
             android:textColor="@color/blue"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/item_activity_record_remark_margin"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/item_activity_record_remark_margin"
+            android:layout_marginTop="@dimen/item_activity_record_remark_margin"
             android:text="@{remarkVm.time}"
             android:textColor="@color/gray"
             android:textSize="10sp" />
 
-        <TextView
+        <com.example.greatbook.widght.ExpandableTextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="4"
+            android:layout_alignLeft="@+id/tv_nick"
+            android:layout_alignStart="@+id/tv_nick"
+            android:layout_below="@+id/tv_time"
+            android:layout_margin="@dimen/item_activity_group_and_records_margin"
             android:text="@{remarkVm.content}"
             android:textColor="@color/light_black"
-            android:layout_marginBottom="@dimen/item_activity_group_and_records_margin"
-            android:layout_marginLeft="@dimen/item_activity_group_and_records_margin"
-            android:layout_marginRight="@dimen/item_activity_group_and_records_margin"
-            android:layout_below="@+id/tv_time"
-            android:textSize="12sp"
-            android:layout_alignLeft="@+id/tv_nick"
-            android:layout_alignStart="@+id/tv_nick" />
+            android:textSize="14sp"
+            app:DrawableAndTextGravity="right"
+            app:collapseDrawable="@drawable/btn_expand_off"
+            app:contentTextColor="@color/colorPrimaryDark"
+            app:expandCollapseTextColor="@color/blue"
+            app:expandDrawable="@drawable/btn_expand_on"
+            app:expandText="展开"
+            app:maxCollapsedLines="3" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/tv_content"
-            android:layout_marginBottom="@dimen/item_activity_group_and_records_margin"
             android:layout_marginLeft="@dimen/item_activity_group_and_records_margin"
             android:layout_marginRight="@dimen/item_activity_group_and_records_margin"
             android:background="@color/gray_light" />

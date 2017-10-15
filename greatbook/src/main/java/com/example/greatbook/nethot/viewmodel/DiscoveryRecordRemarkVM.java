@@ -1,4 +1,4 @@
-package com.example.greatbook.local.viewmodel;
+package com.example.greatbook.nethot.viewmodel;
 
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -15,7 +15,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.R;
 import com.example.greatbook.constants.Constants;
 import com.example.greatbook.nethot.model.DiscoveryRecord;
-import com.example.greatbook.nethot.model.RecordRemark;
+import com.example.greatbook.nethot.model.RecordRemarks;
 import com.example.greatbook.local.model.leancloud.LRecordLike;
 import com.example.greatbook.local.model.leancloud.LRecordRemark;
 import com.example.greatbook.model.event.LikeEvent;
@@ -56,7 +56,7 @@ public class DiscoveryRecordRemarkVM {
     public ObservableField<String> groupTitle = new ObservableField<>();
     public ObservableField<String> likeNum = new ObservableField<>();
     public ObservableField<String> nick = new ObservableField<>();
-    public ObservableField<RecordRemark> data = new ObservableField<>();
+    public ObservableField<RecordRemarks> data = new ObservableField<>();
     public ObservableField<String> photoPath = new ObservableField<>();
     public ObservableField<String> avatarPath = new ObservableField<>();
     public ObservableBoolean loadingRemarks = new ObservableBoolean();
@@ -74,9 +74,9 @@ public class DiscoveryRecordRemarkVM {
     public DiscoveryRecordRemarkVM(DiscoveryRecord discoveryRecord, int itemPosition) {
         this.discoveryRecord = discoveryRecord;
         this.itemPosition = itemPosition;
-        RecordRemark recordRemark = new RecordRemark();
-        recordRemark.date = new ArrayList<>();
-        data.set(recordRemark);
+        RecordRemarks recordRemarks = new RecordRemarks();
+        recordRemarks.date = new ArrayList<>();
+        data.set(recordRemarks);
         loadingRemarks.set(false);
         isRemarksEmpty.set(true);
         isNetErr.set(false);
@@ -250,9 +250,9 @@ public class DiscoveryRecordRemarkVM {
                                 if (e == null) {
                                     loadingRemarks.set(false);
                                     if (!list.isEmpty()) {
-                                        RecordRemark recordRemark = new RecordRemark();
-                                        recordRemark.date = list;
-                                        data.set(recordRemark);
+                                        RecordRemarks recordRemarks = new RecordRemarks();
+                                        recordRemarks.date = list;
+                                        data.set(recordRemarks);
                                         isRemarksEmpty.set(false);
                                     } else {
                                         isRemarksEmpty.set(true);

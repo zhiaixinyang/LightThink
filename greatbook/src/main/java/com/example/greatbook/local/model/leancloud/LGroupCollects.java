@@ -7,18 +7,18 @@ import com.avos.avoscloud.AVObject;
  * Created by MDove on 2017/8/25.
  */
 
-@AVClassName("LGroupFollowers")
-public class LGroupFollowers extends AVObject{
-    private String groupObjectId;
+@AVClassName("LGroupCollects")
+public class LGroupCollects extends AVObject{
     private String belongUserId;
-    private String followingUserId;
+    private String groupObjectId;
+    private String collectingUserId;
 
-    public String getFollowingUserId() {
-        return getString("followingUserId");
+    public String getCollectingUserId() {
+        return getString("collectingUserId");
     }
 
-    public void setFollowingUserId(String followingUserId) {
-        put("followingUserId",followingUserId);
+    public void setCollectingUserId(String collectingUserId) {
+        put("collectingUserId",collectingUserId);
     }
 
     public String getGroupObjectId() {

@@ -23,7 +23,6 @@ public abstract class NewBaseActivity<T extends BasePresenter> extends AppCompat
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        App.getInstance().addActivity(this);
         setTrans();
         if (presenter!=null) {
             presenter.attachView(this);
@@ -54,7 +53,6 @@ public abstract class NewBaseActivity<T extends BasePresenter> extends AppCompat
         if (presenter != null) {
             presenter.detachView();
         }
-        App.getInstance().removeActivity(this);
     }
 
     public abstract int getLayoutId();

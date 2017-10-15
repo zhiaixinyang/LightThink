@@ -1,11 +1,11 @@
 package com.example.greatbook.greendao.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by MDove on 17/9/18.

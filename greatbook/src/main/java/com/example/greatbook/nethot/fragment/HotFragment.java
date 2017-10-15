@@ -10,7 +10,7 @@ import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.nethot.model.HotTopMenuBean;
-import com.example.greatbook.nethot.presenter.HotContract;
+import com.example.greatbook.nethot.presenter.contract.HotContract;
 import com.example.greatbook.nethot.presenter.HotPresenter;
 import com.example.greatbook.utils.ToastUtil;
 

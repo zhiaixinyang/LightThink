@@ -9,6 +9,7 @@ import com.avos.avoscloud.SaveCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.base.RxPresenter;
+import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
 import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.local.model.LocalRecordRLV;
@@ -42,7 +43,9 @@ public class LocalRecordSmallPresenter extends RxPresenter<LocalRecordSmallContr
         Subscription subscription = Observable.create(new Observable.OnSubscribe<List<LocalRecordRLV>>() {
             @Override
             public void call(Subscriber<? super List<LocalRecordRLV>> subscriber) {
-                List<LocalRecord> records = localRecordDao.loadAll();
+                List<LocalRecord> records = localRecordDao.queryBuilder()
+                        .orderDesc(LocalRecordDao.Properties.TimeDate)
+                        .list();
                 List<LocalRecordRLV> data = new ArrayList<>();
 
                 if (records != null && !records.isEmpty()) {

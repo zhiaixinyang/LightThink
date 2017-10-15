@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="remarkVM"
+            type="com.example.greatbook.nethot.viewmodel.GroupAndRemarksVM" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rlv_group_remarks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
+            app:groupAndRemarksData="@{remarkVM.groupRemarksObservableField}"/>
+
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray_light">
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/feedback_bottom_margin"
+                android:layout_marginLeft="@dimen/feedback_bottom_margin"
+                android:background="@null"
+                android:layout_marginTop="@dimen/feedback_bottom_margin"
+                android:layout_toLeftOf="@+id/btn_send"
+                android:addTextChangedListener="@{remarkVM.watcher}"
+                android:gravity="center|left"
+                android:hint="评论"
+                android:paddingLeft="@dimen/item_feedback_margin"
+                android:paddingRight="@dimen/item_feedback_margin"
+                android:text="@{remarkVM.etRemarksContent}"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/feedback_bottom_margin"
+                android:background="@color/gray"
+                android:gravity="center"
+                android:onClick="@{() -> remarkVM.sendRemarkContent(remarkVM.remarksContent)}"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="发送"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_load_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
+            android:layout_below="@+id/line"
+            android:background="@color/white"
+            android:gravity="center"
+            android:src="@mipmap/list_load_more"
+            android:text="正在加载评论..."
+            android:textSize="24sp"
+            android:visibility="@{remarkVM.loadingRemarks? View.VISIBLE:View.GONE}" />
+
+        <RelativeLayout
+            android:id="@+id/tv_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
+            android:layout_below="@+id/line"
+            android:background="@color/white"
+            android:visibility="@{remarkVM.isRemarksEmpty? View.VISIBLE:View.GONE}">
+
+            <ImageView
+                android:id="@+id/iv_empty"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_data_empty" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_empty"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="当前无评论，快抢沙发"
+                android:textColor="@color/gray_icon"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="网络错误"
+            android:textSize="30sp"
+            android:visibility="@{remarkVM.isNetErr?View.VISIBLE:View.GONE}" />
+    </RelativeLayout>
+</layout>

@@ -1,6 +1,7 @@
 package com.example.greatbook.local.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.example.greatbook.R;
@@ -8,6 +9,7 @@ import com.example.greatbook.base.adapter.CommonAdapter;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.utils.GlideUtils;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.StringUtils;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.RoundImageView;
@@ -71,9 +73,15 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
             ivUserd.setVisibility(View.GONE);
         }
         if (!StringUtils.isEmpty(localGroup.getGroupPhotoPath())) {
-            GlideUtils.loadSmallIv(localGroup.getGroupPhotoPath(), (RoundImageView) holder.getView(R.id.iv_group));
+            holder.getView(R.id.iv_group).setTag(localGroup.getGroupPhotoPath());
+            if (holder.getView(R.id.iv_group).getTag().equals(localGroup.getGroupPhotoPath())) {
+                GlideUtils.loadSmallIv(localGroup.getGroupPhotoPath(), (RoundImageView) holder.getView(R.id.iv_group));
+            }
         } else {
-            holder.setImageResource(R.id.iv_group, localGroup.getGroupLocalPhotoPath());
+            holder.getView(R.id.iv_group).setTag(localGroup.getGroupPhotoPath());
+            if (holder.getView(R.id.iv_group).getTag().equals(localGroup.getGroupPhotoPath())) {
+                holder.setImageResource(R.id.iv_group, localGroup.getGroupLocalPhotoPath());
+            }
         }
     }
 
@@ -90,5 +98,6 @@ public class SetGroupsAdapter extends CommonAdapter<LocalGroup> {
             throw new NullPointerException("ViewHolder 为空");
         }
     }
+
 }
 

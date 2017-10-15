@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.greatbook.R;
 import com.example.greatbook.databinding.ItemActivityGroupAndRecordsBinding;
-import com.example.greatbook.local.viewmodel.GroupAndRecordsBeanVM;
+import com.example.greatbook.nethot.viewmodel.GroupAndRecordsBeanVM;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ import java.util.List;
  * Created by MDove on 2017/8/24.
  */
 
-public class GroupAndRecordsAdapter extends RecyclerView.Adapter<GroupAndRecordsAdapter.ViewHolder>{
+public class GroupRecordsAdapter extends RecyclerView.Adapter<GroupRecordsAdapter.ViewHolder> {
     private Context context;
     private List<GroupAndRecordsBeanVM> data;
 
-    public GroupAndRecordsAdapter(Context context) {
+    public GroupRecordsAdapter(Context context) {
         this.context = context;
     }
 
@@ -30,22 +30,22 @@ public class GroupAndRecordsAdapter extends RecyclerView.Adapter<GroupAndRecords
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemActivityGroupAndRecordsBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
                 R.layout.item_activity_group_and_records, parent, false);
-        ViewHolder viewHolder=new ViewHolder(binding.getRoot());
+        ViewHolder viewHolder = new ViewHolder(binding.getRoot());
         viewHolder.setBinding(binding);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ((ItemActivityGroupAndRecordsBinding)holder.getBinding()).setRemarkVm(data.get(position));
+        ((ItemActivityGroupAndRecordsBinding) holder.getBinding()).setRemarkVm(data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private ViewDataBinding binding;
 
         public ViewHolder(View itemView) {
@@ -61,8 +61,8 @@ public class GroupAndRecordsAdapter extends RecyclerView.Adapter<GroupAndRecords
         }
     }
 
-    public void setData(List<GroupAndRecordsBeanVM> data){
-        this.data=data;
+    public void setData(List<GroupAndRecordsBeanVM> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 }

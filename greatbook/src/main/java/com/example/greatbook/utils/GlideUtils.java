@@ -40,7 +40,7 @@ public class GlideUtils {
         Glide.with(context).load(url)
                 .crossFade()
                 .fitCenter()
-                .override(100,100)
+                .override(60,60)
                 .placeholder(R.drawable.pictures_no)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(iv);
@@ -69,7 +69,7 @@ public class GlideUtils {
         Glide.with(context).load(url)
                 .crossFade()
                 .fitCenter()
-                .override(40,40)
+                .override(100,100)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(circleImageView);
 

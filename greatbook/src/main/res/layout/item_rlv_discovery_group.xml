@@ -69,7 +69,7 @@
         <ImageView
             android:layout_width="@dimen/item_rlv_discovery_top_num_iv_w_h"
             android:layout_height="@dimen/item_rlv_discovery_top_num_iv_w_h"
-            android:src="@drawable/icon_attention_num" />
+            android:src="@drawable/btn_collect_on" />
 
         <TextView
             android:id="@+id/tv_discovery_top_num"

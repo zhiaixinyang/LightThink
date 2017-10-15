@@ -20,5 +20,6 @@ public class DiscoveryTopGroup implements Serializable{
     public int attentionNum;
     public String groupPhotoPath;
     public String avatarPath;
+    public String userNick;
     public String objectId;
 }

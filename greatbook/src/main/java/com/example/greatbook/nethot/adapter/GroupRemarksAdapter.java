@@ -1,4 +1,4 @@
-package com.example.greatbook.local.adapter;
+package com.example.greatbook.nethot.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -9,27 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.greatbook.R;
-import com.example.greatbook.databinding.ItemActivityRecordRemarkBinding;
-import com.example.greatbook.local.viewmodel.RecordRemarkBeanVM;
+import com.example.greatbook.databinding.ItemFragGroupRemarkBinding;
+import com.example.greatbook.nethot.viewmodel.GroupRemarkBeanVM;
 
 import java.util.List;
 
 /**
- * Created by MDove on 2017/8/21.
+ * Created by MDove on 2017/10/15.
  */
 
-public class RecordRemarksAdapter extends RecyclerView.Adapter<RecordRemarksAdapter.ViewHolder> {
-    private List<RecordRemarkBeanVM> data;
+public class GroupRemarksAdapter extends RecyclerView.Adapter<GroupRemarksAdapter.ViewHolder> {
+    private List<GroupRemarkBeanVM> data;
     private Context context;
 
-    public RecordRemarksAdapter(Context context) {
+    public GroupRemarksAdapter(Context context) {
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemActivityRecordRemarkBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
-                R.layout.item_activity_record_remark, parent, false);
+        ItemFragGroupRemarkBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.item_frag_group_remark, parent, false);
         ViewHolder viewHolder = new ViewHolder(binding.getRoot());
         viewHolder.setBinding(binding);
         return viewHolder;
@@ -37,15 +37,15 @@ public class RecordRemarksAdapter extends RecyclerView.Adapter<RecordRemarksAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ((ItemActivityRecordRemarkBinding) holder.getBinding()).setRemarkVm(data.get(position));
+        ((ItemFragGroupRemarkBinding) holder.getBinding()).setRemarkVm(data.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return data != null ? data.size() : 0;
     }
 
-    public void setData(List<RecordRemarkBeanVM> data) {
+    public void setData(List<GroupRemarkBeanVM> data) {
         this.data = data;
         notifyDataSetChanged();
     }

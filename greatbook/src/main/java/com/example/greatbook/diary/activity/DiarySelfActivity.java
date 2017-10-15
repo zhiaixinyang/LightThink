@@ -1,14 +1,12 @@
 package com.example.greatbook.diary.activity;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,14 +18,10 @@ import com.example.greatbook.diary.presenter.contract.DiarySelfActivityContract;
 import com.example.greatbook.greendao.entity.DiarySelf;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.DefaultNavigationBar;
-import com.example.greatbook.widght.ShowTimeView;
 import com.example.greatbook.widght.itemdecoration.PowerfulStickyDecoration;
-import com.example.greatbook.widght.itemdecoration.StickyDecoration;
-import com.example.greatbook.widght.itemdecoration.listener.GroupListener;
 import com.example.greatbook.widght.itemdecoration.listener.PowerGroupListener;
 import com.example.greatbook.widght.itemswip.OnSwipeListener;
 
