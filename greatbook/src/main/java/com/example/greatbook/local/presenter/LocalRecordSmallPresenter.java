@@ -53,7 +53,7 @@ public class LocalRecordSmallPresenter extends RxPresenter<LocalRecordSmallContr
                         LocalRecordRLV localRLV = new LocalRecordRLV();
                         localRLV.belongId = local.getBelongId();
                         localRLV.content = local.getContent();
-                        localRLV.groupId = Long.valueOf(local.getGroupId());
+                        localRLV.groupId = local.getGroupId();
                         localRLV.groupTitle = local.getGroupTitle();
                         localRLV.id = local.getId();
                         localRLV.title = local.getTitle();
@@ -124,8 +124,9 @@ public class LocalRecordSmallPresenter extends RxPresenter<LocalRecordSmallContr
 
             return;
         }
-        LocalRecord record = new LocalRecord();
-        record.setId(localRecord.id);
+        LocalRecord record = localRecordDao.queryBuilder()
+                .where(LocalRecordDao.Properties.Id.eq(localRecord.id))
+                .list().get(0);
         record.setContent(content);
         record.setTitle(title);
         //统计累计书写字数

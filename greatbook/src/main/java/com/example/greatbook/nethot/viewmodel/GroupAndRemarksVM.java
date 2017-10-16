@@ -1,5 +1,6 @@
 package com.example.greatbook.nethot.viewmodel;
 
+import android.content.Context;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.text.Editable;
@@ -10,6 +11,8 @@ import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
+import com.example.greatbook.App;
+import com.example.greatbook.R;
 import com.example.greatbook.local.model.leancloud.LGroupRemark;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.nethot.model.DiscoveryTopGroup;
@@ -40,14 +43,16 @@ public class GroupAndRemarksVM {
     public ObservableBoolean isNetErr = new ObservableBoolean();
     private DiscoveryTopGroup discoveryTopGroup;
     public ObservableField<GroupRemarks> groupRemarksObservableField = new ObservableField<>();
+    private Context mContext;
 
     public GroupAndRemarksVM(DiscoveryTopGroup discoveryTopGroup) {
         this.discoveryTopGroup = discoveryTopGroup;
+        mContext = App.getInstance().getContext();
         GroupRemarks recordRemarks = new GroupRemarks();
         groupRemarksObservableField.set(recordRemarks);
-        if (NetUtil.isNetworkAvailable()){
+        if (NetUtil.isNetworkAvailable()) {
             isNetErr.set(false);
-        }else{
+        } else {
             isNetErr.set(true);
         }
         loadingRemarks.set(true);
@@ -117,7 +122,6 @@ public class GroupAndRemarksVM {
 
             if (discoveryTopGroup != null) {
                 AVQuery<LGroupRemark> query = AVQuery.getQuery(LGroupRemark.class);
-                LogUtils.d(discoveryTopGroup.belongId);
                 query.whereEqualTo("belongId", discoveryTopGroup.objectId);
                 query.findInBackground(new FindCallback<LGroupRemark>() {
                     @Override
@@ -136,9 +140,9 @@ public class GroupAndRemarksVM {
                         }
                     }
                 });
-            } else {
-                ToastUtil.toastShort("请保证网络链接");
             }
+        } else {
+            ToastUtil.toastShort(mContext.getString(R.string.net_err));
         }
     }
 }

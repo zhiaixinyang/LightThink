@@ -112,6 +112,7 @@ public class LocalRecordBigFragment extends Fragment implements LocalRecordBigCo
 
     @Override
     public void showError(String msg) {
+        mBinding.srlLocalRecordBig.setRefreshing(false);
         ToastUtil.toastShort(msg);
     }
 

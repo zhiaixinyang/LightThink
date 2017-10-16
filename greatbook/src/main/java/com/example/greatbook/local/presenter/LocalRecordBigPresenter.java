@@ -9,6 +9,7 @@ import com.example.greatbook.greendao.entity.LocalRecord;
 import com.example.greatbook.local.model.LocalRecordRLV;
 import com.example.greatbook.local.presenter.contract.LocalRecordBigContract;
 import com.example.greatbook.local.presenter.contract.MiddleLocalAddContract;
+import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class LocalRecordBigPresenter extends RxPresenter<LocalRecordBigContract.
         mLocalRecordDao = App.getDaoSession().getLocalRecordDao();
         mLocalGroupDao = App.getDaoSession().getLocalGroupDao();
     }
+
     @Override
     public void initLocalRecord() {
         Subscription subscription = Observable.create(new Observable.OnSubscribe<List<LocalRecord>>() {
@@ -47,36 +49,50 @@ public class LocalRecordBigPresenter extends RxPresenter<LocalRecordBigContract.
             @Override
             public Observable<List<LocalRecordRLV>> call(List<LocalRecord> localRecords) {
                 List<LocalRecordRLV> data = new ArrayList<>();
-                for (LocalRecord local : localRecords) {
-                    List<LocalGroup> list = mLocalGroupDao.queryBuilder()
-                            .where(LocalGroupDao.Properties.Id.eq(local.getGroupId()))
-                            .list();
-                    if (list!=null&&!list.isEmpty()) {
-                        LocalGroup localGroup = list.get(0);
+                if (localRecords != null) {
+                    for (LocalRecord local : localRecords) {
+                        if (local.getGroupId()!=null) {
+                            List<LocalGroup> list = mLocalGroupDao.queryBuilder()
+                                    .where(LocalGroupDao.Properties.Id.eq(local.getGroupId()))
+                                    .list();
+                            if (list != null && !list.isEmpty()) {
+                                LocalGroup localGroup = list.get(0);
 
-                        LocalRecordRLV localRLV = new LocalRecordRLV();
-                        localRLV.belongId = local.getBelongId();
-                        localRLV.content = local.getContent();
-                        localRLV.groupId = Long.valueOf(local.getGroupId());
-                        localRLV.groupTitle = local.getGroupTitle();
-                        localRLV.id = local.getId();
-                        localRLV.title = local.getTitle();
-                        localRLV.time = local.getTimeDate();
-                        localRLV.type = local.getType();
-                        localRLV.bgColor = localGroup.getBgColor();
-                        localRLV.groupLocalPhotoPath = localGroup.getGroupLocalPhotoPath();
-                        localRLV.groupPhotoPath = localGroup.getGroupPhotoPath();
-                        data.add(localRLV);
+                                LocalRecordRLV localRLV = new LocalRecordRLV();
+                                localRLV.belongId = local.getBelongId();
+                                localRLV.content = local.getContent();
+                                localRLV.groupId = local.getGroupId();
+                                localRLV.groupTitle = local.getGroupTitle();
+                                localRLV.id = local.getId();
+                                localRLV.title = local.getTitle();
+                                localRLV.time = local.getTimeDate();
+                                localRLV.type = local.getType();
+                                localRLV.bgColor = localGroup.getBgColor();
+                                localRLV.groupLocalPhotoPath = localGroup.getGroupLocalPhotoPath();
+                                localRLV.groupPhotoPath = localGroup.getGroupPhotoPath();
+                                data.add(localRLV);
+                            }
+                        }
                     }
                 }
                 return Observable.just(data);
             }
         }).compose(RxUtil.<List<LocalRecordRLV>>rxSchedulerHelper())
-                .subscribe(new Action1<List<LocalRecordRLV>>() {
+                .subscribe(new Subscriber<List<LocalRecordRLV>>() {
                     @Override
-                    public void call(List<LocalRecordRLV> records) {
-                        if (!records.isEmpty()) {
-                            mView.initLocalRecordSuc(records);
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.showError("加载失败");
+                    }
+
+                    @Override
+                    public void onNext(List<LocalRecordRLV> localRecordRLVs) {
+                        if (!localRecordRLVs.isEmpty()) {
+                            mView.initLocalRecordSuc(localRecordRLVs);
                         } else {
                             mView.localRecordEmpty();
                         }
