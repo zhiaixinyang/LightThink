@@ -77,9 +77,13 @@ public class DiscoveryRecordRemarkVM {
         RecordRemarks recordRemarks = new RecordRemarks();
         recordRemarks.date = new ArrayList<>();
         data.set(recordRemarks);
-        loadingRemarks.set(false);
-        isRemarksEmpty.set(true);
-        isNetErr.set(false);
+        if (NetUtil.isNetworkAvailable()){
+            isNetErr.set(false);
+        }else{
+            isNetErr.set(true);
+        }
+        loadingRemarks.set(true);
+        isRemarksEmpty.set(false);
         if (discoveryRecord.likeNum > 0) {
             iconLike.set(R.drawable.icon_good_on);
             likeNum.set(discoveryRecord.likeNum + "");

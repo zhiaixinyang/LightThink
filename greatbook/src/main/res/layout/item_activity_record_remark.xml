@@ -62,7 +62,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/item_activity_record_remark_margin"
             android:layout_below="@+id/tv_content"
             android:layout_marginLeft="51dp"
             android:background="@color/gray_light"/>

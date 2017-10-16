@@ -143,7 +143,7 @@ public class DiarySelfActivity extends AppCompatActivity implements DiarySelfAct
         mBinding.includeEmptyLoading.layoutEmptyView.setVisibility(View.GONE);
 
         mData = data;
-        mAdapter.addData(data);
+        mAdapter.setData(data);
     }
 
     @Override

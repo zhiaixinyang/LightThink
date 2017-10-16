@@ -57,9 +57,9 @@ public class MiddleLocalAddPresenter extends RxPresenter<MiddleLocalAddContract.
         myGroup.bgColor = ContextCompat.getColor(context, R.color.red);
         myGroup.inColor = ContextCompat.getColor(context, R.color.white);
         myGroup.outColor = ContextCompat.getColor(context, R.color.black);
-        myGroup.inText = "集";
-        myGroup.outText = "我的文集";
-        myGroup.menuType = MiddleMainFragment.MY_ALL_GROUP;
+        myGroup.inText = "藏";
+        myGroup.outText = "我的收藏";
+        myGroup.menuType = MiddleMainFragment.MY_COLLECTS;
         menuData.add(myGroup);
 
 

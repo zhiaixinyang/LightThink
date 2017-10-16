@@ -7,6 +7,7 @@
         android:id="@+id/talk_about_headline"
         android:layout_width="match_parent"
         android:layout_height="35dp"
+        android:visibility="gone"
         android:layout_below="@+id/topPanel" />
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_top"

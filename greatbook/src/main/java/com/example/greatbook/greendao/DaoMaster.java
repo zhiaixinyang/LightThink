@@ -21,25 +21,25 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        ContentCommitDao.createTable(db, ifNotExists);
-        DiarySelfDao.createTable(db, ifNotExists);
-        EssayDao.createTable(db, ifNotExists);
         LocalGroupDao.createTable(db, ifNotExists);
         LocalRecordDao.createTable(db, ifNotExists);
-        MyPlanDao.createTable(db, ifNotExists);
         MyPlanTemplateDao.createTable(db, ifNotExists);
+        MyPlanDao.createTable(db, ifNotExists);
+        EssayDao.createTable(db, ifNotExists);
+        ContentCommitDao.createTable(db, ifNotExists);
+        DiarySelfDao.createTable(db, ifNotExists);
         MyCollectingDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        ContentCommitDao.dropTable(db, ifExists);
-        DiarySelfDao.dropTable(db, ifExists);
-        EssayDao.dropTable(db, ifExists);
         LocalGroupDao.dropTable(db, ifExists);
         LocalRecordDao.dropTable(db, ifExists);
-        MyPlanDao.dropTable(db, ifExists);
         MyPlanTemplateDao.dropTable(db, ifExists);
+        MyPlanDao.dropTable(db, ifExists);
+        EssayDao.dropTable(db, ifExists);
+        ContentCommitDao.dropTable(db, ifExists);
+        DiarySelfDao.dropTable(db, ifExists);
         MyCollectingDao.dropTable(db, ifExists);
     }
 
@@ -59,13 +59,13 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(ContentCommitDao.class);
-        registerDaoClass(DiarySelfDao.class);
-        registerDaoClass(EssayDao.class);
         registerDaoClass(LocalGroupDao.class);
         registerDaoClass(LocalRecordDao.class);
-        registerDaoClass(MyPlanDao.class);
         registerDaoClass(MyPlanTemplateDao.class);
+        registerDaoClass(MyPlanDao.class);
+        registerDaoClass(EssayDao.class);
+        registerDaoClass(ContentCommitDao.class);
+        registerDaoClass(DiarySelfDao.class);
         registerDaoClass(MyCollectingDao.class);
     }
 

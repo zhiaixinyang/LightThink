@@ -16,17 +16,16 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.BaseLazyFragment;
 import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.constants.Constants;
-import com.example.greatbook.nethot.activity.DiscoveryGroupAndRecordsActivity;
-import com.example.greatbook.nethot.activity.DiscoveryRecordRemarkActivity;
-import com.example.greatbook.local.activity.TalkAboutActivity;
-import com.example.greatbook.nethot.adapter.DiscoveryCommonAdapter;
-import com.example.greatbook.nethot.adapter.MiddleDiscoveryAdapter;
-import com.example.greatbook.nethot.model.DiscoveryRecord;
-import com.example.greatbook.nethot.model.DiscoveryTopGroup;
 import com.example.greatbook.local.presenter.MiddleDiscoveryPresenter;
 import com.example.greatbook.local.presenter.contract.MiddleDiscoveryContract;
 import com.example.greatbook.model.HeadlineBean;
 import com.example.greatbook.model.event.LikeEvent;
+import com.example.greatbook.nethot.activity.DiscoveryGroupAndRecordsActivity;
+import com.example.greatbook.nethot.activity.DiscoveryRecordRemarkActivity;
+import com.example.greatbook.nethot.adapter.DiscoveryCommonAdapter;
+import com.example.greatbook.nethot.adapter.MiddleDiscoveryAdapter;
+import com.example.greatbook.nethot.model.DiscoveryRecord;
+import com.example.greatbook.nethot.model.DiscoveryTopGroup;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.widght.AdHeadline;
 
@@ -117,27 +116,27 @@ public class DiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPresenter
         rlvDiscoveryRecord.setLayoutManager(new LinearLayoutManager(context));
         rlvDiscoveryRecord.setAdapter(adapterRecord);
 
-        headline.setHeadlineClickListener(new AdHeadline.HeadlineClickListener() {
-            @Override
-            public void onHeadlineClick(HeadlineBean bean) {
-
-            }
-
-            @Override
-            public void onMoreClick() {
-                Intent toTalkAbout = new Intent(context, TalkAboutActivity.class);
-                startActivity(toTalkAbout);
-            }
-        });
+//        headline.setHeadlineClickListener(new AdHeadline.HeadlineClickListener() {
+//            @Override
+//            public void onHeadlineClick(HeadlineBean bean) {
+//
+//            }
+//
+//            @Override
+//            public void onMoreClick() {
+//                Intent toTalkAbout = new Intent(context, TalkAboutActivity.class);
+//                startActivity(toTalkAbout);
+//            }
+//        });
     }
 
     @Override
     protected void onFirstUserVisible() {
-        talkABoutData = new ArrayList<>();
-        talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
-        talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
-        talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
-        headline.setData(talkABoutData);
+//        talkABoutData = new ArrayList<>();
+//        talkABoutData.add(new HeadlineBean("作者", "个人制作，简单粗糙，见谅见谅"));
+//        talkABoutData.add(new HeadlineBean("问题", "如果数据未刷出，可以刷新/重启，一下"));
+//        talkABoutData.add(new HeadlineBean("拜谢", "您的包容与鼓励是作者莫大的荣幸。"));
+//        headline.setData(talkABoutData);
 
         presenter.initDiscoveryTop();
         presenter.initDiscoveryRecord();
@@ -192,14 +191,14 @@ public class DiscoveryFragment extends BaseLazyFragment<MiddleDiscoveryPresenter
     @Override
     public void initDiscoveryGroupSuc(List<DiscoveryTopGroup> topGroups) {
         skeletonScreenGroup.hide();
-        adapterGroup.addData(topGroups);
+        adapterGroup.setData(topGroups);
         srlTop.setRefreshing(false);
     }
 
     @Override
     public void initDiscoveryRecordSuc(List<DiscoveryRecord> topGroups) {
         skeletonScreenRecord.hide();
-        adapterRecord.addData(topGroups);
+        adapterRecord.setData(topGroups);
     }
 
     @Override

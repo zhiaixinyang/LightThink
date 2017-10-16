@@ -130,7 +130,7 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
     @Override
     public void initTalkAboutData(List<TalkAboutBean> data) {
         this.data = data;
-        talkAboutAdapter.addData(data);
+        talkAboutAdapter.setData(data);
         currentNum = talkAboutAdapter.getItemCount();
     }
 
@@ -139,7 +139,6 @@ public class TalkAboutActivity extends BaseActivity<TalkAboutPresenter> implemen
         RecyclerViewStateUtils.setFooterViewState(rlvTalkAbout, LoadingFooter.State.Normal);
         if (!data.isEmpty()) {
             currentNum = currentNum + data.size();
-            this.data = data;
             talkAboutAdapter.addData(data);
         } else {
             ToastUtil.toastShort("暂无新的内容");

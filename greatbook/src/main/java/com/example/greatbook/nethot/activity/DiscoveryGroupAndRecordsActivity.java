@@ -59,6 +59,8 @@ public class DiscoveryGroupAndRecordsActivity extends AppCompatActivity implemen
         }
 
         mPresenter = new GroupAndRecordsPresenter();
+        mPresenter.attachView(this);
+
         mDiscoveryGroupAndRecordsVM = new DiscoveryGroupAndRecordsVM(mDiscoveryTopGroup, mPresenter);
         mBinding.setGroupVM(mDiscoveryGroupAndRecordsVM);
         mDiscoveryGroupAndRecordsVM.initGroup();
@@ -92,6 +94,14 @@ public class DiscoveryGroupAndRecordsActivity extends AppCompatActivity implemen
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter!=null){
+            mPresenter.detachView();
+        }
     }
 
     @Override

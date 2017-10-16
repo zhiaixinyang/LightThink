@@ -15,7 +15,6 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.databinding.FragMiddleLocalRecordSmallBinding;
 import com.example.greatbook.local.activity.AddLocalRecordActivity;
-import com.example.greatbook.local.activity.AllLocalRecordActivity;
 import com.example.greatbook.local.adapter.AllCommonAdapter;
 import com.example.greatbook.local.model.LocalRecordRLV;
 import com.example.greatbook.local.presenter.LocalRecordSmallPresenter;
@@ -142,7 +141,7 @@ public class LocalRecordSmallFragment extends Fragment implements LocalRecordSma
             mBinding.includeEmptyLoading.ivEmpty.setVisibility(View.VISIBLE);
         }else {
             mBinding.includeEmptyLoading.ivEmpty.setVisibility(View.GONE);
-            mAdapter.addData(records);
+            mAdapter.setData(records);
         }
     }
 

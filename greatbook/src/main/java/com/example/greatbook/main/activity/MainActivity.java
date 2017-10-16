@@ -215,8 +215,8 @@ public class MainActivity extends BaseActivity {
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         finish();
+                        dialog.dismiss();
                     }
                 })
                 .setNegativeButton("再玩会", new DialogInterface.OnClickListener() {

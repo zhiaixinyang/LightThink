@@ -51,7 +51,6 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                         @Override
                         public void done(AVUser avUser, AVException e) {
                             if (e == null) {
-                                MySharedPreferences.setLogin(true);
                                 subscriber.onNext("0");
                             } else {
                                 subscriber.onNext("1");
@@ -65,6 +64,7 @@ public class LoginPresenter extends RxPresenter<LoginContract.View> implements L
                         public void call(String s) {
                             switch (s) {
                                 case "0":
+                                    MySharedPreferences.setLogin(true);
                                     mView.loginSuc("登录成功");
                                     break;
                                 case "1":

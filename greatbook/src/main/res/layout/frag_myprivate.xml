@@ -18,14 +18,14 @@
                 android:layout_marginBottom="@dimen/main_bottom_margin"
                 android:layout_marginLeft="@dimen/main_bottom_margin"
                 android:layout_marginRight="@dimen/main_bottom_margin"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="70dp"
                 android:background="@drawable/round_white">
                 <LinearLayout
                     android:id="@+id/layout_name_and_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="80dp">
+                    android:layout_marginTop="70dp">
                     <TextView
                         android:id="@+id/tv_level"
                         android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                     android:layout_below="@+id/layout_name_and_level"
                     android:layout_marginLeft="@dimen/myprivate_btn_margin"
                     android:layout_marginRight="@dimen/myprivate_btn_margin"
-                    android:layout_marginTop="@dimen/my_private_btn_margin"
+                    android:layout_marginTop="@dimen/myprivate_btn_margin"
                     android:progress="0"
                     />
                 <TextView
@@ -175,7 +175,7 @@
                 android:layout_width="@dimen/myprivate_width"
                 android:layout_height="@dimen/myprivate_width"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/no_avatar"
                 honor:civ_border_color="@color/white"
                 honor:civ_border_width="3dp" />

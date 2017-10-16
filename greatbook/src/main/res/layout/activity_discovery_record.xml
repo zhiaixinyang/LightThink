@@ -114,7 +114,7 @@
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
-            <TextView
+            <com.example.greatbook.widght.ExpandableTextView
                 android:id="@+id/tv_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,7 +128,14 @@
                 android:maxLines="2"
                 android:text="@{remarkVM.content}"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                app:DrawableAndTextGravity="right"
+                app:collapseDrawable="@drawable/btn_expand_off"
+                app:contentTextColor="@color/colorPrimaryDark"
+                app:expandCollapseTextColor="@color/blue"
+                app:expandDrawable="@drawable/btn_expand_on"
+                app:expandText="展开"
+                app:maxCollapsedLines="2"/>
 
             <TextView
                 android:id="@+id/tv_time"

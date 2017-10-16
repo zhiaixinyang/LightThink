@@ -119,7 +119,7 @@ public class LocalRecordBigFragment extends Fragment implements LocalRecordBigCo
     public void initLocalRecordSuc(List<LocalRecordRLV> records) {
         mBinding.includeEmptyLoading.ivEmpty.setVisibility(View.GONE);
         mBinding.srlLocalRecordBig.setRefreshing(false);
-        mAdapter.addData(records);
+        mAdapter.setData(records);
     }
 
     @Override

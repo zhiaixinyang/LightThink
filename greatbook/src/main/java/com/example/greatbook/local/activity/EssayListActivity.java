@@ -117,7 +117,7 @@ public class EssayListActivity extends AppCompatActivity implements EssayListCon
     public void initEssayListSuc(List<EssayListItem> data) {
         mBinding.srlEssay.setRefreshing(false);
 
-        mAdapter.addData(data);
+        mAdapter.setData(data);
     }
 
     @Override

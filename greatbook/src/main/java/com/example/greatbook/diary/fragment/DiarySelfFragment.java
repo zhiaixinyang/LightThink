@@ -98,7 +98,7 @@ public class DiarySelfFragment extends Fragment implements DiarySelfFragContract
         mBinding.includeEmptyLoading.layoutEmptyView.setVisibility(View.GONE);
 
         mData = data;
-        mAdapter.addData(data);
+        mAdapter.setData(data);
     }
 
     @Override

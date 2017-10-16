@@ -42,6 +42,7 @@ public class MiddleMainFragment extends Fragment implements MiddleLocalAddContra
 
     public static final int MY_ALL_CONTENT = 2;
     public static final int MY_ALL_GROUP = 3;
+    public static final int MY_COLLECTS = 6;
     public static final int MY_COOPATER_TOPIC = 4;
     public static final int MY_PLAN = 5;
     public static final int CHAT_SELF = 1;
@@ -99,6 +100,9 @@ public class MiddleMainFragment extends Fragment implements MiddleLocalAddContra
                     case CHAT_SELF:
                         Intent toDiarySelf = new Intent(getContext(), DiarySelfActivity.class);
                         startActivity(toDiarySelf);
+                        break;
+                    case MY_COLLECTS:
+
                         break;
                     default:
                         break;

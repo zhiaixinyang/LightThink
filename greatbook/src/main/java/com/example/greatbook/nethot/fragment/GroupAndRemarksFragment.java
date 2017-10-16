@@ -63,7 +63,7 @@ public class GroupAndRemarksFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (mGroupAndRemarksVM != null) {
+        if (mGroupAndRemarksVM != null && mAdapter.getItemCount() == 0) {
             mGroupAndRemarksVM.initRemarks();
         }
     }

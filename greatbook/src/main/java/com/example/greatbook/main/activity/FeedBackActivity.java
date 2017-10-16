@@ -113,7 +113,7 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
             if (content != null && !StringUtils.isEmpty(content)) {
                 presenter.sendContent(avUser.getObjectId(), content);
             } else {
-                ToastUtil.toastShort("不少反馈点内容");
+                ToastUtil.toastShort("多少写点反馈");
             }
         } else {
             SnackbarUtils.showShortAndAction(getWindow().getDecorView(),
@@ -130,7 +130,7 @@ public class FeedBackActivity extends BaseActivity<FeedBackPresenter> implements
     @Override
     public void intiFeeBackContent(List<LFeedBackBean> data) {
         adapter.clear();
-        adapter.addData(data);
+        adapter.setData(data);
         currentNum = adapter.getItemCount();
     }
 

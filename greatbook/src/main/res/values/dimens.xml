@@ -99,8 +99,8 @@
     <dimen name="item_set_group_iv_userd_w_h">26dp</dimen>
     <dimen name="margin_activity_clip">10dp</dimen>
     <dimen name="item_rlv_discovery_record_iv_w_h">25dp</dimen>
-    <dimen name="myprivate_iv_w_h">28dp</dimen>
-    <dimen name="myprivate_iv_icon_w_h">22dp</dimen>
+    <dimen name="myprivate_iv_w_h">25dp</dimen>
+    <dimen name="myprivate_iv_icon_w_h">20dp</dimen>
     <dimen name="myprivate_btn_margin">12dp</dimen>
     <dimen name="activity_add_group_margin">12dp</dimen>
     <dimen name="activity_add_group_bottom_margin">65dp</dimen>
@@ -137,6 +137,6 @@
     <dimen name="activity_prefect_essay_btn_margin">8dp</dimen>
     <dimen name="activity_add_template_plan_padding">12dp</dimen>
     <dimen name="activity_add_template_plan_padding_small">4dp</dimen>
-    <dimen name="my_private_btn_margin">15dp</dimen>
+    <dimen name="my_private_btn_margin">12dp</dimen>
     <dimen name="view_show_time_style_margin">5dp</dimen>
 </resources>

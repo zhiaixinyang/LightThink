@@ -154,7 +154,7 @@ public class SetGroupsActivity extends BaseActivity<SetGroupsPresenter> implemen
         mSrlSetGroups.setRefreshing(false);
 
         mData = groups;
-        mAdapter.addData(mData);
+        mAdapter.setData(mData);
     }
 
     @Override

@@ -13,7 +13,7 @@
     <string name="chat_self_send_empty">发送内容不能为空</string>
 
     <string name="string_level">Lv.%d</string>
-    <string name="string_level_cur_words">%1$d / %2$d</string>
+    <string name="string_level_cur_words">%1$d / %2$d 总字数:%3$d</string>
     <string name="behavior_bottom_buttom" >com.example.greatbook.behavior.BottomButtonBehavior</string>
     <integer name="up_level_need">1000</integer>
     <string name="net_err">请保证网络连接</string>

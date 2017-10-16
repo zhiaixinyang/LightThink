@@ -96,12 +96,12 @@ public class MyPrivateFragment extends Fragment implements SwipeRefreshLayout.On
         String strCurWords = (String) App.getInstance().getContext()
                 .getResources()
                 .getText(R.string.string_level_cur_words);
-        int curWords = mCurWords - ((mCurLevel - 1) * mUpLevelNeed);
-        int curNeedWords = mCurLevel * mUpLevelNeed;
-        mBinding.progressLevel.setProgress((curWords* 100 / curNeedWords) );
+        int curWords = mCurWords - mCurLevel * mUpLevelNeed;
+        int curNeedWords = (mCurLevel + 1) * mUpLevelNeed;
+        mBinding.progressLevel.setProgress((curWords * 100 / curNeedWords));
         //计算升级所需字数，以及当前字数
         mBinding.tvNeedWordsLevel.setText(String.format(strCurWords,
-                curWords, curNeedWords));
+                curWords, curNeedWords, mCurWords));
 
     }
 

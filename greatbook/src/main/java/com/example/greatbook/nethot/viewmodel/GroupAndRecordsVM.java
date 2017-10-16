@@ -26,7 +26,12 @@ public class GroupAndRecordsVM {
     private DiscoveryTopGroup discoveryTopGroup;
 
     public GroupAndRecordsVM(DiscoveryTopGroup discoveryTopGroup) {
-        isNetErr.set(false);
+        if (NetUtil.isNetworkAvailable()){
+            isNetErr.set(false);
+        }else{
+            isNetErr.set(true);
+        }
+        isRecordsEmpty.set(false);
         this.discoveryTopGroup = discoveryTopGroup;
         GroupRecords groupRecords = new GroupRecords();
         groupAndRecordObservable.set(groupRecords);

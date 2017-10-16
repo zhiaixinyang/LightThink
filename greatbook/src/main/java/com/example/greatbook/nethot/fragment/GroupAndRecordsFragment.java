@@ -57,7 +57,7 @@ public class GroupAndRecordsFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (mGroupAndRecordsVM != null) {
+        if (mGroupAndRecordsVM != null && mAdapter.getItemCount() == 0) {
             mGroupAndRecordsVM.initRecords();
         }
     }

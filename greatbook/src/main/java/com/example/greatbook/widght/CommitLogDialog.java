@@ -1,18 +1,15 @@
 package com.example.greatbook.widght;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.greatbook.R;
@@ -21,13 +18,10 @@ import com.example.greatbook.base.adapter.OnItemClickListener;
 import com.example.greatbook.base.adapter.ViewHolder;
 import com.example.greatbook.base.dialog.BaseAlertDialog;
 import com.example.greatbook.greendao.entity.ContentCommit;
-import com.example.greatbook.local.activity.PrefectEssayActivity;
 import com.example.greatbook.local.model.event.BackCommitEvent;
 import com.example.greatbook.utils.DateUtils;
 import com.example.greatbook.utils.DpUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.ScreenUtils;
-import com.example.greatbook.widght.rlvanim.SlideInLeftAnimator;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -127,6 +121,6 @@ public class CommitLogDialog extends BottomSheetDialog {
     }
 
     public void setData(List<ContentCommit> data) {
-        mAdapter.addData(data);
+        mAdapter.setData(data);
     }
 }

@@ -45,6 +45,13 @@ public class GroupAndRemarksVM {
         this.discoveryTopGroup = discoveryTopGroup;
         GroupRemarks recordRemarks = new GroupRemarks();
         groupRemarksObservableField.set(recordRemarks);
+        if (NetUtil.isNetworkAvailable()){
+            isNetErr.set(false);
+        }else{
+            isNetErr.set(true);
+        }
+        loadingRemarks.set(true);
+        isRemarksEmpty.set(false);
     }
 
     public TextWatcher watcher = new TextWatcher() {

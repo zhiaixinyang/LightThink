@@ -92,6 +92,5 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
     protected void onDestroy() {
         super.onDestroy();
         App.getInstance().removeAllActivity();
-        MySharedPreferences.setLogin(false);
     }
 }
