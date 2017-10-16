@@ -215,10 +215,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                                 //首次登陆初始化本地数据库
                                                 initDB();
                                                 ToastUtil.toastShort("注册并登陆成功。");
-                                                SharedPreferences sharedPreferences = MySharedPreferences.getFristActivityInstance();
-                                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                                editor.putInt("count", 1);
-                                                editor.commit();
+                                                MySharedPreferences.setLogin(true);
                                                 Intent intent = new Intent(App.getInstance().getContext(), MainActivity.class);
                                                 startActivity(intent);
                                                 finish();

@@ -1,19 +1,26 @@
 package com.example.greatbook.local.presenter;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.example.greatbook.App;
 import com.example.greatbook.MySharedPreferences;
+import com.example.greatbook.R;
 import com.example.greatbook.base.RxPresenter;
 import com.example.greatbook.diary.model.LDiarySelf;
 import com.example.greatbook.greendao.DiarySelfDao;
 import com.example.greatbook.greendao.LocalGroupDao;
 import com.example.greatbook.greendao.LocalRecordDao;
+import com.example.greatbook.greendao.MyPlanTemplateDao;
 import com.example.greatbook.greendao.entity.DiarySelf;
 import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.LocalRecord;
+import com.example.greatbook.greendao.entity.MyPlanTemplate;
 import com.example.greatbook.local.presenter.contract.InitSyncContract;
 import com.example.greatbook.model.leancloud.LLocalGroup;
 import com.example.greatbook.model.leancloud.LLocalRecord;
@@ -22,6 +29,7 @@ import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -47,7 +55,9 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
     private LocalGroupDao mLocalGroupDao;
     private LocalRecordDao mLocalRecordDao;
     private DiarySelfDao mDiarySelfDao;
+    private MyPlanTemplateDao mTemplateDao;
     private User mUser;
+    private Context mContext;
 
     //同步时候：  00表示Group同步失败；01表示Group同步成功；02表示空号，无数据
     //          10表示Record失败；11表示Record成功；12表示空号，无数据
@@ -57,12 +67,21 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
         mLocalGroupDao = App.getDaoSession().getLocalGroupDao();
         mLocalRecordDao = App.getDaoSession().getLocalRecordDao();
         mDiarySelfDao = App.getDaoSession().getDiarySelfDao();
+        mTemplateDao = App.getDaoSession().getMyPlanTemplateDao();
         mUser = AVUser.getCurrentUser(User.class);
+
+        mContext=App.getInstance().getContext();
     }
 
     @Override
     public void syncData(final String belongId) {
         if (NetUtil.isNetworkAvailable()) {
+
+            MySharedPreferences.resetSyncWords();
+            mLocalGroupDao.deleteAll();
+            mLocalRecordDao.deleteAll();
+            mDiarySelfDao.deleteAll();
+
             Observable.zip(syncGroups(belongId), syncRecords(belongId), new BiFunction<String, String, String>() {
                 @Override
                 public String apply(@NonNull String o, @NonNull String o2) throws Exception {
@@ -90,17 +109,17 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
                             switch (o) {
                                 //同步失败时，字数统计全部置为0
                                 case "20":
-                                    MySharedPreferences.putCurWords(0);
+                                    MySharedPreferences.putSyncWords(0);
                                     //表示Group成功，Record失败
                                     mView.syncDataErr("同步失败20");
                                     break;
                                 case "21":
-                                    MySharedPreferences.putCurWords(0);
+                                    MySharedPreferences.putSyncWords(0);
                                     //表示Group失败，Record成功
                                     mView.syncDataErr("同步失败21");
                                     break;
                                 case "22":
-                                    MySharedPreferences.putCurWords(0);
+                                    MySharedPreferences.putSyncWords(0);
                                     //俩者都失败
                                     mView.syncDataErr("同步失败22");
                                     break;
@@ -126,6 +145,9 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
 
                         }
                     });
+        } else {
+            mView.netErr(mContext.getString(R.string.net_err));
+            mView.syncDataErr(mContext.getString(R.string.net_err));
         }
     }
 
@@ -139,12 +161,14 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
                 query.findInBackground(new FindCallback<LDiarySelf>() {
                     @Override
                     public void done(List<LDiarySelf> list, AVException e) {
-                        if (e != null) {
+                        if (e == null) {
                             if (list != null && !list.isEmpty()) {
                                 emitter.onNext(list);
                             } else {
-                                emitter.onError(new NullPointerException("云端无此账号的数据"));
+                                emitter.onNext(new ArrayList<LDiarySelf>());
                             }
+                        } else {
+                            emitter.onError(e);
                         }
                     }
                 });
@@ -154,15 +178,19 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
                 .map(new Function<List<LDiarySelf>, List<DiarySelf>>() {
                     @Override
                     public List<DiarySelf> apply(@NonNull List<LDiarySelf> lDiarySelfs) throws Exception {
-                        List<DiarySelf> data = new ArrayList<>();
-                        for (LDiarySelf lDiarySelf : lDiarySelfs) {
-                            DiarySelf diarySelf = new DiarySelf();
-                            diarySelf.time = lDiarySelf.getCreatedAt();
-                            diarySelf.content = lDiarySelf.getContent();
-                            diarySelf.belongUserAccount = lDiarySelf.getBelongUserAccount();
-                            data.add(diarySelf);
+                        if (!lDiarySelfs.isEmpty()) {
+                            List<DiarySelf> data = new ArrayList<>();
+                            for (LDiarySelf lDiarySelf : lDiarySelfs) {
+                                DiarySelf diarySelf = new DiarySelf();
+                                diarySelf.time = lDiarySelf.getCreatedAt();
+                                diarySelf.content = lDiarySelf.getContent();
+                                diarySelf.belongUserAccount = lDiarySelf.getBelongUserAccount();
+                                data.add(diarySelf);
+                            }
+                            return data;
+                        } else {
+                            return new ArrayList<DiarySelf>();
                         }
-                        return data;
                     }
                 })
                 .subscribeWith(new Observer<List<DiarySelf>>() {
@@ -173,21 +201,30 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
 
                     @Override
                     public void onNext(@NonNull List<DiarySelf> diarySelfs) {
-                        for (DiarySelf diarySelf : diarySelfs) {
-                            //统计字数信息
-                            MySharedPreferences.putCurWords(StringUtils.isEmpty(diarySelf.content) ? 0 : diarySelf.content.length());
-                            mUser.setWords(MySharedPreferences.getCurWords());
-                            mUser.setLevel(MySharedPreferences.getCurLevel());
+                        if (!diarySelfs.isEmpty()) {
+                            for (DiarySelf diarySelf : diarySelfs) {
+                                //统计字数信息
+                                MySharedPreferences.putSyncWords(StringUtils.isEmpty(diarySelf.content) ? 0 : diarySelf.content.length());
+                                mUser.setWords(MySharedPreferences.getCurWords());
+                                mUser.setLevel(MySharedPreferences.getCurLevel());
 
-                            mDiarySelfDao.insert(diarySelf);
+                                mDiarySelfDao.insert(diarySelf);
+                            }
+                            MySharedPreferences.resetCurWords(MySharedPreferences.getSyncWords());
+                            initData();
+                            mView.syncDataSuc("所有信息同步成功,开始您的趣记之旅吧");
+                        } else {
+                            initData();
+                            MySharedPreferences.resetCurWords(MySharedPreferences.getSyncWords());
+
+                            mView.syncDataSuc("所有信息同步成功,开始您的趣记之旅吧");
                         }
-                        mView.syncDataSuc("所有信息同步成功,开始您的趣记之旅吧");
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         //云端账号#自言自语内容为空
-                        mView.syncDataSuc("所有信息同步成功,开始您的趣记之旅吧");
+                        mView.syncDataErr("数据同步失败，请尝试再来一遍");
                     }
 
                     @Override
@@ -195,6 +232,67 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
 
                     }
                 });
+    }
+
+    @Override
+    public void initData() {
+        MyPlanTemplate plan1 = new MyPlanTemplate();
+        plan1.bgColor = Color.BLACK;
+        plan1.textColor = Color.WHITE;
+        plan1.textSize = 16;
+        plan1.detailColor = ContextCompat.getColor(mContext, R.color.purple);
+        plan1.content = "我决定\n......之前\n成为......";
+        mTemplateDao.insert(plan1);
+
+        MyPlanTemplate plan2 = new MyPlanTemplate();
+        plan2.bgColor = Color.BLACK;
+        plan2.textColor = Color.WHITE;
+        plan2.detailColor = ContextCompat.getColor(mContext, R.color.blue);
+        plan2.textSize = 16;
+        plan2.content = "我发誓\n......之前\n完成......";
+        mTemplateDao.insert(plan2);
+
+        MyPlanTemplate plan3 = new MyPlanTemplate();
+        plan3.bgColor = ContextCompat.getColor(mContext, R.color.pink);
+        plan3.textColor = Color.WHITE;
+        plan3.detailColor = ContextCompat.getColor(mContext, R.color.black);
+        plan3.textSize = 16;
+        plan3.content = "立Flag\n......之前\n绝对......";
+        mTemplateDao.insert(plan3);
+
+
+        LocalGroup localGroupJok = new LocalGroup();
+        localGroupJok.setTitle("我的本地段子集");
+        localGroupJok.setTime(new Date());
+        localGroupJok.isUserd = true;
+        localGroupJok.setBelongId(AVUser.getCurrentUser().getObjectId());
+        localGroupJok.setContent("随手记录让我一笑的段子。");
+        localGroupJok.setGroupPhotoPath("");
+        localGroupJok.setBgColor(ContextCompat.getColor(mContext, R.color.blue) + "");
+        localGroupJok.setGroupLocalPhotoPath(R.drawable.icon_default_group_jok);
+        mLocalGroupDao.insert(localGroupJok);
+
+        LocalGroup localGroupEncourage = new LocalGroup();
+        localGroupEncourage.setTitle("我的本地鸡汤集");
+        localGroupEncourage.setTime(new Date());
+        localGroupEncourage.setBelongId(AVUser.getCurrentUser().getObjectId());
+        localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
+        localGroupEncourage.isUserd = true;
+        localGroupEncourage.setGroupPhotoPath("");
+        localGroupEncourage.setBgColor(ContextCompat.getColor(mContext, R.color.blue) + "");
+        localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
+        mLocalGroupDao.insert(localGroupEncourage);
+
+        LocalGroup localGroupShortEssay = new LocalGroup();
+        localGroupShortEssay.setTitle("我的本地清新集");
+        localGroupShortEssay.setTime(new Date());
+        localGroupShortEssay.isUserd = true;
+        localGroupShortEssay.setGroupPhotoPath("");
+        localGroupShortEssay.setBgColor(ContextCompat.getColor(mContext, R.color.blue) + "");
+        localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);
+        localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
+        localGroupShortEssay.setContent("随手记录让我静心的短句。");
+        mLocalGroupDao.insert(localGroupShortEssay);
     }
 
     private Observable syncGroups(final String belongId) {
@@ -256,8 +354,8 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
                         if (!localGroups.isEmpty() && localGroups != null) {
                             for (LocalGroup localGroup : localGroups) {
                                 //同步时，统计字数
-                                MySharedPreferences.putCurWords(StringUtils.isEmpty(localGroup.title) ? 0 : localGroup.title.length());
-                                MySharedPreferences.putCurWords(StringUtils.isEmpty(localGroup.content) ? 0 : localGroup.content.length());
+                                MySharedPreferences.putSyncWords(StringUtils.isEmpty(localGroup.title) ? 0 : localGroup.title.length());
+                                MySharedPreferences.putSyncWords(StringUtils.isEmpty(localGroup.content) ? 0 : localGroup.content.length());
 
                                 mLocalGroupDao.insert(localGroup);
                             }
@@ -333,8 +431,8 @@ public class InitSyncPresenter extends RxPresenter<InitSyncContract.View> implem
                         if (!records.isEmpty() && records != null) {
                             for (LocalRecord localRecord : records) {
                                 //同步时，统计字数
-                                MySharedPreferences.putCurWords(StringUtils.isEmpty(localRecord.getContent()) ? 0 : localRecord.getContent().length());
-                                MySharedPreferences.putCurWords(StringUtils.isEmpty(localRecord.getTitle()) ? 0 : localRecord.getTitle().length());
+                                MySharedPreferences.putSyncWords(StringUtils.isEmpty(localRecord.getContent()) ? 0 : localRecord.getContent().length());
+                                MySharedPreferences.putSyncWords(StringUtils.isEmpty(localRecord.getTitle()) ? 0 : localRecord.getTitle().length());
                                 mLocalRecordDao.insert(localRecord);
                             }
                         }

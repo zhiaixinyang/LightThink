@@ -94,7 +94,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void loginSuc(String suc) {
-        presenter.initDB();
         ToastUtil.toastLong(suc);
         waitNetPopupWindowUtils.hideWaitNetPopupWindow(this);
         //先跳转至同步页面

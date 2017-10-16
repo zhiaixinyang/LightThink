@@ -1,10 +1,12 @@
 package com.example.greatbook.main.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
@@ -18,8 +20,9 @@ import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.local.activity.AddLocalRecordActivity;
 import com.example.greatbook.local.fragment.MiddleMainFragment;
-import com.example.greatbook.nethot.fragment.DiscoveryFragment;
 import com.example.greatbook.main.fragment.MyPrivateFragment;
+import com.example.greatbook.model.leancloud.User;
+import com.example.greatbook.nethot.fragment.DiscoveryFragment;
 import com.example.greatbook.utils.ToastUtil;
 import com.example.greatbook.utils.anim.SpringAnimationInterpolar;
 import com.example.greatbook.widght.DefaultNavigationBar;
@@ -190,17 +193,38 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initActivity() {
-        int num = MySharedPreferences.getFristActivityInstance().getInt("count", 0);
-        if (num == 0) {
+        boolean isLogin = MySharedPreferences.isLogin();
+        User user=AVUser.getCurrentUser(User.class);
+        if (!isLogin || user == null) {
             Intent intent = new Intent(App.getInstance().getContext(), LoginActivity.class);
             overridePendingTransition(R.anim.login_in, R.anim.login_out);
             startActivity(intent);
             finish();
-        } else {
-            if (AVUser.getCurrentUser() == null) {
-                ToastUtil.toastShort("无账号错误...");
-            } else {
-            }
+        }else{
+            //上传一些数据到服务器
+            user.setWords(MySharedPreferences.getCurWords());
+            user.saveInBackground();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("主公，请留步:")
+                .setMessage("您确定要退出么？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setNegativeButton("再玩会", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
     }
 }

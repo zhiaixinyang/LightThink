@@ -20,6 +20,7 @@ import com.example.greatbook.model.leancloud.LLocalRecord;
 import com.example.greatbook.model.leancloud.TalkAboutBean;
 import com.example.greatbook.main.model.LFeedBackBean;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -87,4 +88,22 @@ public class App extends MultiDexApplication {
         activityFrom.finish();
     }
 
+    public void removeActivity(Activity act) {
+        if (allActivities != null) {
+            allActivities.remove(act);
+        }
+    }
+
+    public void removeAllActivity() {
+        if (allActivities != null) {
+            allActivities.retainAll(allActivities);
+        }
+    }
+
+    public void addActivity(Activity act) {
+        if (allActivities == null) {
+            allActivities = new HashSet<Activity>();
+        }
+        allActivities.add(act);
+    }
 }

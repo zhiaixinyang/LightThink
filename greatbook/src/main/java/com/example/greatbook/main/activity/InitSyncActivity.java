@@ -5,6 +5,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVUser;
+import com.example.greatbook.App;
+import com.example.greatbook.MySharedPreferences;
 import com.example.greatbook.R;
 import com.example.greatbook.base.BaseActivity;
 import com.example.greatbook.local.presenter.InitSyncPresenter;
@@ -48,6 +50,11 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
     }
 
     @Override
+    public void netErr(String err) {
+        ToastUtil.toastShort(err);
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_init_sync;
     }
@@ -79,5 +86,12 @@ public class InitSyncActivity extends BaseActivity<InitSyncPresenter> implements
         Intent toLogin = new Intent(this, LoginActivity.class);
         startActivity(toLogin);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.getInstance().removeAllActivity();
+        MySharedPreferences.setLogin(false);
     }
 }

@@ -29,6 +29,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         unbinder = ButterKnife.bind(this);
         //StatusBarUtil.setImgTransparent(this);
         setTrans();
+        App.getInstance().addActivity(this);
         if (presenter!=null) {
             presenter.attachView(this);
         }
@@ -55,6 +56,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        App.getInstance().removeActivity(this);
         if (dialog!=null){
             dialog.dismiss();
         }

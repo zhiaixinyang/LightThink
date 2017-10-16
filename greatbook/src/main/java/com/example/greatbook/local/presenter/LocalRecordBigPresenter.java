@@ -48,22 +48,26 @@ public class LocalRecordBigPresenter extends RxPresenter<LocalRecordBigContract.
             public Observable<List<LocalRecordRLV>> call(List<LocalRecord> localRecords) {
                 List<LocalRecordRLV> data = new ArrayList<>();
                 for (LocalRecord local : localRecords) {
-                    LocalGroup localGroup = mLocalGroupDao.queryBuilder()
+                    List<LocalGroup> list = mLocalGroupDao.queryBuilder()
                             .where(LocalGroupDao.Properties.Id.eq(local.getGroupId()))
-                            .list().get(0);
-                    LocalRecordRLV localRLV = new LocalRecordRLV();
-                    localRLV.belongId = local.getBelongId();
-                    localRLV.content = local.getContent();
-                    localRLV.groupId = Long.valueOf(local.getGroupId());
-                    localRLV.groupTitle = local.getGroupTitle();
-                    localRLV.id = local.getId();
-                    localRLV.title = local.getTitle();
-                    localRLV.time = local.getTimeDate();
-                    localRLV.type = local.getType();
-                    localRLV.bgColor = localGroup.getBgColor();
-                    localRLV.groupLocalPhotoPath = localGroup.getGroupLocalPhotoPath();
-                    localRLV.groupPhotoPath = localGroup.getGroupPhotoPath();
-                    data.add(localRLV);
+                            .list();
+                    if (list!=null&&!list.isEmpty()) {
+                        LocalGroup localGroup = list.get(0);
+
+                        LocalRecordRLV localRLV = new LocalRecordRLV();
+                        localRLV.belongId = local.getBelongId();
+                        localRLV.content = local.getContent();
+                        localRLV.groupId = Long.valueOf(local.getGroupId());
+                        localRLV.groupTitle = local.getGroupTitle();
+                        localRLV.id = local.getId();
+                        localRLV.title = local.getTitle();
+                        localRLV.time = local.getTimeDate();
+                        localRLV.type = local.getType();
+                        localRLV.bgColor = localGroup.getBgColor();
+                        localRLV.groupLocalPhotoPath = localGroup.getGroupLocalPhotoPath();
+                        localRLV.groupPhotoPath = localGroup.getGroupPhotoPath();
+                        data.add(localRLV);
+                    }
                 }
                 return Observable.just(data);
             }

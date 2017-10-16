@@ -19,6 +19,7 @@ import com.example.greatbook.greendao.entity.LocalGroup;
 import com.example.greatbook.greendao.entity.MyPlanTemplate;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.main.presenter.contract.LoginContract;
+import com.example.greatbook.utils.NetUtil;
 import com.example.greatbook.utils.RxUtil;
 
 import java.util.Date;
@@ -32,123 +33,50 @@ import rx.functions.Action1;
  */
 
 public class LoginPresenter extends RxPresenter<LoginContract.View> implements LoginContract.Presenter {
-    private LocalGroupDao localGroupDao;
-    private LocalRecordDao localRecordDao;
-    private MyPlanTemplateDao templateDao;
     private Context context;
 
     public LoginPresenter(LoginContract.View view) {
         mView = view;
-        localGroupDao = App.getDaoSession().getLocalGroupDao();
-        localRecordDao = App.getDaoSession().getLocalRecordDao();
-        templateDao=App.getDaoSession().getMyPlanTemplateDao();
 
         context=App.getInstance().getContext();
     }
 
     @Override
     public void login(final String username, final String password) {
-        final Subscription subscription= rx.Observable.create(new rx.Observable.OnSubscribe<String>() {
-            @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                new User().logInInBackground(username, password, new LogInCallback<AVUser>() {
-                    @Override
-                    public void done(AVUser avUser, AVException e) {
-                        if (e == null) {
-                            //首次登陆初始化本地数据库
-                            initDB();
-                            SharedPreferences sharedPreferences = MySharedPreferences.getFristActivityInstance();
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("count", 1);
-                            editor.commit();
-                            subscriber.onNext("0");
-                        } else {
-                            subscriber.onNext("1");
+        if (NetUtil.isNetworkAvailable()) {
+            final Subscription subscription = rx.Observable.create(new rx.Observable.OnSubscribe<String>() {
+                @Override
+                public void call(final Subscriber<? super String> subscriber) {
+                    new User().logInInBackground(username, password, new LogInCallback<AVUser>() {
+                        @Override
+                        public void done(AVUser avUser, AVException e) {
+                            if (e == null) {
+                                MySharedPreferences.setLogin(true);
+                                subscriber.onNext("0");
+                            } else {
+                                subscriber.onNext("1");
+                            }
                         }
-                    }
-                });
-            }
-        }).compose(RxUtil.<String>rxSchedulerHelper())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        switch (s){
-                            case "0":
-                                mView.loginSuc("登录成功");
-                                break;
-                            case "1":
-                                mView.loginErr("登录失败：请注意账号密码是否匹配");
-                                break;
+                    });
+                }
+            }).compose(RxUtil.<String>rxSchedulerHelper())
+                    .subscribe(new Action1<String>() {
+                        @Override
+                        public void call(String s) {
+                            switch (s) {
+                                case "0":
+                                    mView.loginSuc("登录成功");
+                                    break;
+                                case "1":
+                                    mView.loginErr("登录失败：请注意账号密码是否匹配");
+                                    break;
+                            }
                         }
-                    }
-                });
-        addSubscrebe(subscription);
+                    });
+            addSubscrebe(subscription);
 
-    }
-
-    @Override
-    public void initDB() {
-        //第一次登陆往本地数据库初始化一些数据
-        localGroupDao.deleteAll();
-        localRecordDao.deleteAll();
-        templateDao.deleteAll();
-
-        MyPlanTemplate plan1 = new MyPlanTemplate();
-        plan1.bgColor = Color.BLACK;
-        plan1.textColor = Color.WHITE;
-        plan1.textSize= 16;
-        plan1.detailColor = ContextCompat.getColor(context,R.color.purple);
-        plan1.content = "我决定\n......之前\n成为......";
-        templateDao.insert(plan1);
-
-        MyPlanTemplate plan2 = new MyPlanTemplate();
-        plan2.bgColor = Color.BLACK;
-        plan2.textColor = Color.WHITE;
-        plan2.detailColor = ContextCompat.getColor(context,R.color.blue);
-        plan2.textSize= 16;
-        plan2.content = "我发誓\n......之前\n完成......";
-        templateDao.insert(plan2);
-
-        MyPlanTemplate plan3 = new MyPlanTemplate();
-        plan3.bgColor = ContextCompat.getColor(context,R.color.pink);
-        plan3.textColor = Color.WHITE;
-        plan3.detailColor = ContextCompat.getColor(context,R.color.black);
-        plan3.textSize= 16;
-        plan3.content = "立Flag\n......之前\n绝对......";
-        templateDao.insert(plan3);
-
-
-        LocalGroup localGroupJok = new LocalGroup();
-        localGroupJok.setTitle("我的本地段子集");
-        localGroupJok.setTime(new Date());
-        localGroupJok.isUserd=true;
-        localGroupJok.setBelongId(AVUser.getCurrentUser().getObjectId());
-        localGroupJok.setContent("随手记录让我一笑的段子。");
-        localGroupJok.setGroupPhotoPath("");
-        localGroupJok.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
-        localGroupJok.setGroupLocalPhotoPath(R.drawable.icon_default_group_jok);
-        localGroupDao.insert(localGroupJok);
-
-        LocalGroup localGroupEncourage = new LocalGroup();
-        localGroupEncourage.setTitle("我的本地鸡汤集");
-        localGroupEncourage.setTime(new Date());
-        localGroupEncourage.setBelongId(AVUser.getCurrentUser().getObjectId());
-        localGroupEncourage.setContent("随手记录让我燃起来的鸡汤。");
-        localGroupEncourage.isUserd=true;
-        localGroupEncourage.setGroupPhotoPath("");
-        localGroupEncourage.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
-        localGroupEncourage.setGroupLocalPhotoPath(R.drawable.icon_default_group_encourage);
-        localGroupDao.insert(localGroupEncourage);
-
-        LocalGroup localGroupShortEssay = new LocalGroup();
-        localGroupShortEssay.setTitle("我的本地清新集");
-        localGroupShortEssay.setTime(new Date());
-        localGroupShortEssay.isUserd=true;
-        localGroupShortEssay.setGroupPhotoPath("");
-        localGroupShortEssay.setBgColor(ContextCompat.getColor(context,R.color.blue)+"");
-        localGroupShortEssay.setGroupLocalPhotoPath(R.drawable.icon_default_group_short_eassy);
-        localGroupShortEssay.setBelongId(AVUser.getCurrentUser().getObjectId());
-        localGroupShortEssay.setContent("随手记录让我静心的短句。");
-        localGroupDao.insert(localGroupShortEssay);
+        }else{
+            mView.loginErr(context.getResources().getString(R.string.net_err));
+        }
     }
 }

@@ -25,7 +25,6 @@ import com.example.greatbook.main.activity.MyPrivateAdjustActivity;
 import com.example.greatbook.model.leancloud.User;
 import com.example.greatbook.utils.DpUtils;
 import com.example.greatbook.utils.GlideUtils;
-import com.example.greatbook.utils.LogUtils;
 import com.example.greatbook.utils.SelectorFactory;
 import com.example.greatbook.utils.StringUtils;
 
@@ -139,10 +138,7 @@ public class MyPrivateFragment extends Fragment implements SwipeRefreshLayout.On
     private void exitAccount() {
         //退出账号时清空本地数据
         clearDB();
-        SharedPreferences sharedPreferences = MySharedPreferences.getFristActivityInstance();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("count", 0);
-        editor.commit();
+        MySharedPreferences.setLogin(false);
         //登出账号
         AVUser.getCurrentUser(User.class).logOut();
         Intent intent = new Intent(App.getInstance().getContext(), LoginActivity.class);

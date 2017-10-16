@@ -14,6 +14,5 @@ public interface LoginContract {
     }
     interface Presenter extends BasePresenter<LoginContract.View> {
         void login(String username,String password);
-        void initDB();
     }
 }

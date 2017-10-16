@@ -1,29 +1,54 @@
 package com.example.greatbook;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.example.greatbook.utils.LogUtils;
 
 /**
  * Created by MDove on 2016/4/1.
  */
 public class MySharedPreferences {
-    public static SharedPreferences sharedPreferences = null;
+    private static String CUR_WORDS_KEY = "cur_words_key";
+    private static String SYNC_WORDS_KEY = "sync_words_key";
+    private static String CUR_LEVEL_KEY = "cur_level_key";
+    private static String IS_LOGIN_KEY = "is_login_key";
 
-    public static SharedPreferences getFristActivityInstance() {
-        if (sharedPreferences == null) {
-            synchronized (MySharedPreferences.class) {
-                if (sharedPreferences == null) {
-                    sharedPreferences = App.getInstance().getContext().getSharedPreferences("count", App.getInstance().getContext().MODE_PRIVATE);
-                }
-            }
-        }
-        return sharedPreferences;
+    public static boolean isLogin() {
+        Context context = App.getInstance().getContext();
+        boolean isLogin = context.getSharedPreferences(IS_LOGIN_KEY, context.MODE_PRIVATE)
+                .getBoolean(IS_LOGIN_KEY, false);
+        return isLogin;
     }
 
-    private static String CUR_WORDS_KEY = "cur_words_key";
-    private static String CUR_LEVEL_KEY = "cur_level_key";
+    public static void setLogin(boolean isLogin) {
+        Context context = App.getInstance().getContext();
+
+        context.getSharedPreferences(IS_LOGIN_KEY, context.MODE_PRIVATE)
+                .edit().putBoolean(IS_LOGIN_KEY, isLogin)
+                .commit();
+    }
+
+    public static int getSyncWords() {
+        Context context = App.getInstance().getContext();
+        int curWords = context.getSharedPreferences(SYNC_WORDS_KEY, context.MODE_PRIVATE)
+                .getInt(SYNC_WORDS_KEY, 0);
+        return curWords;
+    }
+
+    public static void putSyncWords(int addWords) {
+        Context context = App.getInstance().getContext();
+
+        int curSyncWords = getSyncWords();
+
+        context.getSharedPreferences(SYNC_WORDS_KEY, context.MODE_PRIVATE)
+                .edit().putInt(SYNC_WORDS_KEY, curSyncWords + addWords).commit();
+    }
+
+    public static void resetSyncWords() {
+        Context context = App.getInstance().getContext();
+
+        context.getSharedPreferences(SYNC_WORDS_KEY, context.MODE_PRIVATE)
+                .edit().putInt(SYNC_WORDS_KEY, 0).commit();
+    }
+
 
     public static int getCurWords() {
         Context context = App.getInstance().getContext();
@@ -32,13 +57,25 @@ public class MySharedPreferences {
         return curWords;
     }
 
+    public static void resetCurWords(int words) {
+        Context context = App.getInstance().getContext();
+
+        putCurLevel(1);
+        int upNeedWords = context.getResources().getInteger(R.integer.up_level_need);
+
+        putCurLevel(words / upNeedWords);
+
+        putCurWords(0);
+        putCurWords(words);
+    }
+
     public static void putCurWords(int addWords) {
         Context context = App.getInstance().getContext();
 
         int curLevel = getCurLevel();
         int curWords = getCurWords();
         int upNeedWords = context.getResources().getInteger(R.integer.up_level_need);
-        if (getCurUseWords(curWords, curLevel) + addWords >= curLevel * upNeedWords) {
+        if (curWords - (curLevel * upNeedWords) + addWords >= upNeedWords) {
             putCurLevel(curLevel + 1);
         }
 
@@ -53,20 +90,10 @@ public class MySharedPreferences {
         return curWords;
     }
 
+
     public static void putCurLevel(int level) {
         Context context = App.getInstance().getContext();
         context.getSharedPreferences(CUR_LEVEL_KEY, context.MODE_PRIVATE)
                 .edit().putInt(CUR_LEVEL_KEY, level).commit();
-    }
-
-    //使用递归的方式计算当前等级的下字数
-    private static int getCurUseWords(int curWords, int curLevel) {
-        if (curLevel == 2) {
-            return curWords - App.getInstance().getContext().getResources().getInteger(R.integer.up_level_need);
-        }
-        if (curLevel == 1) {
-            return curLevel;
-        }
-        return curWords - getCurUseWords(curWords, curLevel);
     }
 }

@@ -11,10 +11,12 @@ public interface InitSyncContract {
     interface Presenter extends BasePresenter<InitSyncContract.View> {
         void syncData(String belongId);
         void syncDiarySlef();
+        void initData();
     }
 
     interface View extends BaseView {
         void syncDataSuc(String suc);
         void syncDataErr(String err);
+        void netErr(String err);
     }
 }
